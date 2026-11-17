@@ -1,0 +1,322 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket, Manifold or Kalshi) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.055
+        },
+        {
+          "created_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "Binance ETHUSDT was 1795.36 at 2026-11-17 10:26 UTC, and the lowest 1-minute Low since the window opened (2026-11-16 05:00 UTC) was 1787.11, so 1,500 is about 16.4% below spot (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). With 30-day daily vol of 3.1% and about 138 hours left, the threshold is roughly 2.2-2.4 sigma away, a touch chance of about 2% on thin tails. I add a little for fat tails, ETF outflows and hot-CPI/Fed-hike pressure (https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/, 2026-11-12), against a 6.7-11% historical 7-day base rate that starts from the full window.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&startTime=1794805200000&endTime=1794911160000&limit=1000",
+            "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/"
+          ]
+        }
+      ],
+      "id": "polymarket-7085204",
+      "market_id": "7085204",
+      "outcome": null,
+      "question": "Will Ethereum dip to $1,500 November 16-22?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-23",
+      "resolution_source": "https://polymarket.com/event/what-price-will-ethereum-hit-november-16-22-2026",
+      "topic": "Crypto",
+      "volume": 14348.44026,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.15
+        },
+        {
+          "created_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "META closed at 626.41 on 2026-11-16 and the week's regular-session high so far is 640.70, so 680 needs about +8.6% from the close (+6.1% above the high) in four sessions (https://stockanalysis.com/stocks/meta/history/, 2026-11-16). Daily vol is 2.6% over a window that includes the -6.98% post-earnings day; excluding that it is nearer 1.8-2.2%, which puts 680 at roughly 1.9-2.3 sigma and a touch chance of about 2-6%. The only regular-session high above 680 since mid-October was 2026-10-22 (681.07), and the JPMorgan Focus List news (https://www.webull.com/news/15894359755441152, 2026-11-09) is already in the price.",
+          "sources": [
+            "https://stockanalysis.com/stocks/meta/history/",
+            "https://finance.yahoo.com/quote/META/",
+            "https://www.webull.com/news/15894359755441152"
+          ]
+        }
+      ],
+      "id": "polymarket-7025042",
+      "market_id": "7025042",
+      "outcome": null,
+      "question": "Will Meta Platforms, Inc. (META) hit (HIGH) $680 Week of November 16 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 16 2026, any 1-minute candle for Meta Platforms, Inc. (META) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Meta Platforms, Inc. (META) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.META%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.META%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "resolution_date": "2026-11-20",
+      "resolution_source": "https://polymarket.com/event/will-meta-hit-week-of-november-16-2026",
+      "topic": "Economy",
+      "volume": 2733.061074,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.635
+        },
+        {
+          "created_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.29,
+          "rationale": "On the OpenRouter Market Share chart for the week beginning 2026-11-09, DeepSeek had 31.8%, OpenAI 19.0% and Google 15.1% (up 14% on the week), so Google is third, 3.9 points behind OpenAI (https://openrouter.ai/rankings?view=week). Google released Gemini 4 Carbon (2026-11-10) and Gemini 4 Hydrogen (2026-11-12), per https://aistudio.google.com/docs/changelog, which could lift its share in the Nov 16-22 week. One week of change is thin evidence, though, and overtaking OpenAI needs a swing of about 4 points in a week, so I stay below one-third.",
+          "sources": [
+            "https://openrouter.ai/rankings?view=week",
+            "https://openrouter.ai/rankings",
+            "https://aistudio.google.com/docs/changelog",
+            "https://www.googlewatchblog.de/2026/11/gemini-update-nov2026-zwei/amp/"
+          ]
+        },
+        {
+          "created_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.5,
+          "rationale": "Nov 9 week had Google 15.1% (+14%, likely relative, from about 13.2%) vs OpenAI 19.0% (+1%), a 3.9-point gap; Gemini 4 launched Nov 10 and 12, so a full launch week could close it. The market at 63.5% may see daily data, so I moved partway up from the first forecast.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "polymarket-7088838",
+      "market_id": "7088838",
+      "outcome": null,
+      "question": "Will Google have the second highest OpenRouter market share the week of November 16?",
+      "resolution_criteria": "This market will resolve to the AI lab with the second highest market share on OpenRouter for the week of November 16 to November 22, 2026.\n\nA lab's market share is the percentage displayed for that lab in the Market Share chart, set to Percentage, for the week of November 16 to November 22, 2026. The \"stealth\" and \"others\" groupings are not labs; if either occupies the relevant rank, it will be skipped and the next ranked lab will be used.\n\nThis market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 at that time. If no data is available for the week of November 16 to November 22, 2026 at that time, this market will resolve to \"Other\".\n\nThe AI labs will be primarily ranked by the percentage displayed in the Market Share chart, set to Percentage. If two or more labs are tied on market share in percentage terms, the lab with the larger token count displayed in the Absolute view of the chart will be ranked higher. If a tie still remains, the lab whose listed name comes first alphabetically will be ranked higher. This market will resolve to the AI lab ranked 2nd after applying this ranking.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "resolution_date": "2026-11-24",
+      "resolution_source": "https://polymarket.com/event/2nd-ai-lab-by-openrouter-market-share-week-of-november-16",
+      "topic": "Tech",
+      "volume": 2672.969781,
+      "volume_floor": 1000
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.943
+        },
+        {
+          "created_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.94,
+          "rationale": "Binance ETHUSDT was about 1794 at 2026-11-17 10:31 UTC, so 1,600 is about 10.8% below spot with about 3.3 days to the 12:00 ET (17:00 UTC) 2026-11-20 candle (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). That is about 2 sigma at 3.15% daily vol, and 957 of 996 rolling 3-day windows (96.1%) held above that ratio (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000). I shade down for ETF outflows of about $399M in the week of Nov 9-13 (https://www.fxleaders.com/news/2026/11/16/ethereum-price-prediction-eth-etf-outflows-glamsterdam-upgrade/, 2026-11-16) and negative momentum; no CPI or FOMC falls in the window. This is consistent with my 93% on the Nov 19 question.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000",
+            "https://www.fxleaders.com/news/2026/11/16/ethereum-price-prediction-eth-etf-outflows-glamsterdam-upgrade/",
+            "https://www.bls.gov/schedule/news_release/cpi.htm"
+          ]
+        }
+      ],
+      "id": "polymarket-7018420",
+      "market_id": "7018420",
+      "outcome": null,
+      "question": "Will the price of Ethereum be above $1,600 on November 20?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-20",
+      "resolution_source": "https://polymarket.com/event/ethereum-above-on-november-20-2026",
+      "topic": "Crypto",
+      "volume": 11666.186032000001,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.325
+        },
+        {
+          "created_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.64,
+          "rationale": "In the OpenRouter week beginning 2026-11-09, Google was third at 15.1% behind DeepSeek 31.8% and OpenAI 19.0%, and 8.1 points ahead of Z.ai at 7.0% (https://openrouter.ai/rankings?view=week). Third place holds unless Google closes the 3.9-point gap to OpenAI, which the Gemini 4 releases of 2026-11-10 and 2026-11-12 could help it do (https://aistudio.google.com/docs/changelog), or falls far below Z.ai and Anthropic, which is unlikely in one week. The chance of Google passing OpenAI is about 30%, so third is the clear but not safe outcome. This is consistent with my Google-second forecast.",
+          "sources": [
+            "https://openrouter.ai/rankings?view=week",
+            "https://openrouter.ai/rankings",
+            "https://aistudio.google.com/docs/changelog"
+          ]
+        },
+        {
+          "created_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.45,
+          "rationale": "Google was third at 15.1% in the Nov 9 week, 3.9 points behind OpenAI and 8 points ahead of Z.ai, so third holds unless Gemini 4 momentum carries it past OpenAI. Complement of the Google-second question, with a small chance Google finishes first or lower.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "polymarket-7088823",
+      "market_id": "7088823",
+      "outcome": null,
+      "question": "Will Google have the third highest OpenRouter market share the week of November 16?",
+      "resolution_criteria": "This market will resolve to the AI lab with the third highest market share on OpenRouter for the week of November 16 to November 22, 2026.\n\nA lab's market share is the percentage displayed for that lab in the Market Share chart, set to Percentage, for the week of November 16 to November 22, 2026. The \"stealth\" and \"others\" groupings are not labs; if either occupies the relevant rank, it will be skipped and the next ranked lab will be used.\n\nThis market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 at that time. If no data is available for the week of November 16 to November 22, 2026 at that time, this market will resolve to \"Other\".\n\nThe AI labs will be primarily ranked by the percentage displayed in the Market Share chart, set to Percentage. If two or more labs are tied on market share in percentage terms, the lab with the larger token count displayed in the Absolute view of the chart will be ranked higher. If a tie still remains, the lab whose listed name comes first alphabetically will be ranked higher. This market will resolve to the AI lab ranked 3rd after applying this ranking.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "resolution_date": "2026-11-24",
+      "resolution_source": "https://polymarket.com/event/3rd-ai-lab-by-openrouter-market-share-week-of-november-16",
+      "topic": "Tech",
+      "volume": 2039.0003339999998,
+      "volume_floor": 1000
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.8
+        },
+        {
+          "created_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.83,
+          "rationale": "Binance XRPUSDT was 0.9583 at 2026-11-17 10:35 UTC, about 6.5% above 0.90, with about 78 hours to the noon-ET 2026-11-20 candle and 30-day daily vol of 3.33% (https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT). That is about 1.05 horizon sigma, or roughly 85% Yes by price math. XRP already traded to 0.893 on 2026-11-14 and ETF outflows were the largest in eight months (https://en.coinotag.com/xrp-etf-outflows-19-13-million-eight-month-high, 2026-11-14), and FOMC minutes may land on 2026-11-18. My 75-90% calls have run slightly overconfident, so I trim a little.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31",
+            "https://en.coinotag.com/xrp-etf-outflows-19-13-million-eight-month-high",
+            "https://admiralmarkets.com/analytics/traders-blog/fomc-minutes-october-2026"
+          ]
+        }
+      ],
+      "id": "polymarket-7018528",
+      "market_id": "7018528",
+      "outcome": null,
+      "question": "Will the price of XRP be above $0.90 on November 20?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for XRP/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the XRP/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/XRP_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance XRP/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-20",
+      "resolution_source": "https://polymarket.com/event/xrp-above-on-november-20-2026",
+      "topic": "Crypto",
+      "volume": 6083.994506,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.4
+        },
+        {
+          "created_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "No schedule for 2026-11-19 was found as of 2026-11-17. Roll Call's calendar already lists the date but its update rule is midnight ET or social push (https://rollcall.com/factbase/trump/calendar/). Recent evening lids were a travel/photo lid at 18:01 on 2026-11-05 (https://www.presidency.ucsb.edu/documents/pool-reports-november-5-2026), a lid at 9:05 pm on 2026-11-13 and an evening lid of unstated type on 2026-11-12. The 2025-11-19 lid came at 6:17 pm with type unstated (https://www.presidency.ucsb.edu/documents/pool-reports-november-19-2025). No 'Full lid called' entry was confirmed on any Roll Call month page opened, and only a full lid by 6:30 PM ET counts, so I stay below even odds.",
+          "sources": [
+            "https://rollcall.com/factbase/trump/calendar/",
+            "https://rollcall.com/factbase/trump/calendar/november-2026/",
+            "https://www.presidency.ucsb.edu/documents/pool-reports-november-12-2026",
+            "https://www.presidency.ucsb.edu/documents/pool-reports-november-5-2026",
+            "https://www.presidency.ucsb.edu/documents/pool-reports-november-19-2025"
+          ]
+        }
+      ],
+      "id": "polymarket-7088768",
+      "market_id": "7088768",
+      "outcome": null,
+      "question": "Will the White House call a full lid by 6:30 PM on November 19?",
+      "resolution_criteria": "A \"full lid\" at the White House is an official announcement indicating that the President's public activities for the day have concluded and no further public events, appearances, or news are expected.\n\nThis market will resolve to \u201cYes\u201d if the White House Press Office calls a full lid for the specified date by 6:30 PM ET on that date. Otherwise, this market will resolve to \u201cNo\u201d.\n\nOnly a full lid will qualify; lunch lids, intermissions, or any other press lid not explicitly listed as a full lid will not be sufficient to qualify this market towards a \"Yes\" resolution.\n\nA qualifying full lid may be reported by the resolution sources through 11:59 PM ET on the following day, provided the source indicates that it was called by the 6:30 PM ET cutoff.\n\nThis market will resolve according to the time listed by Roll Call of the first full lid called in the daily calendar (https://rollcall.com/factbase/trump/calendar/). If Roll Call does not list a lid time or is for any reason unavailable, this market will resolve according to Forth (https://www.forth.news/whpool).",
+      "resolution_date": "2026-11-20",
+      "resolution_source": "https://polymarket.com/event/will-the-white-house-call-a-full-lid-by-630-pm-on-november-19-2026",
+      "topic": "Politics",
+      "volume": 5067.208891,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.43
+        },
+        {
+          "created_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "Dated discretionary Codex resets were 2026-04-08, about 2026-06-01 and 2026-07-14, with the 4M-user reset reported only in a snippet (https://officechai.com/ai/openais-codex-reaches-5-million-users-resets-rate-limits-for-users/, 2026-06-01). That is about 4-5 of roughly 32 weeks, and no week had two. Resets look more frequent lately (2026-10-28, and a banked reset announced 2026-11-12, reported at https://lapaasvoice.com/openai-rolls-out-banked-codex-usage-reset-to-all-accounts/, 2026-11-14), but the rollout of the Nov 12 reset does not count again. One BigGo article (2026-11-11) says Codex lead Sottiaux stepped back, and the evidence has only 1 primary source, so I stay near the base rate.",
+          "sources": [
+            "https://lapaasvoice.com/openai-rolls-out-banked-codex-usage-reset-to-all-accounts/",
+            "https://officechai.com/ai/openais-codex-reaches-5-million-users-resets-rate-limits-for-users/",
+            "https://vpsranking.com/news/ai/ai-2026-07-14-openai-codex-8m-users-limit-reset/",
+            "https://finance.biggo.com/news/301b6b33-e617-46bd-92d0-21ae94869294",
+            "https://learn.chatgpt.com/docs/changelog"
+          ]
+        },
+        {
+          "created_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.3,
+          "rationale": "Recent resets came about every two weeks (Oct 28, Nov 12) and a banked reset was just announced, but the Codex lead's 'graduated from the reset company' remark points to fewer resets. Exactly one in a 7-day window is about 30%.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "polymarket-7088841",
+      "market_id": "7088841",
+      "outcome": null,
+      "question": "Will there be exactly 1 Codex weekly usage limit reset in the week of November 16?",
+      "resolution_criteria": "This market will resolve according to the number of qualifying resets announced or initiated between 12:00 a.m. ET on November 16, 2026, and 11:59 p.m. ET on November 22, 2026.\n\nResets will be counted by the calendar date (ET) on which OpenAI announces or initiates them, and at most one reset will be counted per calendar date. Announcements, confirmations, or phased rollouts of a reset already counted will not add to the total.\n\nA qualifying reset is a discretionary, non-scheduled action by OpenAI that, ahead of the normal reset schedule, either zeroes or refills the weekly or generally applicable usage allowance for paid Codex or ChatGPT Work subscription users, or grants those users a reset that OpenAI characterizes as a banked or redeemable rate-limit reset, regardless of whether or when individual users redeem it. A reset will still qualify if certain models with separate usage limits, certain plans, or some users are not covered due to technical exceptions, phased rollout, or plan differences.\n\nNormal scheduled resets, resets granted only to individually selected users or accounts, temporary limit increases, additional usage or credits that do not refill existing allowances, and changes to pricing, plans, or usage caps will not qualify. Resets of OpenAI API rate limits or organizational usage tiers will also not qualify. Only qualifying resets announced or initiated within the specified week will be counted.\n\nAn official announcement stating that OpenAI has reset, is resetting, or will reset the limits on the same date as the announcement will count if published within the specified week, regardless of when the technical reset begins or is completed. Qualifying announcements include X posts by official OpenAI accounts or OpenAI employees authorized to announce Codex usage changes, for example: https://x.com/OpenAI/status/2042296046009626989 and https://x.com/sama/status/2041658719839383945.\n\nThis market will resolve to \"No\" as soon as the specified number of resets becomes impossible, for example because more resets than the specified number have already occurred.\n\nThe primary resolution source for this market will be official communications from OpenAI, including X posts published by @OpenAI, @OpenAIDevs, @sama, @thsottiaux, or any other OpenAI-operated account, as well as official OpenAI blog posts, changelogs, and in-product notices. However, a consensus of credible reporting may also be used.",
+      "resolution_date": "2026-11-23",
+      "resolution_source": "https://polymarket.com/event/how-many-codex-resets-week-of-november-16",
+      "topic": "Tech",
+      "volume": 1001.8928579999999,
+      "volume_floor": 1000
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9325
+        },
+        {
+          "created_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.92,
+          "rationale": "Binance ETHUSDT was 1792.43 at 2026-11-17 10:37 UTC, 10.8% above 1,600, with about 102 hours to the 12:00 ET (17:00 UTC) 2026-11-22 candle (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). That distance is about 3.4-3.6 daily sigma, or about 1.6 horizon sigma, and 93.5% of 5-day windows since 2024 held above this ratio (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000). ETF outflows of $2.35B over seven weeks (https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/, 2026-11-12) and Waller's hike talk (2026-11-10) add downside risk, so I sit slightly below the Nov 20 forecast.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=2",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000",
+            "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/",
+            "https://cryptobriefing.com/bitcoin-74k-fed-waller-december-rate-hike/"
+          ]
+        }
+      ],
+      "id": "polymarket-7073692",
+      "market_id": "7073692",
+      "outcome": null,
+      "question": "Will the price of Ethereum be above $1,600 on November 22?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-22",
+      "resolution_source": "https://polymarket.com/event/ethereum-above-on-november-22-2026",
+      "topic": "Crypto",
+      "volume": 4632.306148999999,
+      "volume_floor": 2500
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v8+manifold_selection_v3+kalshi_selection_v1",
+  "skipped": [
+    {
+      "id": "polymarket-6921923",
+      "reason": "research failed or timed out"
+    },
+    {
+      "id": "polymarket-7000214",
+      "reason": "research failed or timed out"
+    },
+    {
+      "id": "polymarket-7030497",
+      "reason": "no live tally for a count/total question"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "polymarket-7018420": {
+    "as_of": "2026-11-17",
+    "claude": 0.94,
+    "claude_weight": -0.325984,
+    "intercept": 0.151961,
+    "market": 0.943,
+    "probability": 0.9577,
+    "results": 225,
+    "slope": 1.051321
+  },
+  "polymarket-7018528": {
+    "as_of": "2026-11-17",
+    "claude": 0.83,
+    "claude_weight": -0.325984,
+    "intercept": 0.151961,
+    "market": 0.8,
+    "probability": 0.824107,
+    "results": 225,
+    "slope": 1.051321
+  },
+  "polymarket-7025042": {
+    "as_of": "2026-11-17",
+    "claude": 0.04,
+    "claude_weight": -0.095769,
+    "intercept": 0.151961,
+    "market": 0.15,
+    "probability": 0.177493,
+    "results": 225,
+    "slope": 1.051321
+  },
+  "polymarket-7073692": {
+    "as_of": "2026-11-17",
+    "claude": 0.92,
+    "claude_weight": -0.325984,
+    "intercept": 0.151961,
+    "market": 0.9325,
+    "probability": 0.951304,
+    "results": 225,
+    "slope": 1.051321
+  },
+  "polymarket-7085204": {
+    "as_of": "2026-11-17",
+    "claude": 0.03,
+    "claude_weight": -0.325984,
+    "intercept": 0.151961,
+    "market": 0.055,
+    "probability": 0.067124,
+    "results": 225,
+    "slope": 1.051321
+  },
+  "polymarket-7088768": {
+    "as_of": "2026-11-17",
+    "claude": 0.35,
+    "claude_weight": -0.356561,
+    "intercept": 0.151961,
+    "market": 0.4,
+    "probability": 0.450621,
+    "results": 225,
+    "slope": 1.051321
+  },
+  "polymarket-7088823": {
+    "as_of": "2026-11-17",
+    "claude": 0.64,
+    "claude_weight": 0.47212,
+    "intercept": 0.151961,
+    "market": 0.325,
+    "probability": 0.500068,
+    "results": 225,
+    "slope": 1.051321
+  },
+  "polymarket-7088838": {
+    "as_of": "2026-11-17",
+    "claude": 0.29,
+    "claude_weight": 0.47212,
+    "intercept": 0.151961,
+    "market": 0.635,
+    "probability": 0.512485,
+    "results": 225,
+    "slope": 1.051321
+  },
+  "polymarket-7088841": {
+    "as_of": "2026-11-17",
+    "claude": 0.2,
+    "claude_weight": 0.47212,
+    "intercept": 0.151961,
+    "market": 0.43,
+    "probability": 0.339441,
+    "results": 225,
+    "slope": 1.051321
+  }
+}

@@ -1,0 +1,1943 @@
+{
+ "polymarket-6921923": {
+  "against": null,
+  "base_rate": null,
+  "brief": null,
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": null,
+  "facts": [],
+  "judges": [],
+  "passes_done": null,
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.1103,
+  "research_failed": "ValueError: only 1 usable sources",
+  "research_seconds": 74.5,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "haiku",
+  "sources": [],
+  "unknowns": []
+ },
+ "polymarket-7000214": {
+  "against": null,
+  "base_rate": null,
+  "brief": null,
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": null,
+  "facts": [],
+  "judges": [],
+  "passes_done": null,
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.0348,
+  "research_failed": "ValueError: only 0 usable sources",
+  "research_seconds": 48.7,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "haiku",
+  "sources": [],
+  "unknowns": []
+ },
+ "polymarket-7018420": {
+  "against": "The case for a No outcome rests on the 1600 level being 10.8% below the 1793.69 spot, so the Nov 20 noon ET Close would need a drop of that size.\nSustained selling supports that: as of 2026-11-12 Ether ETFs had $2.35 billion of cumulative outflows over seven weeks, and on 2026-11-05 a $99.9 million net withdrawal followed a $53 million inflow.\nThe 30-day daily log-return volatility of 0.03152 means a multi-day move of that size is within normal range, and the 96% historical base rate was built from a mostly rising sample, so it may overstate the odds of staying above 1600.\nWeakness here is about flows and sentiment, not a scheduled catalyst, since the earlier pass found no CPI, FOMC or confirmed upgrade in the window.",
+  "base_rate": "Reference class: rolling 3-day windows of Binance ETHUSDT daily closes, the horizon from the read time to the 2026-11-20 12:00 ET (17:00 UTC) resolution, about 3.3 days.\nCounted over 2024-02-22 to 2026-11-16: 957 of 996 windows (96.1%) ended at or above 0.892 times the starting close, which is the 1600 threshold measured from the 1793.69 spot (about 10.8% below spot).\nLast 365 windows: 355 of 365 (97.3%).\nThe sample covers only about 2.7 years and is one asset, so it is a historical frequency, not a forecast.",
+  "brief": "The market resolves Yes if the Binance ETH/USDT 1-minute candle closing at 12:00 ET (17:00 UTC) on 2026-11-20 has a Close strictly above 1,600. Binance ETHUSDT was about 1794 at 2026-11-17 10:31 UTC, with the 2026-11-16 daily close at 1820.67 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31). The threshold is about 10.8% below spot with about 3.3 days left. Thirty-day daily log volatility is 0.0315, giving a horizon sd of about 5.7%, so 1,600 is roughly 2 sigma below. In 996 rolling 3-day windows of Binance daily closes from 2024-02-22 to 2026-11-16, 957 (96.1%) ended at or above 0.892 times the starting close; over the latest 365 windows it was 355 of 365 (97.3%) (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000). Different this time: US spot ETH ETFs had about $398.9M of outflows in the week of Nov 9-13 (https://www.fxleaders.com/news/2026/11/16/ethereum-price-prediction-eth-etf-outflows-glamsterdam-upgrade/, 2026-11-16) and $2.35B over seven weeks to Nov 12, with ETH trending down from about 2,000 a week ago; the sample behind the base rate was mostly rising. No CPI (next 2026-12-10) or FOMC (2026-12-08/09) falls before resolution, and the Glamsterdam upgrade was postponed with no new date. FOMC minutes may be released on 2026-11-18 and are a possible volatility source. A fall below about 1,700 before Thursday, or a large ETF or liquidation shock, would change the answer.",
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": "Sustained ETF outflows (about $398.9M in the Nov 9\u201313 week, per FXLeaders) and a weak tape point to negative momentum, which is a weaker setting than the calm, mostly rising sample behind the 96% base rate, so the historical frequency may overstate the case for staying above 1600.\nNo CPI, FOMC-type central-bank decision, or confirmed Ethereum upgrade or token unlock falls between now and the 2026-11-20 17:00 UTC resolution in the sources I opened.\nThe reference class needs a 10.8% drop from spot to breach 1600, which the 30-day daily vol of 0.03152 makes a multi-day move.",
+  "facts": [
+   {
+    "fact": "The Binance ETH/USDT trade page, opened 2026-11-17 at about 10:30 UTC, showed 1793.55 in its title; the page itself gives no price timestamp.",
+    "source": 0
+   },
+   {
+    "fact": "The Binance API daily ETHUSDT candle with open time 2026-11-17 00:00 UTC was still in progress at fetch time: open 1820.68, high 1843.49, low 1790.00, close 1794.63.",
+    "source": 2
+   },
+   {
+    "fact": "The Binance API daily ETHUSDT candle for 2026-11-16 UTC closed at 1820.67 (open 1794.79 region not shown; high 1843.49 was the 11-17 candle, 11-16 high 1866.89, low 1787.11).",
+    "source": 2
+   },
+   {
+    "fact": "The Binance klines endpoint returns candles keyed by open time, so a candle's identity is its open timestamp, not its close timestamp.",
+    "source": 1
+   },
+   {
+    "fact": "Binance ETHUSDT last price was 1793.69 at 2026-11-17 10:31 UTC (server time 1794911461367 ms, read immediately after the ticker call).",
+    "source": 3
+   },
+   {
+    "fact": "Binance ETHUSDT daily close for 2026-11-16 (UTC) was 1820.67.",
+    "source": 2
+   },
+   {
+    "fact": "Binance ETHUSDT daily candle for 2026-11-17 (UTC) opened at 1820.68 and was still open at read time, at 1793.69.",
+    "source": 2
+   },
+   {
+    "fact": "Sample standard deviation of daily log returns over the 30 closed daily candles from 2026-10-18 to 2026-11-16 is 0.03152 (29 returns).",
+    "source": 2
+   },
+   {
+    "fact": "Of 996 rolling 3-day windows of Binance ETHUSDT daily closes from 2024-02-22 to 2026-11-16, 957 (96.1%) ended with a close at or above 0.892 times the starting close; over the last 365 windows, 355 of 365 (97.3%) did.",
+    "source": 5
+   },
+   {
+    "fact": "The October 2026 US CPI is scheduled for release on Nov.\n10, 2026 at 08:30 AM, and the next CPI (November 2026 data) is on Dec.\n10, 2026 at 08:30 AM, so no CPI print falls between now and the 2026-11-20 resolution.",
+    "source": 6
+   },
+   {
+    "fact": "The Glamsterdam upgrade's Hoodi testnet activation, previously set for October 26, 2026, was postponed on or about 2026-10-22 with no new activation date, so no mainnet upgrade is confirmed for the resolution window.",
+    "source": 7
+   },
+   {
+    "fact": "US spot Ether ETFs had about $398.9 million in net outflows in the week of Nov.\n9\u201313, 2026, per the 2026-11-16 FXLeaders report.",
+    "source": 9
+   },
+   {
+    "fact": "US spot Ether ETFs had about $139.7 million in net outflows on November 2, 2026, per Farside Investors data quoted by Mitrade.",
+    "source": 8
+   },
+   {
+    "fact": "On 2026-11-16 ETH was trading near $1,824 with a +0.50% daily move, per FXLeaders.",
+    "source": 9
+   },
+   {
+    "fact": "The CoinDesk ETH price page showed $1,792.21 with no timestamp, down 0.87% on the day, which is consistent with the Binance reading of 1793.69 at 2026-11-17 10:31 UTC.",
+    "source": 10
+   },
+   {
+    "fact": "Binance ETHUSDT last price was 1793.69 at 2026-11-17 10:31 UTC (from the already-read ticker API).",
+    "source": 3
+   },
+   {
+    "fact": "Farside data showed a $99.9 million net withdrawal from US spot Ether ETFs on Thursday, November 5, 2026, the day after a $53 million inflow.",
+    "source": 11
+   },
+   {
+    "fact": "As of 2026-11-12 (published 08:08 EST), investors had pulled $2.35 billion out of Ether ETFs over the prior seven weeks, a cumulative figure with no single as-of date.",
+    "source": 12
+   },
+   {
+    "fact": "Mitrade states on 2026-11-07 that the Ether ETF flow data cannot establish a direct forecast for ETH's price, which weakens any reading of ETF outflows as a price signal.",
+    "source": 11
+   },
+   {
+    "fact": "The Federal Reserve's own calendar lists the December 2026 FOMC meeting as a two-day meeting on December 8 to 9, which falls after the 2026-11-20 resolution, so no FOMC meeting sits inside the window.",
+    "source": 13
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.2265,
+  "research_failed": null,
+  "research_seconds": 204.6,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "1793.55 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+    ],
+    "title": "Trade ETH/USDT Spot | Binance",
+    "url": "https://www.binance.com/en/trade/ETH_USDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+    ],
+    "title": "Binance Spot API docs: Market Data endpoints (Kline/Candlestick data)",
+    "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "[1794787200000,\"1835.35000000\",\"1866.89000000\",\"1787.11000000\",\"1820.67000000\"",
+     "[1794873600000,\"1820.68000000\",\"1843.49000000\",\"1790.00000000\",\"1793.69000000\",\"112458.50210000\""
+    ],
+    "title": "Binance klines endpoint, ETHUSDT daily, last 31 candles (fetched via WebFetch; the page returned raw data, not a quotable sentence)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "{\"symbol\":\"ETHUSDT\",\"price\":\"1793.69000000\"}"
+    ],
+    "title": "Binance API: ETHUSDT ticker price",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "{\"serverTime\":1794911461367}"
+    ],
+    "title": "Binance API: server time",
+    "url": "https://api.binance.com/api/v3/time",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [],
+    "title": "Binance API: ETHUSDT daily klines, last 1000 days (base-rate sample)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "October 2026: \"Nov.\n10, 2026\" at \"08:30 AM\"",
+     "November 2026: \"Dec.\n10, 2026\" at \"08:30 AM\""
+    ],
+    "title": "BLS CPI release schedule",
+    "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "verified": false
+   },
+   {
+    "published": "2026-10-22",
+    "quotes": [
+     "The Glamsterdam upgrade on Hoodi, previously scheduled for October 26, 2026 ...\nhas been postponed.\nA new activation date has not been set."
+    ],
+    "title": "Ethereum Foundation blog, \"Glamsterdam on Hoodi Postponed\"",
+    "url": "https://blog.ethereum.org/category/protocol",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "US spot Ether ETFs saw approximately $139.7 million in net outflows on November 2, Farside Investors' daily data show."
+    ],
+    "title": "Ether ETFs Shed $139.7M on November 2, Extending a Difficult Run for Fund Flows",
+    "url": "https://www.mitrade.com/insights/news/live-news/article-3-2226277-20261104",
+    "verified": true
+   },
+   {
+    "published": "2026-11-16",
+    "quotes": [
+     "Ethereum (ETH) trades near $1,824 today with +0.50% gains.",
+     "Spot Ether ETFs had about $398.9 Million in net outflows during last week."
+    ],
+    "title": "Ethereum Price Prediction: ETH Holds Near $1,824 as ETF Outflows Continue",
+    "url": "https://www.fxleaders.com/news/2026/11/16/ethereum-price-prediction-eth-etf-outflows-glamsterdam-upgrade/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "$1,792.21Down 0.87 percent0.87%($15.78)"
+    ],
+    "title": "CoinDesk Ethereum price page",
+    "url": "https://www.coindesk.com/price/ethereum",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Farside data show a $99.9 million net withdrawal on Thursday, November 5.",
+     "The flow data cannot establish a direct forecast for ETH's price.",
+     "The November 5 figure is not a reliable prediction of ETH's next move."
+    ],
+    "title": "Ether ETFs Face Another $99.9M Outflow as Demand Stays Uneven",
+    "url": "https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107",
+    "verified": false
+   },
+   {
+    "published": "2026-11-12",
+    "quotes": [
+     "Investors have pulled $2.35 billion out of Ether ETFs over the past seven weeks."
+    ],
+    "title": "Ether ETFs See $2.35 Billion Outflows Over Seven Weeks",
+    "url": "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Two-day meeting, December 8 - 9"
+    ],
+    "title": "December 2026 (Federal Reserve Board calendar)",
+    "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Ethereum ETF flow (Farside Investors)",
+    "url": "https://farside.co.uk/ethereum-etf-flow/",
+    "verified": null
+   },
+   {
+    "published": "2026-11-13",
+    "quotes": [],
+    "title": "Fidelity Ethereum ETF $2.3M net inflow Nov 13 (search result only, not opened)",
+    "url": "https://coinotag.com/fidelity-ethereum-etf-2-3m-net-inflow-nov-13",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "No Ether ETF flow figure from Nov 13 to Nov 17 was found; the latest one I can cite is the Nov 9\u201313 week.",
+   "The weekend low of $1,710 on Sunday Nov 15 and the roughly 14% weekly drop appear only in a search summary I did not open, so I did not cite them.",
+   "The Binance 1-minute candle for 2026-11-20 12:00 ET (17:00 UTC) does not exist yet; the spot figure is from 2026-11-17 and is not the resolving price.",
+   "I did not check the Fed calendar or any other central-bank decision inside the window, nor any court or policy event affecting crypto, so those are unknown.",
+   "The Glamsterdam postponement page dates from 2026-10-22; I did not find a later Ethereum core-dev date.",
+   "Mitrade's publication date is not stated on the page; the 2026-11-07 date comes from the URL and is not confirmed.\nA page-related timestamp suggests a later crawl date."
+  ]
+ },
+ "polymarket-7018528": {
+  "against": "The strongest case for No is that the $0.90 threshold sits inside XRP's recent trading range.\nOn 2026-11-14 Binance XRPUSDT printed an intraday low of 0.89300 and closed at 0.91440, so the price was below the threshold four days before the spot read.\nRecent flows point the same way: Coinotag reported on 2026-11-14 that US spot XRP ETFs recorded $19.13 million in net outflows in the week ending November 13, their largest weekly withdrawal in eight months.\nFrom the spot read of 0.9582 at 2026-11-17 10:34 UTC, a close at or below $0.90 needs about a 6% fall, which is roughly 1.9 daily standard deviations at the 0.0333 30-day volatility, so a move of that size inside about 78 hours is plausible rather than remote.\nThe Fed calendar, last updated 2026-11-12, lists no minutes release for the October meeting, so the 18 November minutes date that could add volatility is unconfirmed.",
+  "base_rate": "No comparable-event base rate was counted.\nThis is a price-threshold question on a traded asset, not a repeating event with a count of past outcomes.\nThe only quantity I computed is the 30-day daily log-return volatility of 0.0333 from Binance closes.\nI did not search for or count past XRP threshold outcomes, so no counts or period are given.",
+  "brief": "The market resolves Yes if the Binance XRP/USDT 1-minute candle closing at 12:00 ET (17:00 UTC) on 2026-11-20 has a Close strictly above 0.90. Binance XRPUSDT was 0.95830 at about 2026-11-17 10:35 UTC, with the daily open at 0.95530, the 2026-11-16 close at 0.95530 and the Nov 17 low at 0.95050 (https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT). The spot read is about 6.5% above the threshold, about 1.9 daily standard deviations at the 30-day daily log volatility of 0.0333 (https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31). Over roughly 78 hours the horizon sd is about 6.0%, so the threshold is about 1.05 sigma away. No historical base-rate count was made. Different this time: XRP traded down to 0.893 on 2026-11-14 and closed that day at 0.9144 before rebounding, so 0.90 sits inside the recent range. US spot XRP ETFs recorded $19.13M of net outflows in the week to Nov 13, the largest in eight months (https://en.coinotag.com/xrp-etf-outflows-19-13-million-eight-month-high, 2026-11-14). The FOMC minutes of the Oct 27-28 meeting are reportedly due on 2026-11-18 at 14:00 ET per a secondary calendar, not confirmed on the Fed page (https://admiralmarkets.com/analytics/traders-blog/fomc-minutes-october-2026). PCE comes after resolution on 2026-11-25. A slide back through 0.92 before Thursday, or a broad crypto sell-off, would lower the answer; a hold above 0.95 would raise it.",
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": "The spot read of 0.9582 is about 6.5% above the $0.90 threshold, which is about 1.9 daily standard deviations (0.0333) at the current read.\nThe window from 2026-11-17 10:34 UTC to the 2026-11-20 17:00 UTC noon-ET candle is about 78 hours, about 1.05 horizon standard deviations (0.0333 times the square root of 3.27 days).\nScheduled events inside the window: the FOMC minutes on 18 November (secondary calendar).\nRecent flow data is negative: US spot XRP ETFs posted their second weekly outflow, the largest in eight months.\nRecent price context: XRP closed at 0.91440 on 14 November after an intrada",
+  "facts": [
+   {
+    "fact": "Binance's XRP price page showed $0.9555179 USD, last updated 2026-11-17 10:25 UTC.",
+    "source": 0
+   },
+   {
+    "fact": "The Binance XRP/USDT trade page, opened on 2026-11-17, showed a page title quoting 0.9568 but a 'Disconnected' status, so its live feed was not confirmed.",
+    "source": 1
+   },
+   {
+    "fact": "CoinMarketCap showed $0.955610 for XRP with no timestamp, a 0.80% gain over 24 hours.",
+    "source": 2
+   },
+   {
+    "fact": "Binance XRPUSDT traded at 0.95820 USDT at the 2026-11-17 ticker read (10:34 UTC).",
+    "source": 3
+   },
+   {
+    "fact": "Binance XRPUSDT daily candle for 2026-11-17 (open 00:00 UTC, still forming) shows open 0.95530, high 0.96850, low 0.95050, last close 0.95820 at the read.",
+    "source": 4
+   },
+   {
+    "fact": "Binance XRPUSDT daily close for 2026-11-16 was 0.95530 USDT.",
+    "source": 4
+   },
+   {
+    "fact": "Binance XRPUSDT daily close for 2026-11-14 was 0.91440 USDT, after an intraday low of 0.89300 that day.",
+    "source": 4
+   },
+   {
+    "fact": "Standard deviation of XRPUSDT daily log returns over the last 30 daily closes (computed from the 31 Binance daily closes, 2026-10-18 to 2026-11-17) is 0.0333.",
+    "source": 4
+   },
+   {
+    "fact": "Binance XRPUSDT ticker printed 0.95820 USDT at 2026-11-17 10:34 UTC, the spot read used for this report.",
+    "source": 3
+   },
+   {
+    "fact": "The Binance XRP/USDT trade page title read 0.9565 when opened on 2026-11-17, with no timestamp, and its live feed showed Disconnected.",
+    "source": 1
+   },
+   {
+    "fact": "The Federal Reserve FOMC calendar was last updated 2026-11-12.\nIt lists the December meeting as 8-9 December with a Summary of Economic Projections, and it does not list a minutes release date for the October 27-28 meeting.",
+    "source": 5
+   },
+   {
+    "fact": "The FOMC minutes of the October 27-28 meeting are reported as scheduled for 18 November 2026 (US time), which falls inside the window before the 20 November resolution.\nThis is from a secondary calendar, not confirmed on the Fed page.",
+    "source": 6
+   },
+   {
+    "fact": "US October PCE inflation is scheduled for 25 November 2026, after the 20 November resolution date.",
+    "source": 6
+   },
+   {
+    "fact": "US spot XRP ETFs had $19.13 million in net outflows in the week ending 13 November 2026, their largest weekly outflow in eight months and a second consecutive weekly loss, per a search snippet.",
+    "source": 7
+   },
+   {
+    "fact": "The Analytics Insight calendar lists STRK and ARB token unlocks around 15-16 November 2026 and mentions no XRP unlock in the window.",
+    "source": 6
+   },
+   {
+    "fact": "US spot XRP ETFs recorded $19.13 million in net outflows in the week ending 13 November 2026, their largest weekly withdrawal in eight months.",
+    "source": 7
+   },
+   {
+    "fact": "The Federal Reserve FOMC calendar, last updated 12 November 2026, lists no minutes release date for the 27-28 October 2026 meeting, so the 18 November minutes date is not confirmed on the Fed page.",
+    "source": 5
+   },
+   {
+    "fact": "On 2026-11-17 the Binance XRP/USDT trade page title read 0.9565, its connection status read Disconnected, and it showed no timestamp, so its live price was not confirmed.",
+    "source": 1
+   },
+   {
+    "fact": "Binance XRPUSDT daily close for 2026-11-14 was 0.91440 USDT after an intraday low of 0.89300 that day, so the price traded below $0.90 four days before the spot read of 0.9582 at 2026-11-17 10:34 UTC.",
+    "source": 4
+   },
+   {
+    "fact": "Binance API ticker for XRPUSDT printed 0.95830000 USDT at about 2026-11-17 10:35 UTC, slightly above the 0.95820 read at 10:34 UTC.",
+    "source": 3
+   },
+   {
+    "fact": "The Binance XRPUSDT daily candle for 2026-11-17 (open 00:00 UTC, still forming) showed open 0.95530, high 0.96850, low 0.95050 and last close 0.95830 at the 10:35 UTC read.",
+    "source": 8
+   },
+   {
+    "fact": "The Federal Reserve FOMC calendar page, last updated 2026-11-12, lists the October 27-28 meeting with its statement, implementation note and press conference but no minutes link or release date.",
+    "source": 5
+   },
+   {
+    "fact": "A secondary calendar (Admiral Markets, page dated 2026-10-05) says the October meeting minutes are due 18 November at 19:00 GMT, which is 14:00 ET.",
+    "source": 9
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.1529,
+  "research_failed": null,
+  "research_seconds": 162.4,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "The live XRP price today is $0.9555179 USD.",
+     "Page last updated: 11/17/26, 10:25 AM (UTC)"
+    ],
+    "title": "XRP Price Today (Binance)",
+    "url": "https://www.binance.com/en/price/xrp",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "0.9565 Trade XRP/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+     "Disconnected"
+    ],
+    "title": "Trade XRP/USDT Spot | Binance",
+    "url": "https://www.binance.com/en/trade/XRP_USDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The live XRP price today is $0.955610 USD with a 24-hour trading volume of $1,812,624,975 USD."
+    ],
+    "title": "XRP price today (CoinMarketCap)",
+    "url": "https://coinmarketcap.com/currencies/xrp/",
+    "verified": false
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "{\"symbol\":\"XRPUSDT\",\"price\":\"0.95820000\"}",
+     "{\"symbol\":\"XRPUSDT\",\"price\":\"0.95830000\"}"
+    ],
+    "title": "Binance public API: XRPUSDT ticker price",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "[1794873600000,\"0.95530000\",\"0.96850000\",\"0.95050000\",\"0.95820000\",\"32436296.90000000\"",
+     "[1794787200000,\"0.97410000\",\"0.97690000\",\"0.94240000\",\"0.95530000\",\"119306024.40000000\"",
+     "[1794614400000,\"1.01090000\",\"1.01380000\",\"0.89300000\",\"0.91440000\",\"234523669.10000000\""
+    ],
+    "title": "Binance public API: XRPUSDT daily klines (31 candles)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=31",
+    "verified": null
+   },
+   {
+    "published": "2026-11-12",
+    "quotes": [
+     "* Meeting associated with a Summary of Economic Projections.",
+     "No minutes release date is listed for the October 27-28, 2026 meeting.",
+     "The page was last updated November 12, 2026."
+    ],
+    "title": "Federal Reserve Board: FOMC Calendars",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "verified": false
+   },
+   {
+    "published": "2026-11-09",
+    "quotes": [
+     "minutes are scheduled for November 18 in the United States, corresponding to November 19 in India.",
+     "On November 25, investors will monitor October's US Personal Consumption Expenditures (PCE) and core PCE inflation readings"
+    ],
+    "title": "November 2026 Economic Releases and Crypto Events to Watch: US CPI, Fed Minutes, PCE Inflation and Token Unlocks",
+    "url": "https://www.analyticsinsight.net/cryptocurrency-analytics-insight/november-2026-economic-releases-and-crypto-events-to-watch-us-cpi-fed-minutes-pce-inflation-and-token-unlocks",
+    "verified": true
+   },
+   {
+    "published": "2026-11-14",
+    "quotes": [
+     "US spot XRP ETFs recorded $19.13 million in net outflows in the week ending November 13,",
+     "their largest weekly withdrawal in eight months."
+    ],
+    "title": "XRP ETF outflows $19.13 million, eight-month high (search snippet, page not opened)",
+    "url": "https://en.coinotag.com/xrp-etf-outflows-19-13-million-eight-month-high",
+    "verified": true
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "[1794873600000,\"0.95530000\",\"0.96850000\",\"0.95050000\",\"0.95830000\",\"32472644.40000000\",1794959999999,\"31154603.98826000\",138235,\"16204256.30000000\",\"15551772.76701000\",\"0\"]"
+    ],
+    "title": "Binance API daily klines, XRPUSDT (last two days)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1d&limit=2",
+    "verified": null
+   },
+   {
+    "published": "2026-10-05",
+    "quotes": [
+     "According to the page, \"The next set of minutes, from the October meeting, is due on 18 November at 19:00 GMT\""
+    ],
+    "title": "FOMC Minutes October 2026: Release Time and What to Watch",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/fomc-minutes-october-2026",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "The FOMC minutes date (18 November) comes from a secondary calendar; the Fed page checked does not list it.",
+   "The ETF flow figures come from search snippets, not an opened page, and cumulative ETF totals differ across trackers (about $1.08B, $1.81B and 1.20B tokens held), so they are unreconciled.",
+   "The Binance trade page did not show a live price or timestamp when opened, so the 0.9582 spot rests on the API ticker read at 10:34 UTC and could have moved by the time of resolution.",
+   "No Binance 1-minute candle for 2026-11-20 12:00 ET exists yet; the outcome depends on price moves over roughly three days.",
+   "Search results about XRP price levels in early November (for example near $1.05 to $1.16) predate the Binance data and were not reconciled against it; I did not confirm any news after 2026-11-14 beyond the Binance daily closes.",
+   "The spot price 0.9582 comes from the Binance API ticker read at 10:34 UTC on 2026-11-17, which I did not reopen in this pass.\nThe Binance trade page was disconnected with no timestamp, so the live price at resolution is unknown."
+  ]
+ },
+ "polymarket-7025042": {
+  "against": "The strongest case for a Yes is that a major bank's Analyst Focus List call, dated on or about 2026-11-09 and carrying a $940 target, gives a fundamental reason for buyers to bid META toward $680 within the four remaining regular sessions (Nov 17\u201320).\nPer the tikr page, the stock rose 5% on that news, which shows the name can make a move of the size needed (about 8.2% from the Nov 16 close of 626.41 in the prior pass) on a single analyst catalyst.\nThe same page's AI-ad-growth rationale (roughly twice Google Search's new dollars last quarter) describes a thesis that could attract momentum buying if it is repeated.\nThe 38% gap between the $940 target and $680 means a bullish analyst view does not cap the move at the market's current level.\nAgainst this, the tikr page is a secondary aggregator, its 'Last updated Nov 9' date is not an event date, and it gives no evidence of a new catalyst in",
+  "base_rate": "Not counted.\nI did not pull a historical price series from Pyth, Yahoo or an exchange, so I have no count of how often META's weekly high reached about 9% above a prior-week close, and no period for that count.\nThe only verified price is the November 12 close, from a secondary site, and the Pyth 1-minute data needed for resolution was not opened.",
+  "brief": "The market resolves Yes if any Pyth META/USD 1-minute candle during regular trading hours (9:30 AM-4:00 PM ET) in the week of 2026-11-16 has a High at or above $680. Monday 2026-11-16 counts and has already closed: high 640.70, low 620.14, close 626.41 (-2.38%) (https://stockanalysis.com/stocks/meta/history/ and https://finance.yahoo.com/quote/META/). That leaves four regular sessions (Nov 17-20). The target is about 8.6% above the Nov 16 close and 6.1% above the week's high so far. Friday 2026-11-13 closed at 641.69 but is outside the window. Since the Q3 release on 2026-10-21 (revenue $64.60B, +26%), the only regular-session high above 680 was 681.07 on 2026-10-22; from Oct 23 to Nov 16 the highest regular-session high was 648.45 (Nov 11). The 20-day close-to-close standard deviation is about 2.62% a day (about 5.2% over four sessions), but that window includes the -6.98% post-earnings day, so underlying vol is lower. On those numbers the target is about 1.1 sigma above the high by the raw figure, and about 1.9-2.3 sigma above the close. No historical base-rate count was made. Different this time: JPMorgan added META to its Analyst Focus List on 2026-11-09 with a $940 target and the stock rose about 5% (https://www.webull.com/news/15894359755441152), but the stock has since faded. An undated Pyth snapshot showed 621.80 and Yahoo showed a pre-market 620.87 (Nov 17 morning); no Nov 17 session data was found. A fresh catalyst, such as a large AI announcement, an upgrade wave or a broad tech rally of 8% or more, would change the answer; continued trading near 620-630 by Wednesday would make it nearly impossible.",
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": "Nov 16 is already part of the window, so the market has four regular sessions left (Nov 17\u201320) and needs a high of 680, which is 6.1% above the window's high so far (640.70).\nMeasured from the Nov 16 close of 626.41, the required move is about 8.2%.\nRealised volatility is high by this stock's standards: a 2.62% daily SD over 20 sessions gives roughly 5.2% over four sessions, so the target is about 1.1 such sigmas above the current high.\nThis is a size of move, not a probability.\nPush toward No: META has not traded above 648.45 in regular hours since Oct 22, and the only regular-session high ab",
+  "facts": [
+   {
+    "fact": "Pyth's META/USD equity price feed page showed a live price of 621.80 USD with a 24h change of -2.26%, time shown as 05:26:23 UTC-5, with no date displayed on the page (undated snapshot).",
+    "source": 0
+   },
+   {
+    "fact": "Pyth's price-feeds page describes its equity feeds as stock prices from global equity markets and says Pyth offers 24/7 access to live feeds, so off-hours Pyth prints exist and must be excluded by the regular-hours rule.",
+    "source": 1
+   },
+   {
+    "fact": "Yahoo Finance's META quote page showed the regular-session close on November 16, 2026 at 4:00:01 PM EST as 626.41, down 15.28 (-2.38%) on the day.",
+    "source": 2
+   },
+   {
+    "fact": "Yahoo Finance's META page also showed a pre-market price of 620.87 (-0.88%) at 5:23:59 AM EST, which does not count for resolution.",
+    "source": 2
+   },
+   {
+    "fact": "Meta reported third-quarter 2026 revenue of $64.60 billion, up 26% year over year, in a release dated October 21, 2026.",
+    "source": 3
+   },
+   {
+    "fact": "META's latest close I could verify is $623.61 on Thursday, November 12, 2026, down 0.82% on the day.\nNo closing price for November 13 or later was found, so the November 16 level is unverified.",
+    "source": 4
+   },
+   {
+    "fact": "The $680 target is about 9.0% above the verified November 12 close of $623.61 (56.39 / 623.61).",
+    "source": 4
+   },
+   {
+    "fact": "The regular session on Mon Nov 16, 2026 printed a high of 640.70, a low of 620.14 and a close of 626.41 (-2.38%), so the week's regular-session high so far is 640.70.",
+    "source": 5
+   },
+   {
+    "fact": "The Fri Nov 13, 2026 close was 641.69 (+2.90%) with a session high of 643.91; that day is in the prior week and does not count toward this market.",
+    "source": 5
+   },
+   {
+    "fact": "On Thu Oct 22, 2026, the day after the Q3 release dated Oct 21, META's regular-session high was 681.07 and its close 648.85 (-6.98%); this is the only regular-session high above $680 in the rows from Oct 15 to Nov 16, 2026.",
+    "source": 5
+   },
+   {
+    "fact": "From Oct 23 to Nov 16, 2026, the highest regular-session high in the table is 648.45 (Nov 11), which is 4.9% below $680 (648.45 / 680 - 1 = -4.6%, shown here as 680 / 648.45 - 1 = +4.9% needed).",
+    "source": 5
+   },
+   {
+    "fact": "Meta dated its Q3 2026 results release Oct 21, 2026, reporting revenue of $64.60 billion, up 26% year over year.",
+    "source": 3
+   },
+   {
+    "fact": "The standard deviation of the 20 daily close-to-close returns from Oct 20 to Nov 16, 2026 is about 2.62% (sample SD of the listed percent changes, mean -0.56%), or about 41.6% annualized (2.62% \u00d7 \u221a252).\nFormula: sqrt((\u03a3r\u00b2 \u2212 20\u00b7mean\u00b2)/19).",
+    "source": 5
+   },
+   {
+    "fact": "The 680 target is 6.1% above the week's regular-session high so far (680 / 640.70 \u2212 1), and four regular sessions remain before the Nov 20 resolution date (Nov 17, 18, 19 and 20).",
+    "source": 5
+   },
+   {
+    "fact": "The tikr.com article, marked 'Last updated Nov 9, 2026', says Meta jumped 5% after JPMorgan put it on its Analyst Focus List in place of Alphabet, with a $940 price target; the page gives no separate event date, so the day of the move is not confirmed.",
+    "source": 6
+   },
+   {
+    "fact": "The same page says JPMorgan's case rests on Meta's AI-driven ad growth, which added roughly twice Google Search's new dollars last quarter.",
+    "source": 6
+   },
+   {
+    "fact": "The $940 JPMorgan target is 38% above $680 (940 / 680 \u2212 1 = +38.2%), so the cited bullish analyst case sits well above the market's target level.",
+    "source": 6
+   },
+   {
+    "fact": "JPMorgan added Meta to its Analyst Focus List on Monday, November 9, 2026, in the same update that removed Alphabet.",
+    "source": 8
+   },
+   {
+    "fact": "The Motley Fool article on Meta's Monday rally, published 2026-11-09, attributes the rise to bullish commentary from a Wall Street analyst, which is the JPMorgan Analyst Focus List addition.",
+    "source": 7
+   },
+   {
+    "fact": "The Motley Fool page displays a Meta price of $626.41 as of 4:00 PM ET on 11/16/26, which matches the Nov 16 regular-session close already found from Yahoo Finance, so the close is corroborated by a second source (no quote taken from this page).",
+    "source": 7
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.2385,
+  "research_failed": null,
+  "research_seconds": 268.8,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "The META PLATFORMS INC / US DOLLAR (Equity.US.META/USD) price feed delivers a live META price"
+    ],
+    "title": "Pyth Explore: META PLATFORMS INC / US DOLLAR (Equity.US.META/USD) price feed (pythdata.app redirects here)",
+    "url": "https://app.pyth.com/explore/Equity.US.META%2FUSD",
+    "verified": true
+   },
+   {
+    "published": "2026-11-16",
+    "quotes": [
+     "Stock prices from global equity markets.",
+     "direct 24/7 access to live price feeds across crypto, equities, FX"
+    ],
+    "title": "Pyth Network: Real-Time Market Data for Every Asset Class",
+    "url": "https://www.pyth.network/price-feeds",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "At close: November 16 at 4:00:01 PM EST",
+     "626.41 -15.28 (-2.38%)"
+    ],
+    "title": "Meta Platforms, Inc.\n(META) stock price, Yahoo Finance",
+    "url": "https://finance.yahoo.com/quote/META/",
+    "verified": false
+   },
+   {
+    "published": "2026-10-21",
+    "quotes": [
+     "Revenue was $64.60 billion, an increase of 26% year-over-year on both a reported and constant currency basis.",
+     "MENLO PARK, Calif., Oct.\n21, 2026 /PRNewswire/"
+    ],
+    "title": "Meta Reports Third Quarter 2026 Results",
+    "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+    "verified": true
+   },
+   {
+    "published": "2026-11-12",
+    "quotes": [
+     "Meta Platforms, Inc.\n(META) closed down 0.82% at $623.61."
+    ],
+    "title": "Meta shares slip 0.82% as company's AI platform...",
+    "url": "https://www.money365.market/news/latest/meta-shares-slip-0-82-as-company-s-ai-platform-3b1633cf",
+    "verified": true
+   },
+   {
+    "published": "2026-11-16",
+    "quotes": [
+     "Nov 16, 2026 640.00 640.70 620.14 626.41 626.41 -2.38% 11,577,865",
+     "Nov 13, 2026 627.21 643.91 624.79 641.69 641.69 2.90% 15,150,951",
+     "Oct 22, 2026 | 676.35 | 681.07 | 639.69 | 648.85 | -6.98%"
+    ],
+    "title": "Meta Platforms (META) Stock Price History, StockAnalysis",
+    "url": "https://stockanalysis.com/stocks/meta/history/",
+    "verified": false
+   },
+   {
+    "published": "2026-11-09",
+    "quotes": [
+     "Meta jumped 5% today after JPMorgan swapped it in for Alphabet on its Analyst Focus List, with a $940 price target.",
+     "JPMorgan\u2019s case is Meta\u2019s AI-driven ad growth, which added roughly twice Google Search\u2019s new dollars last quarter."
+    ],
+    "title": "Meta Soars 5% as JPMorgan Picks It Over Alphabet for Its Analyst Focus List",
+    "url": "https://www.tikr.com/blog/meta-soars-5-as-jpmorgan-picks-it-over-alphabet-for-its-analyst-focus-list",
+    "verified": true
+   },
+   {
+    "published": "2026-11-09",
+    "quotes": [
+     "bullish commentary from a Wall Street analyst helped push the social media",
+     "JPMorgan added Meta Platforms to the investment bank's Analyst Focus List"
+    ],
+    "title": "Why Meta Platforms Stock Rallied on Monday (Motley Fool)",
+    "url": "https://fool.com/investing/2026/11/09/why-meta-platforms-stock-rallied-on-monday",
+    "verified": false
+   },
+   {
+    "published": "2026-11-09",
+    "quotes": [
+     "JPMorgan added Meta to the list on November 9 and dropped one of its biggest rivals."
+    ],
+    "title": "Meta and Amazon Rise 5% as JPMorgan Names Them Top Internet Picks; Alphabet Gains 3% Despite Losing Its Spot",
+    "url": "https://www.webull.com/news/15894359755441152",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "No Pyth 1-minute candle for Nov 16 or Nov 17 was opened.\nThe 640.70 high and 626.41 close come from StockAnalysis, an aggregator, and may differ from Pyth's candles or the exchange's official daily high.",
+   "The StockAnalysis 'Last updated' date (Nov 16, 2026) is not a publication date for the rows.\nNo data for Nov 17 onward was found, so the Nov 17 session is unknown.",
+   "The Pyth page's undated 621.80 quote from the earlier pass could not be dated and was not used.",
+   "The cause of the Oct 22 drop (\u22126.98%) is not verified in any opened source.\nThe link to the Oct 21 release is an inference from the timing, not a confirmed attribution.",
+   "No news from the last 7 days explaining the Nov 13 (+2.90%) or Nov 16 (\u22122.38%) moves was found.\nMarketBeat returned 403 when fetched, and its search snippets were dated to June 2026 or earlier, so they were not used.",
+   "The tikr article's 'Last updated Nov 9, 2026' stamp is not a confirmed event date, so the JPMorgan move may have happened on another day and may already be priced in."
+  ]
+ },
+ "polymarket-7030497": {
+  "against": null,
+  "base_rate": null,
+  "brief": null,
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": null,
+  "facts": [],
+  "judges": [],
+  "passes_done": null,
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.2269,
+  "research_failed": "no running tally read for a count/total question; not forecast",
+  "research_seconds": 197.2,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "haiku",
+  "sources": [],
+  "unknowns": []
+ },
+ "polymarket-7073692": {
+  "against": "The outcome this evidence makes less likely is Yes; the case for No (Binance ETH/USDT candle at 12:00 ET on 2026-11-22 closing at or below $1,600.00) rests on flows and rates.\nEther ETFs had $2.35 billion of net outflows over the seven weeks to 12 Nov 2026 (Cryptobriefing, 2026-11-12), so sustained selling pressure is documented.\nOn 10 Nov 2026 Waller said he was leaning toward a December hike regardless of October inflation, and would consider a half-point hike if core CPI came in around 0.3% or higher (Cryptobriefing, 2026-11-10).\nRead against the 30-day daily standard deviation of 0.0315, a fall of about 10.8% in roughly 5.3 days is a move of roughly 3.4 sigma, so it is a tail outcome rather than a common one.\nThe window is also event-light on the official calendar, which weakens the case for a rate-driven drop before resolution.",
+  "base_rate": "Reference class: every 5-day window in Binance ETHUSDT daily closes (candles from 2017-08-17 to 2026-11-16, counted by me from the Binance kline API).\nEvent counted: the close five daily candles later is above 0.8921 times the starting close, which is the 1600/1795.07 ratio of this question.\nWindows starting 2018 onward: 2939 of 3237 (90.8%).\nStarting 2020: 2331 of 2507 (93.0%).\nStarting 2022: 1660 of 1776 (93.5%).\nStarting 2024: 978 of 1046 (93.5%).\nCaveats: the horizon here is about 5.3 days (10:36 UTC on 17 Nov to 17:00 UTC on 22 Nov), the 30-day volatility uses a partial 17 Nov candle, and",
+  "brief": "The market resolves Yes if the Binance ETH/USDT 1-minute candle closing at 12:00 ET (17:00 UTC) on 2026-11-22 has a Close strictly above 1,600. Binance ETHUSDT was 1792.43 at 2026-11-17 10:37 UTC, about 10.8% above the threshold, with about 102 hours to the resolution candle (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). Thirty-day daily log volatility is 0.0315, so the threshold is about 3.6 daily standard deviations away and about 1.6 sd of the roughly 5.3-day horizon. From 5-day windows in Binance daily closes, 2,939 of 3,237 (90.8%) since 2018, 2,331 of 2,507 (93.0%) since 2020 and 978 of 1,046 (93.5%) since 2024 ended above 0.8921 times the starting close (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000). Different this time: ETH has been sliding (2026-11-16 daily close 1820.67 and spot near 1,793 now), US spot ETH ETFs had $2.35B of outflows over the seven weeks to 2026-11-12 (https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/), and Fed Governor Waller said on 2026-11-10 he leans toward a December hike and would consider a half-point (https://cryptobriefing.com/bitcoin-74k-fed-waller-december-rate-hike/). On the official calendars no CPI (next 2026-12-10), FOMC (2026-12-08/09) or confirmed Ethereum mainnet upgrade (Glamsterdam has no date; https://ethereum.org/roadmap/glamsterdam/) falls before resolution. Weekend trading and liquidation cascades are the main tail risk, and a fall below about 1,700 early in the week would lower the answer.",
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": "No scheduled US CPI, FOMC decision, or other macro release falls before the 2026-11-22 17:00 UTC resolution candle; the next CPI (Dec 10) and FOMC (Dec 8-9) are both after it, so the window is event-free on the official calendars.\nUnverified press snippets (not opened, so not in facts) describe hot US inflation, Fed rate-hike talk and US spot ETH ETF outflows in November; if correct, these push toward further downside pressure, but the snippets are undated or from 10-13 Nov and I could not confirm them.\nETH is about 10.7% above the 1600 threshold with the window still open.",
+  "facts": [
+   {
+    "fact": "The Binance ETH/USDT spot page title, as opened on 2026-11-17, shows a last price of 1796.39 USDT, with no timestamp shown on the page.",
+    "source": 0
+   },
+   {
+    "fact": "Binance's spot kline documentation states that klines are uniquely identified by their open time; the page does not define what the close price represents.",
+    "source": 1
+   },
+   {
+    "fact": "CoinGecko's Ethereum page, opened on 2026-11-17, shows an ETH USD price of $1,794.58 with a 24-hour volume of about $10.95 billion, timestamped only as 'today'.",
+    "source": 2
+   },
+   {
+    "fact": "Binance ETHUSDT last traded price was 1795.07 at 2026-11-17 10:36 UTC",
+    "source": 3
+   },
+   {
+    "fact": "Binance's kline endpoint is documented as returning candles for a symbol with a required interval parameter (values include 1d), and the close is the element at index 4",
+    "source": 1
+   },
+   {
+    "fact": "The Binance ETH/USDT trade page title showed a price of 1796.39 when it was fetched (fetch time not stated on the page)",
+    "source": 0
+   },
+   {
+    "fact": "Binance ETHUSDT last price was 1792.43 USDT at 2026-11-17 10:37 UTC.",
+    "source": 3
+   },
+   {
+    "fact": "The Binance ETHUSDT daily candle for 2026-11-16 closed at 1820.67 USDT; the 2026-11-17 daily candle was still open at the read, with its last price at 1792.42.",
+    "source": 4
+   },
+   {
+    "fact": "The BLS schedule lists the October 2026 CPI release for Nov.\n10, 2026 at 08:30 AM and the November 2026 CPI release for Dec.\n10, 2026 at 08:30 AM, so no CPI release falls between now and the 2026-11-22 resolution.",
+    "source": 5
+   },
+   {
+    "fact": "The Federal Reserve's FOMC calendar lists the next meeting after November 2026 as December 8-9, which is after the resolution date; no FOMC decision falls in the window.",
+    "source": 6
+   },
+   {
+    "fact": "Binance ETHUSDT 30-day realised volatility: the standard deviation of 29 daily log returns of closed daily closes from 2026-10-18 to 2026-11-16 is 0.0315 (computed from the Binance klines API; the 2026-11-17 partial candle excluded).",
+    "source": 4
+   },
+   {
+    "fact": "The price is 10.7% below the 1600 threshold (ln(1600/1792.43) = -0.114), about 3.6 times the 30-day daily standard deviation of 0.0315.\nAbout 102 hours remain from 10:37 UTC on 2026-11-17 to 17:00 UTC on 2026-11-22.",
+    "source": 3
+   },
+   {
+    "fact": "Ether ETFs had $2.35 billion of net outflows over the seven weeks to 12 Nov 2026, per the Cryptobriefing report that day.",
+    "source": 8
+   },
+   {
+    "fact": "On 10 Nov 2026 Fed Governor Waller said he was leaning toward a December rate hike regardless of whether October inflation eases.",
+    "source": 9
+   },
+   {
+    "fact": "On 10 Nov 2026 Waller said policymakers should consider a half-point hike if core CPI comes in around 0.3% or higher, which is a larger move than the 25 bp hike he backed.",
+    "source": 9
+   },
+   {
+    "fact": "The Binance ETHUSDT last price was 1792.43 USDT at 2026-11-17 10:37 UTC, the spot read used here, which sits about 10.8% above 1600.",
+    "source": 3
+   },
+   {
+    "fact": "As of the ethereum.org Glamsterdam roadmap page, last updated 2026-10-16, the upgrade is listed for Q4 2026 with no confirmed mainnet date, so no scheduled Ethereum mainnet upgrade is confirmed for 2026-11-17 to 2026-11-22.",
+    "source": 10
+   },
+   {
+    "fact": "The CoinShares research page's fund-flow section was last updated 2026-06-01 and shows no current Ethereum weekly flow figure, so it cannot confirm ETH fund flows for November 2026.",
+    "source": 11
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.1973,
+  "research_failed": null,
+  "research_seconds": 195.5,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "1796.39 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+    ],
+    "title": "Trade ETH/USDT Spot | Binance",
+    "url": "https://www.binance.com/en/trade/ETH_USDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+    ],
+    "title": "Binance Spot API: Market Data endpoints",
+    "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The price of Ethereum (ETH) is $1,794.58 today with a 24-hour trading volume of $10,950,921,942.02."
+    ],
+    "title": "Ethereum (ETH) price, charts and market data | CoinGecko",
+    "url": "https://www.coingecko.com/en/coins/ethereum",
+    "verified": false
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "{\"symbol\":\"ETHUSDT\",\"price\":\"1795.07000000\"}",
+     "{\"symbol\":\"ETHUSDT\",\"price\":\"1792.43000000\"}"
+    ],
+    "title": "Binance public API: ETHUSDT ticker price",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "[1794787200000,\"1835.35000000\",\"1866.89000000\",\"1787.11000000\",\"1820.67000000\""
+    ],
+    "title": "Binance API: ETHUSDT 1-day klines (last two candles)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=2",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "October 2026 | Nov.\n10, 2026 | 08:30 AM",
+     "November 2026 | Dec.\n10, 2026 | 08:30 AM"
+    ],
+    "title": "BLS CPI release schedule",
+    "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "verified": true
+   },
+   {
+    "published": "2026-11-12",
+    "quotes": [
+     "December 8-9*"
+    ],
+    "title": "Federal Reserve FOMC calendars",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Ethereum extends losses as Fed's Waller puts a larger rate hike on the table and US CPI remains hot",
+    "url": "https://investinglive.com/cryptocurrency/ethereum-extends-losses-as-fed-s-waller-puts-a-larger-rate-hike-on-the-table-and-us-cpi-remains-hot/",
+    "verified": null
+   },
+   {
+    "published": "2026-11-12",
+    "quotes": [
+     "Investors have pulled $2.35 billion out of Ether ETFs over the past seven weeks."
+    ],
+    "title": "Ether ETFs See $2.35 Billion Outflows Over Seven Weeks",
+    "url": "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "Waller said he is leaning toward a December rate hike regardless of whether October inflation eases.",
+     "Christopher Waller said policymakers should consider a half-point hike if core CPI comes in around 0.3% or higher."
+    ],
+    "title": "Bitcoin slides toward $74K as Fed's Waller backs a December rate hike",
+    "url": "https://cryptobriefing.com/bitcoin-74k-fed-waller-december-rate-hike/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-16",
+    "quotes": [
+     "Q4 2026 \u00b7 Date not yet confirmed"
+    ],
+    "title": "Glamsterdam upgrade, ethereum.org",
+    "url": "https://ethereum.org/roadmap/glamsterdam/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Last update: 01 Jun 2026"
+    ],
+    "title": "CoinShares research data, fund flows section",
+    "url": "https://www.coinshares.com/us/insights/research-data/",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "SoSoValue US spot ETH ETF flows (could not open: HTTP 403)",
+    "url": "https://sosovalue.com/assets/etf/us-eth-spot",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Farside Ethereum ETF flow data (could not open: HTTP 403)",
+    "url": "https://farside.co.uk/ethereum-etf-flow-all-data/",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The Binance ETHUSDT figures are API reads at 10:37 UTC, not the Binance trade page; the page's own timestamp was not visible in earlier reads.",
+   "The investinglive article (Waller rate-hike and hot CPI) returned HTTP 403, so its content is unverified; a search snippet also claimed November US spot ETH ETF outflows of $549.7 million over eight trading days, which I could not confirm from a primary page.",
+   "I found no ETF flow data for the last 48 hours on a primary source (SoSoValue, CoinShares or issuer pages were not opened), so the current flow trend is unknown.",
+   "No token unlock, court date or protocol event inside the window was found; I did not check Ethereum network-upgrade or unlock calendars.",
+   "The 30-day volatility uses 29 returns from closed daily candles only; a shorter 20-day window would give a different figure.",
+   "The Binance spot read (1792.43 at 10:37 UTC) came from the earlier API read and I did not reopen the endpoint, so its quote field is empty."
+  ]
+ },
+ "polymarket-7085204": {
+  "against": "For the No outcome: through 2026-11-17 10:26 UTC, Binance's own 1-minute ETHUSDT data for the elapsed part of the window (from 2026-11-16 05:00 UTC) shows a lowest Low of 1787.11 at 2026-11-16 12:29 UTC, and no candle came within 16.1% of 1,500.\nThe Binance 1-minute series is the resolution data, so this is the settling price path itself, not a proxy.\nAbout 138.6 hours of the window (to 2026-11-23 04:59 UTC) remain, and the price would need to fall about 16% below its last print in that time to resolve Yes.",
+  "base_rate": "Reference class: 7-day windows in Binance ETHUSDT daily candles where the low fell at least 16.4% below the window-start close (the drop from 1793.61 to 1500).\nMy own count from the Binance daily API, using daily lows as a proxy for 1-minute lows: 2019-09-01 to 2026-11-17, 290 of 2,627 windows (11.0%); 2021\u20132026, 236 of 2,139 (11.0%); 2023\u20132026, 94 of 1,409 (6.7%).\nDaily lows understate intraday wicks slightly, and windows start from daily closes, not the live price.",
+  "brief": "The market resolves Yes if any Binance ETH/USDT 1-minute candle has a final Low at or below 1,500 between 12:00 AM ET 2026-11-16 and 11:59 PM ET 2026-11-22. Binance ETHUSDT was 1795.36 at 2026-11-17 10:26 UTC (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT), about 16.4% above the threshold. Across the 1,767 one-minute candles from 2026-11-16 05:00 UTC to 2026-11-17 10:26 UTC, the lowest final Low was 1787.11 at 2026-11-16 12:29 UTC, so nothing has come close so far (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&startTime=1794805200000&endTime=1794911160000&limit=1000). About 138.6 hours of the window remain. Thirty-day daily log volatility is about 3.1%, so the 7-day sd is about 8.2% and the 1,500 level is about 2.2 times that; the 16-17% drop must happen in the remaining roughly 5.8 days. The historical base rate, counted from Binance daily lows as a proxy, is 11.0% of 7-day windows since 2019 and 6.7% since 2023 for a drop of at least 16.4% from the window-start close; those windows start fresh, whereas this one already has about 29 hours elapsed without a deep wick. Different this time: US spot ETH ETFs had about $2.35B of outflows over seven weeks to 2026-11-12 (https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/), US October CPI was hot at +0.4% (https://www.bls.gov/news.release/cpi.nr0.htm, 2026-11-10), and Fed Governor Waller floated a larger hike. The next FOMC meeting is 2026-12-08/09 and the next CPI is 2026-12-10, both after the window. A liquidation cascade, an exchange or ETF shock or a sharp macro surprise would raise the chance; steady trading above 1,700 through the week would remove it. Unknowns: the 1,500 wick risk beyond what volatility implies, and some news snippets near 1,900-1,979 conflict with the Binance prints.",
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": "The window (2026-11-16 05:00 UTC to 2026-11-23 04:59 UTC) has already run about 29.4 hours.\nIts elapsed part printed a daily low of 1787.11 (11-16 candle, proxy), so no 1-minute low at or below 1500 is known so far.\nRemaining time is about 138.6 hours.\nDistance from 1795.36 to 1500 is -16.4% (ln -0.179), which is about 2.2 times the 7-day volatility implied by the 30-day daily vol of 0.031 (7-day sd about 0.082).\nThese are facts, not a forecast.\nPressure to the downside: ETF outflows in November (several news sources, unopened) and a hot CPI with talk of a Fed hike.\nPressure against: the Binan",
+  "facts": [
+   {
+    "fact": "Binance ETHUSDT ticker price was 1795.36 USDT at 2026-11-17 10:26 UTC (api.binance.com/api/v3/ticker/price).",
+    "source": 0
+   },
+   {
+    "fact": "Binance's Spot API defines klines by open time, so a 1m candle is identified by its open timestamp.",
+    "source": 1
+   },
+   {
+    "fact": "The Binance ETHUSDT 1d kline for 2026-11-16 00:00 UTC had a close of 1820.67 USDT and the current 2026-11-17 candle (still open) showed close 1794.46 at the last read.",
+    "source": 0
+   },
+   {
+    "fact": "From Binance 1d closes, the standard deviation of the 30 daily log returns ending 2026-11-16 is about 0.0311.",
+    "source": 0
+   },
+   {
+    "fact": "Binance ETHUSDT last price was 1793.57 USDT at about 10:26 UTC on 2026-11-17.",
+    "source": 2
+   },
+   {
+    "fact": "The Binance ETH/USDT trade page title, read at the same time, showed 1796.91, and the page showed a 'Disconnected' status, so that figure may be stale.",
+    "source": 0
+   },
+   {
+    "fact": "The Binance daily ETHUSDT candle for 2026-11-16 (UTC) opened at 1835.35, high 1866.89, low 1787.11, close 1820.67.",
+    "source": 3
+   },
+   {
+    "fact": "The 30-day standard deviation of daily log returns of Binance ETHUSDT daily closes (2026-10-18 to 2026-11-17, my calculation) is 0.031; the last close is the partial current-day candle.",
+    "source": 3
+   },
+   {
+    "fact": "CoinGecko's ETH/USD series gave 1792.40 USD at about 10:25 UTC on 2026-11-17, consistent with Binance.",
+    "source": 4
+   },
+   {
+    "fact": "Binance ETHUSDT ticker price was 1795.36 USDT at 2026-11-17 10:26 UTC.",
+    "source": 2
+   },
+   {
+    "fact": "The Binance ETHUSDT 1d candle for 2026-11-16 (UTC) had low 1787.11, high 1866.89, open 1835.35, close 1820.67.\nBecause the window opened 2026-11-16 05:00 UTC, this day is partly inside the window; the daily low is a proxy for the 1-minute low, and whether the low came before or after 05:00 UTC is not shown.",
+    "source": 3
+   },
+   {
+    "fact": "The Federal Reserve's December 2026 calendar page lists a 'Two-day meeting, December 8 - 9', which is after the 2026-11-22 resolution window.\nThe page itself shows 'Last Update: June 24, 2025', so its currency is doubtful.",
+    "source": 5
+   },
+   {
+    "fact": "A news summary dated around 2026-11-13 reports ETH slumping toward $1,900 during a liquidation wave, and a live Deribit snapshot showed about $1,979 on 2026-11-17 with an unclear timestamp.\nThis conflicts with the Binance print of 1795.36 at 10:26 UTC on 2026-11-17.",
+    "source": 6
+   },
+   {
+    "fact": "A news summary reports that US spot ETH ETFs had about $695.9 million of net outflows in November through the 11th (different providers give $507M to $549.7M), with ETHA driving much of the selling, and a hot US CPI print with Fed Governor Waller floating a larger rate hike.\nThese figures came from search snippets, not from an opened page.",
+    "source": 6
+   },
+   {
+    "fact": "Across the 1,767 one-minute ETHUSDT candles on Binance from 2026-11-16 05:00 UTC to 2026-11-17 10:26 UTC, the lowest final Low was 1787.11 USDT, at 2026-11-16 12:29 UTC.",
+    "source": 7
+   },
+   {
+    "fact": "The 1,500 threshold is 16.1% below that lowest 1-minute Low of 1787.11, so no candle in the elapsed part of the window came within 16.1% of the threshold.",
+    "source": 7
+   },
+   {
+    "fact": "The latest Binance ETHUSDT 1-minute candle (open 2026-11-17 10:26 UTC, still open at the read) had a close of 1793.56 USDT.",
+    "source": 7
+   },
+   {
+    "fact": "Binance ETHUSDT ticker price was 1793.30 USDT in this read on 2026-11-17 (the read time was not captured; the earlier print was 1795.36 at 10:26 UTC).",
+    "source": 2
+   },
+   {
+    "fact": "Binance's 1d candle for 2026-11-17 UTC (still open at read) shows open 1820.68, high 1843.49, low 1790.00, and last close 1793.30.",
+    "source": 8
+   },
+   {
+    "fact": "Binance 1m ETHUSDT candles from 2026-11-16 05:00 UTC to 2026-11-17 10:26 UTC (1,767 candles across two requests): the lowest final Low is 1787.11 at 2026-11-16 12:29 UTC, and the lowest Low in the later chunk (from 2026-11-16 22:...\nto 10:26 UTC on 11-17) is 1790.00 at 2026-11-17 10:24 UTC.\nNo 1m low at or below 1500 has printed.",
+    "source": 10
+   },
+   {
+    "fact": "The BLS October 2026 CPI-U rose 0.4 percent seasonally adjusted, in a release dated Tuesday, November 10, 2026 (8:30 a.m.\nET embargo lift).",
+    "source": 9
+   },
+   {
+    "fact": "The standard deviation of the 30 daily log returns of Binance ETHUSDT 1d closes ending 2026-11-17 (last close is the partial candle) is 0.031.",
+    "source": 8
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.1657,
+  "research_failed": null,
+  "research_seconds": 227.4,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "1794.26 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+     "1796.91 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+    ],
+    "title": "Trade ETH/USDT Spot | Binance (page title as fetched)",
+    "url": "https://www.binance.com/en/trade/ETH_USDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+    ],
+    "title": "Binance Spot API: Market Data endpoints (Kline/Candlestick)",
+    "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "{\"symbol\":\"ETHUSDT\",\"price\":\"1793.57000000\"}",
+     "{\"symbol\":\"ETHUSDT\",\"price\":\"1793.30000000\"}"
+    ],
+    "title": "Binance public API: ETHUSDT ticker price",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "[1794787200000,\"1835.35000000\",\"1866.89000000\",\"1787.11000000\",\"1820.67000000\""
+    ],
+    "title": "Binance public API: ETHUSDT daily klines",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=3",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "[1794911130000,1792.3968310076161]"
+    ],
+    "title": "CoinGecko API: Ethereum market chart, 31 days daily",
+    "url": "https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=31&interval=daily",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Federal Reserve Board, December 2026 calendar",
+    "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "investingLive: Ethereum extends losses as Fed's Waller puts a larger rate hike on the table and US CPI remains hot",
+    "url": "https://investinglive.com/cryptocurrency/ethereum-extends-losses-as-fed-s-waller-puts-a-larger-rate-hike-on-the-table-and-us-cpi-remains-hot/",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [],
+    "title": "Binance Spot API klines, ETHUSDT 1m, 2026-11-16 05:00 UTC to 2026-11-17 10:26 UTC (two calls, 1000 + 767 candles)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&startTime=1794805200000&endTime=1794911160000&limit=1000",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "\"1843.49000000\",\"1790.00000000\",\"1793.30000000\""
+    ],
+    "title": "Binance Spot API: ETHUSDT 1d kline, current 2026-11-17 candle",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1",
+    "verified": null
+   },
+   {
+    "published": "2026-11-13",
+    "quotes": [
+     "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October"
+    ],
+    "title": "BLS: Consumer Price Index news release (October 2026 data)",
+    "url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Binance Spot API: ETHUSDT 1m klines, 2026-11-16 to 2026-11-17 window (second chunk)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&startTime=1794865200000&endTime=1794911160000&limit=1000",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The 1795.36 Binance print conflicts with news and Deribit snippets near 1,900 to 1,979 on 2026-11-13 to 11-17; the timestamps of those snippets are unclear.",
+   "The 30-day daily vol of 0.031 comes from the prior pass's Binance daily closes; I did not recompute it.\nThe touch chance was not stated as a probability, per the no-forecast rule.",
+   "The 11-16 daily low of 1787.11 is only a proxy.\nIntraday 1-minute lows in the elapsed part of the window (from 05:00 UTC on 11-16 to now) were not read, so the true lowest printed price inside the window is unknown.",
+   "The Fed page is dated June 2025 and does not confirm the December 2026 meeting date; the date comes from search snippets only.",
+   "investingLive returned HTTP 403, so the Waller and CPI claims are unverified by an opened page.",
+   "The 1-minute check covers only the elapsed part of the window (to 2026-11-17 10:26 UTC); the remaining ~138.6 hours are unobserved, and the answer can still change."
+  ]
+ },
+ "polymarket-7088768": {
+  "against": "The strongest case for Yes rests on timing rather than on any full-lid label.\nThe one comparable day I could open, Wednesday 19 Nov 2025, shows the White House calling a lid at 6:17 p.m.\nET, which falls inside a 6:30 p.m.\ncutoff, though its type is not stated (source 0).\nEvening lids on recent 2026 pages also fall before 6:30 p.m., for example a travel/photo lid at 18:01 on 5 Nov 2026 as recorded in the evidence pass, so an evening lid on 19 Nov would not be too late by the clock alone.\nA 2023 explainer says the term 'full lid' can be used as another name for a lid that ends the day (source 1), so a lid called on that evening could be read as full if the pool calls it so.",
+  "base_rate": "No count obtained.\nI could not get a reliable count of full lids per day from primary data.\nThe Roll Call month pages I opened (October, November, July and August 2026) were truncated, and the fetch tool returned no 'Full lid called' line on any of them, which conflicts with a search summary claiming full lids on 30 May, 26 June, 2 August and 6 August 2026.\nI did not open those dated entries, so they are unverified.\nThe White House's own lid definition and past release-day counts were not checked, so no reference-class frequency or period is given.",
+  "brief": "The market resolves Yes if the White House calls a full lid for 2026-11-19 by 6:30 PM ET, timed by the first full lid in Roll Call's Factbase Trump calendar (https://rollcall.com/factbase/trump/calendar/), with Forth's White House Pool as a fallback. Lunch lids, intermissions and other non-full lids do not count. As of 2026-11-17 Roll Call already lists Thursday 2026-11-19 as its latest entry, but no schedule, trip or event for that day was found, and the calendar's update rule is midnight ET or social-media push, whichever is earlier. Recent evidence on evening lids: 2026-11-05 had a lunch lid until 13:00 and a travel/photo lid at 18:01 (https://www.presidency.ucsb.edu/documents/pool-reports-november-5-2026); 2026-11-12 had a lunch lid until 1 p.m. and an evening lid of unstated type (https://www.presidency.ucsb.edu/documents/pool-reports-november-12-2026); 2026-11-13 had a lunch lid and a later lid at 9:05 p.m. (https://www.presidency.ucsb.edu/documents/pool-reports-november-13-2026). On 2025-11-19 a lid was called at 6:17 p.m. with type unstated (https://www.presidency.ucsb.edu/documents/pool-reports-november-19-2025). The Roll Call month pages opened (Oct, Nov 2026, July, Aug, June 2026, Nov 2025) showed no 'Full lid called' entry, though a search summary claimed such entries on a few dates, so the base rate of full lids before 6:30 PM could not be counted. A lid can also be lifted after it is called. A published 2026-11-19 schedule showing no public events, or a mid-afternoon lid on the pool feed, would raise the answer; an evening dinner, trip or event would lower it.",
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": "Nothing specific to 19 Nov 2026 stood out: I found no announced trip, event or Roll Call entry for that day beyond the calendar listing.\nThe recent evening calls I could open (5 Nov travel/photo lid at 18:01; 12 Nov evening lid with no type stated) are not labelled as full lids, so the recent pattern of evening calls on these pages does not show a full-lid label.\nBoth pages are pool-report archives, not White House Press Office releases, so the label is taken from the archive's transcription.",
+  "facts": [
+   {
+    "fact": "Roll Call's Trump calendar says schedule updates post at midnight Eastern Time or when pushed out via social media, whichever is earlier; the page shows no publication date.",
+    "source": 0
+   },
+   {
+    "fact": "As opened on 2026-11-17, the Roll Call Trump calendar's most recent listed entry is Thursday, November 19, 2026, so the target date is already on the page.",
+    "source": 0
+   },
+   {
+    "fact": "Forth's White House Pool page describes its feed as giving White House Pool updates as soon as they post; the page shows no publication date.",
+    "source": 1
+   },
+   {
+    "fact": "Roll Call's Trump calendar says the schedule updates at midnight Eastern Time or when pushed out via social media, whichever is earlier.",
+    "source": 0
+   },
+   {
+    "fact": "On the Roll Call November 2026 calendar page as fetched, the lid entries from 2 to 15 November 2026 are lunch, dinner and travel/photo lids; I found no 'Full lid called' entry on that page.",
+    "source": 2
+   },
+   {
+    "fact": "On Wednesday 12 Nov 2026 the White House called a lunch lid until 1 p.m., and the pool report records an evening lid with no lid type stated; the day's listed events run from 8:00 AM to a 4:00 PM Oval Office policy meeting.",
+    "source": 3
+   },
+   {
+    "fact": "On Thursday 5 Nov 2026 the White House press office announced a lunch lid at 12:00 until 13:00, and a travel/photo lid for the evening at 18:01.",
+    "source": 4
+   },
+   {
+    "fact": "In Roll Call's November 2025 calendar, the evening lid on Sunday 30 Nov 2025 at 6:06 PM is a 'Travel/Photo lid', not a full lid; the page has no 'Full lid' entry.",
+    "source": 5
+   },
+   {
+    "fact": "I found no published White House, Roll Call or pool-report schedule for Thursday 19 Nov 2026 as of 2026-11-17; the most recent pool reports I could open are for 5 and 12 Nov 2026.",
+    "source": 3
+   },
+   {
+    "fact": "On Wednesday 19 Nov 2025, the White House called a lid at 6:17 p.m.\nin the pool reports, with the lid type not stated in the quoted sentence, so it is not shown to be a full lid.",
+    "source": 6
+   },
+   {
+    "fact": "A 2023 explainer states that a called lid can be lifted after it is called, which is a rare case tied to a major news event, so a full lid called before 6:30 PM ET would not necessarily end all news for the day.",
+    "source": 7
+   },
+   {
+    "fact": "The American Presidency Project's pool-report page for 19 Nov 2025 gives no publication date, so its timing cannot be confirmed as same-day.",
+    "source": 6
+   },
+   {
+    "fact": "The Roll Call Trump calendar's June 2026 page, as fetched, lists a 'Travel/Photo lid called' entry at 7:56 PM on Tuesday 30 June 2026 and no 'Full lid called' entry in the text returned.",
+    "source": 8
+   },
+   {
+    "fact": "Roll Call's Trump calendar states that schedule updates post at midnight Eastern Time or when pushed out via social media, whichever is earlier; the fetched page shows no publication date.",
+    "source": 8
+   },
+   {
+    "fact": "The American Presidency Project's pool report for 13 Nov 2026 records a lunch lid until 1 p.m.\nand a later evening lid at 9:05 p.m.\nwhose type is not stated; this reported report date is 13 Nov 2026 and the page shows no publication date.",
+    "source": 9
+   },
+   {
+    "fact": "A 2023 explainer dated 2023-10-10 says a 'full lid' is another name for a lid meaning no more news is expected that day, and that a lid is occasionally lifted after a major event.",
+    "source": 7
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.2249,
+  "research_failed": null,
+  "research_seconds": 174.7,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "Schedule updates at midnight Eastern Time, or when pushed out via social media, whichever is earlier."
+    ],
+    "title": "Roll Call Factbase: Trump calendar",
+    "url": "https://rollcall.com/factbase/trump/calendar/",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Get White House Pool updates as soon as they post."
+    ],
+    "title": "Forth: White House Pool",
+    "url": "https://www.forth.news/whpool",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "White House Press Office: Travel/Photo lid called"
+    ],
+    "title": "Roll Call Factbase: Trump calendar, November 2026",
+    "url": "https://rollcall.com/factbase/trump/calendar/november-2026/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-12",
+    "quotes": [
+     "The White House has called a lunch lid until 1 p.m.",
+     "The White House has called a lid.\nHave a great evening."
+    ],
+    "title": "Pool reports, November 12, 2026 (American Presidency Project)",
+    "url": "https://www.presidency.ucsb.edu/documents/pool-reports-november-12-2026",
+    "verified": true
+   },
+   {
+    "published": "2026-11-05",
+    "quotes": [
+     "The White House press office at 1200 announced a lunch lid until 1300.",
+     "At 1801 the White House press office announced a travel/photo lid for the evening."
+    ],
+    "title": "Pool reports, November 5, 2026 (American Presidency Project)",
+    "url": "https://www.presidency.ucsb.edu/documents/pool-reports-november-5-2026",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "White House Press Office: Travel/Photo lid called",
+     "6:06 PM"
+    ],
+    "title": "Trump calendar, November 2025 (Roll Call Factbase)",
+    "url": "https://rollcall.com/factbase/trump/calendar/november-2025/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The WH called a lid at 6:17 p.m."
+    ],
+    "title": "Pool reports of November 19, 2025 (American Presidency Project)",
+    "url": "https://www.presidency.ucsb.edu/documents/pool-reports-november-19-2025",
+    "verified": true
+   },
+   {
+    "published": "2023-10-10",
+    "quotes": [
+     "Presidential campaigns can also call a lid, and it has the same meaning in that context.",
+     "There are also rare circumstances where a lid may get lifted because of a major news event that happens after one is called.",
+     "Presidential campaigns can also call a lid, and it has the same meaning in that context.\nIt can also be called a \"full lid.\""
+    ],
+    "title": "Joe Biden Called a Lid: What It Means for the White House and Media",
+    "url": "https://www.distractify.com/p/what-does-it-mean-to-call-a-lid",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Schedule updates at midnight Eastern Time, or when pushed out via social media, whichever is earlier.",
+     "White House Press Office: Travel/Photo lid called"
+    ],
+    "title": "Roll Call Factbase, Trump calendar, June 2026",
+    "url": "https://rollcall.com/factbase/trump/calendar/june-2026/",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "WH called a lid at 9:05 p.m."
+    ],
+    "title": "Pool reports, November 13, 2026 (American Presidency Project)",
+    "url": "https://www.presidency.ucsb.edu/documents/pool-reports-november-13-2026",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "No schedule or travel announcement for 19 Nov 2026 was found; the day's events are unknown and could change the answer in either direction.",
+   "The 12 Nov 2026 evening lid's type is not stated in the page text, so it cannot be classed as full or not.",
+   "The Roll Call page I opened for November 2025 does not show whether it prints lid times for every lid, and I did not confirm the calendar's 6:30 PM ET cutoff field exists.",
+   "A search snippet claimed a lid at 9:05 p.m.\non 13 Nov 2026 in a Washington Examiner pool report; I did not open that page, so it is not used as a fact.",
+   "The White House's own definition of a full lid and any count of full lids per day in 2026 were not checked.",
+   "No schedule, trip or Roll Call entry for Thursday 19 Nov 2026 was found as of 2026-11-17; the day's events could change the answer either way."
+  ]
+ },
+ "polymarket-7088823": {
+  "against": "Google is third only while it stays above Z.ai (7.0%) and Anthropic (6.3%) and below OpenAI (19.0%) in the Nov 9 week.\nA reversal of its single-week jump would move it, since the page shows Google up 14% week on week to 15.1%, and the June 2026 OfficeChai ranking put Google third on a token-volume basis at 13.2% (2026-06-04).\nIf Google rose 3.9 points past OpenAI, it would become second and OpenAI would take third, so Google would not hold third even with no loss of share.\nThe Pangram and OpenRouter decline reported in August 2026 (2026-08-12) points to a downward trend for Gemini, though that is a different measure.",
+  "base_rate": "Reference class: weekly OpenRouter Market Share rankings by lab (text-request share).\nCounted: 1 week opened on the official page, the week beginning Nov 9, 2026, where Google ranked 3rd (15.1%, behind DeepSeek and OpenAI).\nI could not open a complete historical series of weekly lab rankings, so I cannot give a count of how often Google was 3rd over a longer period.\nThe Codesota snapshot (2026-04-14) is third-party and does not give a full lab ranking, so it is not counted.\nA week-by-week archive of the chart would be needed to produce a real base rate.",
+  "brief": "The market asks which lab ranks third by displayed Percentage share on the OpenRouter Market Share chart for the week of Nov 16-22, 2026, skipping 'stealth' and 'Others' (https://openrouter.ai/rankings). In the latest displayed week (beginning Nov 9, usage data through Nov 16), the chart shows DeepSeek 31.8%, OpenAI 19.0%, Google 15.1% (up 14% on the week), Z.ai 7.0%, Anthropic 6.3%, Qwen 6.2% (https://openrouter.ai/rankings?view=week). Google is third, 3.9 points behind OpenAI and 8.1 points ahead of Z.ai. No Nov 16-22 figures were yet displayed, and resolution uses the figures shown once the Nov 23 week appears or by 11:59 PM ET on 2026-11-27. No historical base rate was counted because only one weekly lab ranking was opened; the digest could not say how stable third place has been. Different this time: Gemini 4 Carbon (2026-11-10) and Gemini 4 Hydrogen (2026-11-12) became generally available just before the resolution week (https://aistudio.google.com/docs/changelog), which raises the chance Google closes the gap to OpenAI and becomes second, leaving OpenAI third. A second route to a different answer is Google falling below Z.ai or Anthropic, which would need its share to halve and looks unlikely. A search snippet, not opened, dated the 31.8% DeepSeek figure to the week of Nov 2, and August 2026 reports of a Gemini decline use a different measure (https://the-decoder.com/googles-gemini-is-losing-market-share-to-chatgpt-and-claude-according-to-new-market-data/). The first Nov 16-22 reading, or a new OpenAI release, would change the answer.",
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": "The Nov 9 week shows Google 3rd at 15.1%, but the gap to OpenAI (19.0%) is about 3.9 points and the gap to Google's neighbour Z.ai (7.0%) is about 8.1 points, so a shift of a few points in OpenAI or Google share would not change the rank by itself.\nThe Nov 9 figure shows Google up 14 points on the prior week, which suggests recent volatility.\nThe page is a moving weekly view, so the Nov 16\u201322 figure is not yet visible.\nThe Aug 2026 report points to a decline in Gemini usage elsewhere, which pushes against Google holding 3rd.\nNo scheduled event before Nov 24 was found in the sources read.",
+  "facts": [
+   {
+    "fact": "As of 2026-11-17, the rankings page's latest market-share week is the week beginning Nov 9, 2026, with usage data through Nov 16, 2026.\nThe page shows no week of Nov 16\u201322 yet.",
+    "source": 0
+   },
+   {
+    "fact": "In the week beginning Nov 9, 2026, the page lists DeepSeek 31.8%, OpenAI 19.0%, Google 15.1%, Z.ai 7.0%, Anthropic 6.3%, Qwen 6.2%, Mistral 2.6%, Tencent 2.3%, Nvidia 1.6%, and All other authors 8.2%.\nGoogle is third at 15.1%.",
+    "source": 0
+   },
+   {
+    "fact": "The weekly view confirms the market-share summary covers the week beginning Nov 9, 2026.\nThe page shows no publication date, only '\u00a9 2026 OpenRouter, Inc.'",
+    "source": 1
+   },
+   {
+    "fact": "A web search snippet reported DeepSeek at 31.8% for the week beginning Nov 2, 2026, which conflicts with the Nov 9 week shown on the page opened directly.\nThe page opened directly is treated as the current value.",
+    "source": 0
+   },
+   {
+    "fact": "In the OpenRouter Market Share chart for the week beginning Nov 9, 2026 (usage data through Nov 16, 2026), by share of text requests: DeepSeek 31.8%, OpenAI 19.0%, Google 15.1%, Z.ai 7.0%, Anthropic 6.3%.",
+    "source": 0
+   },
+   {
+    "fact": "A Codesota snapshot dated 2026-04-14 reports Google at about 13%, Anthropic at about 12% and OpenAI at about 10% of OpenRouter share, with Google's rank among all labs not stated in the text I could read.",
+    "source": 2
+   },
+   {
+    "fact": "The OpenRouter Market Share chart (week view) displayed on 2026-11-17 has its latest week as the week beginning Nov 9, 2026, with usage data through Nov 16, 2026, and no Nov 16\u201322 week yet.\nIn that week Google is third at 15.1% (+14%), behind DeepSeek at 31.8% and OpenAI at 19.0%.",
+    "source": 1
+   },
+   {
+    "fact": "A Pangram-based report published 2026-08-12 says Gemini fell from 12 percent to 1.9 percent in July 2026, and says OpenRouter data also shows the decline.\nThis is a different measure from OpenRouter's text-request share, so it does not directly set Google's OpenRouter rank.",
+    "source": 3
+   },
+   {
+    "fact": "In the week beginning Nov 9, 2026 (usage data through Nov 16), Google held 15.1% of text requests, up 14% week on week, and ranked 3rd behind DeepSeek (31.8%) and OpenAI (19.0%).",
+    "source": 1
+   },
+   {
+    "fact": "On 2026-11-17 the rankings page showed no Nov 16\u201322 week, so the Nov 9 snapshot is the only OpenRouter Google figure available.",
+    "source": 1
+   },
+   {
+    "fact": "On 2026-06-04 OfficeChai reported Google third at 13.2% of token volume, with OpenAI at 8.7%, a different measure from text-request share and a different period.",
+    "source": 4
+   },
+   {
+    "fact": "On 2026-08-12 The Decoder reported Pangram data showing Gemini falling from 12% to 1.9% in July 2026, and said OpenRouter data showed a similar decline.",
+    "source": 3
+   },
+   {
+    "fact": "In the week beginning Nov 9, 2026, the gap between OpenAI (19.0%) and Google (15.1%) was 3.9 points, and the gap between Google and Z.ai (7.0%) was 8.1 points, both derived from the rankings page.",
+    "source": 1
+   },
+   {
+    "fact": "Google AI Studio's Gemini API changelog lists Gemini 4 Carbon (gemini-4-carbon) as generally available on November 10, 2026, and Gemini 4 Hydrogen (gemini-4-hydrogen) as generally available on November 12, 2026, both before the Nov 16\u201322 resolution week.",
+    "source": 5
+   },
+   {
+    "fact": "A Respan article dated November 10, 2026 puts Google at 9% of enterprise LLM API spend, behind Anthropic and OpenAI.\nThis is an enterprise spend measure, not OpenRouter text-request share, so it does not set Google's OpenRouter rank.",
+    "source": 6
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.1508,
+  "research_failed": null,
+  "research_seconds": 164.2,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "The Market Share chart shows each model author's share of text requests on OpenRouter,",
+     "Usage data through Nov 16, 2026",
+     "DeepSeek leads at 31.8% of the week's requests.",
+     "Share of text requests made on OpenRouter in the week beginning Nov 9, 2026"
+    ],
+    "title": "AI Model Rankings \u2014 OpenRouter",
+    "url": "https://openrouter.ai/rankings",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Share of text requests made on OpenRouter in the week beginning Nov 9, 2026",
+     "DeepSeek leads at 31.8% of the week's requests.",
+     "Usage data through Nov 16, 2026.",
+     "Share of text requests made on OpenRouter in the week beginning Nov 9, 2026,",
+     "Model authors ranked by their share of text requests on OpenRouter in the most recent complete week"
+    ],
+    "title": "AI Model Rankings (weekly view) \u2014 OpenRouter",
+    "url": "https://openrouter.ai/rankings?view=week",
+    "verified": false
+   },
+   {
+    "published": "2026-04-14",
+    "quotes": [
+     "Google's share fell from ~37% \u2192 ~13%.",
+     "OpenAI held roughly flat at ~10% share."
+    ],
+    "title": "Codesota: One year of weekly OpenRouter token data (snapshot 2026-04-14)",
+    "url": "https://www.codesota.com/agentic/openrouter-trends",
+    "verified": false
+   },
+   {
+    "published": "2026-08-12",
+    "quotes": [
+     "Gemini dropped from 12 percent to just 1.9 percent in July 2026",
+     "OpenRouter data shows a similar decline."
+    ],
+    "title": "Google's Gemini is losing market share to ChatGPT and Claude, according to new market data",
+    "url": "https://the-decoder.com/googles-gemini-is-losing-market-share-to-chatgpt-and-claude-according-to-new-market-data/",
+    "verified": false
+   },
+   {
+    "published": "2026-06-04",
+    "quotes": [
+     "Google is third with 13.2% of volume, driven primarily by the Gemini family.",
+     "The gap between OpenAI\u2019s 8.7% share and DeepSeek\u2019s 16.3% is a signal worth paying attention to."
+    ],
+    "title": "These Are The Most Popular AI Model Companies On OpenRouter [June 2026]",
+    "url": "https://officechai.com/ai/these-are-the-most-popular-ai-model-companies-on-openrouter-june-2026/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-12",
+    "quotes": [
+     "Gemini 4 Hydrogen (`gemini-4-hydrogen`) generally available (GA)",
+     "Gemini 4 Carbon (`gemini-4-carbon`) generally available (GA)"
+    ],
+    "title": "Gemini API changelog (Google AI Studio)",
+    "url": "https://aistudio.google.com/docs/changelog",
+    "verified": true
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "OpenAI is at 31%, and Google is down to 9%."
+    ],
+    "title": "LLM market share (Respan)",
+    "url": "https://www.respan.ai/articles/llm-market-share",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The Nov 16\u201322 week figures are not yet displayed, and the page does not state when they will appear.",
+   "The Aug 2026 decline is a Pangram measure, not OpenRouter text-request share, so it cannot be applied directly to the OpenRouter rank.",
+   "The Nov 9 page shows Google at +14%, but I could not confirm whether that jump is a one-week spike or the start of a trend.",
+   "The reference-class history of weekly rankings was not available, so I could not check how stable Google's 3rd place has been.",
+   "I did not find a dated Nov 2026 source for Google's OpenRouter share beyond the Nov 9 week; the Vantage and Digital Applied figures in search snippets were not opened and are not cited.",
+   "The only OpenRouter text-request figure for Google is one week (Nov 9, 2026); no historical series was available, so the week-to-week stability of Google's 3rd place is unknown."
+  ]
+ },
+ "polymarket-7088838": {
+  "against": "The evidence for a lab other than Google holding second is the only displayed week: as of 2026-11-17 the chart's week of Nov 9 shows OpenAI at 19.0% (+1%) against Google at 15.1% (+14%), a gap of 3.9 points, so Google is third, not second.\nThe fetch gave no Nov 16-22 figures, so a 14% week-on-week gain would have to continue for two more weeks to close that gap, and a single week of change is a thin basis.\nTwo other points weigh on Google: DeepSeek leads by 12.8 points and has been updating its models often (an October 17, 2026 release reported only by a search snippet, not checked against DeepSeek's own pages), so DeepSeek's position is not fixed; and the chart groups 'Others' (8.2%) and any 'stealth' entry, which would be skipped if they ranked second, so the rank order of the labs that remain is what decides it.\nNote too that the week-of-Nov-9 figures came from a WebFetch paraphrase, ",
+  "base_rate": "Not counted.\nI opened only one page with lab-level weekly shares and no earlier weeks, so I have no count of past weeks in which Google ranked second on OpenRouter, and I cannot give a count or period.\nA search snippet cited an April 2026 third-party token-share snapshot (Google about 13%, Anthropic about 12%, OpenAI about 10% of top-9 tokens), but I did not open that page and it measures tokens, not the requests the chart uses.\nThe week-by-week history of the Market Share chart would be the reference class, and it still needs to be collected from the rankings page's weekly views.",
+  "brief": "The market asks which lab has the second-highest displayed Percentage share on the OpenRouter Market Share chart for the week of Nov 16-22, 2026, with 'stealth' and 'Others' skipped (https://openrouter.ai/rankings). The latest displayed week as of 2026-11-17 is the week beginning Nov 9 (usage data through Nov 16): DeepSeek 31.8%, OpenAI 19.0%, Google 15.1%, Z.ai 7.0%, Anthropic 6.3%, Qwen 6.2%, Mistral 2.6%, Tencent 2.3%, Nvidia 1.6%, Others 8.2% (https://openrouter.ai/rankings?view=week). Google is therefore third, 3.9 points behind OpenAI, and the chart shows Google up 14% on the week against OpenAI up 1%. No Nov 16-22 figures were displayed yet. Resolution uses the Nov 16-22 figures once the Nov 23 week is displayed, or by 11:59 PM ET on 2026-11-27. Different this time: Google's changelog lists Gemini 4 Carbon as generally available on 2026-11-10 and Gemini 4 Hydrogen on 2026-11-12 (https://aistudio.google.com/docs/changelog), and a GoogleWatchBlog report says Hydrogen became the new default model (https://www.googlewatchblog.de/2026/11/gemini-update-nov2026-zwei/amp/), so the full resolution week falls after both launches. Against this, only one week of lab-level shares was opened, so no base rate of rank changes was counted; Google's gap to OpenAI is large relative to a typical one-week move; and a search snippet dated DeepSeek's 31.8% to the week of Nov 2, so the week labelling is slightly uncertain. Other reports of Google's share (an April 2026 snapshot at about 13%, a June 2026 token-based third place at 13.2%, and an August Pangram-based decline) use different measures. A Nov 16-22 reading showing Google within 1-2 points of OpenAI, or a new OpenAI or DeepSeek model release, would shift the answer.",
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": "Google is third, not second, in the latest displayed week (Nov 9), 3.9 points behind OpenAI.\nIts displayed change (+14% against OpenAI's +1%) points toward Google closing that gap, and the page already shows usage data through Nov 16, so the Nov 16-22 figures should appear soon.\nPushing against Google: DeepSeek leads by 12.8 points, and the chart grouping of 'Others' (8.2%) and any 'stealth' entry would be skipped if they rank second.\nScheduled before resolution: the Nov 16-22 figures must be checked once the Nov 23-29 week is displayed, or by 11:59 PM ET on Nov 27, 2026.\nI found no other date",
+  "facts": [
+   {
+    "fact": "The Market Share chart on openrouter.ai/rankings, as fetched on 2026-11-17, shows the week beginning Nov 9, 2026 as its latest displayed week: DeepSeek 31.8%, OpenAI 19.0%, Google 15.1%, Z.ai 7.0%, Anthropic 6.3%, Qwen 6.2%, Mistral 2.6%, Tencent 2.3%, Nvidia 1.6%, Others 8.2%.",
+    "source": 0
+   },
+   {
+    "fact": "On the same fetched page, the Market Share chart's share is measured as text request share by model author, with the remaining authors grouped as Others.",
+    "source": 0
+   },
+   {
+    "fact": "The fetched rankings page shows 'Usage data through Nov 16, 2026', which the page presents as the newest usage data, not a publication date.\nThe week of Nov 16-22 was not displayed in the fetch made on 2026-11-17.",
+    "source": 0
+   },
+   {
+    "fact": "The rankings page as fetched does not show a publication date.",
+    "source": 0
+   },
+   {
+    "fact": "The OpenRouter rankings page, as fetched on 2026-11-17, showed DeepSeek leading at 31.8% of requests for the displayed week.\nThe page's usage data runs through Nov 16, 2026.\nA search snippet instead dated that 31.8% figure to the week beginning Nov 2, 2026, so the week is unclear.",
+    "source": 0
+   },
+   {
+    "fact": "The same OpenRouter rankings page, as read by WebFetch (a paraphrase, not a verbatim quote), lists the week beginning Nov 9, 2026 as OpenAI 19.0%, Google 15.1%, Z.ai 7.0%, Anthropic 6.3%, Qwen 6.2%, Mistral 2.6%, Tencent 2.3%, Nvidia 1.6%, and Others 8.2%.\nIts DeepSeek entry was not listed in that extraction, so Google's rank in that week is not settled.",
+    "source": 0
+   },
+   {
+    "fact": "OpenRouter's October 2026 data review reports that from September to October 2026, Google retained 78% of its accounts, Anthropic 74%, and OpenAI 74%.\nIt gives no lab-level share of requests or tokens for October.",
+    "source": 1
+   },
+   {
+    "fact": "In the week beginning Nov 9, 2026, the Market Share chart shows DeepSeek 31.8% (+3%), OpenAI 19.0% (+1%) and Google 15.1% (+14%) of text requests.",
+    "source": 0
+   },
+   {
+    "fact": "The rankings page states usage data runs through Nov 16, 2026, but the latest displayed week in the 2026-11-17 fetch is still the week beginning Nov 9, 2026, so no Nov 16-22 share was displayed.",
+    "source": 0
+   },
+   {
+    "fact": "In the Nov 9 week, Google's displayed share (15.1%) trailed OpenAI's (19.0%) by 3.9 percentage points, and Google's share rose 14% while OpenAI's rose 1%, per the chart's change figures.",
+    "source": 0
+   },
+   {
+    "fact": "In the week beginning Nov 9, 2026, OpenAI's displayed share of text requests on the OpenRouter Market Share chart was 19.0%, above Google's 15.1%.",
+    "source": 0
+   },
+   {
+    "fact": "In the week beginning Nov 9, 2026, DeepSeek's displayed share was 31.8%, the top figure on the chart.",
+    "source": 0
+   },
+   {
+    "fact": "The rankings page as fetched on 2026-11-17 shows usage data through Nov 16, 2026, but no Nov 16-22 share figures were displayed in that fetch.",
+    "source": 0
+   },
+   {
+    "fact": "A search result (not opened) reports DeepSeek released DeepSeek-V4.1-Flash-1017 on October 17, 2026, and a later report says DeepSeek has moved to monthly updates since mid-2026; neither report was checked against DeepSeek's own announcements.",
+    "source": 2
+   },
+   {
+    "fact": "On 2026-11-17, the OpenRouter rankings week view still showed the week beginning Nov 9, 2026 as its latest week, with DeepSeek leading at 31.8% of text requests; no Nov 16-22 share figures were displayed.",
+    "source": 3
+   },
+   {
+    "fact": "GoogleWatchBlog (German, undated article in its 2026/11 URL, reported as posted about four days before the fetch, so around 2026-11-13) reports Google released Gemini 4 Hydrogen as the new default model and Gemini 4 Carbon for all users in the second Gemini week of November 2026.",
+    "source": 4
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.1588,
+  "research_failed": null,
+  "research_seconds": 157.7,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "Compare text request share by model author on OpenRouter.",
+     "Usage data through Nov 16, 2026",
+     "DeepSeek leads at 31.8% of the week's requests.",
+     "Share of text requests made on OpenRouter in the week beginning Nov 9, 2026",
+     "For the week beginning Nov 9, 2026, Google had a 15.1% share of text requests (up 14%), and OpenAI had 19.0% (up 1%)."
+    ],
+    "title": "AI Model Rankings - OpenRouter",
+    "url": "https://openrouter.ai/rankings",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "\u4ece\u4e5d\u6708\u5230\u5341\u6708\uff0c [Google](/zh-CN/google) \u4fdd\u7559\u4e86\u5176\u4e2d 78% \u7684\u8d26\u6237\uff0cAnthropic \u4e3a 74%\uff0c [OpenAI](/zh-CN/openai) \u4e3a 74%\u3002"
+    ],
+    "title": "2026\u5e7410\u6708\u6570\u636e\u56de\u987e (OpenRouter October 2026 data review)",
+    "url": "https://openrouter.ai/zh-CN/data/october-2026",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "DeepSeek updates AI model, intensifying competition with Anthropic and OpenAI (search result, not opened)",
+    "url": "https://cryptobriefing.com/deepseek-v4-1-flash-update-openai-anthropic/",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Share of text requests made on OpenRouter in the week beginning Nov 9, 2026",
+     "DeepSeek leads at 31.8% of the week's requests."
+    ],
+    "title": "OpenRouter AI Model Rankings (week view)",
+    "url": "https://openrouter.ai/rankings?view=week",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Google hat das neue KI-Modell Gemini 4 Hydrogen ver\u00f6ffentlicht, das ab sofort als Standardmodell verwendet wird.",
+     "Google hat das neue KI-Modell Gemini 4 Carbon gestartet, das jetzt mit starken Leistungen f\u00fcr alle Nutzer zur Verwendung bereitsteht."
+    ],
+    "title": "GoogleWatchBlog: Gemini-Update November 2026 (zwei)",
+    "url": "https://www.googlewatchblog.de/2026/11/gemini-update-nov2026-zwei/amp/",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The Nov 16-22 week figures were not displayed in the 2026-11-17 fetch, so the second-place lab is unknown.",
+   "The fetch returned a text summary rather than verbatim page text, so the quoted sentences should be checked against the live page.",
+   "The page shows no publication date and does not state the week boundaries or time zone.",
+   "A search snippet, not opened, dated the 31.8% DeepSeek figure to the week beginning Nov 2, so the week labelling is unclear.",
+   "Whether Google or OpenAI holds second in the Nov 16-22 week depends on whether Google's 14% growth continues; one week of change is a thin basis.",
+   "The Nov 16-22 figures had not been displayed in any fetch, so the second-place lab for the resolution week is unknown."
+  ]
+ },
+ "polymarket-7088841": {
+  "against": "The strongest case for zero resets in the window: the most recent discretionary action was the 2026-11-12 banked reset, which is outside the window (a 2026-11-12 post reported by secondary sources only).\nThe campaign that produced most resets, a 28-day run that began 2026-10-05, closed at the start of November, per the 2026-11-03 ContextBolt guide, with banked resets already given to everyone.\nIf that is right, users already hold a stock of resets, so a further OpenAI-initiated reset in 2026-11-16 to 11-22 has less stated purpose.\nThe brief's report that Sottiaux stepped back (BigGo, 2026-11-11, unverified) would reduce the channel that announced most past resets.\nThe base rate in the brief (about 4 dated resets in roughly 32 weeks, none in the same week twice) gives a low chance for any single week.\nThe only announced future change I found (a December shared limit) is outside the window",
+  "base_rate": "Reference class: publicly announced discretionary Codex usage-limit resets for paid users, 2026-04-08 to 2026-11-17 (about 32 weeks).\nDated resets found: 2026-04-08 (3M users), 2026-04-21 (4M users, seen only in a search snippet, not opened), about 2026-06-01 (5M users), 2026-07-14 (8M combined users).\nUnverified reports also cite a bug-fix reset (undated) and a global reset dated 2026-10-02 (one aggregator, not found on OpenAI's pages).\nCounting the 4 dated events, about 4 to 5 of roughly 32 weeks contained a reset, and no week in the record had more than one.\nBefore April 2026 I found no com",
+  "brief": "The market resolves Yes if exactly one qualifying discretionary Codex/ChatGPT Work usage-limit reset (at most one per ET calendar date) is announced or initiated by OpenAI between 12:00 a.m. ET 2026-11-16 and 11:59 p.m. ET 2026-11-22; scheduled resets, individually selected accounts, temporary limit increases, extra credits and API limits are excluded. No in-window reset had been found as of 2026-11-17. Dated resets in the reference class were 2026-04-08 (3M users; https://www.businesstoday.in/amp/technology/story/openai-codex-celebrates-3-million-weekly-users-ceo-sam-altman-resets-usage-limits-524717-2026-04-08), about 2026-06-01 (5M users; https://officechai.com/ai/openais-codex-reaches-5-million-users-resets-rate-limits-for-users/) and 2026-07-14 (8M users; https://vpsranking.com/news/ai/ai-2026-07-14-openai-codex-8m-users-limit-reset/), plus a snippet-only 2026-04-21 reset. OpenAI introduced banked resets on 2026-06-12 (https://the-decoder.com/openai-kicks-off-the-ai-price-wars-with-flexible-rate-limit-resets-for-its-codex-coding-agent/). That is about 4-5 reset weeks out of roughly 32 (about 14%), with no week holding more than one. Resets look more frequent recently: one landed on 2026-10-28 (https://smartscope.blog/blog/codex-usage-reset-time-jst-4-00-pm-2026/) and a banked reset was announced on 2026-11-12 (https://lapaasvoice.com/openai-rolls-out-banked-codex-usage-reset-to-all-accounts/, secondary, 2026-11-14), but that rollout does not count again. A BigGo article of 2026-11-11 says Codex lead Sottiaux stepped back, which is unconfirmed and conflicts with a Reuters-based report of a security role. The evidence has only one primary source with checked quotes, and the OpenAI help and X pages returned HTTP 402/403. A new user-count milestone, an outage or bug-fix reset, or an official post in the window would raise the count to one or more.",
+  "brief_written_at": "2026-11-17T12:40:43+00:00",
+  "different_now": "The lead who announced most Codex resets may have stepped back: a secondary article dated 2026-11-11 says Thibault Sottiaux stepped back from the front lines, and his farewell line refers to leaving the 'reset company'.\nThis is the only report I could find of it, and I could not open an OpenAI or X page to confirm it, so the 2026-11-12 banked reset attributed to him (reported 2026-11-14, per the brief) is itself unverified on the primary side.\nIf the step-back is real, it pushes toward fewer announced discretionary resets in the window, since the reset announcements in the reference class came",
+  "facts": [
+   {
+    "fact": "On 2026-11-12, Thibault Sottiaux, who leads Codex at OpenAI, announced a new banked usage reset for Codex accounts, reported as rolling out gradually to accounts (reported 2026-11-14 by a secondary site).",
+    "source": 0
+   },
+   {
+    "fact": "The Codex usage reset of 2026-10-28 landed at about 3:36 PM JST, ahead of an announced 4:00 PM JST deadline (reported 2026-10-28 by a secondary site).",
+    "source": 1
+   },
+   {
+    "fact": "On 2026-04-08 Sam Altman announced on X a Codex usage limit reset to celebrate 3 million weekly Codex users, and said a reset would repeat at every further million users up to 10 million.",
+    "source": 4
+   },
+   {
+    "fact": "On 2026-06-01 OpenAI reset Codex usage limits the morning after Codex crossed 5 million users, per OfficeChai's report.",
+    "source": 5
+   },
+   {
+    "fact": "On 2026-07-14 Altman said usage limits were being reset again for all users, after Codex and ChatGPT Work reached 8 million combined active users.",
+    "source": 6
+   },
+   {
+    "fact": "On 2026-06-12 OpenAI introduced banked (saveable) Codex rate-limit resets, with one free reset to start for Go, Plus, Pro and Business users.",
+    "source": 7
+   },
+   {
+    "fact": "A BigGo Finance article published 2026-11-11 reports that Thibault Sottiaux, the core lead of Codex, stepped back from the front lines in the same week as OpenAI's quarterly revenue report; the article gives no exact date for the step-back.",
+    "source": 8
+   },
+   {
+    "fact": "Sottiaux's quoted farewell message in the 2026-11-11 BigGo article reads \"We graduated from the reset company and upgraded to a token company.\"",
+    "source": 8
+   },
+   {
+    "fact": "The codex-reset.com aggregator of Sottiaux's X posts shows its most recent entries dated Friday 2026-10-16 (04:29 and 04:30 UTC) and shows no posts dated 2026-11-12 or later, so it cannot confirm the 2026-11-12 banked-reset post.",
+    "source": 9
+   },
+   {
+    "fact": "A ContextBolt guide dated 2026-11-03 (updated 2026-11-13) says the 28-day Codex run that began 2026-10-05 ended at the start of November with banked resets granted to everyone.",
+    "source": 10
+   },
+   {
+    "fact": "The same guide says a reported December 2026 change to a shared usage limit across ChatGPT and Codex is unconfirmed, because OpenAI's help pages had not mentioned it as of 2026-11-03.",
+    "source": 10
+   },
+   {
+    "fact": "The OpenAI banked-reset help article exists at help.openai.com, but the page returned HTTP 403 when opened, so its wording on expiry and on whether new resets are granted could not be checked.",
+    "source": 11
+   },
+   {
+    "fact": "Per a search snippet of an ExpertBeacon article (not opened; HTTP 403 on fetch), Reuters reported on 2026-11-03 that Thibault Sottiaux took charge of an internal effort to secure OpenAI's systems, and that in August he moved a quarter of production engineers to security infrastructure; the article reports no statement from Sottiaux.",
+    "source": 12
+   },
+   {
+    "fact": "The Reuters 2026-11-03 report, as summarized in that snippet, describes a security role for Sottiaux, not an exit from Codex; I found no source that dates a step-back from Codex.",
+    "source": 12
+   },
+   {
+    "fact": "Per a search snippet (help page not opened; HTTP 403 on fetch), OpenAI's help article on banked Codex resets says using a full banked reset refreshes the 5-hour and weekly Codex usage windows and changes the weekly reset date.",
+    "source": 13
+   },
+   {
+    "fact": "Per search snippets only, Sottiaux announced on 2026-11-12 that a banked Codex reset had been activated and would reach accounts gradually; no OpenAI or X post for this was opened, so the announcer account and exact wording remain unverified.",
+    "source": 13
+   },
+   {
+    "fact": "The OpenAI Codex changelog at learn.chatgpt.com, read through its first 200,000 characters, has no entry that mentions a usage limit reset, rate-limit reset or banked reset; the final 17,871 characters were not read.",
+    "source": 14
+   },
+   {
+    "fact": "The most recent dated entry in that changelog is for Codex CLI 0.169.0, dated 2026-11-13, with the title \"Dismiss the model switch prompt when account usage recovers\".",
+    "source": 14
+   },
+   {
+    "fact": "The OpenAI Help Center article 20001507 on paid weekly Work and Codex rate-limit resets returned HTTP 403 and its text could not be read, so its wording on discretionary resets is unverified here.",
+    "source": 3
+   },
+   {
+    "fact": "The OpenAI Help Center article 20001498 on banked Codex resets returned HTTP 403 and its text could not be read, so whether new banked resets are granted, and when, is unverified here.",
+    "source": 11
+   },
+   {
+    "fact": "The Sam Altman X post cited in the question returned HTTP 402 and could not be opened, so its wording is unverified here.",
+    "source": 15
+   },
+   {
+    "fact": "No official OpenAI page opened in this pass dated 2026-11-16 to 2026-11-22 announces or initiates a Codex weekly usage limit reset; the only pages that could be read were the changelog and inaccessible help and X pages, and the 2026-11-12 banked-reset announcement attributed to Thibault Sottiaux could not be confirmed on any primary page.",
+    "source": 14
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap",
+   "primary"
+  ],
+  "quotes_checked_at": "2026-11-17T10:41:14.058420+00:00",
+  "research_cost_usd": 0.2591,
+  "research_failed": null,
+  "research_seconds": 236.0,
+  "researched_at": "2026-11-17T10:39:16+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-14",
+    "quotes": [
+     "\"OpenAI is rolling out a new banked usage reset for Codex accounts.\"",
+     "\"The update was announced on November 12, 2026, by Thibault Sottiaux, who leads Codex at OpenAI.\""
+    ],
+    "title": "OpenAI rolls out banked Codex usage reset to all accounts (LaPaas Voice)",
+    "url": "https://lapaasvoice.com/openai-rolls-out-banked-codex-usage-reset-to-all-accounts/",
+    "verified": true
+   },
+   {
+    "published": "2026-10-28",
+    "quotes": [
+     "\"The Codex usage reset on October 28, 2026 landed at around 3:36 PM JST, earlier than the announced deadline of 4:00 PM JST.\""
+    ],
+    "title": "The Codex Usage Reset Landed Around 3:36 PM JST on October 28, Ahead of the 4:00 PM Deadline (SmartScope)",
+    "url": "https://smartscope.blog/blog/codex-usage-reset-time-jst-4-00-pm-2026/",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "How resets work in Codex (OpenAI Help Center)",
+    "url": "https://help.openai.com/articles/20001498",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Paid weekly work and Codex rate limit resets (OpenAI Help Center)",
+    "url": "https://help.openai.com/en/articles/20001507-paid-weekly-work-and-codex-rate-limit-resets",
+    "verified": null
+   },
+   {
+    "published": "2026-04-08",
+    "quotes": [
+     "To celebrate 3 million weekly Codex users, we are resetting usage limits.",
+     "We will do this for every million users up to 10 million."
+    ],
+    "title": "OpenAI Codex celebrates 3 million weekly users, CEO Sam Altman resets usage limits",
+    "url": "https://www.businesstoday.in/amp/technology/story/openai-codex-celebrates-3-million-weekly-users-ceo-sam-altman-resets-usage-limits-524717-2026-04-08",
+    "verified": true
+   },
+   {
+    "published": "2026-06-01",
+    "quotes": [
+     "Codex has crossed 5 million users \u2014 and to celebrate, OpenAI is resetting usage limits the following morning."
+    ],
+    "title": "OpenAI's Codex Reaches 5 Million Users, Resets Rate Limits For Users",
+    "url": "https://officechai.com/ai/openais-codex-reaches-5-million-users-resets-rate-limits-for-users/",
+    "verified": true
+   },
+   {
+    "published": "2026-07-14",
+    "quotes": [
+     "Codex and ChatGPT Work had reached 8 million active users combined.",
+     "He also said that usage limits were being reset again for all users."
+    ],
+    "title": "AI 2026-07-14 OpenAI Codex 8M users limit reset",
+    "url": "https://vpsranking.com/news/ai/ai-2026-07-14-openai-codex-8m-users-limit-reset/",
+    "verified": true
+   },
+   {
+    "published": "2026-06-12",
+    "quotes": [
+     "users can now bank their rate-limit resets and use them whenever they want."
+    ],
+    "title": "OpenAI kicks off the AI price wars with flexible rate limit resets for its Codex coding agent",
+    "url": "https://the-decoder.com/openai-kicks-off-the-ai-price-wars-with-flexible-rate-limit-resets-for-its-codex-coding-agent/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-11",
+    "quotes": [
+     "Yet in the same week, Thibault Sottiaux, the core lead of its coding tool Codex, stepped back from the front lines,",
+     "We graduated from the reset company and upgraded to a token company."
+    ],
+    "title": "OpenAI's Quarterly Revenue Tops $10 Billion as Codex's \"Godfather\" Steps Back and Account Bans Hit \u2014 BigGo Finance",
+    "url": "https://finance.biggo.com/news/301b6b33-e617-46bd-92d0-21ae94869294",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Tibo X (@thsottiaux): Posts & Replies on Codex, by Day",
+    "url": "https://codex-reset.com/tibo/x",
+    "verified": null
+   },
+   {
+    "published": "2026-11-03",
+    "quotes": [
+     "It ended with \"the run closed at the start of November with banked resets for everyone.\"",
+     "\"Starting in December, plan usage will have a shared limit across all of ChatGPT and Codex.\"",
+     "The page calls this unconfirmed.\nIt came from a hidden checkout line, and OpenAI's help pages did not mention it as of November 3."
+    ],
+    "title": "Guide \u00b7 Codex usage limits (ContextBolt)",
+    "url": "https://contextbolt.com/blog/codex-usage-limits/",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "How banked Codex resets work (OpenAI Help Center)",
+    "url": "https://help.openai.com/articles/20001498-how-banked-codex-resets-work",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Is Tibo Still on Codex?\nReuters, Andrew Ambrosino and the Security Rumor",
+    "url": "https://expertbeacon.com/tibo-codex-andrew-ambrosino/",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "OpenAI Help Center: banked Codex resets",
+    "url": "https://help.openai.com/en/articles/20001498",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Dismiss the model switch prompt when account usage recovers"
+    ],
+    "title": "Codex changelog (OpenAI docs, reached via developers.openai.com redirect)",
+    "url": "https://learn.chatgpt.com/docs/changelog",
+    "verified": true
+   },
+   {
+    "published": "2026-04-08",
+    "quotes": [],
+    "title": "Sam Altman post on X, 2026-04-08 Codex reset announcement (cited in the question)",
+    "url": "https://x.com/sama/status/2041658719839383945",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "Whether Sottiaux actually stepped back, and when; the only source is one BigGo article from 2026-11-11 that gives no exact date and cites no primary post.",
+   "Whether the 2026-11-12 banked-reset announcement was made by him or by another authorized OpenAI account, and whether OpenAI's own X post exists; neither OpenAI nor X pages could be opened (HTTP 402/403 earlier).",
+   "Whether the reset rollout from 2026-11-12 continues into the window, which the rules exclude from counting again but which could confuse a resolver.",
+   "Search snippets (not opened, so not cited) report a reported banked reset dated 2026-11-01 and a reported 'no reset 2026-11-02 to 11-05'; these conflict with the 2026-11-12 date in the brief and I could not verify them.",
+   "Whether OpenAI makes any announcement tied to a usage milestone in the window; no milestone was found in the last 7 days.",
+   "The ContextBolt statement that banked resets were granted to everyone at the start of November conflicts with the brief's 2026-11-12 announcement date, and the 2026-11-01 and 2026-11-02-to-11-05 snippets.\nThe sequence cannot be settled from what I could open."
+  ]
+ }
+}
