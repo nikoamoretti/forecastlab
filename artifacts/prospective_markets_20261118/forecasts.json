@@ -79,6 +79,13 @@
             "https://apps.apple.com/us/charts/iphone/top-paid-apps/36",
             "https://apps.apple.com/us/app/shadowrocket/id932747118"
           ]
+        },
+        {
+          "created_at": "2026-11-18T12:41:47.993431+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.84,
+          "rationale": "Apple's chart=top-paid page listed Shadowrocket first on 2026-11-18, and it is a long-entrenched paid #1 with no visible disruption; the TikTok Pro page looks like the Free chart. Small discount to the market for undated page and two days of chart movement.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-7029818",
