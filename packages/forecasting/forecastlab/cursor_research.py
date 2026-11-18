@@ -350,7 +350,8 @@ def _earlier(found: dict[str, Any]) -> str:
         lines.append(f"Case for the other outcome: {found['against']}")
     tally = found.get("tally")
     if tally:
-        lines.append(f"Running tally already read: {live_counts.fmt(tally['value'])} {tally.get('unit', '')} at {tally.get('read_at', '')} "
+        label = "Latest published value already read" if tally.get("cumulative") is False else "Running tally already read"
+        lines.append(f"{label}: {live_counts.fmt(tally['value'])} {tally.get('unit', '')} at {tally.get('read_at', '')} "
                      f"from {tally['source_url']}")
     lines += [f"- {f['fact']}" for f in found.get("facts", [])]
     lines += [f"Still unknown: {u}" for u in found.get("uncertainties", [])]
