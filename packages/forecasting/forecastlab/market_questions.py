@@ -51,11 +51,12 @@ split by volume. The floor is the one of the topic the event is taken under.
 
 v9 (2026-11-18) takes no market on how many posts someone makes in a window ("Will Elon Musk post 320-339 tweets from
 November 13 to November 20?", ``is_post_count``). Since 2026-11-09 a count question is forecast only when the research
-reads the running count, and for these it almost never can: the count lives on the market's own tracker, which the
-research may not open, and a day-old count says little about a week of posting. Of the 24 such questions chosen from
-2026-11-10 to 2026-11-18, 23 lost their research and were never forecast. All 24 were filed under Politics and took 24
-of its 27 places in those seven runs (the topic cap is 4 a day), so almost no other Politics question was forecast.
-Dropping them at selection gives those places to the next most traded Politics events.
+reads the running count, and for these it almost never does: of the 24 chosen from 2026-11-10 to 2026-11-18, 23 lost
+their research and were never forecast, and that research still cost $2.74 of the $14.53 spent on market questions in
+those seven runs (list prices). All 24 were filed under Politics and took 24 of its 27 places (the topic cap is 4 a
+day). The rule adds no forecasts by itself: the 2026-11-18 pool run with it dropped 29 such markets and chose three
+questions, as many as were forecast that day without it, because Politics had no other new candidate. What it does is
+stop paying for research that does not succeed and keep Politics' places free for the days the pool has other events.
 
 Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07; v2 on 2026-10-25 raised the limit
 from 4 to 10 under the v3 window and topic cap; v3 on 2026-11-04 adds the v5 cluster and asset caps; v4 on 2026-11-18 adds the v9 post-count rule) adds up to ``MANIFOLD_DAILY_LIMIT``
