@@ -6,6 +6,13 @@ settled by a running count on one named page. The researcher must read that coun
 researcher reports the latest spot price and 30-day volatility as ``spot`` and the digest adds one reference line from
 ``price_model``. No prediction-market price or odds are used anywhere here.
 
+A range question on a published level ("Will UMich Consumer Sentiment be between 46.0 and 48.9 in November?", an
+index, a rate, a net worth, a daily average) matches the same patterns but has no running count. The researcher is
+told to report the measure's latest published value as the ``tally`` with ``cumulative`` false, and the digest then
+shows ``LATEST READING`` and where it sits against the question's numbers, with no rate, projection or "already
+reached" (nothing is locked in for a level). Until 2026-11-18 such a question was asked for a running count, had none
+and was dropped as unresearched.
+
 Standard library only (the Mac may run Python 3.9).
 """
 
@@ -123,6 +130,8 @@ def clean_tally(raw: Any, is_bad_url: Any) -> dict[str, Any] | None:
     earlier, earlier_at = _num(raw.get("earlier_value")), _stamp(raw.get("earlier_at"))
     if earlier is not None and earlier_at:
         out.update(earlier_value=earlier, earlier_at=earlier_at)
+    if raw.get("cumulative") is False or str(raw.get("cumulative")).strip().lower() == "false":
+        out["cumulative"] = False  # a level that can move both ways; absent means a running count or total
     return out
 
 
@@ -186,6 +195,8 @@ def tally_block(found: dict[str, Any], task: dict[str, str], today: str) -> str:
         return ("WARNING: no running tally found. This looks like a count/total question, but the research did not "
                 "read the current count or total from the page that settles it. Do not forecast from a typical "
                 "rate alone: treat any estimate as weakly grounded.")
+    if tally.get("cumulative") is False:
+        return level_block(tally, task, today)
     unit = f" {tally['unit']}" if tally.get("unit") else ""
     read = when(tally.get("read_at", ""))
     lines = [f"LIVE TALLY: {fmt(tally['value'])}{unit}, read {tally.get('read_at') or 'at an unstated time'} "
@@ -228,6 +239,41 @@ def tally_block(found: dict[str, Any], task: dict[str, str], today: str) -> str:
     return "\n".join(lines)
 
 
+def level_block(tally: dict[str, Any], task: dict[str, str], today: str) -> str:
+    """The top-of-digest block for a published level (an index, a survey reading, a net worth, a daily average).
+
+    A level can move both ways, so a rate, a straight-line projection and "already reached" would mislead: the block
+    gives the latest reading, any earlier one, the time left and where the reading sits against the question's numbers.
+    """
+    unit = f" {tally['unit']}" if tally.get("unit") else ""
+    value, read = tally["value"], when(tally.get("read_at", ""))
+    lines = [f"LATEST READING: {fmt(value)}{unit}, read {tally.get('read_at') or 'at an unstated time'} "
+             f"from {tally['source_url']}",
+             "This is a published level that can move both ways, not a running count: nothing is locked in and no "
+             "projection is made. Check under the facts which period this reading is for."]
+    now = datetime.strptime(today[:10], "%Y-%m-%d").replace(tzinfo=UTC)
+    if read and (now - read) > timedelta(days=2):
+        lines.append(f"WARNING: this reading was taken {(now - read).days} days ago; the value may have moved since.")
+    if "earlier_value" in tally:
+        lines.append(f"Earlier reading: {fmt(tally['earlier_value'])} at {tally['earlier_at']}.")  # the unit names the latest one's period
+    deadline = task.get("resolves_on") or ""
+    if read and DATE.match(deadline[:10]):
+        end = datetime.strptime(deadline[:10], "%Y-%m-%d").replace(tzinfo=UTC) + timedelta(days=1)
+        lines.append(f"Deadline {deadline[:10]}: {max((end - read).total_seconds() / 86400, 0.0):.1f} days left from the reading.")
+    elif deadline:
+        lines.append(f"Deadline {deadline[:10]}; time left could not be worked out.")
+    levels = thresholds(task)
+    if len(levels) == 2:
+        low, high = levels
+        where = ("inside it" if low <= value <= high
+                 else f"{fmt(low - value)} below it" if value < low else f"{fmt(value - high)} above it")
+        lines.append(f"Range {fmt(low)} to {fmt(high)}: the latest reading is {where}.")
+    else:
+        lines += [f"Threshold {fmt(level)}: the latest reading is {fmt(abs(value - level))} "
+                  f"{'above' if value >= level else 'below'} it." for level in levels]
+    return "\n".join(lines)
+
+
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 PRICE_LINE = "Price math (thin-tailed, tends to underrate sudden dips)"
 
@@ -263,6 +309,8 @@ def digest_head(found: dict[str, Any], task: dict[str, str], today: str) -> list
 
 TALLY_JSON = (',\n "tally": {"value": <the number now, as a plain number>, "unit": "what is counted", '
               '"source_url": "the page you read it from", "read_at": "YYYY-MM-DDTHH:MM UTC, when you read it", '
+              '"cumulative": <true for a running count or total that only builds up until the deadline; false for a '
+              'published level that can move both ways>, '
               '"earlier_value": <the count at an earlier point, or null>, "earlier_at": "its YYYY-MM-DDTHH:MM UTC '
               'time, or null"}, or null if you could not read one')
 SPOT_JSON = (',\n "spot": {"asset": "...", "price": <latest spot price, plain number>, "source_url": "...", '
@@ -274,8 +322,12 @@ TALLY_RULES = (
     "and read the current running count or total. Report it in the `tally` field with the number, that page's URL "
     "and the time you read it. If the page or its history shows the count at an earlier point (an earlier dated "
     "post, archive copy, daily figure or snapshot), also give that count and its time so a rate can be computed. "
+    "If the question is instead about where a published measure will stand (an index or survey reading, a rate, a "
+    "net worth, a daily average), nothing is counted up: report the measure's latest published value in `tally` "
+    "(a preliminary or previous-period figure counts; say which in `unit`, for example \"index points, October "
+    "final\"), give the reading before it as the earlier point, and set `cumulative` to false. "
     "Do not substitute an article's summary or a typical rate for the count itself. If you truly cannot read the "
-    "count, set `tally` to null and say why under uncertainties.\n\n"
+    "count or the value, set `tally` to null and say why under uncertainties.\n\n"
 )
 SPOT_RULES = (
     "THIS IS AN ASSET-PRICE QUESTION. Report in the `spot` field the latest spot price of the asset with its "

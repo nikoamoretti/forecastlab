@@ -1210,6 +1210,50 @@ def test_digest_warns_when_a_count_question_has_no_tally_and_is_unchanged_for_ot
     assert cr.digest(data, "c1", plain, "2026-11-05") == cr.digest(data, "c1")
 
 
+LEVEL = {"value": 50.3, "unit": "index points, November preliminary", "source_url": "https://data.example.org/sentiment",
+         "read_at": "2026-11-11T12:00 UTC", "earlier_value": 53.6, "earlier_at": "2026-10-23T14:00 UTC", "cumulative": False}
+
+
+def level_task() -> dict[str, str]:
+    return {"id": "c1", "question": "Will UMich Consumer Sentiment be between 46.0 and 48.9 in November?",
+            "criteria": "Resolves on the final November reading of the Index of Consumer Sentiment.",
+            "resolves_on": "2026-11-25", "topic": "Economy"}
+
+
+def test_a_range_on_a_published_level_is_asked_for_its_latest_value() -> None:
+    task = level_task()
+    assert cr.live_counts.is_count_question(task, "2026-11-11")
+    text = cr.prompt(task, "2026-11-11")
+    assert "latest published value" in text and '"cumulative"' in text and "set `cumulative` to false" in text
+    kept = cr.validate(answer(tally=LEVEL))["tally"]
+    assert kept["cumulative"] is False and kept["value"] == 50.3
+    assert cr.validate(answer(tally={**LEVEL, "cumulative": "false"}))["tally"]["cumulative"] is False
+    for running in (True, None, "true", 1):  # a running count carries no flag, as before
+        assert "cumulative" not in cr.validate(answer(tally={**LEVEL, "cumulative": running}))["tally"]
+    assert "cumulative" not in cr.validate(tally_reply())["tally"]
+    later = cr.inside_prompt(task, "2026-11-11", {"facts": [], "sources": [], "tally": kept})
+    assert "Latest published value already read: 50.3 index points" in later and "Running tally already read" not in later
+
+
+def test_digest_opens_a_published_level_with_its_reading_and_no_projection() -> None:
+    data = {"sources": {"c1": []}, "findings": {"c1": {"facts": [], "uncertainties": [], "tally": cr.validate(answer(tally=LEVEL))["tally"]}}}
+    text = cr.digest(data, "c1", level_task(), "2026-11-11")
+    assert text.startswith("LATEST READING: 50.3 index points, November preliminary, read 2026-11-11T12:00 UTC "
+                           "from https://data.example.org/sentiment")
+    assert "not a running count" in text and "Earlier reading: 53.6 at 2026-10-23T14:00 UTC." in text
+    assert "Deadline 2026-11-25: 14.5 days left from the reading." in text
+    assert "Range 46 to 48.9: the latest reading is 1.4 above it." in text
+    for misleading in ("LIVE TALLY", "Projection", "already reached", "per day", "rate"):
+        assert misleading not in text.split("\n\n")[0].replace("Base rate", "")
+    inside = {**data["findings"]["c1"]["tally"], "value": 47.0}
+    below = {**inside, "value": 44.5}
+    for reading, where in ((inside, "inside it"), (below, "1.5 below it")):
+        block = cr.live_counts.tally_block({"tally": reading}, level_task(), "2026-11-11")
+        assert f"Range 46 to 48.9: the latest reading is {where}." in block
+    one = cr.live_counts.tally_block({"tally": inside}, {**level_task(), "question": "Will UMich Consumer Sentiment exceed 50 in November?"}, "2026-11-20")
+    assert "Threshold 50: the latest reading is 3 below it." in one and "WARNING: this reading was taken 8 days ago" in one
+
+
 PRICE_TASK = {"id": "p1", "question": "Will Bitcoin dip to $78,000 November 6-8?", "criteria": "Binance BTCUSDT 1m low.",
               "resolves_on": "2026-11-08", "topic": "Crypto"}
 SPOT = {"asset": "BTC", "price": 85_000, "source_url": "https://www.coinbase.com/price/bitcoin",
