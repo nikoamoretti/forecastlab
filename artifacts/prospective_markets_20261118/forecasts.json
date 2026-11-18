@@ -1,0 +1,116 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket, Manifold or Kalshi) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-18T10:07:18.094471+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0505
+        },
+        {
+          "created_at": "2026-11-18T12:40:14+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "Binance SOLUSDT was 75.20 at 10:09 UTC on 2026-11-18 and the highest 1-minute High since the window opened on 2026-11-16 is 75.78 (https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m, 2026-11-18). Reaching 90 needs about +19.7% (ln 0.18) in roughly 115 hours; with 30-day daily vol of 3.2% that is about 2.6 sigma over the remaining window, a touch chance near 1%, which I raise slightly for fat tails. The recent trend is down (105.08 on 2026-10-19 to 75.18, https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31) and no dated catalyst is confirmed.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m&startTime=1794805200000&endTime=1794865140000&limit=1000",
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT"
+          ]
+        }
+      ],
+      "id": "polymarket-7087528",
+      "market_id": "7087528",
+      "outcome": null,
+      "question": "Will Solana reach $90 November 16-22?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for SOL/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the SOL/USDT \"High\" prices available at https://www.binance.com/en/trade/SOL_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance SOL/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-23",
+      "resolution_source": "https://polymarket.com/event/what-price-will-solana-hit-november-16-22-2026",
+      "topic": "Crypto",
+      "volume": 3169.1011989999997,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-18T10:07:18.094471+00:00",
+          "method": "market_price_v1",
+          "probability": 0.27
+        },
+        {
+          "created_at": "2026-11-18T12:40:14+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "NVDA closed 155.46 on 2026-11-17 (low 150.33) and the Nov 16 and Nov 17 lows did not reach 148 (https://stockanalysis.com/stocks/nvda/history/, 2026-11-18). Results released after the close on 2026-11-17 (revenue $115.8B, Q4 guide $130B +/-3%, https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000088/q3fy27pr.htm) were followed by gains of roughly 2% to 5% in extended trading (https://shattered.io/tech-futures-rise-nvidia-115-8-billion-quarter-market-breaks-lower/, 2026-11-18), and an undated Pyth snapshot read 159.86. From about 160 a fall to 148 (about -7.5%) within three regular sessions with elevated recent volatility is roughly a 1.3 to 1.5 sigma touch, reduced by post-earnings volatility fading and by the unverified Nov 18 price.",
+          "sources": [
+            "https://stockanalysis.com/stocks/nvda/history/",
+            "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000088/q3fy27pr.htm",
+            "https://shattered.io/tech-futures-rise-nvidia-115-8-billion-quarter-market-breaks-lower/",
+            "https://app.pyth.com/explore/Equity.US.NVDA%2FUSD"
+          ]
+        }
+      ],
+      "id": "polymarket-7025133",
+      "market_id": "7025133",
+      "outcome": null,
+      "question": "Will NVIDIA (NVDA) hit (LOW) $148 Week of November 16 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 16 2026, any 1-minute candle for NVIDIA (NVDA) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the NVIDIA (NVDA) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.NVDA%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "resolution_date": "2026-11-20",
+      "resolution_source": "https://polymarket.com/event/will-nvda-hit-week-of-november-16-2026",
+      "topic": "Economy",
+      "volume": 2574.038545,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-18T10:07:18.094471+00:00",
+          "method": "market_price_v1",
+          "probability": 0.875
+        },
+        {
+          "created_at": "2026-11-18T12:40:14+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.66,
+          "rationale": "On 2026-11-18 the Apple US chart page for chart=top-paid listed Shadowrocket first (https://apps.apple.com/us/iphone/charts/36?chart=top-paid); the other Apple URL that showed TikTok Pro - Events at #1 appears to be the Free chart, so it is not evidence against. Shadowrocket is a long-running top paid app with no visible disruption (version 2.2.93 dated Oct 29, $2.99, https://apps.apple.com/us/app/shadowrocket/id932747118). Uncertainty comes from the undated page, an unverified lead that HotSchedules was #1 with Shadowrocket #2 on a copy of the chart, and the two days before the 2026-11-20 12:00 PM ET snapshot.",
+          "sources": [
+            "https://apps.apple.com/us/iphone/charts/36?chart=top-paid",
+            "https://apps.apple.com/us/charts/iphone/top-paid-apps/36",
+            "https://apps.apple.com/us/app/shadowrocket/id932747118"
+          ]
+        }
+      ],
+      "id": "polymarket-7029818",
+      "market_id": "7029818",
+      "outcome": null,
+      "question": "Will Shadowrocket be #1 Paid App in the US Apple App Store on November 20?",
+      "resolution_criteria": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \u201cPaid Apps\u201d, as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \u201cApps\u201d at the bottom of the US iOS App Store app, scroll down to \u201cTop Paid Apps\u201d and click \u201cSee All.\u201d Then under \u201cPaid Apps\u201d in the \u201cTop Charts\u201d section, you\u2019ll see the list that will be used as the resolution source for this market (https://apps.apple.com/us/iphone/charts/36?chart=top-paid).",
+      "resolution_date": "2026-11-21",
+      "resolution_source": "https://polymarket.com/event/1-paid-app-in-the-us-apple-app-store-on-november-20",
+      "topic": "Tech",
+      "volume": 1020.7368789999999,
+      "volume_floor": 1000
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v8+manifold_selection_v3+kalshi_selection_v1",
+  "skipped": [
+    {
+      "id": "polymarket-6921851",
+      "reason": "research failed or timed out"
+    },
+    {
+      "id": "polymarket-6921905",
+      "reason": "research failed or timed out"
+    },
+    {
+      "id": "polymarket-7030557",
+      "reason": "research failed or timed out"
+    },
+    {
+      "id": "polymarket-7030582",
+      "reason": "no live tally for a count/total question"
+    }
+  ]
+}
