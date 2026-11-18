@@ -1,0 +1,694 @@
+{
+  "cost_usd": {
+    "polymarket-6921851": 0.0861,
+    "polymarket-6921905": 0.1151,
+    "polymarket-7025133": 0.2541,
+    "polymarket-7029818": 0.1952,
+    "polymarket-7030557": 0.0751,
+    "polymarket-7030582": 0.2204,
+    "polymarket-7087528": 0.2237
+  },
+  "downloaded_at": "2026-11-18T10:15:49.076186+00:00",
+  "failed": {
+    "polymarket-6921851": "ValueError: only 1 usable facts",
+    "polymarket-6921905": "ValueError: only 1 usable facts",
+    "polymarket-7030557": "ValueError: only 1 usable facts",
+    "polymarket-7030582": "no running tally read for a count/total question; not forecast"
+  },
+  "findings": {
+    "polymarket-7025133": {
+      "against": "Evidence against a touch of $148 in the week of Nov 16: the one verified regular session in the window, Nov 17 (Mon-Tue in the window, before the results), had a low of 150.33, about 1.6% above $148 (StockAnalysis, Nov 17, 2026).\nThe Nov 17 close of 155.46 is about 4.8% above $148, so a touch needs a further drop of that size.\nThe company's results were released Nov 17, 2026 after the close, and the Q4 FY2027 revenue outlook of $130.0 billion plus or minus 3% (SEC, Nov 17, 2026) is a sizeable sequential guide, which a market could read as supportive.\nThe Pyth explorer showed 159.86 (+2.68% 24h) in an undated snapshot, which if it reflects Nov 18 would sit further above $148, but that snapshot is undated and unverified.",
+      "base_rate": "Not counted.\nThis pass did not produce a full daily series from a primary source: the Yahoo and Investing.com pages showed only about 15 recent sessions, and the Pyth 1-minute chart did not render, so no count of past weeks was made.\nThe reference class is past NVDA weeks in which the weekly intraday low fell at least about 4.8% below the prior Friday close (155.46 to 148), counted over a multi-year window of 1-minute or daily data.\nThat count is still needed.",
+      "different_now": "This window contains a company-specific catalyst that the reference class of past weeks does not: NVIDIA's Q3 FY2027 results came out on Nov 17 after the close, so the Nov 18 session is the first reaction.\nThat adds a discrete overnight gap risk, which raises the chance that a level about 4.8% below the Nov 17 close is touched.\nThe direction of the reaction is not known from any source I could open.\nThe sources I opened show the stock falling from $173.73 (Nov 11) to a $156.14 close on Nov 16, a drop of roughly 10% in three sessions, so realised volatility is elevated relative to a calm week.\n",
+      "facts": [
+        {
+          "fact": "Pyth's docs state that US equity regular-session feeds run every weekday from 9:30 AM to 4:00 PM ET, are closed on weekends, and follow the NYSE holidays and trading-hours schedule.\nThe page shows no last-updated date.",
+          "source": 0
+        },
+        {
+          "fact": "Pyth Core deprecated all extended-hours and session-based US equity feeds on June 15, 2026.\nRegular-session equity feeds stayed on Pyth Core through July 31, 2026.\nThe blog header is dated June 12, 2026, but its metadata shows Nov 16, 2026, so the date is inconsistent.",
+          "source": 1
+        },
+        {
+          "fact": "On the Pyth explorer NVDA/USD page (opened 2026-11-18), the price shown was 159.86 with a 24h change of +2.68% and status 'Stable'.\nThe page timestamp read 05:08:34 UTC-5 with no date, and the chart defaulted to a 5m interval rather than 1m.\nThis is an undated snapshot, not a verified official candle or close.",
+          "source": 2
+        },
+        {
+          "fact": "NVDA closed at 155.46 on Nov 17, 2026, after a daily low of 150.33 and a daily high of 158.19.",
+          "source": 3
+        },
+        {
+          "fact": "NVDA closed at 156.14 on Nov 16, 2026, with a daily low of 155.01 and a daily high of 163.20.",
+          "source": 4
+        },
+        {
+          "fact": "NVDA's daily low on Nov 12, 2026 was 148.80, the lowest daily low among the 15 recent sessions shown (Oct 28 to Nov 17, 2026).",
+          "source": 4
+        },
+        {
+          "fact": "NVIDIA set its third-quarter fiscal 2027 earnings conference call for Tuesday, Nov 17, 2026, at 2 p.m.\nPT, after the close, per the company's announcement (seen in a search result; page not opened).",
+          "source": 6
+        },
+        {
+          "fact": "NVIDIA's call on its fiscal Q3 2027 results was set for Tuesday, November 17, 2026, at 2 p.m.\nPT (5 p.m.\nET), which is after the 4:00 PM ET close, so the first regular session that reacts to it is Wednesday, Nov 18, inside the question window.",
+          "source": 7
+        },
+        {
+          "fact": "NVIDIA reported revenue of $115.8 billion for the quarter ended October 25, 2026, in a release dated Nov 17, 2026; the release states it is up 20% from the prior quarter and 103% from a year earlier.",
+          "source": 8
+        },
+        {
+          "fact": "The BLS schedule lists the October 2026 CPI release for Tuesday, Nov 10, 2026 at 08:30 AM ET, so the latest CPI print is already out and no CPI release falls in the Nov 16 to 20 window according to the schedule page opened.",
+          "source": 9
+        },
+        {
+          "fact": "NVDA closed at $173.73 on Nov 11, 2026, up 2.87%, ending a two-day losing streak.",
+          "source": 10
+        },
+        {
+          "fact": "NVIDIA's Q4 FY2027 revenue outlook, given on Nov 17, 2026, is $130.0 billion plus or minus 3%, a range of about $126.1 billion to $133.9 billion.",
+          "source": 8
+        },
+        {
+          "fact": "NVIDIA's Q4 FY2027 GAAP and non-GAAP gross margin outlook, given on Nov 17, 2026, is 71.0% to 72.0%.",
+          "source": 8
+        },
+        {
+          "fact": "On Nov 17, 2026, NVDA opened at 156.90, reached a high of 158.19 and a low of 150.33, and closed at 155.46, a -0.44% change, on about 407 million shares.\nThe intraday low was about 1.6% above $148.",
+          "source": 5
+        },
+        {
+          "fact": "On 2026-11-17 NVIDIA guided fiscal Q4 FY2027 revenue to $130.0 billion, plus or minus 3%.",
+          "source": 8
+        },
+        {
+          "fact": "On 2026-11-17 NVIDIA guided GAAP and non-GAAP gross margins for fiscal Q4 FY2027 to 71.0% to 72.0%.",
+          "source": 8
+        },
+        {
+          "fact": "After the Nov 17, 2026 results, NVDA shares rose roughly 4.7% to 5% in extended trading (after-hours, not a regular session), per a page dated 2026-11-18.",
+          "source": 11
+        },
+        {
+          "fact": "A second report dated 2026-11-18 says NVDA shares were up more than 2% in extended trading after the results, then pared some of the gains.\nThis conflicts with the 4.7% to 5% figure.",
+          "source": 12
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 5,
+      "resolution": {
+        "criteria": "YES if any 1-minute candle's final High or Low during regular trading hours (9:30 AM to 4:00 PM ET) during the week of Nov 16, 2026 is equal to or beyond the listed price ($148 for a Low, i.e.\nat or below $148).\nPre-market and after-hours prices do not count.\nPrices are used as published by Pyth, without rounding.\nOtherwise NO.",
+        "current_status": "No verified official value for Nov 16 to 18, 2026.\nThe only NVDA figure opened was an undated Pyth explorer snapshot of 159.86 (+2.68% 24h, status 'Stable', timestamp 05:08:34 UTC-5).\nThe Benzinga and Nasdaq quote pages returned 403 or timed out, so no other current price was verified.\nEarnings date unverified.",
+        "edge_cases": [
+          "Window: the week of Nov 16 to 20, 2026 (Mon to Fri).\nCandles from Nov 20 count only before the 4:00 PM ET close, which is 21:00 UTC in November (EST, UTC-5).\nThe 9:30 AM ET open is 14:30 UTC.",
+          "Only candles after market creation count, so candles from before the question opened do not qualify.",
+          "Exact-threshold ties: a Low equal to $148.00 counts as YES, because the rule says 'equal to or beyond'.",
+          "Pre-market and after-hours wicks (for example from 4 to 9:30 AM ET or after 4 PM ET) are excluded even if they reach $148.\nThe Pyth extended-hours feeds were deprecated June 15, 2026, so they may not exist to check."
+        ],
+        "settling_source": "Pyth NVDA High/Low 1-minute candles at https://pythdata.app/explore/Equity.US.NVDA%2FUSD (redirects to https://app.pyth.com/explore/Equity.US.NVDA%2FUSD), with the official NYSE/Nasdaq daily high/low as the fallback only if Pyth data is unavailable."
+      },
+      "uncertainties": [
+        "The Nov 18 regular-session price and the market's reaction to the Q3 FY27 results were not found in any source I could open; the search results only had FY26 Q3 coverage.",
+        "Q4 FY2027 revenue guidance and any change in the outlook were not found; the press release was only partly quoted (the revenue sentence).",
+        "The NVDA realised volatility over the last 20 sessions was not computed: I had closes for only a few days (Nov 10, 11, 16, 17) and no full daily series from a primary source, so the touch-probability step in the checklist cannot be done from my evidence.",
+        "The Nov 16 and Nov 17 intraday lows (155.01 and 150.33) and the Nov 17 close of 155.46 were taken from the rules pass, not from a page I opened, so I have not verified them; no intraday low in those two sessions was verified as having reached 148.",
+        "The Pyth explorer snapshot of 159.86 is undated and the Pyth 1-minute chart did not render, so no Pyth candle for Nov 16 to 20 was verified.",
+        "The Nov 18, 2026 regular-session price range and the market's reaction to the Q3 FY2027 results were not found in any page I opened; the search results only returned previews and FY2026 coverage."
+      ]
+    },
+    "polymarket-7029818": {
+      "against": "The strongest case for an outcome other than Shadowrocket at #1 on 2026-11-20 rests on the chart itself, not on rank data.\nThe Apple URL under the question's own path (top-paid-apps/36) showed TikTok Pro - Events first on 2026-11-18, but that page does not say which chart it shows, so it is not proof of a Paid-chart #1 for another app.\nShadowrocket's listing shows its latest version as 2.2.93 dated Oct 29 with no newer release by 2026-11-18, so no update is visible that would lift its rank before 2026-11-20.\nA search snippet (not opened, so not cited) reported a competing app, HotSchedules, at #1 with Shadowrocket at #2 on an undated Apple paid-chart copy; that is a lead to verify, not a fact.",
+      "base_rate": "Reference class: daily US App Store Top Paid chart positions for Shadowrocket.\nCounted so far: in AppPricingLab's 6-day tracked history (dates unclear, listing last updated 2026-02-19), Shadowrocket was at #1 on 0 of 6 days (best #2, worst #3).\nI did not open a full daily archive of the US paid chart, so I could not count how many days Shadowrocket held #1 over any longer period, and I could not verify the chart on 2026-11-18.\nThe Apple paid-chart page I opened returned the Free chart, and the Marlvel page (which reported a March 2026 #1 Utilities-paid ranking) returned HTTP 403, so it could n",
+      "different_now": "The two Apple US chart URLs that a resolver could use gave different #1 apps on the same day (2026-11-18): Shadowrocket on chart=top-paid and TikTok Pro - Events on top-paid-apps/36, and neither page is dated or confirmed as the Paid chart.\nWhich page or snapshot the 12:00 PM ET check uses on 2026-11-20 therefore matters more than usual and could flip the answer in either direction.\nI found no scheduled primary event (app update, Apple policy change, court or regulatory date) before 2026-11-20 that bears on Shadowrocket's paid rank.\nThe Apple listing page for Shadowrocket (apps.apple.com/us/ap",
+      "facts": [
+        {
+          "fact": "When fetched on 2026-11-18, the Apple US iPhone Top Paid chart page lists Shadowrocket as its first app; the page shows no chart date, only a 'Copyright \u00a9 2026 Apple Inc.' line.",
+          "source": 0
+        },
+        {
+          "fact": "App Pricing Lab's Shadowrocket page has a rankings table showing #1 top-paid placings on 2026-11-17 and 2026-11-18, but its own ranking-history line reads 'Best: #2 \u00b7 Worst: #3 \u00b7 6 days tracked' for 03-10 to 03-24 with no year, and the page was last updated 2026-02-19, so its data is internally inconsistent.",
+          "source": 1
+        },
+        {
+          "fact": "The Apple chart page I opened does not state a ranking methodology for the Top Paid chart, and the Apple support page I opened (published 2026-09-21) covers gift cards only, not charts.",
+          "source": 0
+        },
+        {
+          "fact": "When opened on 2026-11-18, the Apple US Top Charts URL with chart=top-paid showed a list whose first entry under the 'All Apps' label was 'Shadowrocket' (described as 'Rule based proxy utility'), and the page did not state a paid-chart position.",
+          "source": 0
+        },
+        {
+          "fact": "When opened on 2026-11-18, the Apple US Top Paid Apps chart URL (charts/iphone/top-paid-apps/36) returned the Free chart rather than the Paid chart, with 'TikTok Pro - Events' at #1, so the current paid #1 could not be verified from this page.",
+          "source": 2
+        },
+        {
+          "fact": "AppPricingLab's ranking history for Shadowrocket records a best overall position of #2 and a worst of #3 over 6 tracked days; the page's listing was last updated 2026-02-19, and its tracked dates do not clearly match the page's 2026-11 category entries.",
+          "source": 1
+        },
+        {
+          "fact": "When fetched on 2026-11-18, the Apple US Top Charts URL with chart=top-paid listed Shadowrocket as the first entry under the 'All Apps' heading, with no chart date shown.",
+          "source": 0
+        },
+        {
+          "fact": "When fetched on 2026-11-18, the Apple US URL charts/iphone/top-paid-apps/36 listed 'TikTok Pro - Events' as its first app and did not state which chart it showed, so it gives a different #1 from the chart=top-paid URL on the same day.",
+          "source": 2
+        },
+        {
+          "fact": "On 2026-11-18, the Shadowrocket App Store listing (US) showed a price of $2.99 and a latest version 2.2.93 dated Oct 29; the page carries no publication date, so the ranking cannot be dated from it.",
+          "source": 3
+        },
+        {
+          "fact": "On 2026-11-18, the Apple US URL charts/iphone/top-paid-apps/36 listed 'TikTok Pro - Events' as its first app, but the page did not say whether it showed the Paid or the Free chart, so it does not establish a Paid-chart #1.",
+          "source": 2
+        },
+        {
+          "fact": "When fetched on 2026-11-18, the Apple US URL apps.apple.com/us/charts/iphone/top-paid-apps/36 listed 'TikTok Pro - Events' as its first app under 'All Apps'.\nBoth the 'Free' and 'Paid' toggles appeared unselected in the returned text, and no prices were shown, so the page does not confirm it is the Paid chart.\nThe page carries no publication date.",
+          "source": 2
+        },
+        {
+          "fact": "The Trends MCP page for the US top paid iPhone chart on May 3, 2026 returned HTTP 404 when I tried to open it, so its claim that Shadowrocket was #1 on that date is unverified.",
+          "source": 4
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 3,
+      "resolution": {
+        "criteria": "The iOS app ranked #1 in the United States on the iPhone App Store's overall Top Charts under 'Paid Apps', as of 12:00 PM ET on the specified date (2026-11-20); the question text, not a page I opened, sets this rule.",
+        "current_status": "As of 2026-11-18 (fetch date), the Apple Top Paid chart page lists Shadowrocket first.\nThe page is undated, so it cannot be tied to 12:00 PM ET on 2026-11-20, and no snapshot for that date exists yet.",
+        "edge_cases": [
+          "Time zone: 12:00 PM ET on 2026-11-20 is 17:00 UTC; a snapshot from a different time of day or UTC date could give a different #1.",
+          "Snapshot timing: the Apple page is not dated, so a cached or delayed copy may show a different day's order than the one the rule names.",
+          "Fallback: if the chart is unavailable at 12:00 PM ET, the market may stay open up to 48 hours, and if data stays unavailable it resolves on the last published ranking, which could be from before 2026-11-20.",
+          "Chart scope: the question says 'overall' Top Charts under 'Paid Apps', so category sub-charts such as Utilities or Games, where Shadowrocket also ranks #1 in third-party data, do not count."
+        ],
+        "settling_source": "Apple's US App Store Top Charts, Top Paid Apps list: https://apps.apple.com/us/iphone/charts/36?chart=top-paid (the question's stated source)"
+      },
+      "uncertainties": [
+        "Neither Apple chart page shows a date or states whether it is the Paid chart, so the 2026-11-18 #1 is unverified as a Paid-chart position.",
+        "The two Apple URLs disagree on #1 for the same day, so the resolving snapshot's source is unclear.",
+        "The Shadowrocket App Store listing could not be opened (HTTP 429), so its latest version and price date are unknown from the primary source.",
+        "No archive of daily US Paid chart positions for Shadowrocket was opened, so the base rate for holding #1 over a comparable period is unknown.",
+        "Search results mentioned third-party trackers (Marlvel, AppPricingLab, Appfigures) with conflicting or undated rank data; none was opened as a primary source, so they are not cited here.",
+        "Neither Apple chart URL is dated or labeled as Paid or Free in the text I could read, so the 2026-11-18 #1 is unverified as a Paid-chart position."
+      ]
+    },
+    "polymarket-7087528": {
+      "against": "The outcome No is supported by the price path.\nBinance's 24-hour ticker shows SOLUSDT with a high of 75.78 and a low of 71.07 at 2026-11-18 10:10 UTC, a range about 6% wide that sits 16% or more below 90.\nCoinGecko's 7-day change of -9.50% (page undated, read 2026-11-18) shows the recent trend is down, not toward 90.\nReaching 90 from 75.18 needs a rise of about 19.7% within the remaining ~115 hours of the window, which is about 5.6 daily standard deviations of 0.032 by the earlier pass's calculation.",
+      "base_rate": "Not computed.\nI did not pull SOL daily closes, so I have no count of past comparable windows (SOL trading at roughly 20 to 25% below a threshold and touching it within a 7-day window).\nThe two spot readings also disagree by about 2% ($73.68 on Binance's page vs.\n$75.06 on CoinGecko), and the Binance trade page's own price figure was not readable.",
+      "different_now": "The window is already about 2.2 days in.\nThe highest Binance High so far is 75.78, about 16% below 90, so the threshold would need a move of about 19.7% within roughly 115 hours.\nNeutral to bearish context: the 1-day closes fell from 105.08 (2026-10-19) to 71.58 (2026-11-16) before a recovery to about 75.2.\nSearches found no token unlock or ETF flow figure for the window; the only dated item is an unverified expected Agave 4.4 release in November 2026, which is unlikely to be a price driver.\nSearches also returned mid-November 2026 articles citing SOL in the low $80s on Nov 12, which I could n",
+      "facts": [
+        {
+          "fact": "The Binance public ticker endpoint returned a SOLUSDT price of 75.19 on 2026-11-18 (the response carries no timestamp).",
+          "source": 2
+        },
+        {
+          "fact": "The Binance SOL/USDT 1-day candle for 2026-11-17 (UTC) closed at 75.19; the 2026-11-18 candle, still open when read, showed a close of 75.18.",
+          "source": 3
+        },
+        {
+          "fact": "The Binance SOL/USDT 1-day candle for 2026-11-16 (UTC) closed at 71.58, and the 2026-11-14 candle closed at 70.28.",
+          "source": 3
+        },
+        {
+          "fact": "Across the 31 daily candles fetched (2026-10-19 to 2026-11-18 UTC), the first close was 105.08 and the last was 75.18, so the close fell about 28% over that window.",
+          "source": 3
+        },
+        {
+          "fact": "The Binance spot klines endpoint returns up to 1000 klines per request, with a default of 500 when no limit is given; with no start or end time it returns the most recent klines.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance SOL/USDT trade page title, as fetched, reads '75.16 Trade SOL/USDT Spot', giving a page-level price of 75.16 that is not labelled or timestamped on the page.",
+          "source": 0
+        },
+        {
+          "fact": "On 2026-11-17 at 14:27 UTC, Binance's SOL price page showed SOL at $73.68, with a 24h high of $73.98 and a low of $69.98.",
+          "source": 4
+        },
+        {
+          "fact": "CoinGecko showed SOL at $75.06 on 2026-11-18 (page dated 'today', timestamp not shown), up 3.40% over 24 hours and down 9.50% over 7 days.",
+          "source": 5
+        },
+        {
+          "fact": "The Binance SOL/USDT trade page, the resolution source, showed a title price of 75.14 when opened; its body text did not include the price figures, so the quotes are left empty.",
+          "source": 0
+        },
+        {
+          "fact": "Across the 3,190 Binance SOLUSDT 1-minute candles from 2026-11-16 05:00 UTC to 2026-11-18 10:09 UTC, the lowest Low was 69.93 (candle opening 2026-11-16 15:26 UTC) and the highest High was 75.78 (candle opening 2026-11-17 23:12 UTC); no candle in the window has touched 90.",
+          "source": 6
+        },
+        {
+          "fact": "The last Binance SOLUSDT 1-minute candle fetched, opening 2026-11-18 10:09 UTC, closed at 75.20.",
+          "source": 6
+        },
+        {
+          "fact": "The Binance SOLUSDT 1-day candle for 2026-11-16 closed at 71.58 with a High of 72.92 and a Low of 69.93; the 2026-11-17 candle opened at 71.58, reached a High of 75.78 and closed at 75.19.",
+          "source": 3
+        },
+        {
+          "fact": "The Binance SOLUSDT 1-day candle for 2026-11-18, still open when read at about 10:09 UTC, showed High 75.66, Low 74.06 and last close 75.22.",
+          "source": 3
+        },
+        {
+          "fact": "The standard deviation of daily log returns of the last 30 Binance SOLUSDT daily closes (ending 2026-11-18, the last candle still open) is 0.032.",
+          "source": 3
+        },
+        {
+          "fact": "The Binance SOL/USDT trade page title read '75.21 Trade SOL/USDT Spot' when fetched on 2026-11-18; the page does not label the figure or give a timestamp.",
+          "source": 0
+        },
+        {
+          "fact": "The window end, 11:59 PM ET Nov 22 (EST), equals 04:59 UTC on 2026-11-23, about 114.8 hours after 10:10 UTC on 2026-11-18; the threshold of 90 is about 19.7% above the 75.20 last close (ln distance about 0.180, roughly 5.6 times the 0.032 daily volatility).",
+          "source": 6
+        },
+        {
+          "fact": "The Solana Upgrades tracker lists Agave 4.4 as expected in November 2026 without a specific day, per a search snippet; the page itself could not be opened (HTTP 429), so this is unverified.",
+          "source": 7
+        },
+        {
+          "fact": "At closeTime 1794996651634 ms (2026-11-18 10:10:51 UTC), Binance's SOLUSDT 24-hour ticker showed last price 75.18, 24h high 75.78 and 24h low 71.07.",
+          "source": 8
+        },
+        {
+          "fact": "On 2026-11-18, CoinGecko showed SOL at $75.10, up 3.70% over 24 hours and down 9.50% over 7 days (page undated; a relative timestamp only).",
+          "source": 5
+        },
+        {
+          "fact": "As reported on 2026-09-22, the Agave v4.4 mainnet-beta schedule had volunteer rollout beginning October 19, general adoption recommended November 2, and feature activation resuming November 9, 2026, with all dates tentative.",
+          "source": 9
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 4,
+      "resolution": {
+        "criteria": "Resolves Yes if any Binance 1-minute SOL/USDT candle's final High, from 12:00 AM ET Nov 16 to 11:59 PM ET Nov 22, is equal to or greater than 90; otherwise No.\nOnly Binance SOL/USDT counts.",
+        "current_status": "Binance SOL/USDT ticker price 75.19 on 2026-11-18 (time not returned); 2026-11-17 daily close 75.19.\nThe question window has not yet closed; no 1-minute high data for Nov 16-22 was pulled in this pass.",
+        "edge_cases": [
+          "ET window: 12:00 AM ET Nov 16 to 11:59 PM ET Nov 22 is 05:00 UTC Nov 16 to 04:59 UTC Nov 23 (EST, UTC-5), so candles from Nov 22 evening and Nov 23 early UTC fall inside the window, and the Nov 15 evening candles fall outside it.",
+          "Ties: a candle High of exactly 90.00 resolves Yes because the rule uses 'equal to or greater than'.",
+          "Only the candle's final High counts; intracandle prints, order-book quotes, wicks visible only on other charts or other pairs (SOL/USDC, SOL/BTC, other exchanges) do not count.",
+          "Revisions: the rules do not say whether later-corrected Binance candles count; a Binance candle later corrected to a High at or above 90 is not addressed by the wording."
+        ],
+        "settling_source": "Binance SOL/USDT 1-minute candles, 'High' price, at https://www.binance.com/en/trade/SOL_USDT (chart set to 1m)"
+      },
+      "spot": {
+        "asset": "SOL/USDT",
+        "daily_vol": 0.032,
+        "price": 75.18,
+        "read_at": "2026-11-18T10:10 UTC",
+        "source_url": "https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT"
+      },
+      "uncertainties": [
+        "Quotes are empty for all four sources: Binance endpoints return numbers, not prose, and the solana.com page returned HTTP 429.\nThe Binance trade-page title figure (75.21) is not labelled or timed and differs from the API last close (75.20).",
+        "The 30-day volatility uses 31 daily closes that include the still-open 2026-11-18 candle, so it is not a full-day close series.",
+        "The 1-minute high/low figures cover only the part of the Nov 16 to 22 window already elapsed (to 10:09 UTC Nov 18); the remaining ~115 hours are unknown.",
+        "No Solana ETF flow data for Nov 17, 2026 was found; search returned only Nov 2025 articles.",
+        "No token unlock or dated upgrade inside Nov 16 to 22, 2026 was confirmed from a primary page; Alpenglow's Nov 6, 2026 activation and Agave 4.4 timing come from search snippets I could not open.",
+        "The 24h ticker low of 71.07 differs from the 1-minute low of 69.93 reported in the earlier pass, because the two windows differ; the 1-minute figures were not re-read here."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "haiku",
+  "model_family": "claude",
+  "passes": 5,
+  "provider": "cursor",
+  "researched_at": "2026-11-18T10:15:12+00:00",
+  "researched_by": {
+    "polymarket-7025133": "claude-haiku",
+    "polymarket-7029818": "claude-haiku",
+    "polymarket-7087528": "claude-haiku"
+  },
+  "runs": 26,
+  "seconds": {
+    "polymarket-6921851": 72.4,
+    "polymarket-6921905": 97.4,
+    "polymarket-7025133": 323.4,
+    "polymarket-7029818": 180.0,
+    "polymarket-7030557": 64.9,
+    "polymarket-7030582": 199.6,
+    "polymarket-7087528": 229.1
+  },
+  "sources": {
+    "polymarket-7025133": [
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Every weekday from 9.30AM ET to 4PM ET",
+          "Markets are closed on weekends, and follow NYSE Holidays & Trading Hours"
+        ],
+        "text": "Every weekday from 9.30AM ET to 4PM ET\nMarkets are closed on weekends, and follow NYSE Holidays & Trading Hours\n\nMarket Hours\nTrading hours followed by Pyth price feeds across asset classes\nPyth price feeds follow the traditional market hours of each asset classes and will be available at the following hours:\n| Asset Class | Opening Hours | Exceptions |\n|---|---|---|\n| Crypto | 24/7 | No market close |\n| US Equities | Every weekday from 9.30AM ET to 4PM ET | Markets are closed on weekends, and follow NYSE Holidays & Trading Hours |\n| US Equities Pre Market | Every weekday from 4AM ET to 9.30AM ET | Markets are closed on weekends, and follow NYSE Holidays & Trading Hours |\n| US Equities Post Market | Every weekday from 4PM ET to 8PM ET | Markets are closed on weekends, and follow NYSE Holidays & Trading Hours |\n| US Equities Overnight | Every Sunday to Thursday from 8PM ET to 4AM ET (the following calendar day) | Overnight markets are closed on Friday to Saturday and follow Blue Ocean ATS Holidays & Trading Hours |\n| EU Equities | Paris, Amsterdam, Ireland: Every weekday from 9AM CET to 5.30PM CET | Markets are closed on weekends, and follow Euronext Holidays & Trading Hours |\n| UK Equities | Every weekday from 8AM UK time to 4.30PM UK time | Markets are closed on weekends, and follow LSE Holidays & Trading Hours |\n| DE Equities | Every weekday from 9AM to 5.30PM CET | Markets are closed on weekends, and follow Xetra Holidays & Trading Hours |\n| HK Equities | Every weekday from 9.30AM to 12PM & 1PM to 4PM HKT | Markets are closed on weekends, and follow HKEX Holidays & Trading Hours |\n| CN Equities | Every weekday from 9.30A",
+        "title": "Pyth Network docs: Feed updates / market hours",
+        "url": "https://docs.pyth.network/price-feeds/market-hours",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "2026-06-12",
+        "quotes": [
+          "On June 15th 2026, Pyth Core will deprecate all extended-hours and session-based US equity feeds",
+          "Regular trading session equity feeds remain available on Pyth Core through July 31st"
+        ],
+        "text": "On June 15th 2026, Pyth Core will deprecate all extended-hours and session-based US equity feeds\nRegular trading session equity feeds remain available on Pyth Core through July 31st\n\nNews\n\u00b7\nExtended-Hours US Equity Data Moves to Pyth Pro\nExtended-hours US equity feeds (.PRE, .POST, .ON) move from Pyth Core to Pyth Pro on June 15th.\nHere's what changes and how to migrate.\nOn June 15th 2026, Pyth Core will deprecate all extended-hours and session-based US equity feeds \u2014 pre-market (.PRE), post-market (.POST), and overnight (.ON).\nThe full list of affected tickers is in the developer forum post.\nApplications relying on these feeds should transition to Pyth Pro before June 15th to maintain access.\nThis change applies to roughly 50 US equity tickers across all three session categories, including AAPL, TSLA, NVDA, COIN, MSTR, META, SPY, QQQ, and others.\nRegular-session feeds for these tickers remain on Pyth Core through the broader Core upgrade on July 31st.\nWhat to do\nApplications using any of the affected .PRE, .POST, or .ON feeds need to:\n- Sign up for Pyth Terminal at app.pyth.com\n- Subscribe to a Pyth Pro plan that includes US equities \u2014 either the U.S.\nEquities plan ($5,000 / month) or All Asset Classes ($10,000 / month)\n- Generate an API key and update integrations to point to the new endpoint\nThe full session-feed catalog and updated symbol mappings are available on Pyth Terminal.\nFor chain or feed support questions, email data@dourolabs.xyz.\nWhy this is moving\nExtended-hours and overnight equity data is some of the most premium data in the legacy market data economy.\nPre-market, post-market, and overnight pricing for US equities is tightly licensed, expensive to source, and historically reserved for institutional desks paying through dedicated vendor contracts.\nPyth is one of the only providers offering true 24/5 US equity pricing onchain at all.\nThat coverage exists because of the network's institutional publisher base \u2014 firms with direct access to extended-hours liquidity in venues like Blue Ocean ATS, where overnight US equity trading happens.\nAggregating that data and pricing it as a paid product brings Pyth in line with how the rest of the market data world treats this category.\nThis is consistent with the broader Pyth Core upgrade launching on July 31st: the most valuable feeds and the highest-quality data flow through Pyth Pro, with revenue accruing to the Pyth DAO.\nWhat stays on Pyth Core\nRegular trading session equity feeds remain available on Pyth Core through July 31st, when the broader Core upgrade takes effect.\nAfter July 31st, all Pyth Core data access requires an active Starter or Pro plan through Pyth Terminal.\nThe publishers are the same.\nThe data quality is the same.\nWhat changes is the commercial relationship \u2014 and which Pyth product carries which category of data.\nGetting started\nSign up for a Pyth Pro plan at app.pyth.com.\nRead the migration documentation.\nOn June 15th, Pyth Core will deprecate extended-hours and session-based US equity feeds \u2014 pre-market, post-market, and overnight pricing for roughly 50 tickers including AAPL, TSLA, NVDA, and SPY.\nThis data now moves to Pyth Pro, where it belongs alongside the rest of the market's premium pricing categories.",
+        "title": "Extended hours US equity data moves to Pyth Pro (Pyth blog)",
+        "url": "https://www.pyth.network/blog/extended-hours-us-equity-data-moves-to-pyth-pro",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "The NVIDIA CORP / US DOLLAR (Equity.US.NVDA/USD) price feed delivers a live NVDA price, updated in real time on Pyth Network.\nPrices are aggregated from first-party publishers - exchanges, market makers and trading firms pricing from their own order flow - with a confidence interval on every update.\nAvailable on 100+ blockchains.\nUS equities do not trade continuously.\nEach weekday cycle is split into four sessions with different venues, participants and liquidity: overnight (8:00 PM-4:00 AM ET, Sunday-Thursday, on alternative trading systems such as Blue Ocean ATS), pre-market (4:00-9:30 AM ET), regular hours (9:30 AM-4:00 PM ET, with opening and closing auctions on the primary listing exchange and LULD circuit breakers active) and post-market (4:00-8:00 PM ET, typically with wider spreads, and the window in which many companies release earnings).\nFrom Friday 8:00 PM to Sunday 8:00 PM ET no session runs, a 48-hour gap.\nWithin the regular session, trading is fragmented across many registered exchanges, dark pools and alternative trading systems, with the SIP consolidating exchange quotes into the NBBO.\nEach stock has a primary listing venue, usually NYSE or NASDAQ, which runs its opening and closing auctions.\nPyth US equity prices are contributed directly by first-party institutions that make markets, run venues or route order flow in the stock.\nEvery update carries a price and a confidence interval, and consumers pull the latest price on demand instead of waiting for a scheduled push.\nPublisher prices are benchmarked against the mid-point at the stock's primary listing venue.\nOn Pyth Pro, supported tickers are priced across all four sessions, and every update carries a marketSession field so risk logic can be session-aware.\nUnlike crypto, which trades 24/7, US equity trading activity is fragmented across multiple venues and four distinct trading sessions within each 24-hour cycle.\nEach session may have different participants, liquidity profiles and venues, which directly impacts how prices are formed and how much they can move.\n| Tier | Participants | Role in price formation |\n|---|---|---|\n| Primary listing exchanges (NYSE, NASDAQ) | Designated or registered market makers, institutional and retail flow during regular hours | Run each stock's opening and closing auctions; the reference venue for Pyth's publisher benchmark |\n| Other registered exchanges (including Cboe, IEX and MEMX) | Broker-dealers, market makers | Contribute quotes to the NBBO; share of volume varies by venue and by stock |\n| Dark pools and alternative trading systems (ATS) | Institutional block flow; overnight venues | Off-exchange matching; the overnight session (8:00 PM-4:00 AM ET, Sunday-Thursday) trades on alternative trading systems |\n| SIP (Securities Information Processor) | Quotes from all registered exchanges | Consolidates exchange quotes into the NBBO, the best bid and offer across registered exchanges |\nVenues do not contribute equally to price discovery.\nA price taken from one venue reflects that venue's quotes and liquidity, not the market as a whole.\n| Session/Window | Time (ET) | Character |\n|---|---|---|\nA price gap occurs when a stock opens at a significantly different price from its previous session's close.\nBecause each of the four sessions has a different liquidity profile and participant base, price information does not flow smoothly across boundaries.\nThe resulting gaps are a structural feature of equity markets, not anomalies.\n| Factor | Impact |\n|---|---|\n| Earnings | Often released after the 4:00 PM ET close, so the initial move forms in the post-market session on thinner liquidity |\n| Company, sector and macro news | Contract awards, guidance changes, regulatory decisions and macro data can move a stock sharply in the overnight or pre-market sessions |\n| Analyst upgrades/downgrades | Rating changes and large disclosed positions can trigger multi-day volatility.\nPre-market reactions can set the tone before RTH |\n| Weekend / holiday gaps | The 48-hour weekend void (Friday 8:00 PM-Sunday 8:00 PM ET) is the longest scheduled closure of a normal week.\nThe overnight session from the Sunday open provides the first price signal |\n| LULD halts | Limit Up-Limit Down circuit breakers pause trading during RTH when price moves too fast.\nOn resumption, price can gap up or down |\n| Corporate actions | Stock splits, reverse splits and delistings create planned price discontinuities.\nA 4:1 split drops the price 75% overnight: not a market move, but a structural repricing that must be handled explicitly |\nWorked example.\nA company reports quarterly results after the 4:00 PM ET close.\nThe first prices reacting to the print form in the post-market session, on thinner liquidity and wider spreads, and the next regular-session open is a gap against the prior 4:00 PM close rather than a continuation of it.\nIf the move is large enough to trip an LULD band after the open, trading pauses: no trades, no feed updates, and a discontinuous price on resumption.\nNeither event is an anomaly; both are the normal mechanics of a four-session market.\nLiquidity in US equities is not a single number.\nIt is typically deepest in the regular session, when market makers quote across every exchange and the SIP consolidates exchange quotes, and it thins outside it.\nThe windows where liquidity disappears or degrades are:\n| Event | What happens |\n|---|---|\n| LULD halt | Trading pauses during regular hours when price breaches its band.\nNo trades and no feed updates while halted; price free to gap on resumption |\n| After-hours earnings | The initial move forms in the post-market session, on thinner liquidity and wider spreads, before the next regular open |\n| Stock split | A planned discontinuity.\nPublishers apply the split ratio before the ex-date session opens, under the workflow in the Asset-Specific Handling section |\n| Weekend void, every week | 48 hours (Friday 8:00 PM-Sunday 8:00 PM ET) with no session.\nPositions held through the weekend carry gap risk across the longest closure of the week |\nPyth US equity feeds aggregate first-party contributions from institutions that make prices in this market: firms with direct market access, their own pricing engines and the ability to distribute their own data, including exchanges and trading venues, banks, non-bank market makers and trading firms.\nPyth does not enumerate individual publishers per feed.\nThe publisher set for US equities draws on four types of contributor:\nPublishers are selected per session on two criteria: price freshness through the trading day, and accuracy against the primary-market benchmark described in the What Makes Pyth Data Different section.\nPublisher accuracy is benchmarked against the mid-point price at each stock's primary listing venue, and publishers are held to a deviation limit against that benchmark.\nThis anchors the aggregate to the venue that runs each stock's opening and closing auctions.\n| Traditional US equities data | Pyth Network |\n|---|---|\n| Redistributed venue feeds, per-terminal licensed | First-party contributions from the institutions that own the data |\n| A single price with no uncertainty measure | Price plus confidence interval with every update |\nThe Pyth price for a US equity feed is an indicative reference price derived from an aggregate of publisher submissions.\nIt is venue-agnostic: it does not represent the price available on any particular exchange or trading system, and it is not an offer to buy or sell the security.\nAlways verify price freshness before use with getPriceNoOlderThan() and a threshold appropriate to this feed's schedule.\nA threshold that is correct during the trading session will reject every price while the underlying market is closed; threshold logic must be schedule-aware, not a single global constant.\nFor US equities, thresholds are session-specific as well as schedule-specific:\ngetPriceNoOlderThan() with strict thresholds appropriate for the session.\nRegular-session prices up",
+        "title": "Pyth Explorer: NVDA/USD (the page pythdata.app redirects to)",
+        "url": "https://app.pyth.com/explore/Equity.US.NVDA%2FUSD",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-17",
+        "quotes": [
+          "Nov 17, 2026 156.90 158.19 150.33 155.46 155.46 398,625,600",
+          "Nov 16, 2026 159.02 163.20 155.01 156.14 156.14 333,822,100"
+        ],
+        "text": "Nov 17, 2026 156.90 158.19 150.33 155.46 155.46 398,625,600\nNov 16, 2026 159.02 163.20 155.01 156.14 156.14 333,822,100\n\nNasdaqGS - Nasdaq Real Time Price USD\nNVIDIA Corporation (NVDA)\n155.46 -0.68 (-0.44%)\nAt close: November 17 at 4:00:00 PM EST\n161.28 +5.82 (+3.74%)\nPre-Market: 5:15:02 AM EST\nTrade NVIDIA on Coinbase\nTrading disclosure\nThe above button links to Coinbase.\nYahoo Finance is not a broker-dealer or investment adviser and does not offer securities or cryptocurrencies for sale or facilitate trading.\nCoinbase pays us for certain activity generated through this link.\nPrices displayed are informational.\nLearn more\nCurrency in USD Download\n| Date | Open | High | Low | Close Close price adjusted for splits.\n| Adj Close Adjusted close price adjusted for splits and dividend and/or capital gain distributions.\n| Volume |\n|---|---|---|---|---|---|---|\n| Nov 17, 2026 | 156.90 | 158.19 | 150.33 | 155.46 | 155.46 | 398,625,600 |\n| Nov 16, 2026 | 159.02 | 163.20 | 155.01 | 156.14 | 156.14 | 333,822,100 |\n| Nov 13, 2026 | 169.91 | 170.00 | 158.39 | 162.85 | 162.85 | 365,796,600 |\n| Nov 12, 2026 | 151.01 | 167.14 | 148.80 | 166.19 | 166.19 | 747,707,600 |\n| Nov 11, 2026 | 172.80 | 177.54 | 170.77 | 173.73 | 173.73 | 339,214,800 |\n| Nov 10, 2026 | 173.97 | 174.69 | 165.89 | 168.89 | 168.89 | 429,273,200 |\n| Nov 9, 2026 | 173.07 | 179.92 | 170.24 | 178.67 | 178.67 | 462,719,300 |\n| Nov 6, 2026 | 191.10 | 194.90 | 185.22 | 186.64 | 186.64 | 180,212,300 |\n| Nov 5, 2026 | 196.07 | 196.25 | 181.46 | 181.60 | 181.60 | 306,127,800 |\n| Nov 4, 2026 | 203.50 | 206.79 | 199.68 | 200.13 | 200.13 | 149,033,300 |\n| Nov 3, 2026 | 207.96 | 209.14 | 205.93 | 206.69 | 206.69 | 91,943,400 |\n| Nov 2, 2026 | 207.53 | 209.98 | 201.66 | 202.06 | 202.06 | 119,272,200 |\n| Oct 30, 2026 | 208.94 | 209.06 | 200.92 | 204.64 | 204.64 | 168,386,400 |\n| Oct 29, 2026 | 214.36 | 215.33 | 212.08 | 213.66 | 213.66 | 77,568,100 |\n| Oct 28, 2026 | 219.92 | 219.99 | 214.47 | 215.38 | 215.38 | 93,030,200 |\n| Oct 27, 2026 | 218.31 | 219.19 | 215.53 | 217.94 | 217.94 | 84,799,700 |\n| Oct 26, 2026 | 213.11 | 217.75 | 212.61 | 216.00 | 216.00 | 90,829,300 |\n| Oct 23, 2026 | 210.99 | 213.85 | 210.18 | 210.96 | 210.96 | 80,189,800 |\n| Oct 22, 2026 | 217.13 | 218.88 | 211.2",
+        "title": "NVIDIA Corporation (NVDA) Historical Data, Yahoo Finance",
+        "url": "https://finance.yahoo.com/quote/NVDA/history",
+        "verified": true
+      },
+      {
+        "checked_via": "archive",
+        "primary": false,
+        "published": "",
+        "quotes": [
+          "Nov 12, 2026 166.19 151.01 167.14 148.80",
+          "Nov 13, 2026 162.85 169.90 170.00 158.39",
+          "Nov 17, 2026 155.46 156.90 158.19 150.33"
+        ],
+        "snapshot": "https://web.archive.org/web/20261113193244id_/https://www.investing.com/equities/nvidia-corp-historical-data",
+        "text": "Nov 12, 2026 166.19 151.01 167.14 148.80\nNov 13, 2026 162.85 169.90 170.00 158.39\nNov 17, 2026 155.46 156.90 158.19 150.33\n\nNASDAQ\n| | Symbol | | Exchange | | Currency |\n| | NVDA | \u00b7 | NASDAQ | \u00b7 | USD |\n| | NVDL | \u00b7 | NASDAQ | \u00b7 | USD |\n| | NVDS | \u00b7 | NASDAQ | \u00b7 | USD |\n| | NVYY | \u00b7 | NASDAQ | \u00b7 | USD |\n| | 0R1I | \u00b7 | London | \u00b7 | USD |\n| | NVDA | \u00b7 | Xetra | \u00b7 | EUR |\n| | NVDA | \u00b7 | Switzerland | \u00b7 | CHF |\n| | NNVDA | \u00b7 | Milan | \u00b7 | EUR |\n| | NVDA | \u00b7 | Vienna | \u00b7 | EUR |\n| | NVDA | \u00b7 | Warsaw | \u00b7 | PLN |\n| | NVDAm | \u00b7 | Buenos Aires | \u00b7 | ARS |\n| | NVDC34 | \u00b7 | B3 | \u00b7 | BRL |\n| | NVDA | \u00b7 | Toronto | \u00b7 | CAD |\n| | NVDA | \u00b7 | Mexico | \u00b7 | MXN |\n| | NVDACO | \u00b7 | Colombia | \u00b7 | COP |\n| | NVDAUS | \u00b7 | Lima | \u00b7 | USD |\n| | NVDA | \u00b7 | Ukraine | \u00b7 | UAH |\n| | NVDA | \u00b7 | Frankfurt | \u00b7 | EUR |\n| | NVDA | \u00b7 | TradeGate | \u00b7 | EUR |\n| | NVDA_KZ | \u00b7 | KASE | \u00b7 | USD |\n| | NVDA_KZEUOM | \u00b7 | KASE | \u00b7 | USD |\n| | NVDA_KZEUSW | \u00b7 | KASE | \u00b7 | USD |\n| | NVDA | \u00b7 | CBOE Canada | \u00b7 | CAD |\n| | NVDA/USD | \u00b7 | Binance Futures | \u00b7 | USD |\nCurrency in USD\n162.39\n-3.80(-2.29%)\nReal-time Data\u00b7\nFair Value\nAn estimate of a stock's true price based on valuation models like discounted cash flow, peer valuation multiples, and dividend discount models.\nDay's Range\n158.39\n170.00\n52 wk Range\n148.80\n243.37\nExplore the NVIDIA stock price history with detailed daily historical prices, including open, high, low, close, and volume data.\nReview past trends, identify key price levels, and find the highest NVIDIA historical price.\nThis page provides a complete view of NVDA stock history, allowing you to study NVIDIA historical data across specific time frames.\nTime Frame\nDaily\n10/13/2026 - 11/13/2026\n| | 160.81 | 170.00 | 170.00 | 158.40 | 254.08M | -3.24% |\n| | 166.19 | 151.01 | 167.14 | 148.80 | 747.71M | -4.34% |\n| | 173.73 | 172.80 | 177.54 | 170.77 | 339.21M | +2.87% |\n| | 168.89 | 173.97 | 174.69 | 165.89 | 429.27M | -5.47% |\n| | 178.67 | 173.07 | 179.92 | 170.24 | 462.72M | -4.27% |\n| | 186.64 | 191.10 | 194.90 | 185.22 | 180.21M | +2.78% |\n| | 181.60 | 196.07 | 196.25 | 181.46 | 306.13M | -9.26% |\n| | 200.13 | 203.50 | 206.79 | 199.68 | 149.03M | -3.17% |\n| | 206.69 | 207.96 | 209.14 | 205.93 | 91.94M | +2.29% |\n| | 202.06 | 207.53 | 209.98 | 201.66 | 119.27M | -1.26% |\n| | 204.64 | 208.94 | 209.06 | 200.92 | 168.39M | -4.22% |\n| | 213.66 | 214.36 | 215.33 | 212.08 | 77.57M | -0.80% |\n| | 215.38 | 219.91 | 219.99 | 214.47 | 93.03M | -1.17% |\n| | 217.94 | 218.31 | 219.19 | 215.53 | 84.80M | +0.90% |\n| | 216.00 | 213.10 | 217.75 | 212.61 | 90.83M | +2.39% |\n| | 210.96 | 210.99 | 213.85 | 210.18 | 80.19M | -0.59% |\n| | 212.21 | 217.13 | 218.88 | 211.26 | 125.41M | -4.40% |\n| | 221.97 | 220.96 | 222.19 | 217.66 | 87.09M | +2.54% |\n| | 216.47 | 215.98 | 218.46 | 212.77 | 79.61M | -0.29% |\n| | 217.09 | 218.10 | 219.62 | 214.70 | 98.68M | +1.38% |\n| | 214.13 | 216.56 | 218.68 | 213.32 | 121.25M | -1.43% |\n| | 217.23 | 215.30 | 218.47 | 212.85 | 127.09M | -1.84% |\n| | 221.30 | 225.53 | 226.00 | 219.64 | 118.73M | -3.16% |\n| | 228.52 | 224.34 | 228.64 | 223.06 | 84.04M | +0.97% |\nHighest:\n228.64\nChange %:\n-28.95\nAverage:\n202.20\nDifference:\n79.84\nLowest:\n148.80\nThe average daily trading volume for NVIDIA (NVDA) is 274,694,610.\nNVIDIA has split 0 times.\nToday\u2019s NVIDIA (NVDA) range is from 158.39 to 170.00.\nThe opening price for NVIDIA today was 170.00.\nRisk Disclosure: Trading in financial instruments and/or cryptocurrencies involves high risks including the risk of losing some, or all, of your investment amount, and may not be suitable for all investors.\nPrices of cryptocurrencies are extremely volatile and may be affected by external factors such as financial, regulatory or political events.\nTrading on margin increases the financial risks.\nBefore deciding to trade in financial instrument or cryptocurrencies you should be fully informed of the risks and costs associated with trading the financial markets, carefully consider your investment objectives, level of experience, and risk appetite, and seek professional advice where needed.\nFusion Media would like to remind you that the data contained in this website is not necessarily real-time nor accurate.\nThe data and prices on the website are not necessarily provided by any market or exchange, but may be provided by market makers, and so prices may not be accurate and may differ from the actual price at any given market, meaning prices are indicative and not appropriate for trading purposes.\nFusion Media and any provider of the data contained in this website will not accept liability for any loss or damage as a result of your trading, or your reliance on the information contained within this website.\nIt is prohibited to use, store, reproduce, display, modify, transmit or distribute the data contained in this website without the explicit prior written permission of Fusion Media and/or the data provider.\nAll intellectual property rights are reserved by the providers and/or the exchange providing the data contained in this website.\nFusion Media may be compensated by the advertisers that appear on the website, based on your interaction with the advertisements or advertisers.\n\u00a9 2007-2026 - Fusion Media Limited.\nAll Rights Reserved.",
+        "title": "NVIDIA Corporation (NVDA) Historical Data, Investing.com",
+        "url": "https://www.investing.com/equities/nvidia-corp-historical-data",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "2026-11-18",
+        "quotes": [
+          "At close: Nov 17, 2026, 4:00 PM EST",
+          "Nov 17, 2026 156.90 158.19 150.33 155.46 155.46 -0.44% 406,985,086"
+        ],
+        "text": "At close: Nov 17, 2026, 4:00 PM EST\nNov 17, 2026 156.90 158.19 150.33 155.46 155.46 -0.44% 406,985,086\n\nNVIDIA Corporation (NVDA)\nNASDAQ: NVDA \u00b7 Real-Time Price \u00b7 USD\n155.46\n-0.68 (-0.44%)\nAt close: Nov 17, 2026, 4:00 PM EST\n162.94\n+7.48 (4.81%)\nAfter-hours: Nov 17, 2026, 7:59 PM EST\nNVIDIA Stock Price History\n| Date | Open | High | Low | Close | Adj.\nClose | Change | Volume |\n|---|---|---|---|---|---|---|---|\n| Nov 17, 2026 | 156.90 | 158.19 | 150.33 | 155.46 | 155.46 | -0.44% | 406,995,952 |\n| Nov 16, 2026 | 159.02 | 163.20 | 155.01 | 156.14 | 156.14 | -4.12% | 333,822,062 |\n| Nov 13, 2026 | 169.91 | 170.00 | 158.39 | 162.85 | 162.85 | -2.01% | 365,796,552 |\n| Nov 12, 2026 | 151.01 | 167.14 | 148.80 | 166.19 | 166.19 | -4.34% | 747,707,648 |\n| Nov 11, 2026 | 172.80 | 177.54 | 170.77 | 173.73 | 173.73 | 2.87% | 339,214,801 |\n| Nov 10, 2026 | 173.97 | 174.69 | 165.89 | 168.89 | 168.89 | -5.47% | 429,273,205 |\n| Nov 9, 2026 | 173.07 | 179.92 | 170.24 | 178.67 | 178.67 | -4.27% | 462,719,328 |\n| Nov 6, 2026 | 191.10 | 194.90 | 185.22 | 186.64 | 186.64 | 2.78% | 180,212,285 |\n| Nov 5, 2026 | 196.07 | 196.25 | 181.46 | 181.60 | 181.60 | -9.26% | 306,127,783 |\n| Nov 4, 2026 | 203.50 | 206.79 | 199.68 | 200.13 | 200.13 | -3.17% | 149,033,316 |\n| Nov 3, 2026 | 207.96 | 209.14 | 205.93 | 206.69 | 206.69 | 2.29% | 91,943,391 |\n| Nov 2, 2026 | 207.53 | 209.98 | 201.66 | 202.06 | 202.06 |",
+        "title": "NVIDIA (NVDA) Stock Price History, StockAnalysis",
+        "url": "https://stockanalysis.com/stocks/nvda/history/",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "CFO Commentary To Be Provided in Writing Ahead of Call\nSANTA CLARA, Calif., Oct.\n28, 2026 (GLOBE NEWSWIRE) -- NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m.\nPT (5 p.m.\nET) to discuss its financial results for the third quarter of fiscal year 2027, which ended October 25, 2026.\nThe call will be webcast live (in listen-only mode) on investor.nvidia.com.\nThe company\u2019s prepared remarks will be followed by a Q&A session, which will be limited to questions from financial analysts and institutional investors.\nAhead of the call, NVIDIA will provide written commentary on its third-quarter results from Colette Kress,\u00a0the company\u2019s Executive Vice President and Chief Financial Officer.\nThis material will be posted to investor.nvidia.com immediately after the company\u2019s results are publicly announced at approximately 1:20 p.m.\nPT.\nThe webcast will be recorded and available for replay until the company\u2019s conference call to discuss financial results for its fourth quarter and fiscal year 2027.\nAbout NVIDIA\nNVIDIA (NASDAQ: NVDA) is the world leader in AI and accelerated computing.\n\u00a9 2026 NVIDIA Corporation.\nAll rights reserved.\nNVIDIA and the NVIDIA logo are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S.\nand other countries.\nSource: NVIDIA",
+        "title": "NVIDIA Sets Conference Call for Third-Quarter Financial Results",
+        "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "2026-10-28",
+        "quotes": [
+          "NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m.\nPT (5 p.m.\nET)."
+        ],
+        "text": "NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m.\nPT (5 p.m.\nET).\n\nNVIDIA will host a conference call on Tuesday, November 17, at 2 p.m.\nPT (5 p.m.\nET) to discuss its financial results for the third quarter of fiscal year 2027, which ended October 25, 2026.\nThe call will be webcast live (in listen-only mode) on investor.nvidia.com.\nThe company\u2019s prepared remarks will be followed by a Q&A session, which will be limited to questions from financial analysts and institutional investors.\nAhead of the call, NVIDIA will provide written commentary on its third-quarter results from Colette Kress, the company\u2019s Executive Vice President and Chief Financial Officer.\nThis material will be posted to investor.nvidia.com immediately after the company\u2019s results are publicly announced at approximately 1:20 p.m.\nPT.\nThe webcast will be recorded and available for replay until the company\u2019s conference call to discuss financial results for its fourth quarter and fiscal year 2027.",
+        "title": "NVIDIA Sets Conference Call for Third-Quarter Financial Results",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873",
+        "verified": true
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000088/q3fy27pr.htm'\nFor more information check: https://developer.mozilla.org/en-",
+        "primary": true,
+        "published": "2026-11-17",
+        "quotes": [
+          "today reported revenue for the third quarter ended October 25, 2026, of $115.8 billion.",
+          "Revenue is expected to be $130.0 billion, plus or minus 3%.\nNVIDIA is not assuming any Data Center compute revenue from China in its outlook.",
+          "GAAP and non-GAAP gross margins are expected to be between 71.0% and 72.0%.",
+          "Revenue is expected to be $130.0 billion, plus or minus 3%."
+        ],
+        "text": "today reported revenue for the third quarter ended October 25, 2026, of $115.8 billion.\nRevenue is expected to be $130.0 billion, plus or minus 3%.\nNVIDIA is not assuming any Data Center compute revenue from China in its outlook.\nGAAP and non-GAAP gross margins are expected to be between 71.0% and 72.0%.\nRevenue is expected to be $130.0 billion, plus or minus 3%.",
+        "title": "NVIDIA CORP Form 8-K exhibit: Q3 FY2027 financial results press release",
+        "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000088/q3fy27pr.htm",
+        "verified": null
+      },
+      {
+        "checked_via": "archive",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Tuesday, November 10, 2026",
+          "08:30 AM",
+          "Consumer Price Index for October 2026"
+        ],
+        "snapshot": "https://web.archive.org/web/20261109144742id_/https://www.bls.gov/schedule/2026/11_sched_list.htm",
+        "text": "Tuesday, November 10, 2026\n08:30 AM\nConsumer Price Index for October 2026\n\nAn official website of the United States government\n| | November 2026 Month View \\| List View NOTE: All times on calendar are Eastern Time.\nLast Modified Date: November 03, 2026 Subscribe to the BLS Online Calendar Online calendar subscription \u2014 automatically updated: If you use a recent version of an electronic calendar, you may be able to subscribe to the BLS Online Calendar.\nSee details below for users of different types of calendars.\nNOTE: We do not recommend using this online calendar with Outlook 2003 or older versions.\nThe calendar will not update automatically in those applications.\nThe BLS calendar contains publication dates for most news releases scheduled to be issued by the BLS national office in upcoming months.\nIt is updated as needed with additional news releases, usually at least a week before their scheduled publication date.\n|\n| Date | Time | Release |\n|---|---|---|\n| Tuesday, November 03, 2026 | 10:00 AM | Job Openings and Labor Turnover Survey for September 2026 |\n| Thursday, November 05, 2026 | 08:30 AM | Productivity and Costs (P) for Third Quarter 2026 |\n| Friday, November 06, 2026 | 08:30 AM | Employment Situation for October 2026 |\n| Tuesday, November 10, 2026 | 08:30 AM | Consumer Price Index for October 2026 |\n| Tuesday, November 10, 2026 | 08:30 AM | Real Earnings for October 2026 |\n| Wednesday, November 11, 2026 | | Veterans Day |\n| Friday, November 13, 2026 | 08:30 AM | Producer Price Index for October 2026 |\n| Tuesday, November 17, 2026 | 08:30 AM | U.S.\nImport and Export Price Indexes for October 2026 |\n| Wednesday, November 18, 2026 | 10:00 AM | Employer-Reported Workplace Injuries and Illnesses (Annual) for 2025 |\n| Friday, November 20, 2026 | 10:00 AM | State Employment and Unemployment (Monthly) for October 2026 |\n| Friday, November 20, 2026 | 10:00 AM | Total Factor Productivity for Major Industries for Annual 2025 |\n| Thursday, November 26, 2026 | | Thanksgiving Day |",
+        "title": "BLS release schedule, November 2026",
+        "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-12",
+        "quotes": [
+          "Nvidia (NVDA) closed at $173.73 on November 11, 2026, up 2.87%, ending a two-day losing streak."
+        ],
+        "text": "Nvidia (NVDA) closed at $173.73 on November 11, 2026, up 2.87%, ending a two-day losing streak.\n\nAI-powered contentSome parts of this article are powered by AI.\nShare this article\nSummary\nNvidia (NVDA) closed at $173.73 on November 11, 2026, up 2.87%, ending a two-day losing streak.\nYahoo Finance tied the rebound to a chip-sector rally after CoreWeave's quarterly results.\nAfter the close, The Wall Street Journal reported the board was preparing to oust CEO Jensen Huang, per CBS News, and the shares fell in after-hours trading.\nGotrade News - In the latest Nvidia stock news, Nvidia (NVDA) closed at $173.73 on Wednesday, November 11, 2026, up $4.84 (+2.87%) in the US session.\nNvidia stock rebounded as chip stocks rallied after CoreWeave's quarterly results, according to Yahoo Finance, while reports on CEO Jensen Huang's future landed only after the close.\nNVDA Trading Data\nData\nValue\nClosing price\n$173.73\nChange\n+$4.84 (+2.87%)\nPrevious close\n$168.89\nOpen\n$172.80\nDay range\n$170.77 to $177.54\nVolume\n339.2 million shares\n30-day average volume\n137.2 million shares\n52-week range\n$164.27 to $243.37\nRegular-session close on Wednesday, November 11, 2026, 4:00 p.m.\nNew York time.\nStock prices: Yahoo Finance, cross-checked against the closing price on Nasdaq.com.\nVolume and 30-day average volume: Nasdaq.com.\n52-week range: Yahoo Finance daily highs and lows since November 12, 2",
+        "title": "Nvidia Stock (NVDA) Rises 2.9% as Chip Stocks Rally (Nov 11)",
+        "url": "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-12-2026/",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-18",
+        "quotes": [
+          "Shares of the chipmaker rose roughly 4.7% to 5% in extended trading."
+        ],
+        "text": "Shares of the chipmaker rose roughly 4.7% to 5% in extended trading.\n\nWall Street started Wednesday, November 18, 2026, with a rare reversal.\nTech futures rose sharply after Nvidia posted fiscal third-quarter revenue of $115.8 billion, up 103% from a year earlier, and forecast about $130 billion for the fourth quarter.\nInvestor\u2019s Business Daily reported the move as the market\u2019s response to a day when stocks had broken lower.\nNasdaq 100 futures gained 1.5% in early Asian trading, while S&P 500 futures added 0.8%.\nThe setup matters as much as the numbers.\nOn November 17 the S&P 500 fell 1% and closed at its lowest level since July, and the Nasdaq Composite slid 0.7% to its weakest point since April.\nTraders had spent days worrying that the AI spending boom was running out of road.\nThen Nvidia reported, and results and guidance that beat Wall Street expectations, according to New York Times live coverage, gave buyers a reason to step back in.\nShares of the chipmaker rose roughly 4.7% to 5% in extended trading.\nThis analysis looks at what the print really showed, how much of the rebound looks durable, and where the risks sit.\nIt builds on our earlier breakdown of Nvidia\u2019s $115.8 billion quarter and its guidance range, and adds the market-reaction angle: the futures move, the analyst caution, and what it means for anyone who builds on AI models and AI chips.\nDon't miss new tech stories on Google\nAdd Shattered once in the Google app and our stories show up in your news suggestions.\nWhat Happened: Tech Futures Rise After the Market Breaks Lower\nThe sequence ran in three steps.\nFirst, U.S.\nstocks sold off through Tuesday\u2019s session, with technology names leading the decline.\nSecond, Nvidia released its numbers after the close.\nThird, index futures reversed within minutes, and Asian trading picked up the signal.\nNasdaq 100 futures rose 1.5% and S&P 500 futures rose 0.8% in early Asian trading, reports said.\nThat gap between the two futures contracts tells its own story.\nThe Nasdaq 100 carries heavier weight in semiconductors, cloud platforms, and software, so it reacts harder to an AI-demand headline.\nThe S&P 500 spreads that exposure acro",
+        "title": "Tech Futures Rise 1.5% on Nvidia's $115.8B Quarter",
+        "url": "https://shattered.io/tech-futures-rise-nvidia-115-8-billion-quarter-market-breaks-lower/",
+        "verified": true
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://in.investing.com/news/economy-news/nvidia-raises-guidance-anthropic-ipo-in-focus--whats-moving-markets-5711846'\nFor more information chec",
+        "primary": false,
+        "published": "2026-11-18",
+        "quotes": [
+          "Nvidia shares were higher by more than 2% in extended trading, but pared back some earlier gains."
+        ],
+        "text": "Nvidia shares were higher by more than 2% in extended trading, but pared back some earlier gains.",
+        "title": "Nvidia raises guidance; Anthropic IPO in focus - what's moving markets (Investing.com)",
+        "url": "https://in.investing.com/news/economy-news/nvidia-raises-guidance-anthropic-ipo-in-focus--whats-moving-markets-5711846",
+        "verified": null
+      }
+    ],
+    "polymarket-7029818": [
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Copyright \u00a9 2026 Apple Inc.",
+          "The closest content is the first entry in the chart list: \"Shadowrocket\" with the description \"Rule based proxy utility.\"",
+          "The only date is \"Copyright \u00a9 2026 Apple Inc.,\" which is not a publication date."
+        ],
+        "text": "Copyright \u00a9 2026 Apple Inc.\nThe closest content is the first entry in the chart list: \"Shadowrocket\" with the description \"Rule based proxy utility.\"\nThe only date is \"Copyright \u00a9 2026 Apple Inc.,\" which is not a publication date.\n\nRule based proxy utility\nBusiness\nSketch and Paint on iPhone.\nSmart & powerful flashcards\nCreate facial composites\nRetro computers you can play\nPowerful Music Practice Tools\nArtful Photos Made Simple\nInstant flash.\nIn the moment.\nRetro Music player\nYour new Notebook\nFish tanks, reefs & rockpools\nCameras, Lenses & 100 Films\nMusic\nA visual instrument.\nExplore the Universe\nConduit Bending Calculator\nThe Official FODMAP App\nHam Radio Exam Prep\nLive air traffic control radio\nPro MGRS USNG GPS for Land Nav\nSmart tools for the neurospicy\nFast & Secure Remote Desktop\nHealth Check & Pulse Tracker\nHabit Tracker & To-Do List",
+        "title": "Apple App Store Top Paid Apps chart (US iPhone)",
+        "url": "https://apps.apple.com/us/iphone/charts/36?chart=top-paid",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "2026-02-19",
+        "quotes": [
+          "Best: #2 \u00b7 Worst: #3 \u00b7 6 days tracked",
+          "Listing last updated: 2026-02-19."
+        ],
+        "text": "Best: #2 \u00b7 Worst: #3 \u00b7 6 days tracked\nListing last updated: 2026-02-19.\n\nShadowrocket Price Snapshot\nShadowrocket by Shadow Launch Technology Limited is priced at $2.99 on the Apple App Store, with no in-app purchases.\nIt holds a 4.5\u2605 rating from 11.4K reviews.\nLatest IAP data: 2026-03-21.\nListing last updated: 2026-02-19.\nSource: public Apple App Store data, compiled via the App Pricing Lab methodology.\n4.5\u2605\n11.4K reviews\n2015-04-13\nReleased\n2026-02-19\nLast Updated\nRankings\n| Category | Collection | Rank | Date |\n|---|---|---|---|\n| BOOKS | top-paid | #1 | 2026-11-18 |\n| BOOKS | top-paid | #1 | 2026-11-17 |\n| FINANCE | top-paid | #1 | 2026-11-17 |\n| GAMES | top-paid | #1 | 2026-11-17 |\n| GRAPHICS_AND_DESIGN | top-paid | #1 | 2026-11-17 |\n| HEALTH_AND_FITNESS | top-paid | #1 | 2026-11-17 |\n| LIFESTYLE | top-paid | #1 | 2026-11-17 |\n| MEDICAL | top-paid | #1 | 2026-11-17 |\n| MUSIC | top-paid | #1 | 2026-11-17 |\n| NAVIGATION | top-paid | #1 | 2026-11-17 |\n| NEWS | top-paid | #1 | 2026-11-17 |\n| PRODUCTIVITY | top-paid | #1 | 2026-11-17 |\n| SHOPPING | top-paid | #1 | 2026-11-17 |\n| SOCIAL_NETWORKING | top-paid | #1 | 2026-11-17 |\n| SPORTS | top-paid | #1 | 2026-11-17 |\n| TRAVEL | top-paid | #1 | 2026-11-17 |\n| UTILITIES | top-paid | #1 | 2026-11-17 |\n| WEATHER | top-paid | #1 | 2026-11-17 |\n| BOOKS | top-paid | #1 | 2026-11-16 |\n| FINANCE | top-paid | #1 | 2026-11-16 |\n| GRAPHICS_AND_DESIGN | top-paid | #1 | 2026-11-16 |\n| HEALTH_AND_FITNESS | top-paid | #1 | 2026-11-16 |\n| LIFESTYLE | top-paid | #1 | 2026-11-16 |\n| MUSIC | top-paid | #1 | 2026-11-16 |\n| NEWS | top-paid | #1 | 2026-11-16 |\n| PHOTO_AND_VIDEO | top-paid | #1 | 2026-11-16 |\n| REFERENCE | top-paid | #1 | 2026-11-16 |\n| SOCIAL_NETWORKING | top-paid | #1 | 2026-11-16 |\n| BOOKS | top-paid | #1 | 2026-11-15 |\n| BUSINESS | top-paid | #1 | 2026-11-15 |\n| DEVELOPER_TOOLS | top-paid | #1 | 2026-11-15 |\n| GRAPHICS_AND_DESIGN | top-paid | #1 | 2026-11-15 |\n| HEALTH_AND_FITNESS | top-paid | #1 | 2026-11-15 |\n| LIFESTYLE | top-paid | #1 | 2026-11-15 |\n| MEDICAL | top-paid | #1 | 2026-11-15 |\n| MUSIC | top-paid | #1 | 2026-11-15 |\n| NAVIGATION | top-paid | #1 | 2026-11-15 |\n| PHOTO_AND_VIDEO | top-paid | #1 | 2026-11-15 |\n| PRODUCTIVITY | top-paid | #1 | 2026-11-15 |\n| REFERENCE | top-paid | #1 | 2026-11-15 |\n| SPORTS | top-paid | #1 | 2026-11-15 |\n| UTILITIES | top-paid | #1 | 2026-11-15 |\n| WEATHER | top-paid | #1 | 2026-11-15 |\n| BOOKS | top-paid | #1 | 2026-11-14 |\n| EDUCATION | top-paid | #1 | 2026-11-14 |\n| ENTERTAINMENT | top-paid | #1 | 2026-11-14 |\n| GRAPHICS_AND_DESIGN | top-paid | #1 | 2026-11-14 |\n| HEALTH_AND_FITNESS | top-paid | #1 | 2026-11-14 |\n| LIFESTYLE | top-paid | #1 | 2026-11-14 |\n| MEDICAL | top-paid | #1 | 2026-11-14 |\nRanking History \u2014 Top Paid\nBest: #2 \u00b7 Worst: #3 \u00b7 6 days tracked\nScreenshots\nAbout Shadowrocket\nRule based proxy utility client for iPhone/iPad.\n- Capture all HTTP/HTTPS/TCP traffic from any applications on your device, and redirect to the proxy server.\n- Record and display HTTP, HTTPS, DNS requests from your iOS devices.\n- Configure rules using domain match, domain suffix, domain keyword, CIDR IP range, and/or GeoIP lookup.\n- Measure traffic usage and network speed on WiFi, cellular, direct and proxy connections.\n- Import rule files from URL or iCloud Drive.\n- Block ads by domain, user agent rules.\n- Local DNS Mapping.\n- Work on cellular networks.\n- Decrypt HTTPS traffic.\n- Perform URL rewrite.\n- Fully IPv6 supports.\n- Script filter supports.\n- Multi-level forward proxy.\n- Support kcptun, cloak, gost, v2ray plugins.\n- Support DNS over HTTPS, DNS over TLS, DNS over QUIC.\nFrequently Asked Questions\nIs Shadowrocket free?\nNo, Shadowrocket costs $2.99.\nWhat is the rating of Shadowrocket?\nShadowrocket has a 4.5 out of",
+        "title": "App Pricing Lab: Shadowrocket (Apple ID 932747118) price and rank page",
+        "url": "https://www.apppricinglab.com/app/apple/932747118",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Copyright \u00a9 2026 Apple Inc.",
+          "The page doesn't explicitly say whether it shows the Free or Paid chart, since it offers both as options.",
+          "The first app listed is \"TikTok Pro - Events,\" described as \"Watch, Discover, Join & Share.\"",
+          "\"TikTok Pro - Events\""
+        ],
+        "text": "Copyright \u00a9 2026 Apple Inc.\nThe page doesn't explicitly say whether it shows the Free or Paid chart, since it offers both as options.\nThe first app listed is \"TikTok Pro - Events,\" described as \"Watch, Discover, Join & Share.\"\n\"TikTok Pro - Events\"\n\nWatch, Discover, Join & Share\nYour personal AI agent\nSell & buy second-hand clothes\nYour everyday AI assistant\nAI assistant for life and work\nYour AI assistant from Google\nCreate Wishes & Get Inspired\nTrending short dramas & series\nCoupons, Rewards, and Deals\nNBA, Football & Crypto Trading\nVideo maker with music\nJoin the conversation\nEasy account access anywhere.\nShopping app & package tracker\nSearch with AI, Images & Text\nShop incredible deals on Temu!\nYour proactive work agent\nThe Live Shopping Marketplace\nThrift Clothing Marketplace\nProtects your online identity\nGroup messaging & calling\nShop fashion, gifts, grocery.\nSecure, fast & organized email\nWatch, discover and stream!\nMeet fictional personalities",
+        "title": "Apple App Store Top Charts, Top Paid Apps (US iPhone)",
+        "url": "https://apps.apple.com/us/charts/iphone/top-paid-apps/36",
+        "verified": false
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "\"$2.99\"",
+          "\"Version 2.2.93 Oct 29\""
+        ],
+        "text": "\"$2.99\"\n\"Version 2.2.93 Oct 29\"\n\nShadowrocket\nRule based proxy utility\n$2.99\nRule based proxy utility client for iPhone/iPad.\n- Capture all HTTP/HTTPS/TCP traffic from any applications on your device, and redirect to the proxy server.\n- Record and display HTTP, HTTPS, DNS requests from your iOS devices.\n- Configure rules using domain match, domain suffix, domain keyword, CIDR IP range, and/or GeoIP lookup.\n- Measure traffic usage and network speed on WiFi, cellular, direct and proxy connections.\n- Import rule files from URL or iCloud Drive.\n- Block ads by domain, user agent rules.\n- Local DNS Mapping.\n- Work on cellular networks.\n- Decrypt HTTPS traffic.\n- Perform URL rewrite.\n- Fully IPv6 supports.\n- Script filter supports.\n- Multi-level forward proxy.\n- Support kcptun, cloak, gost, v2ray plugins.\n- Support DNS over HTTPS, DNS over TLS, DNS over QUIC.\nWhen dark mode is enabled, the on/off buttons of widgets 4/5/6 (\ud83d\ude80 in a circle) appear very unclear after being connected.\nIn light mode, the entire button turns green, making it highly visible; however, in dark mode, the button color remains unchanged\u2014only the thinnest outline of the small rocket turns green, which is especially hard to notice.\nIf bright green appears too jarring, an alternative color th",
+        "title": "Shadowrocket - App Store (US)",
+        "url": "https://apps.apple.com/us/app/shadowrocket/id932747118",
+        "verified": false
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '404 Not Found' for url 'https://www.trendsmcp.ai/trending/app-store-trending-may-3-2026'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Top paid iPhone apps on May 3, 2026 (Trends MCP)",
+        "url": "https://trendsmcp.ai/trending/app-store-trending-may-3-2026",
+        "verified": null
+      }
+    ],
+    "polymarket-7087528": [
+      {
+        "download_error": "no readable text on the page",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Trade SOL/USDT Spot | Binance",
+        "url": "https://www.binance.com/en/trade/SOL_USDT",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+        ],
+        "text": "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time.",
+        "title": "Binance Spot API: Market Data Endpoints (Kline/Candlestick data)",
+        "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "{\"symbol\":\"SOLUSDT\",\"price\":\"75.19000000\"}"
+        ],
+        "text": "{\"symbol\":\"SOLUSDT\",\"price\":\"75.19000000\"}",
+        "title": "Binance public API: SOLUSDT ticker price",
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT",
+        "verified": null
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '451 ' for url 'https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/S",
+        "primary": false,
+        "published": "2026-11-18",
+        "quotes": [],
+        "text": "",
+        "title": "Binance public API: SOLUSDT 1-day klines (31 candles)",
+        "url": "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "2026-11-17",
+        "quotes": [
+          "The live Solana price today is $73.68 USD.",
+          "Page last updated: 11/17/26, 2:27 PM (UTC)"
+        ],
+        "text": "The live Solana price today is $73.68 USD.\nPage last updated: 11/17/26, 2:27 PM (UTC)",
+        "title": "Solana (SOL) price on Binance",
+        "url": "https://www.binance.com/en/price/solana",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [
+          "The price of Solana (SOL) is $75.06 today with a 24-hour trading volume of $2,908,419,657.64.",
+          "This represents a 3.40% price increase in the last 24 hours and a -9.50% price decline in the past 7 days.",
+          "\"The price of Solana (SOL) is $75.10 today with a 24-hour trading volume of $2,909,789,009.94.\"",
+          "\"This represents a 3.70% price increase in the last 24 hours and a -9.50% price decline in the past 7 days.\""
+        ],
+        "text": "The price of Solana (SOL) is $75.06 today with a 24-hour trading volume of $2,908,419,657.64.\nThis represents a 3.40% price increase in the last 24 hours and a -9.50% price decline in the past 7 days.\n\"The price of Solana (SOL) is $75.10 today with a 24-hour trading volume of $2,909,789,009.94.\"\n\"This represents a 3.70% price increase in the last 24 hours and a -9.50% price decline in the past 7 days.\"\n\nSolana\nSOL Price\nSolana Foundation Acquires Majority Stake in CoinGecko\nSolana Price Chart (SOL)\nSwitch & Compare\n| 1h | 24h | 7d | 14d | 30d | 1y |\n|---|---|---|---|---|---|\n| 0.5% | 3.7% | 9.5% | 19.5% | 28.9% | 45.5% |\nSOL Converter\nSolana Statistics\n| Market Cap | \u20ac40.427B |\n|---|---|\n| Market Cap / FDV | 0.93 |\n| Fully Diluted Valuation | \u20ac43.566B |\n| 24 Hour Trading Vol | \u20ac2.647B |\n| Perps 24h Open Interest | \u20ac3.588B |\n| OI / Market Cap | 8.88% |\n| Perps 8h Funding Rate | -0.0094% |\n| Perps / Spot 24h Vol | 26.3\u00d7 |\n| Circulating Supply | 591.795M |\n| Total Supply | 637.738M |\n| Max Supply | \u221e |\n| Total Treasury Holding | 17,644,801 |\nSOL Historical Price\n| 24h Range | \u20ac64.82 \u2013 \u20ac68.83 |\n|---|---|\n| 7d Range | \u20ac61.54 \u2013 \u20ac78.02 |\n| All-Time High | \u20ac285.60 74.4% |\n| All-Time Low | \u20ac0.4632 14873.4% |\nWhat price will Solana hit in November?\n| $100.00 | 5.0% |\n|---|---|\n| $90.00 | 14.5% |\n| $80.00 | 56.0% |\n| $70.00 | 56.5% |\n| $60.00 | 11.6% |\n| $50.00 | 4.7% |\nRecently Happened to Solana\nHow do you feel about SOL today?\nAbout Solana (SOL)\nSolana is a high-performance Layer 1 blockchain built for mass adoption, offering a fast and low-cost environment for decentralized applications.\n-\nIt utilizes a unique timestamping mechanism to process thousands of transactions per second with sub-second finality \u2014 the time it takes for a transaction to be fully confirmed and irreversible.\n-\nUsers pay minimal fees, often costing a fraction of a penny, making the network accessible for frequent use and micro-transactions.\n-\nThe platform supports a vast ecosystem of tools ranging from decentralized finance to digital collectibles and real-world assets.\nWhat Is Solana\nSolana is a decentralized computing platform designed to scale globally without the need for complex layers or sharding \u2014 a method that splits the network into pieces to process more data.\nValue moves through the system via its native token, SOL, which acts as the \"gas\" or compute power required to execute transactions.\nThe token is put to work through staking, where users lock up their assets to help validators secure the network in exchange for rewards.\nAs the ecosystem grows, demand for SOL increases to cover transaction fees and governance \u2014 the process where token holders vote on changes to the system.\nWhat Makes Solana Unique\n-\nProof of History: This is a decentralized clock that creates a verifiable record of when events happen, allowing the network to process data much faster without constant node communication.\n-\nSingle-Layer Scaling: Solana maintains a single, unified ledger to avoid the liquidity fragmentation often found in multi-layer or modular systems.\n-\nParallel Execution: The network uses the Sealevel engine, which allows many smart contracts \u2014 automated digital agreements \u2014 to run at the exact same time.\n-\nGulf Stream: A protocol that forwards transactions to validators before the previous block is finished, reducing confirmation times and memory pressure.\nWhat Can You Use Solana for?\n-\nLaunchpads: Solana's high speed, scalability, and low transaction costs make it one of the most popular chains for launchpads including Pump.fun and LetsBONK.fun.\n-\nStaking: Holders delegate tokens to validators to earn a yield while securing the underlying blockchain infrastructure.\n-\nDecentralized Finance (DeFi): Users trade, lend, or borrow assets through automated DeFi applications like Jupiter or Raydium.\n-\nDigital Collectibles: The network hosts a large market for non-fungible tokens (NFTs), which are unique digital assets representing art, media, or identity.\n-\nDePIN: Solana powers projects in the Decentralized Physical Infrastructure Networks space, such as Helium, which use tokens to incentivize the rollout of real-world hardware.\nHow Does Solana Work?\nSolana operates on a Proof of Stake model combined with a innovation called Proof of History (PoH).\nIn traditional blockchains, nodes must talk back and forth to agree on what time a transaction occurred, creating bottlenecks.\nSolana eliminates this by having a built-in \"clock\" that creates a digital proof of the passage of time.\nBecause every node can trust this internal timeline, the network can organize transactions and process them in parallel\u2014running multiple tasks at once across CPU cores\u2014rather than processing them in a single file line.\nTeam Info and Investors\nSolana was founded in 2017 by Anatoly Yakovenko, a former engineer at Qualcomm and Dropbox, who authored the original whitepaper.\nHe was joined by Greg Fitzgerald, Raj Gokal, and Stephen Akridge to form Solana Labs.\nThe project is supported by the Solana Foundation, a non-profit based in Switzerland.\nMajor institutional investors include Andreessen Horowitz (a16z), Polychain Capital, Multicoin Capital, and Jump Crypto.\nRecent Institutional Adoption\n-\nSpot Solana ETFs: Following the launch of Solana Spot ETFs in late 2025, major financial institutions have begun disclosing exposure.\nAs of early 2026, issuers such as Bitwise (BSOL) and Fidelity (FSOL) have seen significant inflows, with total Solana ETF assets surpassing $1 billion.\nMorgan Stanley has also entered the space by filing for its own Solana Trust.\n-\nCorporate Treasury Strategy: Forward Industries (NASDAQ: FORD) has transitioned into a Solana-focused treasury company, holding over 6.9 million SOL (valued at just under $1 billion).\nTo support this strategy, the firm launched a $1 billion share repurchase program and now operates its own validator node on the network.\n-\nPublic Equity Tokenization: In September 2025, Galaxy Digital partnered with Superstate to tokenize its SEC-registered Class A Common Stock directly on the Solana blockchain.\nThis marks the first time a major public company has moved its legal equity records onto a public ledger for near-instant settlement.\nWhere can you buy Solana?\nSOL tokens can be traded on centralized crypto exchanges.\nThe most popular exchange to buy and trade Solana is Binance, where the most active trading pair SOL/USDT has a trading volume of $219,264,250.02 in the last 24 hours.\nOther popular options include Gate and Coinbase Exchange.\nWhat is the daily trading volume of Solana (SOL)?\nThe trading volume of Solana (SOL) is $2,909,702,098.53 in the last 24 hours, representing a 5.50% increase from one day ago and signalling a recent rise in market activity.\nCheck out CoinGecko\u2019s list of highest volume cryptocurrencies.\nWhat is the highest and lowest price for Solana (SOL)?\nSolana (SOL) reached an all-time high of $293.31 and an all-time low of $0.5008.\nIt\u2019s now trading -74.40% below that peak and 14,889.50% above its lowest price.\nWhat is the market cap of Solana (SOL)?\nMarket capitalization of Solana (SOL) is $44,437,984,352 and is ranked #7 on CoinGecko today.\nMarket cap is measured by multiplying token price with the circulating supply of SOL tokens (590 Million tokens are tradable on the market today).\nWhat is the fully diluted valuation of Solana (SOL)?\nThe fully diluted valuation (FDV) of Solana (SOL) is $47,887,814,336.\nThis is a statistical representation of the maximum market cap, assuming total number of 637.738 Million ETH tokens are in circulation today.\nHow does the price performance of Solana compare against its peers?\nWith a price decline of -9.50% in the last 7 days, Solana (SOL) is outperforming the global cryptocurrency market which is down -11.30%, while outperforming when compared to similar Smart Contract Platform cryptocurrencies which are down -11.70%.\nSolana (SOL) Security Ratings\nSolana Markets\n| # | Exchange | | Pair | Price | Spread | +2% Depth | -2% Depth | 2",
+        "title": "Solana (SOL) price on CoinGecko",
+        "url": "https://www.coingecko.com/en/coins/solana",
+        "verified": false
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '451 ' for url 'https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m&startTime=1794805200000&endTime=1794865140000&limit=1000'\nFor more information check: htt",
+        "primary": false,
+        "published": "2026-11-18",
+        "quotes": [],
+        "text": "",
+        "title": "Binance SOLUSDT 1-minute klines (paginated, 2026-11-16 05:00 UTC to 2026-11-18 10:09 UTC)",
+        "url": "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m&startTime=1794805200000&endTime=1794865140000&limit=1000",
+        "verified": null
+      },
+      {
+        "checked_via": "archive",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "snapshot": "https://web.archive.org/web/20261025230033id_/https://solana.com/upgrades",
+        "text": "Solana Upgrades\nTrack network changes, validator actions, client support, and rollout status for Solana protocol and performance upgrades.\nAgave 4.5\nPlannedExpected December 2026\nAgave 4.4\nPlannedExpected November 2026\nsBPFv3 Programs\nNew program deployments must target sBPFv3.\nPrograms already onchain keep running.\nDeeper CPI Nesting\nPrograms can call each other 8 levels deep, up from 4\nAgave 4.2\nShippedAugust 2026\nAgave 4.2 Release Overview\nCheaper rent, larger transactions, and faster slots \u2014 and the groundwork for Alpenglow\nReduced Slot Times\nSlot times cut from 400ms to 200ms\nReduced Rent\nCutting the cost of on-chain storage by 90%\nLarger Transaction Sizes\nThe maximum transaction size is now 4096 bytes, up from 1232\nUnscheduled\nCompleted\nAgave 4.3\nShippedOctober 20261 upgrade, all live on mainnet+\nAgave 4.3\nShippedOctober 2026\nAgave 4.1\nShippedMay 20265 upgrades, all live on mainnet+\nAgave 4.1\nShippedMay 2026\n100M CU Blocks\nRaising Solana's block limit from 60M to 100M compute units\nBLS Pubkey and the Validator Admission Ticket\nVAT is live on mainnet; register a BLS pubkey and fund your vote account to stay in consensus\nNew Cryptography Schemes\nNative syscalls for BN254 G2 and BLS12-381 curve operations\nXDP on Solana\nKernel-bypass networking for faster block propagation on Solana\nOptimized Token Program\nUp to 98% More Efficient Token Operations on Solana\nAgave 4.5\nPlannedExpected December 2026\n| Upgrade | Key metric | Status |\n|---|---|---|\n| More Accounts per Transaction A v1 transaction can name 96 accounts, up from 64 | 64 \u2192 96 Accounts per v1 transaction | In Development |\nAgave 4.4\nPlannedExpected November 2026\n| Upgrade | Key metric | Status |\n|---|---|---|\n| sBPFv3 Programs New program deployments must target sBPFv3.\nPrograms already onchain keep running.\n| 4 \u2192 1 Program formats accepted for new deployments | In Development |\n| Deeper CPI Nesting Programs can call each other 8 levels deep, up from 4 | 4 \u2192 8 Maximum nested CPI calls | In Development |\nAgave 4.2\nShippedAugust 2026\nCheaper rent, larger transactions, and faster slots \u2014 and the groundwork for Alpenglow\n| Upgrade | Key metric | Status |\n|---|---|---|\n| Reduced Slot Times Slot times cut from 400ms to 200ms | 200ms Mainnet slot time, down from 400ms | Live on Mainnet |\n| Reduced Rent Cutting the cost of on-chain storage by 90% | 90% Rent reduction, phased over 5 steps | Partially Activated |\n| Larger Transaction Sizes The maximum transaction size is now 4096 bytes, up from 1232 | 4096 Bytes per transaction, up from 1232 | Live on Mainnet |\nUnscheduled\n| Upgrade | Key metric | Status |\n|---|---|---|\n| Durable Nonce Deprecation Moving offline signing out of the runtime and into onchain programs | ~6 months Migration window after the replacement program is ready | In Development |\nCompleted\nAgave 4.3\nShippedOctober 20261 upgrade, all live on mainnet+\nAgave 4.3\nShippedOctober 2026\n| Upgrade | Key metric | Status |\n|---|---|---|\n| Alpenglow Solana's new consensus protocol delivers sub-second finality | ~150ms Target finality, down from 12.8 seconds | Live on Mainnet |\nAgave 4.1\nShippedMay 20265 upgrades, all live on mainnet+\nAgave 4.1\nShippedMay 2026\n| Upgrade | Key metric | Status |\n|---|---|---|\n| 100M CU Blocks Raising Solana's block limit from 60M to 100M compute units | 100M Compute units per block, up from 60M | Live on Mainnet |\n| BLS Pubkey and the Validator Admission Ticket VAT is live on mainnet; register a BLS pubkey and fund your vote account to stay in consensus | 2,000 Max validators admitted under VAT | Live on Mainnet |\n| New Cryptography Schemes Native syscalls for BN254 G2 and BLS12-381 curve operations | 10-20x Lower compute vs pure-BPF implementations | Live on Mainnet |\n| XDP on Solana Kernel-bypass networking for faster block propagation on Solana | 200x Latency Reduction vs.\nStandard Networking | Live on Mainnet |\n| Optimized Token Program Up to 98% More Efficient Token Operations on Solana | 95-98% Reduction in Compute Units | Live on Mainnet |",
+        "title": "Solana Upgrades tracker",
+        "url": "https://solana.com/upgrades",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "\"lastPrice\":\"75.18000000\"",
+          "\"highPrice\":\"75.78000000\"",
+          "\"lowPrice\":\"71.07000000\""
+        ],
+        "text": "\"lastPrice\":\"75.18000000\"\n\"highPrice\":\"75.78000000\"\n\"lowPrice\":\"71.07000000\"",
+        "title": "Binance API 24hr ticker, SOLUSDT",
+        "url": "https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-09-22",
+        "quotes": [
+          "The mainnet-beta volunteer rollout begins October 19, general adoption is recommended November 2",
+          "mainnet-beta feature activation resumes November 9.",
+          "All dates are described as tentative, and Anza asks operators to wait for Discord announcements before acting."
+        ],
+        "text": "The mainnet-beta volunteer rollout begins October 19, general adoption is recommended November 2\nmainnet-beta feature activation resumes November 9.\nAll dates are described as tentative, and Anza asks operators to wait for Discord announcements before acting.\n\nake to vote for activation before it opens.\nValidators that have not migrated off incompatible clients before the gate window will have their stake excluded from that count.\nThe Alpenglow operator documentation covers what the migration entails: vote account BLS key registration, validator admission ticket funding, and vote history file handling.\nAdmitted validators (those in the top 2,000 by stake weight per epoch) are charged a validator admission ticket each epoch; the documentation recommends confirming that funding before the gate opens.\nJump Crypto's hybrid client ran on Solana testnet through the full Alpenglow development period, contributing to network operations while Firedancer's complete implementation matured.\nOnce testnet activation completes, that run is over on the test network.\nAlessandro Decina, an engineer at Anza, added his own note alongside Tim Garcia's post: \"kudos to anza for the milestone too.\"\nWhether a Votor-capable Firedancer build is in development for mainnet has not been announced.\nAgave v4.4 Schedule: Mainnet Feature Activation Resumes November 9\nAnza published the Agave v4.4 release schedule on September 22, the same day the v4.4 branch was created.\nAll dates are described as tentative, and Anza asks operators to wait for Discord announcements before acting.\nThe v4.4 schedule runs on a separate track from Alpenglow's activation.\nTestnet operators are asked to adopt v4.4 on September 28, and testnet feature activation resumes October 5.\nThe mainnet-beta volunteer rollout begins October 19, general adoption is recommended November 2, and mainnet-beta feature activation resumes November 9.\nAnza's announcement carried a single line: \"The Agave v4.4 release schedule is published.\"\nThe specific features subject to the November 9 gate have not been detailed; that list will become clear as the v4.4 branch stabilizes.\nWhat Comes After Testnet\nAnza has not announced a mainnet-beta date for Alpenglow.\nTestnet exercises the exact migration devnet and mainnet-beta will run, and mainnet follows an observation period after devnet.\nFor mainnet operators, the Alpenglow operator guide covers the specific pre-activation configuration steps.\nFor testnet operators still on Firedancer or Frankendancer, the migration to Agave v4.3.0 is immediate.",
+        "title": "Alpenglow activates on Solana testnet as Frankendancer era ends; Agave v4.4 schedule targets November 9 mainnet activation",
+        "url": "https://solanacompass.com/news/alpenglow-activates-on-solana-testnet-as-frankendancer-era-ends-agave-v44-schedule-targets-november-9-mainnet-activation",
+        "verified": true
+      }
+    ]
+  }
+}
