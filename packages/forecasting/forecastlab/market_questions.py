@@ -49,8 +49,17 @@ with edges under test, and its results arrive at about 6 a week, too few to test
 benchmark, which is why each recorded question keeps the floor it was chosen under (``volume_floor``) and scores are
 split by volume. The floor is the one of the topic the event is taken under.
 
+v9 (2026-11-18) takes no market on how many posts someone makes in a window ("Will Elon Musk post 320-339 tweets from
+November 13 to November 20?", ``is_post_count``). Since 2026-11-09 a count question is forecast only when the research
+reads the running count, and for these it almost never does: of the 24 chosen from 2026-11-10 to 2026-11-18, 23 lost
+their research and were never forecast, and that research still cost $2.74 of the $14.53 spent on market questions in
+those seven runs (list prices). All 24 were filed under Politics and took 24 of its 27 places (the topic cap is 4 a
+day). The rule adds no forecasts by itself: the 2026-11-18 pool run with it dropped 29 such markets and chose three
+questions, as many as were forecast that day without it, because Politics had no other new candidate. What it does is
+stop paying for research that does not succeed and keep Politics' places free for the days the pool has other events.
+
 Manifold (``MANIFOLD_SELECTION_VERSION``, added 2026-10-07; v2 on 2026-10-25 raised the limit
-from 4 to 10 under the v3 window and topic cap; v3 on 2026-11-04 adds the v5 cluster and asset caps) adds up to ``MANIFOLD_DAILY_LIMIT``
+from 4 to 10 under the v3 window and topic cap; v3 on 2026-11-04 adds the v5 cluster and asset caps; v4 on 2026-11-18 adds the v9 post-count rule) adds up to ``MANIFOLD_DAILY_LIMIT``
 more questions a day from Manifold's economics, politics, technology and world topics, under
 the same window, price band and topic cap. Manifold trades play money, so it needs at least
 ``MANIFOLD_MIN_BETTORS`` traders and ``MANIFOLD_MIN_VOLUME`` mana traded, and skips personal
@@ -86,7 +95,9 @@ from collections.abc import Callable
 from datetime import UTC, date, datetime, timedelta
 from typing import Any
 
-SELECTION_VERSION = "polymarket_selection_v8"
+from forecastlab import live_counts
+
+SELECTION_VERSION = "polymarket_selection_v9"
 MARKET_METHOD = "market_price_v1"
 GAMMA = "https://gamma-api.polymarket.com"
 USER_AGENT = "ForecastLab/0.3 (+https://github.com/nikoamoretti/forecastlab)"
@@ -125,7 +136,7 @@ ASSET_PATTERNS = {name: re.compile(pattern, re.IGNORECASE) for name, pattern in 
 # Fallback: a ticker written as "(NVDA)" or "$NVDA".
 TICKER = re.compile(r"\(([A-Z]{1,5})\)|\$([A-Z]{1,5})\b")
 
-MANIFOLD_SELECTION_VERSION = "manifold_selection_v3"
+MANIFOLD_SELECTION_VERSION = "manifold_selection_v4"
 MANIFOLD_METHOD = "manifold_price_v1"
 MANIFOLD = "https://api.manifold.markets/v0"
 MANIFOLD_TOPICS = {"economics-default": "Economy", "politics-default": "Politics", "technology-default": "Tech",
@@ -210,6 +221,26 @@ def volume_floor(topic: str) -> int:
     return TOPIC_MIN_VOLUME.get(topic, MIN_VOLUME)
 
 
+# A market on how many posts someone makes in a window names what is counted in its title, mostly with the number:
+# "post 320-339 tweets", "200+ Truth Social posts", "fewer than 100 posts".
+POST_NOUN = re.compile(r"\b(?:posts?|tweets?|retweets?)\b", re.IGNORECASE)
+POST_NUMBER = re.compile(r"\b\d[\d,]*\s*(?:\+|(?:-|–|to)\s*\d[\d,]*)?\s+(?:[\w.]+\s+){0,2}(?:posts?|tweets?|retweets?)\b",
+                         re.IGNORECASE)
+
+
+def is_post_count(question: str, rules: str, now: datetime) -> bool:
+    """Whether a market asks how many posts someone makes in a window (v9: never selected).
+
+    Either the title puts a number on the posts, or it names posts and the research's own test calls it a count
+    question (``live_counts.is_count_question``, which also reads the rules: "How many tweets will ... post?").
+    Other counts and totals stay selectable: this is the one kind the research has shown it cannot read (see v9 above).
+    """
+    if POST_NUMBER.search(question):
+        return True
+    return bool(POST_NOUN.search(question)) and live_counts.is_count_question(
+        {"question": question, "criteria": rules}, now.date().isoformat())
+
+
 def _polymarket_reject(market: dict[str, Any], price: float | None, volume: float, now: datetime,
                        floor: int = MIN_VOLUME) -> str | None:
     """The first rule a market fails (None if it passes), in the order the rule has always been applied."""
@@ -230,6 +261,8 @@ def _polymarket_reject(market: dict[str, Any], price: float | None, volume: floa
         return "window"
     if settles_late(market.get("description") or "", _parse_time(closes)):
         return "settles_late"
+    if is_post_count(market.get("question") or "", market.get("description") or "", now):
+        return "post_count"
     return None
 
 
@@ -488,6 +521,8 @@ def manifold_candidates(now: datetime, fetch: Fetch = fetch_json, stats: Stats |
                 _count(stats, "drop:personal")
             elif SLOW_SETTLING.search(question):
                 _count(stats, "drop:next_leader")
+            elif is_post_count(question, "", now):
+                _count(stats, "drop:post_count")
             else:
                 _count(stats, f"candidates:{slug}")
                 found[market["id"]] = {

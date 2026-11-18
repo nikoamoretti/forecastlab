@@ -14,6 +14,7 @@ from forecastlab.market_questions import (
     KALSHI_MAX_PAGES,
     asset_of,
     candidates,
+    is_post_count,
     kalshi_candidates,
     kalshi_question,
     kalshi_resolution,
@@ -85,6 +86,29 @@ def test_selection_rule_keeps_liquid_open_yes_no_markets_one_per_event() -> None
 
     crowded = [{"id": f"c{i}", "topic": "Crypto", "volume": 100 - i} for i in range(6)]
     assert [c["id"] for c in select(crowded, seen=set())] == ["c0", "c1", "c2", "c3"]  # at most four per topic a day
+
+
+def test_markets_on_how_many_posts_someone_makes_are_never_selected() -> None:
+    # v9: from 2026-11-10 to 2026-11-18 these took 24 of Politics' 27 places and 23 of the 24 lost their research
+    events = {"politics": [
+        {"id": "p1", "slug": "musk-tweets", "markets": [
+            _market("t1", "Will Elon Musk post 320-339 tweets from October 9 to October 16, 2026?", 0.3, 900_000),
+            _market("t2", "Will Elon Musk post 340-359 tweets from October 9 to October 16, 2026?", 0.2, 800_000)]},
+        {"id": "p2", "slug": "trump-posts", "markets": [
+            _market("t3", "Will Donald Trump post 200+ Truth Social posts from October 9 to October 16, 2026?", 0.4, 700_000)]},
+        {"id": "p3", "slug": "budget", "markets": [_market("t4", "Will the Knesset pass the 2027 budget?", 0.36, 6_000)]},
+        {"id": "p4", "slug": "post-office", "markets": [_market("t5", "Will the Senate confirm a new Postmaster General?", 0.5, 5_000)]},
+    ], "crypto": [
+        {"id": "c1", "slug": "btc", "markets": [_market("t6", "Will Bitcoin be above $100,000 on October 15?", 0.5, 50_000)]},
+    ]}
+    stats: dict[str, int] = {}
+    pool = candidates(NOW, lambda url: events.get(url.split("tag_slug=")[1].split("&")[0], []), stats)
+    assert {c["market_id"] for c in pool} == {"t4", "t5", "t6"}  # the next Politics events and the price question stay
+    assert stats["drop:post_count"] == 3 and stats["candidates:politics"] == 2
+    assert is_post_count("Will White House post 200+ posts from November 17 to November 24, 2026?", "", NOW)
+    assert is_post_count("How many tweets will Elon Musk post this week?", "", NOW)  # no number: the research's test
+    assert not is_post_count("Will the Washington Post endorse a candidate?", "", NOW)  # no count in it
+    assert not is_post_count("Will Claude go down 5-7 times in October?", "", NOW)  # another count: still selectable
 
 
 @pytest.mark.parametrize(("market", "expected"), [
@@ -246,6 +270,14 @@ def test_manifold_rule_keeps_traded_impersonal_markets_in_the_window() -> None:
         "method": "manifold_price_v1"}
 
 
+def test_manifold_leaves_out_post_counts_too() -> None:
+    search = {"politics-default": [_manifold("x1", "Will Elon Musk post 300-319 tweets this week?", 0.4),
+                                   _manifold("x2", "Will the Senate pass the budget?", 0.4)]}
+    stats: dict[str, int] = {}
+    pool = manifold_candidates(NOW, lambda url: search.get(url.split("topicSlug=")[1].split("&")[0], []), stats)
+    assert [c["market_id"] for c in pool] == ["x2"] and stats["drop:post_count"] == 1
+
+
 def test_manifold_funnel_says_which_side_of_the_window_markets_miss() -> None:
     stats: dict[str, int] = {}
     assert [c["market_id"] for c in manifold_candidates(NOW, manifold_fetch, stats)] == ["f1", "f7"]
@@ -274,7 +306,7 @@ def test_manifold_questions_join_the_daily_set_with_their_own_benchmark(tmp_path
     assert directory is not None
     selected = json.loads((directory / "questions.json").read_text())
     by_id = {q["id"]: q for q in selected["questions"]}
-    assert selected["selection"] == "polymarket_selection_v8+manifold_selection_v3+kalshi_selection_v1"
+    assert selected["selection"] == "polymarket_selection_v9+manifold_selection_v4+kalshi_selection_v1"
     assert {"polymarket-m1", "manifold-f1", "manifold-f7"} <= set(by_id)
     assert by_id["manifold-f1"]["resolution_criteria"] == "Rules for f1."
     assert "market_price" not in json.dumps(selected)
@@ -426,7 +458,7 @@ def test_kalshi_questions_join_the_daily_set_after_manifold_with_their_own_bench
     assert directory is not None
     selected = json.loads((directory / "questions.json").read_text())
     ids = [q["id"] for q in selected["questions"]]
-    assert selected["selection"] == "polymarket_selection_v8+manifold_selection_v3+kalshi_selection_v1"
+    assert selected["selection"] == "polymarket_selection_v9+manifold_selection_v4+kalshi_selection_v1"
     assert ids[-3:] == ["kalshi-KXGPT-ASTRA61", "kalshi-KXLLM1-26OCT15-CLAUDE", "kalshi-KX-HY-26OCT15-A"]  # most traded first
     assert "manifold-f1" in ids[:-3]
     assert "market_price" not in json.dumps(selected)
@@ -679,7 +711,7 @@ def test_pool_counts_each_rule_and_changes_nothing(tmp_path: Path, capsys: pytes
 def test_volume_floor_is_two_thousand_five_hundred_and_kept_per_question(tmp_path: Path) -> None:
     from forecastlab.market_questions import MIN_VOLUME, SELECTION_VERSION
 
-    assert (MIN_VOLUME, SELECTION_VERSION) == (2_500, "polymarket_selection_v8")
+    assert (MIN_VOLUME, SELECTION_VERSION) == (2_500, "polymarket_selection_v9")
     events = {"economy": [
         {"id": "a", "slug": "a", "markets": [_market("ma", "Will A happen?", 0.5, 2_600)]},
         {"id": "b", "slug": "b", "markets": [_market("mb", "Will B happen?", 0.5, 2_400)]}]}
