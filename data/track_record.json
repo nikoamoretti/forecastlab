@@ -1,44 +1,44 @@
 {
   "calibration": {
-    "as_of": "2026-11-17",
-    "intercept": 0.239015,
-    "results": 251,
-    "slope": 0.746386
+    "as_of": "2026-11-18",
+    "intercept": 0.219197,
+    "results": 256,
+    "slope": 0.717156
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.20625981282229858,
+      "brier": 0.2089352441150879,
       "coin_flip_brier": 0.25,
-      "forecasts": 319,
+      "forecasts": 322,
       "label": "Combined forecast",
-      "last_forecast_on": "2026-11-17",
+      "last_forecast_on": "2026-11-18",
       "method": "combined_median_v1",
-      "resolved": 258,
-      "right": 177,
+      "resolved": 262,
+      "right": 179,
       "toss_ups": 3,
-      "wrong": 78
+      "wrong": 80
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.19765296442687746,
+      "brier": 0.20303774319066148,
       "coin_flip_brier": 0.25,
-      "forecasts": 313,
+      "forecasts": 316,
       "label": "Claude alone",
-      "last_forecast_on": "2026-11-17",
+      "last_forecast_on": "2026-11-18",
       "method": "claude_code_forecaster_v1",
-      "resolved": 253,
+      "resolved": 257,
       "right": 170,
       "toss_ups": 7,
-      "wrong": 76
+      "wrong": 80
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
       "brier": 0.0495,
       "coin_flip_brier": 0.25,
-      "forecasts": 14,
+      "forecasts": 15,
       "label": "Claude, second look",
-      "last_forecast_on": "2026-11-17",
+      "last_forecast_on": "2026-11-18",
       "method": "claude_second_look_v1",
       "resolved": 5,
       "right": 5,
@@ -47,16 +47,16 @@
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.1160543645650909,
+      "brier": 0.17042652092542857,
       "coin_flip_brier": 0.25,
-      "forecasts": 40,
+      "forecasts": 43,
       "label": "Learned model",
-      "last_forecast_on": "2026-11-17",
+      "last_forecast_on": "2026-11-18",
       "method": "learned_model_v1",
-      "resolved": 11,
-      "right": 10,
+      "resolved": 14,
+      "right": 12,
       "toss_ups": 0,
-      "wrong": 1
+      "wrong": 2
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
@@ -86,14 +86,14 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.21466037735849056,
+      "brier": 0.214584375,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 159,
-      "right": 106,
+      "resolved": 160,
+      "right": 107,
       "toss_ups": 1,
       "wrong": 52
     },
@@ -112,28 +112,28 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21033653846153846,
+      "brier": 0.21028662420382166,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 156,
-      "right": 112,
+      "resolved": 157,
+      "right": 113,
       "toss_ups": 0,
       "wrong": 44
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.2132745341614907,
+      "brier": 0.21350123456790127,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_minimax_m3_v1",
-      "resolved": 161,
+      "resolved": 162,
       "right": 113,
-      "toss_ups": 1,
+      "toss_ups": 2,
       "wrong": 47
     },
     {
@@ -216,29 +216,29 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.17309730483014,
+      "brier": 0.19309400764884904,
       "coin_flip_brier": 0.25,
-      "forecasts": 88,
+      "forecasts": 91,
       "label": "Claude, confidence-corrected",
-      "last_forecast_on": "2026-11-17",
+      "last_forecast_on": "2026-11-18",
       "method": "claude_calibrated_v1",
-      "resolved": 50,
-      "right": 39,
+      "resolved": 53,
+      "right": 40,
       "toss_ups": 0,
-      "wrong": 11
+      "wrong": 13
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
-      "brier": 0.15849681779661018,
+      "brier": 0.16266554696132599,
       "coin_flip_brier": 0.25,
-      "forecasts": 218,
+      "forecasts": 221,
       "label": "Prediction market (benchmark)",
-      "last_forecast_on": "2026-11-17",
+      "last_forecast_on": "2026-11-18",
       "method": "market_price_v1",
-      "resolved": 177,
-      "right": 135,
+      "resolved": 181,
+      "right": 137,
       "toss_ups": 0,
-      "wrong": 42
+      "wrong": 44
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
@@ -267,21 +267,82 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-17",
+  "generated_on": "2026-11-18",
   "learned_model": {
-    "as_of": "2026-11-17",
-    "intercept": 0.168266,
-    "results": 226,
-    "slope": 1.010964,
+    "as_of": "2026-11-18",
+    "intercept": 0.129127,
+    "results": 231,
+    "slope": 0.969082,
     "weights": {
-      "Crypto": -0.322248,
-      "Economy": -0.097593,
-      "Politics": -0.320679,
-      "Tech": 0.463616,
-      "World": -0.421934
+      "Crypto": -0.310932,
+      "Economy": -0.175768,
+      "Politics": -0.353461,
+      "Tech": 0.444408,
+      "World": -0.426214
     }
   },
   "questions": [
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.14,
+        "market": 0.475,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.475
+      },
+      "detail": "This market will resolve according to the finalist GMGN declares Grand Champion of the GMGN Global Championship (GGC) Season 1 Grand Final, scheduled for November 16, 2026, from 1:30 PM to 3:30 PM ET (18:30 to 20:30 UTC), under the GGC rules (https://gmgn.ai/static/ggc/rules.html).\n\nFinalists are identified by their X accounts. If a listed finalist does not compete in the Grand Final for any reason, the corresponding market will resolve to \"No\". If an unlisted finalist is declared Grand Champion, this market will resolve to \"Other\".\n\nThis market will resolve according to the final result first announced by GMGN following its post-match review. Any subsequent changes will not be considered. If no Grand Champion has been announced by November 17, 2026, 11:59 PM ET, this market will resolve to \"Other\".\n\nThe primary resolution source for this market will be information from GMGN, including its X account (https://x.com/gmgnai), however a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.14,
+          "rationale": "GGC Season 1 sends six traders to a single-match London final decided by highest Grand Final PnL (AMBCrypto, 2026-10-17: https://ambcrypto.com/gmgn-launches-a-10-day-onchain-trading-championship-with-a-custom-aston-martin-on-the-line/). No finalist list naming Dani was found and GMGN pages returned 403, so Dani's place is unconfirmed; a non-finalist resolves No. Taking roughly 1 in 6 for a listed finalist, trimmed for finalist uncertainty and the Nov 16/17 date conflict.",
+          "sources": [
+            "https://ambcrypto.com/gmgn-launches-a-10-day-onchain-trading-championship-with-a-custom-aston-martin-on-the-line/",
+            "https://gmgn.ai/static/ggc/rules.html"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.14,
+          "claude_weight": -0.329,
+          "intercept": 0.351934,
+          "market": 0.475,
+          "method": "learned_model_v1",
+          "probability": 0.691176,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.257741,
+          "raw": 0.14,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.475
+        }
+      ],
+      "id": "polymarket-6733682",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-18",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/gmgn-ggc-season-1-winner",
+      "status": "resolved",
+      "title": "Will Dani win the GMGN GGC Season 1 Grand Final?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
     {
       "actual": "Polymarket: Yes",
       "call": {
@@ -386,6 +447,131 @@
       "title": "Will Home Depot (HD) beat quarterly earnings?",
       "topic": "Economy",
       "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.47,
+        "market": 0.615,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.615
+      },
+      "detail": "As of market creation, La-Z-Boy is estimated to release earnings on December 2, 2026. The Street consensus estimate for La-Z-Boy\u2019s non-GAAP EPS for the relevant quarter is $0.48 as of market creation. This market will resolve to \"Yes\" if La-Z-Boy reports non-GAAP EPS greater than $0.48 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the non-GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf La-Z-Boy releases earnings without non-GAAP EPS, then the market will resolve according to the non-GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve according to the GAAP EPS listed in the company\u2019s official earnings documents; or, if not published there, according to the GAAP EPS provided by SeekingAlpha. If no GAAP EPS number is available from either source at that time, the market will resolve to \u201cNo.\u201d (For the purposes of this market, GAAP EPS refers to diluted GAAP EPS, unless it is not published, in which case it refers to basic GAAP EPS.)\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced non-GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for non-GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: If multiple versions of non-GAAP EPS are published, the market will resolve according to the primary headline non-GAAP EPS number, which is typically presented on a diluted basis. If diluted is not published, then basic non-GAAP EPS will qualify.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.47,
+          "rationale": "La-Z-Boy reports fiscal Q2 after the close on 2026-11-17; the bar is adjusted diluted EPS above $0.48, so exactly $0.48 is No (company release, https://finviz.com/news/414368/la-z-boy-incorporated-announces-timing-of-fiscal-2027-second-quarter-earnings-release-and-conference-call, 2026-11-03). Guidance of $500-520M sales and 4.0-5.5% adjusted operating margin (2026-08-18, https://www.sec.gov/Archives/edgar/data/0000057131/000005713126000034/fy27q1pressrelease.htm) implies roughly $0.44-0.52, bracketing the consensus. Fiscal Q1 adjusted EPS of $0.43 missed, while the company has beaten about 64% of estimates historically (unverified snippet).",
+          "sources": [
+            "https://finviz.com/news/414368/la-z-boy-incorporated-announces-timing-of-fiscal-2027-second-quarter-earnings-release-and-conference-call",
+            "https://www.sec.gov/Archives/edgar/data/0000057131/000005713126000034/fy27q1pressrelease.htm",
+            "https://www.marketbeat.com/instant-alerts/sidoti-issues-negative-outlook-for-la-z-boy-earnings-2026-08-21/"
+          ]
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.47,
+          "claude_weight": -0.207462,
+          "intercept": 0.351934,
+          "market": 0.615,
+          "method": "learned_model_v1",
+          "probability": 0.72942,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.556524,
+          "raw": 0.47,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "market_price_v1",
+          "probability": 0.615
+        }
+      ],
+      "id": "polymarket-6639367",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-17",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://polymarket.com/event/lzb-quarterly-earnings-nongaap-eps-12-02-2026-0pt48",
+      "status": "resolved",
+      "title": "Will La-Z-Boy (LZB) beat quarterly earnings?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.94,
+        "market": 0.9485,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.9485
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-12T12:40:50+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.94,
+          "rationale": "Binance BTCUSDT was 73,589.59 at 10:25 UTC on 2026-11-12 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), 7.5% above 68,000. That is about 1.9 sigma of a 5-day move at 1.84% daily volatility, and 89.3% of all 5-day windows since 2017 (94.8% in 2026) ended above a level this far below the start. Persistent spot BTC ETF outflows (https://www.tftc.io/bitcoin-etf-flows/november-2026) and the downtrend from 83,169 on 2026-10-13 argue for fatter tails than the model, but no scheduled macro event falls before Nov 17.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.tftc.io/bitcoin-etf-flows/november-2026",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984"
+          ]
+        },
+        {
+          "as_of": "2026-11-12",
+          "claude": 0.94,
+          "claude_weight": -0.347038,
+          "intercept": 0.286864,
+          "market": 0.9485,
+          "method": "learned_model_v1",
+          "probability": 0.969942,
+          "results": 204,
+          "slope": 1.074761
+        },
+        {
+          "as_of": "2026-11-12",
+          "intercept": 0.290741,
+          "method": "claude_calibrated_v1",
+          "probability": 0.911865,
+          "raw": 0.94,
+          "results": 227,
+          "slope": 0.743542
+        },
+        {
+          "made_at": "2026-11-12T10:17:40.338342+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9485
+        }
+      ],
+      "id": "polymarket-6935919",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-17",
+      "scored": true,
+      "source": "prospective_markets_20261112",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-17-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $68,000 on November 17?",
+      "topic": "Crypto",
+      "verdict": "wrong"
     },
     {
       "actual": "5.15%",
@@ -4740,6 +4926,68 @@
       "title": "Will the Bank of Brazil decrease the target for the Selic rate by 25 bps at the November meeting?",
       "topic": "Economy",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "members": 4,
+        "method": "combined_weighted_v1",
+        "probability": 0.55,
+        "weights": {
+          "claude_code_forecaster_v1": 31.14,
+          "judge_deepseek_v4_pro_v1": 28.47,
+          "judge_minimax_m3_v1": 27.07,
+          "judge_qwen38_27b_v1": 31.97
+        }
+      },
+      "detail": "This market will resolve according to the winner of the 2026 midterm Alaska U.S. Senate election, inclusive of any run-offs, currently scheduled for November 3, 2026.\n\nIf the results of the election are not confirmed by July 31, 2027, this market will resolve to \"Other\".\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on official certification.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-26T11:14:05+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.48,
+          "rationale": "Nearly every October poll has Peltola (D) narrowly ahead of Sullivan (R): Data for Progress 51-49 (2026-10-20), Rasmussen 44-42 (Oct 12-15), InsiderAdvantage 48-43 (Oct 9-10), Alaska Survey Research 51-49 (Oct 1-3) and NYT/Siena 50-43 (Sept 24-Oct 1), while Quantus showed a tie or a narrow Sullivan lead. Against a Republican state (every Senate cycle since 2008) and a record of Alaska polls missing, including Sullivan's 2020 race, I treat the poll lead as only a slight edge, which the snippet-only sourcing weakens further.",
+          "sources": [
+            "https://politicalwire.com/2026/10/20/three-tight-races-in-alaska/",
+            "https://www.newsweek.com/mary-peltola-is-pulling-ahead-in-the-final-stretch-against-dan-sullivan-12592675"
+          ]
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.55,
+          "rationale": "The base rate for a Democrat winning a Senate race in Alaska is very low, as no Democrat has won since 2008 and Trump carried the state by double digits in 2024. However, multiple October polls consistently show Peltola with a narrow lead over Sullivan, typically within the margin of error, making the race a toss-up. Given this polling, I adjust slightly toward Peltola but remain cautious due to historical GOP strength and potential polling error, landing at a 55% probability."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.55,
+          "rationale": "The base rate is strongly against Peltola\u2014Alaska hasn't elected a Democrat to the Senate since 2008 and hasn't backed a Democrat for president since 1964. However, multiple independent October polls consistently show her leading by 2-5 points, which is historically unusual for this state, and the national environment (sliding Trump approval, economic concerns) appears favorable to Democrats. The thin margins (within or near MOE) and the strong historical Republican lean keep this from being higher, but the convergence of polling data pointing the same direction in a state that has been reliably red makes a Peltola win more likely than not."
+        },
+        {
+          "made_at": "2026-10-26T11:20:46.657694+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.5,
+          "rationale": "The base rate for a Democrat winning a Senate race in Alaska is low (~15-20%) given the state has elected a Republican senator in every cycle since 2008 and Trump won it by double digits in 2024. However, multiple October polls from different pollsters (Data for Progress, Rasmussen, InsiderAdvantage, Alaska Survey Research, NYT/Siena) consistently show Peltola tied or slightly ahead, which is unusual and suggests genuine competitiveness. The Newsweek report cites a 'blue wave' environment and Trump's declining approval as tailwinds. I land near 50% because the polling consistency is striking but Alaska's structural Republican lean and history of polling errors (e.g., Sullivan's 2020 race) make a Peltola win still a coin-flip; a late move toward Sullivan or confirmation of a Peltola lead of 5+ points would shift this estimate."
+        },
+        {
+          "made_at": "2026-10-26T09:09:42.523434+00:00",
+          "method": "market_price_v1",
+          "probability": 0.745
+        }
+      ],
+      "id": "polymarket-634976",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-04",
+      "scored": true,
+      "source": "prospective_markets_20261026",
+      "source_url": "https://polymarket.com/event/alaska-senate-election-winner",
+      "status": "resolved",
+      "title": "Will Mary Peltola win the Alaska Senate race in 2026?",
+      "topic": "Politics",
+      "verdict": "right"
     },
     {
       "actual": "Polymarket: Yes",
@@ -17365,68 +17613,6 @@
     {
       "actual": null,
       "call": {
-        "members": 4,
-        "method": "combined_weighted_v1",
-        "probability": 0.55,
-        "weights": {
-          "claude_code_forecaster_v1": 31.14,
-          "judge_deepseek_v4_pro_v1": 28.47,
-          "judge_minimax_m3_v1": 27.07,
-          "judge_qwen38_27b_v1": 31.97
-        }
-      },
-      "detail": "This market will resolve according to the winner of the 2026 midterm Alaska U.S. Senate election, inclusive of any run-offs, currently scheduled for November 3, 2026.\n\nIf the results of the election are not confirmed by July 31, 2027, this market will resolve to \"Other\".\n\nThe resolution source for this market is the Associated Press, Fox News, and NBC. This market will resolve once all three sources call the race for the same candidate. If all three sources haven\u2019t called the race in this state for the same candidate, this market will resolve based on official certification.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-26T11:14:05+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.48,
-          "rationale": "Nearly every October poll has Peltola (D) narrowly ahead of Sullivan (R): Data for Progress 51-49 (2026-10-20), Rasmussen 44-42 (Oct 12-15), InsiderAdvantage 48-43 (Oct 9-10), Alaska Survey Research 51-49 (Oct 1-3) and NYT/Siena 50-43 (Sept 24-Oct 1), while Quantus showed a tie or a narrow Sullivan lead. Against a Republican state (every Senate cycle since 2008) and a record of Alaska polls missing, including Sullivan's 2020 race, I treat the poll lead as only a slight edge, which the snippet-only sourcing weakens further.",
-          "sources": [
-            "https://politicalwire.com/2026/10/20/three-tight-races-in-alaska/",
-            "https://www.newsweek.com/mary-peltola-is-pulling-ahead-in-the-final-stretch-against-dan-sullivan-12592675"
-          ]
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.55,
-          "rationale": "The base rate for a Democrat winning a Senate race in Alaska is very low, as no Democrat has won since 2008 and Trump carried the state by double digits in 2024. However, multiple October polls consistently show Peltola with a narrow lead over Sullivan, typically within the margin of error, making the race a toss-up. Given this polling, I adjust slightly toward Peltola but remain cautious due to historical GOP strength and potential polling error, landing at a 55% probability."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.55,
-          "rationale": "The base rate is strongly against Peltola\u2014Alaska hasn't elected a Democrat to the Senate since 2008 and hasn't backed a Democrat for president since 1964. However, multiple independent October polls consistently show her leading by 2-5 points, which is historically unusual for this state, and the national environment (sliding Trump approval, economic concerns) appears favorable to Democrats. The thin margins (within or near MOE) and the strong historical Republican lean keep this from being higher, but the convergence of polling data pointing the same direction in a state that has been reliably red makes a Peltola win more likely than not."
-        },
-        {
-          "made_at": "2026-10-26T11:20:46.657694+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.5,
-          "rationale": "The base rate for a Democrat winning a Senate race in Alaska is low (~15-20%) given the state has elected a Republican senator in every cycle since 2008 and Trump won it by double digits in 2024. However, multiple October polls from different pollsters (Data for Progress, Rasmussen, InsiderAdvantage, Alaska Survey Research, NYT/Siena) consistently show Peltola tied or slightly ahead, which is unusual and suggests genuine competitiveness. The Newsweek report cites a 'blue wave' environment and Trump's declining approval as tailwinds. I land near 50% because the polling consistency is striking but Alaska's structural Republican lean and history of polling errors (e.g., Sullivan's 2020 race) make a Peltola win still a coin-flip; a late move toward Sullivan or confirmation of a Peltola lead of 5+ points would shift this estimate."
-        },
-        {
-          "made_at": "2026-10-26T09:09:42.523434+00:00",
-          "method": "market_price_v1",
-          "probability": 0.745
-        }
-      ],
-      "id": "polymarket-634976",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-04",
-      "scored": true,
-      "source": "prospective_markets_20261026",
-      "source_url": "https://polymarket.com/event/alaska-senate-election-winner",
-      "status": "pending",
-      "title": "Will Mary Peltola win the Alaska Senate race in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 5,
         "method": "combined_weighted_v1",
         "probability": 0.02,
@@ -17762,192 +17948,6 @@
       "status": "pending",
       "title": "Are neural networks already clean?",
       "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.47,
-        "market": 0.615,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.615
-      },
-      "detail": "As of market creation, La-Z-Boy is estimated to release earnings on December 2, 2026. The Street consensus estimate for La-Z-Boy\u2019s non-GAAP EPS for the relevant quarter is $0.48 as of market creation. This market will resolve to \"Yes\" if La-Z-Boy reports non-GAAP EPS greater than $0.48 for the relevant quarter in its next quarterly earnings release. Otherwise, it will resolve to \"No.\" The resolution source will be the non-GAAP EPS listed in the company\u2019s official earnings documents.\n\nIf La-Z-Boy releases earnings without non-GAAP EPS, then the market will resolve according to the non-GAAP EPS figure reported by SeekingAlpha. If no such figure is published within 96h of market close (4:00:00pm ET) on the day earnings are announced, the market will resolve according to the GAAP EPS listed in the company\u2019s official earnings documents; or, if not published there, according to the GAAP EPS provided by SeekingAlpha. If no GAAP EPS number is available from either source at that time, the market will resolve to \u201cNo.\u201d (For the purposes of this market, GAAP EPS refers to diluted GAAP EPS, unless it is not published, in which case it refers to basic GAAP EPS.)\n\nIf the company does not release earnings within 45 calendar days of the estimated earnings date, this market will resolve to \u201cNo.\u201d\n\nNote: Subsequent restatements, corrections, or revisions made to the initially announced non-GAAP EPS figure will not qualify for resolution, except in the case of obvious and immediate mistakes (e.g., fat finger errors, as with Lyft's (LYFT) earnings release in February 2024).\nNote: The strike prices used in these markets reflect the selected street consensus estimate for non-GAAP EPS as of market creation.\nNote: All figures will be rounded to the nearest cent using standard rounding.\nNote: For the purposes of this market, IFRS EPS will be treated as GAAP EPS.\nNote: If multiple versions of non-GAAP EPS are published, the market will resolve according to the primary headline non-GAAP EPS number, which is typically presented on a diluted basis. If diluted is not published, then basic non-GAAP EPS will qualify.\nNote: All figures are expressed in USD, unless otherwise indicated.\nNote: For primarily internationally listed companies, this market refers specifically to the shares traded in the United States on U.S. stock exchanges such as the NYSE or Nasdaq. In cases where the company trades in the U.S. through an American Depositary Receipt (ADR) or American Depositary Share (ADS), this market will refer to the ADR/ADS.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-11T14:21:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.47,
-          "rationale": "La-Z-Boy reports fiscal Q2 after the close on 2026-11-17; the bar is adjusted diluted EPS above $0.48, so exactly $0.48 is No (company release, https://finviz.com/news/414368/la-z-boy-incorporated-announces-timing-of-fiscal-2027-second-quarter-earnings-release-and-conference-call, 2026-11-03). Guidance of $500-520M sales and 4.0-5.5% adjusted operating margin (2026-08-18, https://www.sec.gov/Archives/edgar/data/0000057131/000005713126000034/fy27q1pressrelease.htm) implies roughly $0.44-0.52, bracketing the consensus. Fiscal Q1 adjusted EPS of $0.43 missed, while the company has beaten about 64% of estimates historically (unverified snippet).",
-          "sources": [
-            "https://finviz.com/news/414368/la-z-boy-incorporated-announces-timing-of-fiscal-2027-second-quarter-earnings-release-and-conference-call",
-            "https://www.sec.gov/Archives/edgar/data/0000057131/000005713126000034/fy27q1pressrelease.htm",
-            "https://www.marketbeat.com/instant-alerts/sidoti-issues-negative-outlook-for-la-z-boy-earnings-2026-08-21/"
-          ]
-        },
-        {
-          "as_of": "2026-11-11",
-          "claude": 0.47,
-          "claude_weight": -0.207462,
-          "intercept": 0.351934,
-          "market": 0.615,
-          "method": "learned_model_v1",
-          "probability": 0.72942,
-          "results": 197,
-          "slope": 1.1052
-        },
-        {
-          "as_of": "2026-11-11",
-          "intercept": 0.318129,
-          "method": "claude_calibrated_v1",
-          "probability": 0.556524,
-          "raw": 0.47,
-          "results": 219,
-          "slope": 0.757935
-        },
-        {
-          "made_at": "2026-11-11T12:31:46.823210+00:00",
-          "method": "market_price_v1",
-          "probability": 0.615
-        }
-      ],
-      "id": "polymarket-6639367",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-17",
-      "scored": true,
-      "source": "prospective_markets_20261111",
-      "source_url": "https://polymarket.com/event/lzb-quarterly-earnings-nongaap-eps-12-02-2026-0pt48",
-      "status": "pending",
-      "title": "Will La-Z-Boy (LZB) beat quarterly earnings?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.94,
-        "market": 0.9485,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.9485
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-12T12:40:50+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.94,
-          "rationale": "Binance BTCUSDT was 73,589.59 at 10:25 UTC on 2026-11-12 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), 7.5% above 68,000. That is about 1.9 sigma of a 5-day move at 1.84% daily volatility, and 89.3% of all 5-day windows since 2017 (94.8% in 2026) ended above a level this far below the start. Persistent spot BTC ETF outflows (https://www.tftc.io/bitcoin-etf-flows/november-2026) and the downtrend from 83,169 on 2026-10-13 argue for fatter tails than the model, but no scheduled macro event falls before Nov 17.",
-          "sources": [
-            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
-            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
-            "https://www.tftc.io/bitcoin-etf-flows/november-2026",
-            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984"
-          ]
-        },
-        {
-          "as_of": "2026-11-12",
-          "claude": 0.94,
-          "claude_weight": -0.347038,
-          "intercept": 0.286864,
-          "market": 0.9485,
-          "method": "learned_model_v1",
-          "probability": 0.969942,
-          "results": 204,
-          "slope": 1.074761
-        },
-        {
-          "as_of": "2026-11-12",
-          "intercept": 0.290741,
-          "method": "claude_calibrated_v1",
-          "probability": 0.911865,
-          "raw": 0.94,
-          "results": 227,
-          "slope": 0.743542
-        },
-        {
-          "made_at": "2026-11-12T10:17:40.338342+00:00",
-          "method": "market_price_v1",
-          "probability": 0.9485
-        }
-      ],
-      "id": "polymarket-6935919",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-17",
-      "scored": true,
-      "source": "prospective_markets_20261112",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-17-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $68,000 on November 17?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.14,
-        "market": 0.475,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.475
-      },
-      "detail": "This market will resolve according to the finalist GMGN declares Grand Champion of the GMGN Global Championship (GGC) Season 1 Grand Final, scheduled for November 16, 2026, from 1:30 PM to 3:30 PM ET (18:30 to 20:30 UTC), under the GGC rules (https://gmgn.ai/static/ggc/rules.html).\n\nFinalists are identified by their X accounts. If a listed finalist does not compete in the Grand Final for any reason, the corresponding market will resolve to \"No\". If an unlisted finalist is declared Grand Champion, this market will resolve to \"Other\".\n\nThis market will resolve according to the final result first announced by GMGN following its post-match review. Any subsequent changes will not be considered. If no Grand Champion has been announced by November 17, 2026, 11:59 PM ET, this market will resolve to \"Other\".\n\nThe primary resolution source for this market will be information from GMGN, including its X account (https://x.com/gmgnai), however a consensus of credible reporting may also be used.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-11T14:21:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.14,
-          "rationale": "GGC Season 1 sends six traders to a single-match London final decided by highest Grand Final PnL (AMBCrypto, 2026-10-17: https://ambcrypto.com/gmgn-launches-a-10-day-onchain-trading-championship-with-a-custom-aston-martin-on-the-line/). No finalist list naming Dani was found and GMGN pages returned 403, so Dani's place is unconfirmed; a non-finalist resolves No. Taking roughly 1 in 6 for a listed finalist, trimmed for finalist uncertainty and the Nov 16/17 date conflict.",
-          "sources": [
-            "https://ambcrypto.com/gmgn-launches-a-10-day-onchain-trading-championship-with-a-custom-aston-martin-on-the-line/",
-            "https://gmgn.ai/static/ggc/rules.html"
-          ]
-        },
-        {
-          "as_of": "2026-11-11",
-          "claude": 0.14,
-          "claude_weight": -0.329,
-          "intercept": 0.351934,
-          "market": 0.475,
-          "method": "learned_model_v1",
-          "probability": 0.691176,
-          "results": 197,
-          "slope": 1.1052
-        },
-        {
-          "as_of": "2026-11-11",
-          "intercept": 0.318129,
-          "method": "claude_calibrated_v1",
-          "probability": 0.257741,
-          "raw": 0.14,
-          "results": 219,
-          "slope": 0.757935
-        },
-        {
-          "made_at": "2026-11-11T12:31:46.823210+00:00",
-          "method": "market_price_v1",
-          "probability": 0.475
-        }
-      ],
-      "id": "polymarket-6733682",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-18",
-      "scored": true,
-      "source": "prospective_markets_20261111",
-      "source_url": "https://polymarket.com/event/gmgn-ggc-season-1-winner",
-      "status": "pending",
-      "title": "Will Dani win the GMGN GGC Season 1 Grand Final?",
-      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -18754,6 +18754,69 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.1,
+        "market": 0.27,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.27
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during the week of November 16 2026, any 1-minute candle for NVIDIA (NVDA) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the NVIDIA (NVDA) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.NVDA%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-18T12:40:14+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "NVDA closed 155.46 on 2026-11-17 (low 150.33) and the Nov 16 and Nov 17 lows did not reach 148 (https://stockanalysis.com/stocks/nvda/history/, 2026-11-18). Results released after the close on 2026-11-17 (revenue $115.8B, Q4 guide $130B +/-3%, https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000088/q3fy27pr.htm) were followed by gains of roughly 2% to 5% in extended trading (https://shattered.io/tech-futures-rise-nvidia-115-8-billion-quarter-market-breaks-lower/, 2026-11-18), and an undated Pyth snapshot read 159.86. From about 160 a fall to 148 (about -7.5%) within three regular sessions with elevated recent volatility is roughly a 1.3 to 1.5 sigma touch, reduced by post-earnings volatility fading and by the unverified Nov 18 price.",
+          "sources": [
+            "https://stockanalysis.com/stocks/nvda/history/",
+            "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000088/q3fy27pr.htm",
+            "https://shattered.io/tech-futures-rise-nvidia-115-8-billion-quarter-market-breaks-lower/",
+            "https://app.pyth.com/explore/Equity.US.NVDA%2FUSD"
+          ]
+        },
+        {
+          "as_of": "2026-11-18",
+          "claude": 0.1,
+          "claude_weight": -0.175768,
+          "intercept": 0.129127,
+          "market": 0.27,
+          "method": "learned_model_v1",
+          "probability": 0.349017,
+          "results": 231,
+          "slope": 0.969082
+        },
+        {
+          "as_of": "2026-11-18",
+          "intercept": 0.219197,
+          "method": "claude_calibrated_v1",
+          "probability": 0.204801,
+          "raw": 0.1,
+          "results": 256,
+          "slope": 0.717156
+        },
+        {
+          "made_at": "2026-11-18T10:07:18.094471+00:00",
+          "method": "market_price_v1",
+          "probability": 0.27
+        }
+      ],
+      "id": "polymarket-7025133",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-20",
+      "scored": true,
+      "source": "prospective_markets_20261118",
+      "source_url": "https://polymarket.com/event/will-nvda-hit-week-of-november-16-2026",
+      "status": "pending",
+      "title": "Will NVIDIA (NVDA) hit (LOW) $148 Week of November 16 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.72,
         "market": 0.6,
         "max_move": 0.0,
@@ -18874,6 +18937,74 @@
       "source_url": "https://polymarket.com/event/2-free-app-in-the-us-apple-app-store-on-november-20",
       "status": "pending",
       "title": "Will ChatGPT be #2 Free App in the US Apple App Store on November 20?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.66,
+        "market": 0.875,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.875
+      },
+      "detail": "This market will resolve according to the iOS app, ranked #1 in the United States on the iPhone Apple App Store's overall Top Charts under \u201cPaid Apps\u201d, as of 12:00 PM ET on the specified date.\n\nIf the chart is unavailable at 12:00 PM ET, this market may remain open for up to 48 hours to allow for the data to become available. If the data remains unavailable, this market will resolve according to the last published ranking.\n\nTo find the overall chart, click \u201cApps\u201d at the bottom of the US iOS App Store app, scroll down to \u201cTop Paid Apps\u201d and click \u201cSee All.\u201d Then under \u201cPaid Apps\u201d in the \u201cTop Charts\u201d section, you\u2019ll see the list that will be used as the resolution source for this market (https://apps.apple.com/us/iphone/charts/36?chart=top-paid).",
+      "forecasts": [
+        {
+          "made_at": "2026-11-18T12:40:14+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.66,
+          "rationale": "On 2026-11-18 the Apple US chart page for chart=top-paid listed Shadowrocket first (https://apps.apple.com/us/iphone/charts/36?chart=top-paid); the other Apple URL that showed TikTok Pro - Events at #1 appears to be the Free chart, so it is not evidence against. Shadowrocket is a long-running top paid app with no visible disruption (version 2.2.93 dated Oct 29, $2.99, https://apps.apple.com/us/app/shadowrocket/id932747118). Uncertainty comes from the undated page, an unverified lead that HotSchedules was #1 with Shadowrocket #2 on a copy of the chart, and the two days before the 2026-11-20 12:00 PM ET snapshot.",
+          "sources": [
+            "https://apps.apple.com/us/iphone/charts/36?chart=top-paid",
+            "https://apps.apple.com/us/charts/iphone/top-paid-apps/36",
+            "https://apps.apple.com/us/app/shadowrocket/id932747118"
+          ]
+        },
+        {
+          "made_at": "2026-11-18T12:41:47.993431+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.84,
+          "rationale": "Apple's chart=top-paid page listed Shadowrocket first on 2026-11-18, and it is a long-entrenched paid #1 with no visible disruption; the TikTok Pro page looks like the Free chart. Small discount to the market for undated page and two days of chart movement."
+        },
+        {
+          "as_of": "2026-11-18",
+          "claude": 0.66,
+          "claude_weight": 0.444408,
+          "intercept": 0.129127,
+          "market": 0.875,
+          "method": "learned_model_v1",
+          "probability": 0.809207,
+          "results": 231,
+          "slope": 0.969082
+        },
+        {
+          "as_of": "2026-11-18",
+          "intercept": 0.219197,
+          "method": "claude_calibrated_v1",
+          "probability": 0.667052,
+          "raw": 0.66,
+          "results": 256,
+          "slope": 0.717156
+        },
+        {
+          "made_at": "2026-11-18T10:07:18.094471+00:00",
+          "method": "market_price_v1",
+          "probability": 0.875
+        }
+      ],
+      "id": "polymarket-7029818",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-21",
+      "scored": true,
+      "source": "prospective_markets_20261118",
+      "source_url": "https://polymarket.com/event/1-paid-app-in-the-us-apple-app-store-on-november-20",
+      "status": "pending",
+      "title": "Will Shadowrocket be #1 Paid App in the US Apple App Store on November 20?",
       "topic": "Tech",
       "verdict": null
     },
@@ -19336,6 +19467,68 @@
       "status": "pending",
       "title": "Will there be exactly 1 Codex weekly usage limit reset in the week of November 16?",
       "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.02,
+        "market": 0.0505,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.0505
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for SOL/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the SOL/USDT \"High\" prices available at https://www.binance.com/en/trade/SOL_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance SOL/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-18T12:40:14+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "Binance SOLUSDT was 75.20 at 10:09 UTC on 2026-11-18 and the highest 1-minute High since the window opened on 2026-11-16 is 75.78 (https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m, 2026-11-18). Reaching 90 needs about +19.7% (ln 0.18) in roughly 115 hours; with 30-day daily vol of 3.2% that is about 2.6 sigma over the remaining window, a touch chance near 1%, which I raise slightly for fat tails. The recent trend is down (105.08 on 2026-10-19 to 75.18, https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31) and no dated catalyst is confirmed.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m&startTime=1794805200000&endTime=1794865140000&limit=1000",
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT"
+          ]
+        },
+        {
+          "as_of": "2026-11-18",
+          "claude": 0.02,
+          "claude_weight": -0.310932,
+          "intercept": 0.129127,
+          "market": 0.0505,
+          "method": "learned_model_v1",
+          "probability": 0.081939,
+          "results": 231,
+          "slope": 0.969082
+        },
+        {
+          "as_of": "2026-11-18",
+          "intercept": 0.219197,
+          "method": "claude_calibrated_v1",
+          "probability": 0.070973,
+          "raw": 0.02,
+          "results": 256,
+          "slope": 0.717156
+        },
+        {
+          "made_at": "2026-11-18T10:07:18.094471+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0505
+        }
+      ],
+      "id": "polymarket-7087528",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261118",
+      "source_url": "https://polymarket.com/event/what-price-will-solana-hit-november-16-22-2026",
+      "status": "pending",
+      "title": "Will Solana reach $90 November 16-22?",
+      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -20037,7 +20230,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20625981282229858,
+    "brier": 0.2089352441150879,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -20084,26 +20277,26 @@
         "about": "On every question, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
           "dates": 29,
-          "difference": 0.012306694360189607,
+          "difference": 0.012536379764150923,
           "interval": [
-            0.003578,
-            0.019831
+            0.003588,
+            0.020177
           ],
-          "market": 0.15280374540284358,
-          "questions": 211,
-          "rule": 0.1651104397630332
+          "market": 0.15238969471698113,
+          "questions": 212,
+          "rule": 0.16492607448113206
         },
         "counted": {
-          "dates": 5,
-          "difference": -0.00015030882352939923,
+          "dates": 6,
+          "difference": 0.0034196249999999817,
           "interval": [
-            -0.021933,
-            0.034838
+            -0.018541,
+            0.030042
           ],
-          "market": 0.1854492205882353,
+          "market": 0.22380695,
           "meets_bar": false,
-          "questions": 17,
-          "rule": 0.1852989117647059
+          "questions": 20,
+          "rule": 0.227226575
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -20148,16 +20341,16 @@
           "rule": null
         },
         "counted": {
-          "dates": 3,
-          "difference": 0.0034719798915454625,
+          "dates": 5,
+          "difference": 0.00030825346935711706,
           "interval": [
-            -0.020146,
-            0.016968
+            -0.023708,
+            0.01335
           ],
-          "market": 0.11171013636363636,
+          "market": 0.18230812500000002,
           "meets_bar": false,
-          "questions": 11,
-          "rule": 0.11518211625518182
+          "questions": 14,
+          "rule": 0.18261637846935713
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -20165,7 +20358,7 @@
         "status": "testing"
       }
     ],
-    "pending": 54,
+    "pending": 53,
     "progress": {
       "changes": [
         {
@@ -20187,16 +20380,16 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.1555,
-          "market": 0.1532327368181818,
-          "ours": 0.16327589261995454,
-          "questions": 22
+          "claude": 0.213004,
+          "market": 0.18778489839999998,
+          "ours": 0.19662287550556,
+          "questions": 25
         },
         "before": {
-          "claude": 0.20163155339805824,
-          "market": 0.15545197485436896,
-          "ours": 0.20420691747572817,
-          "questions": 206
+          "claude": 0.20196376811594202,
+          "market": 0.1550151295652174,
+          "ours": 0.20419867149758456,
+          "questions": 207
         },
         "date": "2026-11-06"
       },
@@ -20229,11 +20422,11 @@
           "wrong": 9
         },
         {
-          "claude": 0.23121354166666666,
-          "market": 0.16804291677083336,
-          "ours": 0.23387916666666667,
-          "questions": 96,
-          "right": 61,
+          "claude": 0.23161752577319586,
+          "market": 0.16698087639175258,
+          "ours": 0.2335556701030928,
+          "questions": 97,
+          "right": 62,
           "start": "2026-10-26",
           "wrong": 34
         },
@@ -20247,36 +20440,36 @@
           "wrong": 7
         },
         {
-          "claude": 0.16525,
-          "market": 0.16214145,
-          "ours": 0.1684309264187,
-          "questions": 20,
-          "right": 17,
+          "claude": 0.22648260869565218,
+          "market": 0.19853614130434782,
+          "ours": 0.20400525123365218,
+          "questions": 23,
+          "right": 18,
           "start": "2026-11-09",
-          "wrong": 3
+          "wrong": 5
         }
       ]
     },
-    "resolved": 258,
-    "right": 177,
+    "resolved": 262,
+    "right": 179,
     "toss_ups": 3,
-    "total": 319,
+    "total": 322,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19718026315789475,
-      "claude_questions": 228,
-      "market": 0.15523783785087722,
-      "ours": 0.2002574326212237,
-      "questions": 228,
+      "claude": 0.20315344827586207,
+      "claude_questions": 232,
+      "market": 0.15854635465517242,
+      "ours": 0.20338231417085775,
+      "questions": 232,
       "since_anchored": {
-        "claude": 0.18880588235294118,
+        "claude": 0.25569000000000003,
         "date": "2026-11-10",
-        "market": 0.1854492205882353,
-        "ours": 0.1854492205882353,
-        "questions": 17
+        "market": 0.22380695,
+        "ours": 0.22380695,
+        "questions": 20
       }
     },
-    "wrong": 78
+    "wrong": 80
   },
   "version": "track_record_v2"
 }
