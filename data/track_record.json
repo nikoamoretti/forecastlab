@@ -8,29 +8,29 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.2115184038332815,
+      "brier": 0.21217325836421602,
       "coin_flip_brier": 0.25,
       "forecasts": 326,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-19",
       "method": "combined_median_v1",
-      "resolved": 263,
+      "resolved": 264,
       "right": 179,
       "toss_ups": 3,
-      "wrong": 81
+      "wrong": 82
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.20485697674418604,
+      "brier": 0.20555019305019304,
       "coin_flip_brier": 0.25,
       "forecasts": 320,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-19",
       "method": "claude_code_forecaster_v1",
-      "resolved": 258,
+      "resolved": 259,
       "right": 170,
       "toss_ups": 7,
-      "wrong": 81
+      "wrong": 82
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
@@ -203,29 +203,29 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.2508807474389097,
+      "brier": 0.2532409395188137,
       "coin_flip_brier": 0.25,
       "forecasts": 31,
       "label": "Statistical baseline",
       "last_forecast_on": "2026-11-17",
       "method": "statistical_baseline_v1",
-      "resolved": 26,
+      "resolved": 27,
       "right": 11,
       "toss_ups": 0,
-      "wrong": 15
+      "wrong": 16
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.20166561282935186,
+      "brier": 0.20281283317065454,
       "coin_flip_brier": 0.25,
       "forecasts": 95,
       "label": "Claude, confidence-corrected",
       "last_forecast_on": "2026-11-19",
       "method": "claude_calibrated_v1",
-      "resolved": 54,
+      "resolved": 55,
       "right": 40,
       "toss_ups": 0,
-      "wrong": 14
+      "wrong": 15
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
@@ -282,6 +282,55 @@
     }
   },
   "questions": [
+    {
+      "actual": "203,000 claims",
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.38
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-14 be above 200,000 claims?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-13T12:40:35+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.38,
+          "rationale": "FRED showed exactly 200,000 for the week ending 2026-11-07 (https://fred.stlouisfed.org/series/ICSA, 2026-11-12), after 191,000 the week before, and a 194K print on 2026-10-29 (https://investinglive.com/news/us-initial-jobless-claims-194k-vs-199k-expected/). Long-run base rates (85.6% above 200K since 2025) are high, but recent first prints cluster around 191-200K, so a strict 'above 200,000' needs a rise from a level near 195-200K and a tie of exactly 200,000 fails. The release is scheduled for 2026-11-19 (https://www.financecalendar.com/event/us-initial-jobless-claims-november-19-2026/); the 709,000 RTTNews figure was discarded as unreliable.",
+          "sources": [
+            "https://fred.stlouisfed.org/series/ICSA",
+            "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ICSA",
+            "https://investinglive.com/news/us-initial-jobless-claims-194k-vs-199k-expected/",
+            "https://www.financecalendar.com/event/us-initial-jobless-claims-november-19-2026/"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.4391025641025641
+        },
+        {
+          "as_of": "2026-11-13",
+          "intercept": 0.309733,
+          "method": "claude_calibrated_v1",
+          "probability": 0.485449,
+          "raw": 0.38,
+          "results": 228,
+          "slope": 0.75162
+        }
+      ],
+      "id": "6f27748ec336f18a",
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-19",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261113",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "resolved",
+      "title": "Will weekly U.S. jobless claims for the week ending Nov 14, 2026 come in above 200,000 claims?",
+      "topic": "Jobs",
+      "verdict": "wrong"
+    },
     {
       "actual": "Polymarket: Yes",
       "call": {
@@ -18016,55 +18065,6 @@
     {
       "actual": null,
       "call": {
-        "members": 1,
-        "method": "claude_call_v1",
-        "probability": 0.38
-      },
-      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-14 be above 200,000 claims?",
-      "forecasts": [
-        {
-          "made_at": "2026-11-13T12:40:35+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.38,
-          "rationale": "FRED showed exactly 200,000 for the week ending 2026-11-07 (https://fred.stlouisfed.org/series/ICSA, 2026-11-12), after 191,000 the week before, and a 194K print on 2026-10-29 (https://investinglive.com/news/us-initial-jobless-claims-194k-vs-199k-expected/). Long-run base rates (85.6% above 200K since 2025) are high, but recent first prints cluster around 191-200K, so a strict 'above 200,000' needs a rise from a level near 195-200K and a tie of exactly 200,000 fails. The release is scheduled for 2026-11-19 (https://www.financecalendar.com/event/us-initial-jobless-claims-november-19-2026/); the 709,000 RTTNews figure was discarded as unreliable.",
-          "sources": [
-            "https://fred.stlouisfed.org/series/ICSA",
-            "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ICSA",
-            "https://investinglive.com/news/us-initial-jobless-claims-194k-vs-199k-expected/",
-            "https://www.financecalendar.com/event/us-initial-jobless-claims-november-19-2026/"
-          ]
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.4391025641025641
-        },
-        {
-          "as_of": "2026-11-13",
-          "intercept": 0.309733,
-          "method": "claude_calibrated_v1",
-          "probability": 0.485449,
-          "raw": 0.38,
-          "results": 228,
-          "slope": 0.75162
-        }
-      ],
-      "id": "6f27748ec336f18a",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-19",
-      "scored": true,
-      "series": "jobless_claims",
-      "series_label": "Weekly U.S. jobless claims",
-      "source": "prospective_daily_20261113",
-      "source_url": "https://fred.stlouisfed.org/series/ICSA",
-      "status": "pending",
-      "title": "Will weekly U.S. jobless claims for the week ending Nov 14, 2026 come in above 200,000 claims?",
-      "topic": "Jobs",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.92,
         "market": 0.9474,
         "max_move": 0.0,
@@ -20482,7 +20482,7 @@
     }
   ],
   "summary": {
-    "brier": 0.2115184038332815,
+    "brier": 0.21217325836421602,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -20610,7 +20610,7 @@
         "status": "testing"
       }
     ],
-    "pending": 56,
+    "pending": 55,
     "progress": {
       "changes": [
         {
@@ -20702,7 +20702,7 @@
         }
       ]
     },
-    "resolved": 263,
+    "resolved": 264,
     "right": 179,
     "toss_ups": 3,
     "total": 326,
@@ -20721,7 +20721,7 @@
         "questions": 21
       }
     },
-    "wrong": 81
+    "wrong": 82
   },
   "version": "track_record_v2"
 }
