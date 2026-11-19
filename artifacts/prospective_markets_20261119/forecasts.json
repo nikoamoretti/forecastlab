@@ -1,0 +1,132 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket, Manifold or Kalshi) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-19T10:09:56.658463+00:00",
+          "method": "market_price_v1",
+          "probability": 0.939
+        },
+        {
+          "created_at": "2026-11-19T12:40:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.93,
+          "rationale": "Binance BTCUSDT read about 63,820 on 2026-11-19 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), 10% above 58,000, with 30-day daily volatility of 2.3% (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31). The 5-day reference class stayed above this ratio in 92.2% of all windows and 96.3% of the last two years; heavy ETF outflows ($2.58B in November, https://news.bitcoin.com/bitcoin-etf/bitcoin-etfs-lose-2-58b-in-november-with-blackrock-driving-the-exit/) and a 23% slide in a month argue for a fatter left tail than the price math. Own 90%+ calls have run slightly over-confident, so I stay a little below the 96-97% figures.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://news.bitcoin.com/bitcoin-etf/bitcoin-etfs-lose-2-58b-in-november-with-blackrock-driving-the-exit/",
+            "https://investinglive.com/cryptocurrency/bitcoin-dipped-under-70k-first-time-since-august/"
+          ]
+        }
+      ],
+      "id": "polymarket-7121567",
+      "market_id": "7121567",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $58,000 on November 24?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-24",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-november-24-2026",
+      "topic": "Crypto",
+      "volume": 6364.585746000001,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-19T10:09:56.658463+00:00",
+          "method": "market_price_v1",
+          "probability": 0.86
+        },
+        {
+          "created_at": "2026-11-19T12:40:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.82,
+          "rationale": "PortWatch daily totals for 9-15 Nov were 29, 25, 19, 24, 28, 20, 34, so one day in the last week reached 30 (https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0). Over the trailing 90 days 82 of 91 seven-day windows had at least one day of 30+, though only about a third of days reached it, and Nov 1-15 had 4 of 15. A single 30+ day in seven is likely but not certain given the sub-30 drift, JMIC's ~22/day and the Houthi takeover of the strait area (https://newsonair.gov.in/houthis-take-control-of-bab-al-mandab-strait-area-following-withdrawal-of-yemeni-government-forces/, 2026-11-16); the resolution page itself could not be opened.",
+          "sources": [
+            "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0",
+            "https://www.shipuniverse.com/?p=27890",
+            "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief---12-november-2026",
+            "https://newsonair.gov.in/houthis-take-control-of-bab-al-mandab-strait-area-following-withdrawal-of-yemeni-government-forces/"
+          ]
+        }
+      ],
+      "id": "polymarket-7029662",
+      "market_id": "7029662",
+      "outcome": null,
+      "question": "Will 30+ ships transit the Bab el-Mandeb Strait on any day week of November 16?",
+      "resolution_criteria": "This market will resolve to \u201cYes\u201d if the number of transit calls through the Bab el-Mandeb Strait on any single date from November 16, 2026 to November 22, 2026, according to IMF PortWatch, is at least the number specified in the title. Otherwise, this market will resolve to \u201cNo\u201d.\n\nDaily figures are the total transit calls by container, dry bulk, roll-on/roll-off, general cargo, and tanker ships that IMF PortWatch publishes for each date.\n\nThis market will resolve once IMF PortWatch has published data for every date in the period. Revisions made after that point will not be considered, unless subject to the data integrity clause below. If any data is still unpublished 14 calendar days after the period\u2019s final date, this market will resolve on the most recent data published at that time.\n\nIn the case that the Resolution Source publishes data, sufficient to settle a Market, that is clearly erroneous and the result of technical or operational error, or of unauthorized interference with the Resolution Source or its data, the Market may remain open for a period of up to seven (7) calendar days (ET) from the time of the original release, in anticipation of a correction by the Resolution Source. If the Resolution Source publishes a corrected value within that period, that value will be eligible for resolution. If no corrected value is published within that period, Polymarket will issue a Clarification to determine whether the originally published value may be eligible for resolution, or whether other action is required to preserve the orderly functioning of the Market.\n\nThe resolution source for this market will be IMF PortWatch, specifically the Transit Calls data published for the Bab el-Mandeb Strait at https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c.",
+      "resolution_date": "2026-11-23",
+      "resolution_source": "https://polymarket.com/event/peak-daily-ship-traffic-through-the-bab-el-mandeb-strait-week-of-november-16",
+      "topic": "Economy",
+      "volume": 3186.358516,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-19T10:09:56.658463+00:00",
+          "method": "market_price_v1",
+          "probability": 0.845
+        },
+        {
+          "created_at": "2026-11-19T12:40:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "The second SRG/gfs.bern wave (2026-11-18) says the initiative would have been clearly approved on 7 Nov (https://www.gfsbern.ch/en/news/2nd-srg-survey-on-the-federal-votes-of-29-november-2026), after 69% yes in the first wave (https://www.srf.ch/news/erste-srg-umfrage-ja-vorteil-fuer-feuerwerksinitiative-meinungen-fast-gemacht, 2026-10-23); YouGov (2026-11-17) had 59% yes, 36% no. Initiatives usually lose support late and only about 10% pass overall, and the cross-party No campaign plus the Standemehr add risk, but a 59-69% lead with no counter-proposal usually carries a cantonal majority too. The exact second-wave percentages were not read.",
+          "sources": [
+            "https://www.gfsbern.ch/en/news/2nd-srg-survey-on-the-federal-votes-of-29-november-2026",
+            "https://yougov.com/de-de/artikel/56001-fairness-initiative-bricht-ein-kriegsmaterialgesetz-bleibt-offen-wie-will-die-schweiz-am-29-november-abstimmen",
+            "https://www.srf.ch/news/erste-srg-umfrage-ja-vorteil-fuer-feuerwerksinitiative-meinungen-fast-gemacht",
+            "https://www.srf.ch/news/schweiz/verbot-von-boellern-nein-kampagne-gegen-feuerwerksinitiative-lanciert"
+          ]
+        }
+      ],
+      "id": "polymarket-2915400",
+      "market_id": "2915400",
+      "outcome": null,
+      "question": "Will the Popular initiative \u2018For a restriction on fireworks\u2019 be approved in Switzerland\u2019s November 29, 2026 popular vote?",
+      "resolution_criteria": "As of market creation, four referenda are scheduled to be held in Switzerland on November 29, 2026: \n\n- Issue 1: Federal decree of 19 June 2026 on additional funding for the AVS through an increase in VAT\n- Issue 2: Popular initiative \u2018For a restriction on fireworks\u2019\n- Issue 3: Popular initiative \u2018Yes to fair federal taxation for married couples \u2013 To finally put an end to marriage discrimination!\u2019\n- Issue 4: Amendment of 19 December 2025 to the Federal Act on War Material (LFMG)\n\nThis market will resolve to \u201cYes\u201d if the listed referendum is approved under the applicable legal threshold in the specified popular vote. Otherwise, this market will resolve to \u201cNo.\u201d\n\nThis market will resolve to \u201cYes\u201d if either the popular initiative or, where applicable, the federal counter-proposal is approved under the applicable legal threshold, regardless of any tie-breaker vote.\n\nIf the referendum is officially rescheduled, the same rule applies to the new ballot and its corresponding deadlines. This market will resolve to \u201cNo\u201d if, for any reason, the results of the respective vote are not known definitively by the date the subsequent Referendum in Switzerland is scheduled to be held.\n\nThe resolution source will be based on a consensus of credible reporting. In the event of ambiguity, this market will resolve solely based on the official certified referendum results published by Swiss government authorities, such as the Swiss Federal Chancellery and the information portal provided by the Swiss authorities (https://www.ch.ch/en/votes-and-elections/). Subsequent litigation, administrative challenges, or failure of any post-approval implementation steps will not be considered.",
+      "resolution_date": "2026-11-29",
+      "resolution_source": "https://polymarket.com/event/switzerlands-november-referendum-what-will-pass-20260713145059520",
+      "topic": "Politics",
+      "volume": 29038.094057000002,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-19T10:09:56.658463+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.0773
+        },
+        {
+          "created_at": "2026-11-19T12:40:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "Kathy Hochul won the 2026-11-03 New York governor's race over Bruce Blakeman, called at poll close (https://www.wamc.org/2026-11-03/kathy-hochul-re-elected-new-york-governor-defeats-bruce-blakeman). Ritchie Torres was not a candidate: he said on 2025-07-03 he was unlikely to run (https://www.bxtimes.com/torres-wont-run-for-governor/) and endorsed Hochul on 2025-08-19 (https://bronx.news12.com/news-12-exclusive-rep-ritchie-torres-endorses-kathy-hochul-for-governor). Only a very unlikely resolution quirk could make this Yes.",
+          "sources": [
+            "https://www.wamc.org/2026-11-03/kathy-hochul-re-elected-new-york-governor-defeats-bruce-blakeman",
+            "https://www.cityandstateny.com/politics/2026/11/hochul-cruises-reelection/417017/",
+            "https://bronx.news12.com/news-12-exclusive-rep-ritchie-torres-endorses-kathy-hochul-for-governor",
+            "https://www.bxtimes.com/torres-wont-run-for-governor/"
+          ]
+        }
+      ],
+      "id": "manifold-NP9CqulZcA",
+      "market_id": "NP9CqulZcA",
+      "outcome": null,
+      "question": "Will Ritchie Torres be the next governor of New York?",
+      "resolution_criteria": "Resolves as the Manifold market resolves: https://manifold.markets/LeeBressler/will-ritchie-torres-be-the-next-gov",
+      "resolution_date": "2026-11-29",
+      "resolution_source": "https://manifold.markets/LeeBressler/will-ritchie-torres-be-the-next-gov",
+      "topic": "Politics",
+      "volume": 30879.61938040802,
+      "volume_floor": 1000,
+      "volume_unit": "mana"
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v9+manifold_selection_v4+kalshi_selection_v1"
+}
