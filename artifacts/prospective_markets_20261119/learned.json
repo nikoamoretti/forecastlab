@@ -1,0 +1,42 @@
+{
+  "manifold-NP9CqulZcA": {
+    "as_of": "2026-11-19",
+    "claude": 0.02,
+    "claude_weight": -0.365922,
+    "intercept": 0.103635,
+    "market": 0.0773,
+    "probability": 0.157726,
+    "results": 233,
+    "slope": 0.925808
+  },
+  "polymarket-2915400": {
+    "as_of": "2026-11-19",
+    "claude": 0.72,
+    "claude_weight": -0.365922,
+    "intercept": 0.103635,
+    "market": 0.845,
+    "probability": 0.875304,
+    "results": 233,
+    "slope": 0.925808
+  },
+  "polymarket-7029662": {
+    "as_of": "2026-11-19",
+    "claude": 0.82,
+    "claude_weight": -0.185484,
+    "intercept": 0.103635,
+    "market": 0.86,
+    "probability": 0.862913,
+    "results": 233,
+    "slope": 0.925808
+  },
+  "polymarket-7121567": {
+    "as_of": "2026-11-19",
+    "claude": 0.93,
+    "claude_weight": -0.25021,
+    "intercept": 0.103635,
+    "market": 0.939,
+    "probability": 0.935329,
+    "results": 233,
+    "slope": 0.925808
+  }
+}

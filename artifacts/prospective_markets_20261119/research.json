@@ -1,0 +1,1094 @@
+{
+  "cost_usd": {
+    "manifold-NP9CqulZcA": 0.2375,
+    "polymarket-2915400": 0.3263,
+    "polymarket-7029662": 0.2173,
+    "polymarket-7121567": 0.2643
+  },
+  "downloaded_at": "2026-11-19T10:21:11.805636+00:00",
+  "failed": {},
+  "findings": {
+    "manifold-NP9CqulZcA": {
+      "against": "The outcome that Torres becomes governor is less likely on this evidence.\nThe strongest case for it rests on the wording of his own statements.\nOn 2025-07-03 he said he was \"unlikely to run for governor\" in 2026, which is a hedge rather than a withdrawal, and the same report describes him as saying he won't be moving upstate any time soon.\nOn 2025-08-19 he endorsed Hochul, which is the last statement on his plans I could open; it does not say he rules out a future run.\nNothing I opened shows him as a 2026 candidate or on the 2026 ballot for governor.\nThe question's 'next governor' wording could also be read as the person who takes office on 2027-01-01, and I did not verify that start date from a primary source.",
+      "base_rate": "Not counted.\nThe question needs a person who is not on the 2026 ballot to become governor, and no official archive of past New York gubernatorial outcomes or comparable cases was opened in this pass, so I have no count and period to report.\nWhat is verified: Hochul won the 2026 election on 2026-11-03 against Blakeman, and Torres had said in July 2025 he was unlikely to run and later endorsed Hochul.\nSources 2 and 3 could not be opened in full (empty quotes); the endorsement date and Ballotpedia's result details are unconfirmed.",
+      "different_now": "Torres is not on the 2026 ballot and has said he will not run for governor, so the only open question is whether the result is certified; nothing scheduled before the 2026-11-29 resolution date (county canvass on 2026-11-28, state certification not until 2026-12-15, per the calendar summary) can put him in the race.\nEvery indicator in this pass points toward the answer being no; the only real uncertainty is how the question's 'next governor' wording is read, not any event that could change the field.",
+      "facts": [
+        {
+          "fact": "Ritchie Torres publicly endorsed Gov.\nKathy Hochul for governor on 2025-08-19, as a sitting U.S.\nRepresentative.",
+          "source": 2
+        },
+        {
+          "fact": "On 2026-11-03 the New York governor's race was held; preliminary State Board of Elections results at 92% of election districts reported showed Hochul at 60% and Republican Bruce Blakeman at 40%.",
+          "source": 0
+        },
+        {
+          "fact": "Hochul's reelection was called minutes after polls closed on 2026-11-03, per a FOX 5 NY article published 2026-11-04.",
+          "source": 1
+        },
+        {
+          "fact": "On 2025-07-02 (reported 2025-07-03), Rep.\nRitchie Torres told MSNBC he was \"unlikely to run for governor\" of New York in 2026.",
+          "source": 4
+        },
+        {
+          "fact": "Gov.\nKathy Hochul won the New York gubernatorial election on 2026-11-03, defeating Republican Bruce Blakeman; the AP called it at poll close, and results were preliminary, with no certified totals found yet.",
+          "source": 0
+        },
+        {
+          "fact": "Ritchie Torres publicly endorsed Gov.\nKathy Hochul for reelection, which the search summary says ends his interest in running for governor (exact date not confirmed from the page).",
+          "source": 5
+        },
+        {
+          "fact": "The Associated Press called the 2026 New York governor's race for Kathy Hochul as polls closed at 9 p.m.\non 2026-11-03, per WAMC's report published that night.",
+          "source": 7
+        },
+        {
+          "fact": "On 2025-07-02, Rep.\nRitchie Torres told MSNBC's Morning Joe he was 'unlikely to run for governor' in the 2026 election; the article is dated 2025-07-03.",
+          "source": 4
+        },
+        {
+          "fact": "The State Board of Elections' calendar, as shown in a search-result summary of the elections.ny.gov page (the page itself returned HTTP 403 and was not opened), sets county canvass certification by 2026-11-28, a recanvass of general election returns on 2026-11-18, and a state certification deadline of 2026-12-15 for the 2026-11-03 general election.",
+          "source": 8
+        },
+        {
+          "fact": "On 2025-07-03 (MSNBC interview reported that day), Rep.\nRitchie Torres said he is \"unlikely to run for governor\" in the 2026 election; the wording is a hedge, not a flat denial.",
+          "source": 4
+        },
+        {
+          "fact": "On 2025-08-19, Torres publicly said he is endorsing Kathy Hochul for governor, which is the latest statement on his plans that I opened.",
+          "source": 2
+        },
+        {
+          "fact": "On 2025-07-03, reporting on Torres's MSNBC Morning Joe interview, Bronx Times said Torres would seek reelection to the U.S.\nHouse from his Bronx district instead of running for governor.",
+          "source": 4
+        },
+        {
+          "fact": "The official New York governor's website (governor.ny.gov homepage), read on 2026-11-19, identifies Kathy Hochul as the 57th and first female Governor of New York State, and it shows no Torres candidacy or reelection result.",
+          "source": 9
+        },
+        {
+          "fact": "The elections.ny.gov certification page for the November 3, 2026 general election returned HTTP 403 to WebFetch, so its certification deadlines and the official gubernatorial result could not be read from the primary page.",
+          "source": 8
+        },
+        {
+          "fact": "The elections.ny.gov/node/296 page, which earlier passes cited for the resolution rule, returned HTTP 403 to WebFetch, so the rule that settles the question could not be confirmed from the primary source.",
+          "source": 3
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap",
+        "primary"
+      ],
+      "primary_sources": 1,
+      "resolution": {
+        "criteria": "Not confirmed from the primary page.\nWorking reading: the question asks whether Ritchie Torres wins New York's governorship.\nHe is not a gubernatorial candidate in the 2026 race; he endorsed Hochul in August 2025.\nHochul is the reported winner of the 2026-11-03 election.",
+        "current_status": "As of 2026-11-19: Hochul was reported as winner on 2026-11-03/04 (preliminary state count 60%-40% over Blakeman at 92% reporting; race called minutes after polls closed).\nNo certified general-election result was found; the BOE certification page I found covers only the 2026-06-23 primary.\nTorres is not a governor candidate.",
+        "edge_cases": [
+          "'Next governor' may mean the winner of the 2026 election (decided 2026-11-03) or the person who takes office; New York's governor takes office on January 1, 2027, after the question's 2026-11-29 resolution date.",
+          "Certification is later than the call: mail-in ballot counting waits at least 8 days after the election, so the official canvass and certified totals may not exist by 2026-11-29.",
+          "Preliminary counts (60%-40% at 92% reporting) differ from final canvass totals; a revised count would not change the winner unless the margin flipped, which is unlikely given the reported 20-point lead.",
+          "Torres's own 2026 House race (NY-15) is a separate contest; a win there does not make him governor."
+        ],
+        "settling_source": "New York State Board of Elections, elections.ny.gov (official certified 2026 general election results).\nThe page that states the rule was not readable: elections.ny.gov returned HTTP 403 to WebFetch, so the rules are not confirmed from the primary pa"
+      },
+      "uncertainties": [
+        "The elections.ny.gov pages returned HTTP 403, so the resolution rule, the certification calendar and the final vote totals were not read from the primary page; the calendar dates come from a search-result summary.",
+        "No certified or final canvass result was found; the 2026-11-03 Hochul margin is from preliminary reporting, and reported vote shares conflict across sources (roughly 59% to 40% in one tally, 77.7% in an early partial count).",
+        "The date of Torres's endorsement of Hochul (reported as August 2025) could not be confirmed from an opened page, and the Torres quote is from a secondary article, not the MSNBC transcript.",
+        "The question's wording 'next governor' is ambiguous: it could mean the 2026 winner or the person who takes office on 2027-01-01 (that start date was not verified from an opened primary source in this pass).",
+        "Ballotpedia and Wikipedia results pages for the 2026 race were listed in search results but not opened, so their figures are not used here.",
+        "elections.ny.gov (the resolution-rule page and the certification calendar) returned HTTP 403 in earlier passes and was not read here, so the settling rule and the 2026-11-29 cutoff are unconfirmed."
+      ],
+      "warnings": [
+        "only 1 primary source(s) with quotes (need 2): rely on the facts less than on official data"
+      ]
+    },
+    "polymarket-2915400": {
+      "against": "The strongest case for a No outcome is that the opposition is cross-party and the official line is that existing cantonal and municipal powers already cover the problem.\nThe Federal Council and Parliament said on the admin.ch vote page, with the explanatory PDF dated 12 October 2026, that the initiative goes too far.\nA cross-party No committee including SVP, FDP and Mitte opened its campaign on 6 October 2026 in Bern, arguing for existing cantonal and municipal rules rather than a national ban (SRF, 2026-10-06).\nBy 9 October 2026 opponents were arguing there is no need for a national ban and that cantons and municipalities already have the authority to act (blue News, 2026-10-09).\nA federal initiative needs both a popular and a cantonal majority, so a national yes lead can still fail if enough cantons vote no.",
+      "base_rate": "Reference class: federal popular initiatives put to a popular vote in Switzerland.\nCounts from the sources above: 22 of 192 (1893 to 2014, about 11%); 17 of 182 (1970 to 2020, about 9%).\nAcceptance needs both a popular majority and a cantonal majority.\nCaveats: the counts come from secondary sources (Wikipedia and LeNews), not the Federal Chancellery's own table, which I could not open; the 1893 to 2014 and 1970 to 2020 windows overlap and do not cover 2015 to 2026; the 26-accepted-through-2024 figure appeared only in a search snippet and is not quoted here.",
+      "different_now": "Unlike most federal initiatives in the reference class, this one has no counter-proposal on the ballot, since the Nationalrat rejected it on 19 June 2026 (SRF, 26 Jun 2026).\nPublic polling is favourable: the SRG/gfs.bern wave in October showed 69% yes, and the YouGov wave closing 16 Nov showed 59% yes to 36% no.\nThe two polls differ in pollster and method, so the drop from 69 to 59 is not a clean trend.\nBetween the two, the reading is about 10 points lower in the later, different-pollster poll.\nThe reference class has a low acceptance rate (about 9\u201311%) and requires a cantonal majority as well",
+      "facts": [
+        {
+          "fact": "The Federal Chancellery's vote page states the popular initiative 'F\u00fcr eine Einschr\u00e4nkung von Feuerwerk' is on the ballot 'Am 29.\nNovember 2026'.",
+          "source": 0
+        },
+        {
+          "fact": "The Federal Council and Parliament recommend voting no on the fireworks initiative; the vote-page wording is that the initiative 'geht zu weit' for them.",
+          "source": 0
+        },
+        {
+          "fact": "The Federal Council's explanatory PDF attached to the admin.ch fireworks page is dated 12 October 2026.",
+          "source": 0
+        },
+        {
+          "fact": "On 22 October 2026 (09:00) blue News reported that the Federal Council recommends rejecting the initiative and argues that cantons and municipalities already have the legal basis to restrict fireworks.",
+          "source": 1
+        },
+        {
+          "fact": "The Federal Chancellery page says the fireworks initiative 'For a restriction on fireworks' is voted on 29 November 2026; the Federal Council and Parliament consider it goes too far.",
+          "source": 3
+        },
+        {
+          "fact": "Between 1893 and 2014, 22 of 192 federal popular initiatives put to a vote were successful (about 11%).",
+          "source": 4
+        },
+        {
+          "fact": "Between 1970 and 2020, 17 of 182 popular initiatives were accepted by voters (about 9%).",
+          "source": 5
+        },
+        {
+          "fact": "As of 2016, swissinfo reports 22 federal popular initiatives approved since 1891.",
+          "source": 6
+        },
+        {
+          "fact": "The first SRG/gfs.bern poll (fieldwork 5\u201318 Oct 2026, 14,874 voters) found 69% eher or klar in favour of the fireworks initiative, published 23 Oct 2026.",
+          "source": 7
+        },
+        {
+          "fact": "The second and final YouGov Switzerland barometer (fieldwork 2\u201316 Nov 2026, 3,013 voters, published 17 Nov 2026) found the fireworks initiative at 59% yes, 36% no, 5% undecided.",
+          "source": 8
+        },
+        {
+          "fact": "The Nationalrat rejected the indirect counter-proposal in the final vote, so the fireworks initiative goes to the ballot alone, reported 26 Jun 2026.",
+          "source": 9
+        },
+        {
+          "fact": "A gfs.bern survey run 29 Oct\u20137 Nov 2024 (1,003 online panel voters, published 3 Apr 2025, commissioned by the initiative association per an unopened search snippet) found 68% of those certain to vote in favour.",
+          "source": 10
+        },
+        {
+          "fact": "The Federal Council and Parliament say the initiative goes too far; the vote-page explanatory PDF is dated 12 October 2026.",
+          "source": 0
+        },
+        {
+          "fact": "On 6 October 2026 a cross-party 'Nein' campaign was launched in Bern, backed by representatives of the SVP, FDP and Mitte along with the trade association, arguing for existing cantonal and municipal rules over a national ban.",
+          "source": 11
+        },
+        {
+          "fact": "By 9 October 2026 the opponents' case was that cantons and municipalities already have the authority to intervene, and that fireworks' environmental impact lasts only a few days a year.",
+          "source": 12
+        },
+        {
+          "fact": "The Federal Council states that cantons and municipalities can already restrict fireworks further, which is the basis of its objection to a national ban.",
+          "source": 0
+        },
+        {
+          "fact": "On 18 Nov 2026 gfs.bern published the second SRG survey on the 29 Nov 2026 federal votes.\nIt says that had the vote taken place on 7 Nov 2026, the fireworks initiative would have been clearly approved.\nThe quote was cut off by the fetch tool at 125 characters, so the full sentence was not read.",
+          "source": 13
+        },
+        {
+          "fact": "The text of the 18 Nov 2026 gfs.bern second-wave page, as fetched, gave no yes or no percentage and no undecided share for the fireworks initiative.\nThe only percentage in its summary was an intended turnout of 52%.",
+          "source": 13
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 5,
+      "resolution": {
+        "criteria": "Market resolves Yes if the initiative 'For a restriction on fireworks' is approved under the applicable legal threshold on 29 November 2026; No otherwise, including if results are not definitive by the scheduled date.",
+        "current_status": "As of 2026-11-19: the initiative is scheduled for the 29 Nov 2026 vote; the Federal Council and Parliament recommend No (admin.ch, undated page; Federal Council explanatory PDF 12 Oct 2026).\nNo result exists yet.\nWhether a counter-proposal exists was not confirmed on an opened page; search snippets said the National Council rejected the counter-proposal, so none is on the ballot, but this is unver",
+        "edge_cases": [
+          "Threshold: approval requires both a majority of votes cast and a majority of the cantons (St\u00e4ndemehr); a popular majority without a cantonal majority resolves No, per the market's 'applicable legal threshold' wording.",
+          "Cantonal counting: half-cantons (Halbkantone) count as half a canton in the cantonal majority, so exact cantonal tallies can differ from a simple count of 26 cantons.",
+          "Ties: an exact 50% popular split is a rejection under a strict majority reading; the market's 'regardless of any tie-breaker' clause refers to counter-proposal logic, which does not apply here.",
+          "Time zone and timing: results are published on election night in Swiss local time (CET/CEST); the 'by the date the subsequent referendum is scheduled' clause means results must be definitive by the scheduled date, so a late cantonal certification cou"
+        ],
+        "settling_source": "Swiss Federal Chancellery official certified results (admin.ch, https://www.admin.ch/feuerwerksinitiative, and the ch.ch votes portal https://www.ch.ch/en/votes-and-elections/); the initiative passes only if it wins both the popular majority and a ma"
+      },
+      "uncertainties": [
+        "The second SRG/gfs.bern wave before 29 Nov 2026 was not found; its date and result could move the picture substantially.",
+        "No Tamedia/20 Minuten wave on this initiative was found, so the pollster set is only SRG/gfs.bern and YouGov.",
+        "The regional split (German-speaking vs Romandie support) reported in search snippets was not confirmed on an opened page.",
+        "The cantonal majority is unpolled here; a 59\u201369% national yes can still fail the St\u00e4ndemehr.",
+        "Result certification timing and any post-vote challenge were not checked; the question says results must be definitive by 29 Nov.",
+        "The Letemps article reporting that the Federal Council considers the initiative to have a good chance and that the majority is split by region could not be opened (HTTP 403); its claims are unverified here."
+      ]
+    },
+    "polymarket-7029662": {
+      "against": "The strongest case for No is that recent PortWatch traffic has sat below the 30-call line for most days: the 9 to 15 November totals were 29, 25, 19, 24, 28, 20 and 34, so only one day in that week reached 30, and a 7-day window with no day at 30 would resolve No.\nLloyd's List rated the threat as substantial on 12 November 2026 and found no recent incidents, so there is no fresh attack pressure pushing traffic back up (source 0).\nThe Houthis' August 2026 attack and Saudi blockade announcement (source 1) show the group is still active against shipping, and a renewed attack in the window would likely cut daily counts further.\nThe Yemeni government-aligned forces' withdrawal on 15 November 2026 is a supply-side change that has not yet shown up in any dated count.\nLloyd's counted 1,363 transits in October, but that uses a different method and cannot be used as a PortWatch number.",
+      "base_rate": "Reference class: each 7-day window of PortWatch daily total transit calls for Bab el-Mandeb (chokepoint4), tested against the 30-call threshold on any single day.\nCounts computed from the PortWatch layer.\n2019-01-01 to 2023-11-30: 1,795 of 1,795 windows reached 30 (100%).\n2024-01-01 to 2026-11-09 (the windows fully inside the data): 1,034 of 1,044 windows (99.0%); 2025 onward: 668 of 678 (98.5%).\nTrailing 90 days, windows starting 2026-08-11 to 2026-11-09: 82 of 91 (90.1%), and only 30 of 91 individual days reached 30.\nThe same Nov 16-22 week reached a daily maximum of 66 to 87 in 2019-2023 an",
+      "different_now": "Traffic is near the 30-call line but has been mostly below it recently: PortWatch daily totals for 9 to 15 November were 29, 25, 19, 24, 28, 20 and 34 (from the prior pass), and JMIC's 22-a-day figure for 12 to 14 November is lower still, though JMIC and PortWatch use different counts.\nPushing toward No: the recent run is below 30 and the threat is still rated substantial.\nPushing toward Yes: a 1 to 4 November tracker run averaged about 34 a day, the Yemeni withdrawal of 15 November may ease access near the strait, and the period is seven days long, so one day at 30 is enough.\nScheduled events",
+      "facts": [
+        {
+          "fact": "The IMF PortWatch Bab el-Mandeb resolution page could not be opened: the fetch returned only the text \"chokepoint4\", with no rules, methodology, daily values or date, so the counting rule and the latest print are unverified.",
+          "source": 0
+        },
+        {
+          "fact": "The Statistics of the World mirror of PortWatch's daily chokepoint transit calls cites IMF PortWatch (portwatch.imf.org), based on UN Global Platform AIS data, as its source.",
+          "source": 1
+        },
+        {
+          "fact": "The same mirror shows a 2026-11-15 reading for Malacca at 258.0 vessels/day and states that rows are not a like-for-like ranking; it shows no Bab el-Mandeb value in the text the fetch returned, and its verification date (2026-08-03) is earlier than its readings.",
+          "source": 1
+        },
+        {
+          "fact": "The World Bank Data Lab notebook, last updated 2026-04-01, uses IMF PortWatch daily transit calls and estimated volume (capacity) as its data, and gives no counting rule.",
+          "source": 2
+        },
+        {
+          "fact": "An earlier web search returned a third-party tracker reporting Bab el-Mandeb daily transit calls averaging 24.7 vessels over the seven days to 2026-09-20; this is unverified against PortWatch and is not used as a source here.",
+          "source": 1
+        },
+        {
+          "fact": "The PortWatch daily series for Bab el-Mandeb holds 2,876 days of n_total transit calls, from 2019-01-01 to 2026-11-15.",
+          "source": 3
+        },
+        {
+          "fact": "From 2019-01-01 to 2023-11-30, every one of the 1,795 seven-day windows contained at least one day with 30 or more total transit calls.",
+          "source": 3
+        },
+        {
+          "fact": "From January 2024 through November 2026, 1,034 of 1,044 seven-day windows contained at least one day with 30 or more calls, and 706 of 1,044 individual days reached 30 or more.",
+          "source": 3
+        },
+        {
+          "fact": "Days with 30 or more calls by month: August 2026 11 of 31, September 2026 8 of 30, October 2026 12 of 31, and 1 to 15 November 2026 4 of 15.",
+          "source": 3
+        },
+        {
+          "fact": "Daily totals for 9 to 15 November 2026 were 29, 25, 19, 24, 28, 20 and 34; only 15 November reached 30.",
+          "source": 3
+        },
+        {
+          "fact": "The maximum daily total for 16 to 22 November was 66 in 2019, 66 in 2020, 78 in 2021, 80 in 2022 and 87 in 2023, but 39 in 2024 and 47 in 2025.",
+          "source": 3
+        },
+        {
+          "fact": "On 29 April 2026 the IMF said Bab el-Mandeb transits remained at roughly half their pre-attack level.",
+          "source": 4
+        },
+        {
+          "fact": "Lloyd's List counted at least 273 ship transits through Bab el Mandeb from 27 July to 2 August 2026, about 39 a day on its own counting, which differs from PortWatch's method.",
+          "source": 5
+        },
+        {
+          "fact": "Lloyd's List Intelligence counted 1,363 Bab el-Mandeb transits in October 2026, against 1,215 in September 2026, and described the Red Sea threat as substantial with no recent incidents reported (as of 2026-11-12).",
+          "source": 6
+        },
+        {
+          "fact": "Yemeni government-aligned forces announced on 2026-11-15 that they were withdrawing from positions near the Bab el-Mandeb Strait, per Reuters as relayed by Safety4Sea (published 2026-11-16).",
+          "source": 7
+        },
+        {
+          "fact": "A ShipUniverse report (published 2026-11-16) says JMIC recorded approximately 22 commercial vessel transits per day on 12 to 14 November 2026, and that JMIC's assessment dated 15 November classified the southern Red Sea and Bab el-Mandeb threat as substantial.",
+          "source": 8
+        },
+        {
+          "fact": "Gulf News (page last updated 2026-11-06) reports tracking data showing about 34 commercial transits a day from 1 to 4 November 2026, with daily counts of 38, 37, 35 and 26.",
+          "source": 9
+        },
+        {
+          "fact": "On 12 November 2026 Lloyd's List Intelligence rated the threat to shipping in the Red Sea as substantial, while reporting no recent incidents.",
+          "source": 6
+        },
+        {
+          "fact": "Lloyd's List Intelligence reported 1,363 Bab el-Mandeb transits for October 2026 on its own counting, which is a different method from PortWatch's daily transit calls.",
+          "source": 6
+        },
+        {
+          "fact": "On 12 August 2026 Yemen's government accused the Houthis of killing at least six people in an attack on a Bab al-Mandeb ship, and the Houthis announced a blockade on Saudi shipping in the Red Sea.",
+          "source": 10
+        },
+        {
+          "fact": "On 15 November 2026 southern Yemeni forces said they were withdrawing to secure Aden, and Houthi-run media reported that the Houthis had taken control of the Bab al-Mandab area.",
+          "source": 12
+        },
+        {
+          "fact": "The National's 15 November 2026 report says the withdrawal could give the Houthis greater leverage over the chokepoint, potentially increasing pressure on global shipping; this is an analyst view, not a PortWatch count.",
+          "source": 11
+        },
+        {
+          "fact": "The AIR report dated 16 November 2026 does not mention any attack on ships, so no ship attack in the 16 to 22 November window is confirmed by it.",
+          "source": 12
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 4,
+      "resolution": {
+        "criteria": "Resolves Yes if daily total transit calls (container, dry bulk, ro-ro, general cargo, tanker) for any single date 2026-11-16 to 2026-11-22 are at least 30 per PortWatch; otherwise No.\nResolution date 2026-11-23.",
+        "current_status": "Not established.\nThe PortWatch page returned no data on 2026-11-19.\nThe only dated values found are secondary: a Statistics of the World mirror listing 2026-11-15 readings for other straits (Malacca 258.0/day) and no Bab el-Mandeb figure in the text returned.",
+        "edge_cases": [
+          "Daily vs smoothing: secondary sources say some charts show a trailing 7-day mean, and some market contracts resolve on a 7-day average; the question specifies a single-date daily figure, so the raw daily series must be used.",
+          "Vessel types: the count includes container, dry bulk, ro-ro, general cargo and tanker only; other vessel types are excluded, and third-party tanker-only trackers give different numbers.",
+          "Date and time zone: the question says 'date' with no time zone; PortWatch dates are UTC per the question's header, and a ship crossing near midnight could land on either date.",
+          "Revisions: values published after the market closes do not count unless the data-integrity clause applies; the 7-day extension for clearly erroneous data and the 14-day unpublished-data rule can keep it open or resolve it on the latest print."
+        ],
+        "settling_source": "IMF PortWatch, Transit Calls data for the Bab el-Mandeb Strait, https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c (could not be opened in this pass)"
+      },
+      "uncertainties": [
+        "The PortWatch Bab el-Mandeb page could not be opened for data in this pass, so the daily 16 to 22 November series and the publication lag are unverified.",
+        "The JMIC 22-a-day figure, the Gulf News tracker counts and the Lloyd's List monthly total come from different methods and cannot be reconciled with PortWatch's n_total.",
+        "Gulf News's daily counts do not name their data provider, and the page date is a last-updated stamp, not an original publication date.",
+        "The effect of the 15 November withdrawal of Yemeni government-aligned forces on transits is not yet visible in any dated count.",
+        "No Houthi statement or new attack dated after 12 November was found in these results, so the threat picture for 16 to 22 November is unconfirmed.",
+        "The IMF PortWatch Bab el-Mandeb page could not be opened in this pass, so the 16 to 22 November daily series, the counting rule and the publication lag are unverified."
+      ]
+    },
+    "polymarket-7121567": {
+      "against": "The bearish case rests on flows and momentum.\nUS spot bitcoin ETFs have recorded $2.58 billion of net outflows in November 2026 through Nov.\n17, with $239.94 million leaving on Nov.\n17 alone (bitcoin.com, 2026-11-18).\nPrice fell from about $83,028 on Oct.\n19-20 to about $63,800 by Nov.\n19 on the Binance data already pulled, and on Nov.\n13 Bitcoin dipped under $70,000 for the first time since August, described as a drift with no single trigger (investinglive, 2026-11-13).\nA persistent outflow trend plus a no-trigger drift is the kind of backdrop in which a further 9-10% decline within about five days is not out of the question, even though the reference class shows such moves are uncommon.",
+      "base_rate": "Reference class: every 5-day window of Binance BTCUSDT daily closes from 2017-08-17 to 2026-11-19 (3,377 windows, computed by me from the klines API).\nWindows where the close 5 days later stayed above 58000/63821.91 = 0.9089 times the starting close: 3,112 of 3,377 (92.2%).\nLast 4 years: 1,409 of 1,455 (96.8%).\nLast 2 years: 698 of 725 (96.3%).\nCaveats: this is unconditional and ignores the current volatility regime; it uses 00:00 UTC daily closes as a proxy for the 17:00 UTC resolution time and five daily steps as a proxy for about 5.7 days.",
+      "different_now": "Pushes toward the No side in the flow data: US spot bitcoin ETFs have had heavy net outflows in November 2026 ($2.58 billion through Nov.\n17, about 87% from IBIT), a negative flow signal the unconditional reference class does not carry.\nScheduled macro events are not inside the window: the December FOMC (Dec.\n8-9) and November CPI (Dec.\n10) both fall after November 24, so no scheduled US policy event is found before resolution.\nThe threshold is about 10% below the spot read, so a move of that size is needed for No, which the reference class already shows is uncommon over five days.",
+      "facts": [
+        {
+          "fact": "Binance's BTCUSDT ticker returned a price of 63819.03 when read; the response carried no timestamp.",
+          "source": 0
+        },
+        {
+          "fact": "The Binance BTC/USDT trade page title showed 63865.27 when read, about 46 USD above the API ticker; the page showed no timestamp.",
+          "source": 2
+        },
+        {
+          "fact": "Binance's 1-day BTCUSDT candle opening 1792454400000 (2026-10-19 UTC) closed at 83028.15.",
+          "source": 1
+        },
+        {
+          "fact": "The Binance daily candle opening 1794960000000 (2026-11-18 UTC) closed at 63068.22; the candle opening 1795046400000 (2026-11-19 UTC) was still open when read, with 63819.03 as its latest price.",
+          "source": 1
+        },
+        {
+          "fact": "From the 31 Binance daily candles (2026-10-19 to 2026-11-19), the sample standard deviation of the 30 daily log returns is about 0.023.\nThe last candle was incomplete, so this is an estimate.",
+          "source": 1
+        },
+        {
+          "fact": "Binance BTC/USDT trade page title shows a price of 63898.78 at the time it was read on 2026-11-19 (exact minute not recorded; local file timestamp 11:12 on 2026-11-19).",
+          "source": 2
+        },
+        {
+          "fact": "The Binance daily BTCUSDT candle opening 2026-11-19 00:00 UTC showed a close of 63821.91 at the time of download; this candle was still open, so the close is the live price, not a settled daily close.",
+          "source": 3
+        },
+        {
+          "fact": "Binance daily BTCUSDT closes were 83028.15 on 2026-10-20 and 64150.00 on 2026-11-14, a decline of about 23% over that span.",
+          "source": 3
+        },
+        {
+          "fact": "The standard deviation of daily log returns over the last 30 daily returns (2026-10-20 to 2026-11-19, the last close being the open candle) is 0.0231.",
+          "source": 3
+        },
+        {
+          "fact": "The Binance klines endpoint returns candlesticks identified by open time for a symbol at a required interval; the 1d interval gives one candle per UTC day.",
+          "source": 4
+        },
+        {
+          "fact": "The December 2026 FOMC meeting is a two-day meeting on December 8-9, so the policy decision falls after the November 24 resolution date.",
+          "source": 5
+        },
+        {
+          "fact": "BLS lists the October 2026 CPI release for Nov.\n10, 2026 at 08:30 AM and the November 2026 CPI release for Dec.\n10, 2026 at 08:30 AM; no US CPI release falls between now and November 24.",
+          "source": 6
+        },
+        {
+          "fact": "US spot bitcoin ETFs recorded $2.579 billion in net outflows across 12 sessions from Nov.\n2 through Nov.\n17, 2026, with IBIT accounting for $2.2509 billion (87.3%).",
+          "source": 7
+        },
+        {
+          "fact": "US spot bitcoin ETFs had net outflows of $239.94 million on Tuesday Nov.\n17, 2026, taking November withdrawals to $2.58 billion.",
+          "source": 8
+        },
+        {
+          "fact": "The Binance BTCUSDT ticker read 63815.51 at 2026-11-19 10:14 UTC (local system clock at the time of the read; the API response itself carried no timestamp), which is 10.0% above the $58,000 threshold.",
+          "source": 5
+        },
+        {
+          "fact": "Working from the 30-day daily-return standard deviation of about 0.023 (from the existing klines data), the 10.0% gap to $58,000 is about 1.9 times the one-sigma move over the roughly 5.5 days remaining (about 0.054 in log terms); this is a distance measure, not a probability.",
+          "source": 5
+        },
+        {
+          "fact": "From 2026-11-19 10:14 UTC to the settling candle at 2026-11-24 16:00 UTC there are about 126 hours left in the window.",
+          "source": 5
+        },
+        {
+          "fact": "US spot bitcoin ETFs had net outflows of $239.94 million on Tuesday, Nov.\n17, 2026, taking November withdrawals to $2.58 billion.",
+          "source": 8
+        },
+        {
+          "fact": "BlackRock's IBIT led the Nov.\n17, 2026 outflows with $209.54 million.",
+          "source": 8
+        },
+        {
+          "fact": "Bitcoin's slide toward $70,000 was reported on Nov.\n13, 2026 with no single headline trigger, which points to a drift lower rather than one shock.",
+          "source": 9
+        },
+        {
+          "fact": "Binance's BTCUSDT ticker read 63822.89 at about 10:15 UTC on 2026-11-19 (local clock at read; the API response carries no timestamp).",
+          "source": 0
+        },
+        {
+          "fact": "The Binance 1-day BTCUSDT candle opening 2026-11-19 00:00 UTC opened at 63068.21 and showed a live close of 63817.26 at read time, so it is not yet settled.",
+          "source": 10
+        },
+        {
+          "fact": "The Binance 1-day BTCUSDT candle for 2026-11-18 UTC closed at 63068.22, which contradicts a search snippet's figure of about $86,500 for Nov.\n18, 2026; that snippet is discarded.",
+          "source": 10
+        },
+        {
+          "fact": "Fortune reported bitcoin at $65,016.66 at 8:15 a.m.\nET on Nov.\n17, 2026, about 1.5% above the Binance 2026-11-18 daily close.",
+          "source": 11
+        },
+        {
+          "fact": "Farside Investors' BTC ETF flow page returned HTTP 403 when fetched, so no US spot bitcoin ETF flow figure dated after Nov.\n17, 2026 could be verified from it.",
+          "source": 12
+        }
+      ],
+      "passes_done": [
+        "rules",
+        "outside",
+        "inside",
+        "against",
+        "gap"
+      ],
+      "primary_sources": 8,
+      "resolution": {
+        "criteria": "Yes if the Binance 1-minute BTC/USDT candle closing at 12:00 ET on 2026-11-24 has a final Close price higher than $58,000; otherwise No.\nBinance price only, precision set by the source's decimal places.",
+        "current_status": "Not yet resolved (resolution date 2026-11-24).\nBinance BTCUSDT ticker read at 63819.03 with no timestamp; the trade page title showed 63865.27.\nThe 2026-11-18 daily close was 63068.22.",
+        "edge_cases": [
+          "The settling candle is the 12:00 ET minute, which is 16:00 UTC on 2026-11-24 (17:00 UTC if ET is on daylight time in that period; November 24 falls after the US clock change, so ET is UTC-5 then), so the candle is 16:00-16:01 UTC.",
+          "Whether the 'final' Close means the value after the minute closes or a later-revised print; Binance candles are not normally revised, but the question does not say what happens if the page shows a live, unclosed value.",
+          "A close exactly equal to 58,000 resolves No, because the test is 'higher than'.",
+          "Binance's displayed price on the trade page can differ from the API ticker by tens of dollars (63865.27 page title vs 63819.03 API), so the source used matters at the margin."
+        ],
+        "settling_source": "Binance BTC/USDT 1m \"Close\" prices at https://www.binance.com/en/trade/BTC_USDT (1m and Candles selected)"
+      },
+      "spot": {
+        "asset": "BTC/USDT",
+        "daily_vol": 0.023,
+        "price": 63822.89,
+        "read_at": "2026-11-19T10:15 UTC",
+        "source_url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+      },
+      "uncertainties": [
+        "No news dated November 18 or 19, 2026 explaining the price move was found; the search returned only older bitcoin articles.",
+        "ETF flow data after November 17, 2026 was not found, so the week's flow total is unknown.",
+        "The Binance API ticker has no timestamp, and the trade page showed a different price in an earlier read (about 46 USD higher), so the exact price at the settling minute depends on the source used.",
+        "The 30-day volatility of 0.023 comes from the existing klines pull, not from a fresh computation here; a recomputation after the November 19 daily close could differ.",
+        "The Federal Reserve page I read shows 'Last Update: June 24, 2025', so the meeting dates rely on that page plus secondary calendars that agree; the date could have been changed after that update.",
+        "Search snippets for Nov.\n18, 2026 reported BTC near $86,500 and ETF flows of -$372.8 million, and a November 19 inflow of $75.4 million.\nThese conflict with the Binance data (about $63,800) and were not verified on a primary page, so I did not use them."
+      ]
+    }
+  },
+  "mode": "live",
+  "model": "haiku",
+  "model_family": "claude",
+  "passes": 5,
+  "provider": "cursor",
+  "researched_at": "2026-11-19T10:20:04+00:00",
+  "researched_by": {
+    "manifold-NP9CqulZcA": "claude-haiku",
+    "polymarket-2915400": "claude-haiku",
+    "polymarket-7029662": "claude-haiku",
+    "polymarket-7121567": "claude-haiku"
+  },
+  "runs": 21,
+  "seconds": {
+    "manifold-NP9CqulZcA": 287.0,
+    "polymarket-2915400": 336.0,
+    "polymarket-7029662": 271.4,
+    "polymarket-7121567": 317.2
+  },
+  "sources": {
+    "manifold-NP9CqulZcA": [
+      {
+        "primary": false,
+        "published": "2026-11-03",
+        "quotes": [
+          "By the end of the night, Hochul maintained a roughly 20-point lead over Blakeman.",
+          "She led 60%-40% with 92% of election districts reporting, according to preliminary results from the state Board of Elections.",
+          "Gov.\nKathy Hochul cruised to victory Tuesday night"
+        ],
+        "text": "By the end of the night, Hochul maintained a roughly 20-point lead over Blakeman.\nShe led 60%-40% with 92% of election districts reporting, according to preliminary results from the state Board of Elections.\nGov.\nKathy Hochul cruised to victory Tuesday night\n\nFour years after a lackluster, 6-point win in her first gubernatorial race, Gov.\nKathy Hochul cruised to victory Tuesday night, with The Associated Press calling the race for the incumbent as soon as the polls closed at 9 p.m.\nPreliminary results show she bested Republican Nassau County Executive Bruce Blakeman as Hochul and her lieutenant governor running mate Adrienne Adams, the former New York City Council speaker, also made history as the first all-women ticket to win statewide in New York.\n\u201cTo you, the people of New York, thank you for once again putting your trust in me,\u201d Hochul said to an enthusiastic crowd at the HIlton Midtown in Manhattan.\n\u201cServing as your governor has been the privilege of my lifetime, and I will never, ever, ever take your faith in me for granted.\u201d She further spoke about the historic nature of the victory as New York will for the first time have women as both governor and lieutenant governor.\n\u201cI hope out there\u2019s a little girl who\u2019s watching (and saying), \u2018That could be me one day,\u2019\u201d Hochul said.\n\u201cBecause we have broken down the barriers once and for all.\u201d\nBy the end of the night, Hochul maintained a roughly 20-point lead over Blakeman.\nShe led 60%-40% with 92% of election districts reporting, according to preliminary results from the state Board of Elections.\nThat\u2019s a major improvement over her single-digit victory four years ago, and a significant mandate for a second term.\nWith President Donald Trump in the White House and Republicans in control of Congress \u2013 helping to form a \u201cblue wave\u201d \u2013 Hochul had far more favorable headwinds than her first election in the 2022 midterms.\nThroughout her general election campaign, Hochul repeatedly sought to tie Blakeman to Trump, who is deeply unpopular both in New York and across the country.\nBlakeman conceded victory Tuesday night, thanking party attendees for their support shortly after calling Hochul.\nYou win some, you lose some.\nThe fact of the matter is that now we pull together, we move forward.\nWe have the best interests of the people in our heart,\u201d Blakeman said.\nHochul said Blakeman called her as well, and she committed to continue working with him in his capacity as Nassau County executive to continue serving the people of Nassau.\nTrump has called Blakeman \u201c100% MAGA,\u201d and \u201cMAGA all the way,\u201d including on the eve of the election, and stumped for the Republic",
+        "title": "2026 New York gubernatorial election (City & State)",
+        "url": "https://www.cityandstateny.com/politics/2026/11/hochul-cruises-reelection/417017/",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-04",
+        "quotes": [
+          "won reelection to a second full term in office, defeating Republican Nassau County Executive Bruce Blakeman.",
+          "The race was called minutes after polls closed."
+        ],
+        "text": "won reelection to a second full term in office, defeating Republican Nassau County Executive Bruce Blakeman.\nThe race was called minutes after polls closed.\n\nLive NY election results 2026: Hochul defeats Blakeman, Lawler concedes in key races\nNEW YORK - New York Gov.\nKathy Hochul won reelection to a second full term in office, defeating Republican Nassau County Executive Bruce Blakeman.\nThe race was called minutes after polls closed.\nMeanwhile, Republican Congressman Mike Lawler conceded to Democrat Cait Conley in NY-17, a key swing district, though the AP has not yet named a projected winner.\nComptroller Thomas DiNapoli and Attorney General Letitia James also won reelection.\nELECTION RESULTS: GOVERNOR l US HOUSE l STATE SENATE l STATE ASSEMBLY l COMPTROLLER l ATTORNEY GENERAL\nLive NY election results 2026\nBy the numbers:\nTrack election results below in the races for governor, U.S.\nHouse, State Senate, State Assembly, comptroller and attorney general.\nMORE: Click here for election results",
+        "title": "Live NY election results 2026: Hochul defeats Blakeman, Lawler concedes in key races (FOX 5 NY)",
+        "url": "https://www.fox5ny.com/news/ny-election-results-2026-new-york",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2025-08-19",
+        "quotes": [
+          "Democratic Rep.\nRitchie Torres says he is endorsing Kathy Hochul for governor."
+        ],
+        "text": "Democratic Rep.\nRitchie Torres says he is endorsing Kathy Hochul for governor.\n\nDemocratic Rep.\nRitchie Torres says he is endorsing Kathy Hochul for governor.\nRep.\nTorres made the announcement official to News 12's Amanda Bossard on Tuesday afternoon.\n\"We're facing an unprecedented assault from the Trump administration,\" said Torres.\n\"The Trump administration's signature piece of legislation, the so-called Big, Beautiful Bill, represents one of the greatest assaults on working families here in The Bronx that I've ever seen.\nIt's going to cause 17 million to lose their health coverage, including a million in New York and 100,000 in The Bronx.\nIt's going to slash Medicaid by $1 trillion, the largest health care cut in history.\nIt's going to slash SNAP by $300 billion, the largest food assistance cut in history.\nIt's going to raise the cost of utilities for small businesses and American families.\nAnd so now more than ever, it's important for every Democrat and every New Yorker to stand with the governor.\"\nHochul is up for reelection in 2026.\nSo far she will face former Lt.\nGov.\nAntonio Delgado in the Democratic race.\nRep.\nElise Stefanik is considering a run as the Republican candidate.\nRep.\nMike Lawler announced he would not run.",
+        "title": "News 12 Exclusive: Rep.\nRitchie Torres endorses Kathy Hochul for governor (News 12 Bronx)",
+        "url": "https://bronx.news12.com/news-12-exclusive-rep-ritchie-torres-endorses-kathy-hochul-for-governor",
+        "verified": true
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "NY State Board of Elections (elections.ny.gov), results and canvass pages",
+        "url": "https://elections.ny.gov/node/296",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2025-07-03",
+        "quotes": [
+          "Torres told MSNBC's Morning Joe on Wednesday that he is \"unlikely to run for governor\" of New York in the 2026 election.",
+          "unlikely to run for governor",
+          "\"U.S.\nRep.\nRitchie Torres announced that he won't be moving upstate any time soon.\"",
+          "The congressman will instead seek re\u2011election to the House from his Bronx district."
+        ],
+        "text": "Torres told MSNBC's Morning Joe on Wednesday that he is \"unlikely to run for governor\" of New York in the 2026 election.\nunlikely to run for governor\n\"U.S.\nRep.\nRitchie Torres announced that he won't be moving upstate any time soon.\"\nThe congressman will instead seek re\u2011election to the House from his Bronx district.\n\nU.S.\nRep.\nRitchie Torres announced that he won\u2019t be moving upstate any time soon.\nTorres told MSNBC\u2019s Morning Joe on Wednesday that he is \u201cunlikely to run for governor\u201d of New York in the 2026 election.\nTorres said he is needed in Washington to fight the federal budget cuts that will hurt his Bronx constituents.\n\u201cThe assault that we\u2019ve seen on the social safety in the Bronx is so unprecedented, so overwhelming that I\u2019m going to keep my focus on Washington DC,\u201d he said.\nThe congressman will instead seek re\u2011election to the House from his Bronx district.\nHe underlined his continued opposition to budget proposals from President Trump and congressional Republicans, which he warned would drastically slash funding for programs like Medicaid and SNAP that he called \u201ca betrayal of working-class Americans.\u201d\n\u201cI feel like now, more than ever, we have to fight the catastrophe that is the Trump presidency,\u201d Torres said.\nThe announcement deflated months of buildup and speculation about a potential gubernatorial run.\nTorres had emerged as one of Governor Kathy Hochul\u2019s most vocal critics, challenging her handling of congestion pricing, homelessness, and subway conditions while eyeing a bid for the statehouse.\nTorres\u2019s office did not immediately respond to requests for comment.\nBy ruling out a gubernatorial bid, Torres shifts his focus back to key local issues.\nBut he may soon face a political battle of a different kind in Washington.\nOn Wednesday, former City Council Member Rev.\nRuben Diaz Sr.\ntook to X, hinting at a possible three-way primary for the Bronx congressional seat between himself, Michael Blake, and Torres.\n\u201cA Democratic Primary between @RitchieTorres",
+        "title": "Torres says he likely won't run for governor",
+        "url": "https://www.bxtimes.com/torres-wont-run-for-governor/",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "NEW YORK \u2013 Bronx Congressman Ritchie Torres, previously one of Gov.\nKathy Hochul\u2019s harshest critics and once calling her reelection \u201can electoral train wreck,\u201d has now endorsed her for a second term.\nHe praised Hochul\u2019s leadership as focused and problem-solving, emphasizing the need for unity against the Trump administration.\nHochul welcomed the endorsement, noting that [\u2026]",
+        "title": "Bronx Rep.\nRitchie Torres Endorses Gov.\nHochul After Months of Criticism",
+        "url": "https://ground.news/article/rep-ritchie-torres-endorses-former-foe-gov-kathy-hochul-for-reelection",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "New York gubernatorial election, 2026 (Ballotpedia)",
+        "url": "https://ballotpedia.org/New_York_gubernatorial_election,_2026",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-03",
+        "quotes": [
+          "New York Gov.\nKathy Hochul cruised to a win Tuesday in her bid for a second full term",
+          "which called the race for the Democrat just as polls closed at 9 p.m."
+        ],
+        "text": "New York Gov.\nKathy Hochul cruised to a win Tuesday in her bid for a second full term\nwhich called the race for the Democrat just as polls closed at 9 p.m.\n\nNew York Gov.\nKathy Hochul cruised to a win Tuesday in her bid for a second full term, swatting away a challenge from Republican opponent Bruce Blakeman by relentlessly linking him to President Donald Trump.\nHochul, a centrist Democrat from Buffalo, focused much of her campaign on her record on pocketbook issues, using her robust war chest to air $30 million worth of ads touting her push to send energy rebate checks to New Yorkers, pause data center construction and expand access to childcare.\nBut the governor \u2014 on the campaign trail, on the debate stage and in many of her ads \u2014 rarely missed a chance to highlight Blakeman\u2019s longstanding friendship with Trump, a strategy meant to capitalize on the roughly two-thirds of New York voters who say they view the president unfavorably in public-opinion polls.\nBlakeman did not try much to distance himself from Trump, appearing with the president at multiple rallies and events.\nHochul led Blakeman 63% to 37% with an estimated 70% of the vote reported, according to the Associated Press, which called the race for the Democrat just as polls closed at 9 p.m.\n\u201cThank you for once again putting your trust in me,\u201d Hochul said in her victory speech.\n\u201cServing as your governor has been the privilege of a lifetime, and I will never, ever, ever take your faith in me for granted.\u201d\nAt the governor\u2019s election night party at a Hilton Hotel in Midtown, the mood was jubilant.\nHochul\u2019s victory was announced amid what appeared to be a blue wave of Democratic wins around the country.\nThe party hewed to a New York kitsch theme, with servers passing around bags of popcorn, pretzels and hot dogs to the early arrivals.\nHochul\u2019s victory was fueled largely by her margin of victory in New York City, where she took home nearly 76% of the vote.\nHochul, 68, became New York\u2019s first female governor in 2021 following the resignation of then-Gov.\nAndrew Cuomo.\nShe was elected to a full term in 2022, winning by a narrower-than-expected six-point margin over Republican Lee Zeldin.\nShe spent decades working her way up through local government after winning her first election to the town board in the Buffalo suburb of Hamburg in 1994.\nLater, she became Erie County clerk and briefly served as a congressm",
+        "title": "Kathy Hochul re-elected New York governor, defeats Bruce Blakeman",
+        "url": "https://www.wamc.org/2026-11-03/kathy-hochul-re-elected-new-york-governor-defeats-bruce-blakeman",
+        "verified": true
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://elections.ny.gov/certification-offices-be-filled-november-3-2026-general-election'\nFor more information check: https://developer.mozilla.",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "Certification of offices to be filled, November 3, 2026 general election (New York State Board of Elections)",
+        "url": "https://elections.ny.gov/certification-offices-be-filled-november-3-2026-general-election",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Kathy Hochul is the 57th and first female Governor of New York State."
+        ],
+        "text": "Kathy Hochul is the 57th and first female Governor of New York State.\n\nFY 2027 Executive Budget Highlights\nGovernor Hochul's budget funds a path to universal child care and makes historic investments without asking New Yorkers to pay more.\nA ny.gov website belongs to an official New York State government organization.\nA lock icon or https:// means you\u2019ve safely connected to a ny.gov website.\nShare sensitive information only on official, secure websites.\nGovernor Hochul's 2026 agenda includes initiatives that will continue to make life more affordable, keep people safe, and expand opportunity for all New Yorkers.\nRead about these policy initiatives in the 2026 State of the State Book.\nStarting September 2025, Governor Hochul enacted a statewide, bell-to-bell restriction on smartphones in K-12 schools.\nFind your school's policy.\nInflation refund checks up to $400 were sent in fall 2025 to 8.2 million households across New York State.\nOn Governor Hochul's first day in office, she laid out a clear vision: make New York more affordable, safer, and fairer for every family.\nFour years later, she has delivered on that promise.\nAnd she\u2019s just getting started.\nKathy Hochul is the 57th and first female Governor of New York State.\nGovernor Kathy Hochul began her career in public service on her local Town Board before serving as Erie County Clerk, and then as a member of Congress for New York\u2019s 26th Congressional District.\nShe more recently served in statewide office as Lieutenant Governor and now as the first female Governor of the State of New York.",
+        "title": "Governor Kathy Hochul, New York State Governor's Office (homepage)",
+        "url": "https://www.governor.ny.gov/",
+        "verified": true
+      }
+    ],
+    "polymarket-2915400": [
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "F\u00fcr Bundesrat und Parlament geht die Initiative zu weit.",
+          "Die Kantone und die Gemeinden k\u00f6nnen Feuerwerk zus\u00e4tzlich einschr\u00e4nken."
+        ],
+        "text": "F\u00fcr Bundesrat und Parlament geht die Initiative zu weit.\nDie Kantone und die Gemeinden k\u00f6nnen Feuerwerk zus\u00e4tzlich einschr\u00e4nken.\n\nFeuerwerksinitiative\nAm 29.\nNovember 2026, stimmen die Schweizer Stimmberechtigten \u00fcber die Volksinitiative \u00abF\u00fcr eine Einschr\u00e4nkung von Feuerwerk\u00bb ab.\nDie Vorlage in K\u00fcrze\nFeuerwerk l\u00f6st sehr unterschiedliche Reaktionen aus.\nF\u00fcr die einen geh\u00f6rt es traditionell zum 1.\nAugust und vermehrt auch zu Silvester.\nF\u00fcr andere ist Feuerwerk ein \u00c4rgernis, das L\u00e4rm und Umweltverschmutzung verursacht sowie Tiere aufschreckt.\nHeute gibt es zahlreiche Vorschriften wie Altersgrenzen und Bewilligungspflichten, die den Gebrauch von Feuerwerk regeln.\nZudem k\u00f6nnen die Kantone und die Gemeinden den Verkauf und die Verwendung von Feuerwerksk\u00f6rpern beschr\u00e4nken oder verbieten.\nSie haben damit die M\u00f6glichkeit, die negativen Auswirkungen von Feuerwerk zu reduzieren.\nDie Initiantinnen und Initianten verlangen einen st\u00e4rkeren Schutz von Menschen, Tieren und Natur vor L\u00e4rm, Luftschadstoffen, Abfall, Unf\u00e4llen und Br\u00e4nden, die durch Feuerwerk verursacht werden.\nDie Volksinitiative \u00abF\u00fcr eine Einschr\u00e4nkung von Feuerwerk\u00bb will den Verkauf und die Verwendung von Feuerwerksk\u00f6rpern, die L\u00e4rm erzeugen, verbieten.\nSie l\u00e4sst offen, welche Feuerwerksk\u00f6rper als l\u00e4rmerzeugend gelten und daher verboten werden sollen.\nL\u00e4rmarme Feuerwerksk\u00f6rper wie bengalische Feuer und herk\u00f6mmliche Vulkane sollen gem\u00e4ss den Initiantinnen und Initianten erlaubt bleiben.\nZudem k\u00f6nnten die Kantone f\u00fcr Anl\u00e4sse von \u00fcberregionaler Bedeutung Ausnahmebewilligungen erteilen, etwa zum Nationalfeiertag am 1.\nAugust oder bei anderen Volksfesten.\nAuch an solchen Anl\u00e4ssen sollen Einzelpersonen jedoch keine l\u00e4rmerzeugenden Feuerwerksk\u00f6rper abbrennen d\u00fcrfen.\nAbstimmungsfrage\nWollen Sie die Volksinitiative \u00ab F\u00fcr eine Einschr\u00e4nkung von Feuerwerk \u00bb annehmen?",
+        "title": "Federal Chancellery (admin.ch): Feuerwerksinitiative, vote of 29 November 2026",
+        "url": "https://www.admin.ch/feuerwerksinitiative",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "2026-10-22",
+        "quotes": [
+          "The Federal Council recommends rejecting the initiative.",
+          "It argues that cantons and municipalities already have the legal basis to restrict fireworks."
+        ],
+        "text": "The Federal Council recommends rejecting the initiative.\nIt argues that cantons and municipalities already have the legal basis to restrict fireworks.\n\nFound an error?\nReport now\nThe fireworks initiative is currently considered to have a good chance of being approved by the people and the cantons, even though the Federal Council and Parliament are recommending a \u201cno\u201d vote.\n(File photo)\nKeystone\nOn November 29, Switzerland will vote on the fireworks initiative.\nThe Federal Council recommends rejecting the initiative.\nIt argues that cantons and municipalities already have the legal basis to restrict fireworks.\nThe popular initiative \u201cFor Restrictions on Fireworks (Fireworks Initiative)\u201d calls for a ban on fireworks that produce noise.\nAccording to the initiative, loud fireworks\u2014such as firecrackers and bangers\u2014should no longer be sold to private individuals.\nFurthermore, private individuals should no longer be allowed to set off loud fireworks.\nAccording to the Federal Council\u2019s message to Parliament, the Federal Council is aware that loud fireworks are perceived as a nuisance by some members of the public and can trigger severe reactions in animals.\nHowever, the noise and the particulate matter emissions from fireworks\u2014which the initiative committee also cited\u2014are temporary and relatively minor.\nMany people in the country associate very positive emotions with setting off fireworks, the Federal Council continued.\nIn its view, nationwide restrictions on the sale and use of fireworks are therefore unnecessary and disproportionate.",
+        "title": "blue News: Federal Council opposes popular initiative to restrict fireworks",
+        "url": "https://www.bluewin.ch/en/news/federal-council-opposes-popular-initiative-to-restrict-fireworks-li.3644524",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "DE: Vielen Dank, dass Sie sie die Website des Bundesrechts aufgerufen haben; sie ist nur mit einem Javascript-f\u00e4higen Browser verf\u00fcgbar.\nUm diese Website optimal nutzen zu k\u00f6nnen, empfehlen wir Ihnen, einen aktuellen Browser zu verwenden.\nFR: Merci d'avoir rejoint le site du droit f\u00e9d\u00e9ral; celui-ci n'est disponible qu'avec un navigateur supportant javascript.\nAfin de profiter d'une exp\u00e9rience maximale sur ce site, nous vous conseillons d'utiliser un navigateur r\u00e9cent.\nIT: Grazie per aver scelto il sito web del diritto federale; questo \u00e8 disponibile soltanto con un browser che supporta JavaScript.\nPer navigare in modo ottimale in questo sito, vi consigliamo di utilizzare un browser pi\u00f9 recente.\nRM: Grazia fitg che Vus visitais la pagina d\u2019internet dal dretg federal; ella \u00e8 disponibla mo cun in navigatur che sustegna javascript.\nPer pudair far diever da questa pagina d\u2019internet en moda optimala As recumandain nus d\u2019utilisar in navigatur actual.\nEN: Thank you for visiting the federal law website; it is only fully accessible if you are using a JavaScript-capable browser.\nIn order to be able to use all the features of this site, we recommend that you use an up-to-date browser.",
+        "title": "Federal Constitution of the Swiss Confederation (SR 101), Fedlex (not opened: only a language notice loaded; Art.\n142 not retrieved)",
+        "url": "https://www.fedlex.admin.ch/eli/cc/1999/404/en",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Am 29.\nNovember 2026, stimmen die Schweizer Stimmberechtigten \u00fcber die Volksinitiative",
+          "\u00abF\u00fcr eine Einschr\u00e4nkung von Feuerwerk\u00bb ab.",
+          "F\u00fcr Bundesrat und Parlament geht die Initiative zu weit."
+        ],
+        "text": "Am 29.\nNovember 2026, stimmen die Schweizer Stimmberechtigten \u00fcber die Volksinitiative\n\u00abF\u00fcr eine Einschr\u00e4nkung von Feuerwerk\u00bb ab.\nF\u00fcr Bundesrat und Parlament geht die Initiative zu weit.\n\nFeuerwerksinitiative\nAm 29.\nNovember 2026, stimmen die Schweizer Stimmberechtigten \u00fcber die Volksinitiative \u00abF\u00fcr eine Einschr\u00e4nkung von Feuerwerk\u00bb ab.\nDie Vorlage in K\u00fcrze\nFeuerwerk l\u00f6st sehr unterschiedliche Reaktionen aus.\nF\u00fcr die einen geh\u00f6rt es traditionell zum 1.\nAugust und vermehrt auch zu Silvester.\nF\u00fcr andere ist Feuerwerk ein \u00c4rgernis, das L\u00e4rm und Umweltverschmutzung verursacht sowie Tiere aufschreckt.\nHeute gibt es zahlreiche Vorschriften wie Altersgrenzen und Bewilligungspflichten, die den Gebrauch von Feuerwerk regeln.\nZudem k\u00f6nnen die Kantone und die Gemeinden den Verkauf und die Verwendung von Feuerwerksk\u00f6rpern beschr\u00e4nken oder verbieten.\nSie haben damit die M\u00f6glichkeit, die negativen Auswirkungen von Feuerwerk zu reduzieren.\nDie Initiantinnen und Initianten verlangen einen st\u00e4rkeren Schutz von Menschen, Tieren und Natur vor L\u00e4rm, Luftschadstoffen, Abfall, Unf\u00e4llen und Br\u00e4nden, die durch Feuerwerk verursacht werden.\nDie Volksinitiative \u00abF\u00fcr eine Einschr\u00e4nkung von Feuerwerk\u00bb will den Verkauf und die Verwendung von Feuerwerksk\u00f6rpern, die L\u00e4rm erzeugen, verbieten.\nSie l\u00e4sst offen, welche Feuerwerksk\u00f6rper als l\u00e4rmerzeugend gelten und daher verboten werden sollen.\nL\u00e4rmarme Feuerwerksk\u00f6rper wie bengalische Feuer und herk\u00f6mmliche Vulkane sollen gem\u00e4ss den Initiantinnen und Initia",
+        "title": "Feuerwerksinitiative, Bundesverwaltung admin.ch",
+        "url": "https://www.admin.ch/de/feuerwerksinitiative",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [
+          "Between 1893 and 2014, out of a total of 192 federal initiatives put to the vote, 22 were successful."
+        ],
+        "text": "Between 1893 and 2014, out of a total of 192 federal initiatives put to the vote, 22 were successful.\n\nPopular initiative in Switzerland\n| Part of the Politics series |\n| Direct democracy |\n|---|\n| Politics portal |\n| This article is part of a series on the |\n| Politics of Switzerland |\n|---|\n| Switzerland portal |\nIn Switzerland, a popular initiative (German: Volksinitiative, French: initiative populaire, Italian: iniziativa popolare, Romansh: iniziativa dal pievel) allows people to suggest laws on a federal, cantonal, and municipal level.\nOn a federal level it may only change the federal constitution, not propose an ordinary law.\nAlong with the popular referendum and in some cantons recall elections, it is a form of direct democracy.\nHistory\n[edit]\nPopular initiatives were introduced as a tool at the federal level in the 1891 partial revision of the Swiss Federal Constitution.\nBetween 1893 and 2014, out of a total of 192 federal initiatives put to the vote, 22 were successful.\nAnother 73 were withdrawn, mostly in favour of a counter-proposal.\nThe first successful initiative was the first ever launched, asking for \"prohibition of slaughter without prior anesthesia\" (ostensibly phrased as a matter of animal rights, but in practice directed against shechita in particular, a practice that remains outlawed in Switzerland to the present day).\nThe successful initiatives date to the following years: 1893, 1908 (absinthe), 1918, 1920 (gambling), 1921, 1928 (gambling), 1949, 1982, 1987 (protection of wetlands), 1990 (nuclear power moratorium), 1993 (National Day), 1994 (protection of alpine ecosystems), 2002 (UN membership), 2004, 2005, 2008, 2009 (minaret ban), 2010, 2012, 2013 (executive pay), 2014 (immigration), 2014 (convicted child sex offender work ban).\nSuccessful initiatives were thus quite rare, with a gap of 20 years during 1929\u20131949, and even of more than 30 years during 1949\u20131982 during which not a single initiative found favour with the electorate.\nIn the 21st century, the picture changes significantly, with five successful initiatives during the 2000s, and another five just during 2010\u20132014.\nAmon",
+        "title": "Popular initiative in Switzerland, Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Popular_initiative_in_Switzerland",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2022-02-17",
+        "quotes": [
+          "Between 1970 and 2020, out of a total 182 popular initiatives, only 17 (9%) were accepted by voters."
+        ],
+        "text": "Between 1970 and 2020, out of a total 182 popular initiatives, only 17 (9%) were accepted by voters.\n\n,000 signatures don\u2019t make the cut.\nOver the decades the number of popular initiatives has grown significantly.\nIn the 80 years between 1891 and 1970 the number of popular initiatives averaged less than one a year.\nStarting in the 1970s the number rose sharply to more than two a year.\nSince 2000, the number has averaged more than four a year.\nNumerous reasons have been put forward to explain the rise.\nOne is population growth.\n100,000 signatures represents 2% of the Swiss electorate.\nThe corresponding 50,000 signatures required in 1891 represented 8% of Swiss voters.\nHowever, there is evidence to undermine this theory.\nCantons with higher signature hurdles for cantonal initiatives don\u2019t all have lower numbers of votes.\nAnother theory is that the trend reflects a shift in political culture.\nSome politicians have been accused of using popular votes to alter the course of decisions in parliament.\nWhen they don\u2019t like the direction of travel they use popular votes to give their party and policies a marketing boost, whip up support among voters and open up the possibility of prevailing over the will of parliament.\nDespite the rising frequency of popular initiatives most are rejected.\nBetween 1970 and 2020, out of a total 182 popular initiatives, only 17 (9%) were accepted by voters.\nThis total does not include popular initiatives that failed to get enough signatures or failed to qualify for other reasons.\nIn addition to popular initiatives, Swiss citizens get to vote on optional referenda.\nOptional referenda are launched in opposition to decisions and laws created and accepted by government.\nThese votes require a lower 50,000 valid signatures to qualify and are voted on alongside popular initiatives.\nOptional referenda are not included in the chart above.\nThe recent round of voting on 13 February 2022 included two popular initiatives and two optional referenda.\nProposals to ban animal testing and to ban tobacco advertising that can be seen by young people were both popular initiatives, while votes on government plans to remove investment stamp duty and support Swiss media were both optional referenda.\nMore on this:\nChancellery data\u00a0(in French) \u2013\u00a0Take a 5 minute French test now\nFor more stories like this on Switzerland follow us on Facebook and Twitter.",
+        "title": "Chart of the week: the rising number of popular initiatives in Switzerland, LeNews",
+        "url": "https://lenews.ch/2022/02/17/chart-of-the-week-the-rising-number-of-popular-initiatives-in-switzerland/",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2016-07-17",
+        "quotes": [
+          "The page says that since 1891 \"there have been 22 initiatives approved,\" but it does not state how many popular initiatives have been put to a vote in total."
+        ],
+        "text": "The page says that since 1891 \"there have been 22 initiatives approved,\" but it does not state how many popular initiatives have been put to a vote in total.\n\n125 years of people\u2019s initiatives\nThe people's initiative, an essential political instrument of Switzerland\u2019s system of direct democracy, was introduced in 1891.\nWe take a look back at its 125 years of history.\n(SRF, swissinfo.ch)\nAs a key part of Switzerland\u2019s system of direct democracy, the people\u2019s, or citizen\u2019s initiative allows each member of the Swiss electorate \u2013 including those living abroad \u2013 to propose a change to the constitution.\nAn initiative can be launched by a single person, but more typically, an interest group collects at least 100,000 signatures.\nThe signatures need to be collected over a period of 18 months, and must refer to a specifically worded proposal.\nAfter the signatures are validated by the Federal Chancellery, the question posed by the initiative is discussed by parliament.\nParliament may then decide to recommend or reject the initiative, or it may propose an alternative.\nAt this point, the initiative is submitted for a nationwide vote.\nTo get an initiative approved, it has to be accepted by a majority of voters and cantons.\nSince the popular initiative was instituted in 1891, there have been 22 initiatives approved, with an increase since the turn of the century.\nSee more Swissinfo articles in your Google results.\nLearn more\nYou can find an overview of ongoing debates with our journalists here .\nPlease join us!\nIf you want to start a conversation about a topic raised in this article or want to report factual errors, email us at english@swissinfo.ch.",
+        "title": "125 years of popular initiatives, swissinfo.ch",
+        "url": "https://www.swissinfo.ch/eng/125-years-of-popular-initiatives/42289848",
+        "verified": false
+      },
+      {
+        "primary": true,
+        "published": "2026-10-23",
+        "quotes": [
+          "69 Prozent des Stimmvolks spricht sich in der SRG-Umfrage eher oder klar f\u00fcr das Anliegen aus.",
+          "zwischen dem 5.\nund 18.\nOktober 2026 durchgef\u00fchrt worden.",
+          "Insgesamt wurden die Antworten von 14'874 Stimmberechtigten f\u00fcr die Auswertung ber\u00fccksichtigt."
+        ],
+        "text": "69 Prozent des Stimmvolks spricht sich in der SRG-Umfrage eher oder klar f\u00fcr das Anliegen aus.\nzwischen dem 5.\nund 18.\nOktober 2026 durchgef\u00fchrt worden.\nInsgesamt wurden die Antworten von 14'874 Stimmberechtigten f\u00fcr die Auswertung ber\u00fccksichtigt.\n\n- W\u00e4re vor zw\u00f6lf Tagen \u00fcber die Feuerwerksinitiative abgestimmt worden, so h\u00e4tte sie das Stimmvolk angenommen.\n- Das geht aus der ersten SRG-Umfrage hervor, durchgef\u00fchrt vom Forschungsinstitut GFS Bern.\n- Knapp 70 Prozent w\u00fcrden eher oder klar f\u00fcr das Verbot von lauten Feuerwerksk\u00f6rpern mit Ausnahmen stimmen.\n- Die Meinungsbildung ist schon weit fortgeschritten.\nDie Feuerwerksinitiative, \u00fcber die am 29.\nNovember abgestimmt wird, hat viel R\u00fcckenwind: 69 Prozent des Stimmvolks spricht sich in der SRG-Umfrage eher oder klar f\u00fcr das Anliegen aus.\nNur 29 Prozent h\u00e4tten dagegengestimmt, wenn am 11.\nOktober 2026 tats\u00e4chlich abgestimmt worden w\u00e4re.\nDie Ausgangslage f\u00fcr den beginnenden Abstimmungskampf ist f\u00fcr die Initiative also \u00e4usserst g\u00fcnstig.\nWarum die Zustimmung derart gross ist, erkl\u00e4rt sich Politologe Lukas Golder von GFS Bern wie folgt: \u00abUmweltkonservative Anliegen bei Initiativen haben traditionell seit den 1990er-Jahren gute Chancen auf Annahme von Volk und St\u00e4nden.\u00bb\nBeispiele daf\u00fcr sind die Zweitwohnungsinitiative, das Gentech-Moratorium oder die Moratoriumsinitiative f\u00fcr einen zehnj\u00e4hrigen AKW-Baustopp.\n\u00abEinige Initiativen, die in den letzten Jahren angenommen wurden, hatten genau diesen umweltbewahrenden Charakter\u00bb, analysiert Golder.\nDas \u00fcberzeuge links, gr\u00fcn, gr\u00fcnliberal, aber auch Teile der konservativen Mitte oder der SVP \u2013 vorallem auch auf dem Land.\nEs sei ein Erfolgsrezept von Umwelt- und Tierschutzverb\u00e4nden \u2013 insbesondere dann, wenn die Nein-Kampagne wie bei dieser Vorlage nicht so gut aufgestellt sei.\nDie Kr\u00e4fte f\u00fcr \u00abfreies Feuerwerk f\u00fcr alle\u00bb seien nicht so stark, erkl\u00e4rt Golder.\nHohe Zustimmung bei Fraue",
+        "title": "Erste SRG-Umfrage: Ja-Vorteil f\u00fcr Feuerwerksinitiative, Meinungen fast gemacht (SRF)",
+        "url": "https://www.srf.ch/news/erste-srg-umfrage-ja-vorteil-fuer-feuerwerksinitiative-meinungen-fast-gemacht",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "2026-11-17",
+        "quotes": [
+          "Die Feuerwerksinitiative k\u00e4me auf 59 Prozent Ja-Stimmen, bei 36 Prozent Nein und 5 Prozent Unentschlossenen."
+        ],
+        "text": "Die Feuerwerksinitiative k\u00e4me auf 59 Prozent Ja-Stimmen, bei 36 Prozent Nein und 5 Prozent Unentschlossenen.\n\nDas zweite und finale YouGov Schweiz Stimmungsbarometer zu den eidgen\u00f6ssischen Abstimmungen am 29.\nNovember\nKnapp zwei Wochen vor den eidgen\u00f6ssischen Abstimmungen vom 29.\nNovember hat sich das Stimmungsbild bei einer Vorlage deutlich verschoben.\nDie Fairness-Initiative hat seit Oktober markant an Zustimmung verloren, Ja- und Nein-Lager liegen nun nahe beieinander.\nDer zeitliche Trend spricht f\u00fcr eine Ablehnung.\nBeim Kriegsmaterialgesetz bleibt das Rennen offen.\nDie Feuerwerksinitiative \u00fcberzeugt weiterhin eine deutliche Mehrheit, w\u00e4hrend die Zusatzfinanzierung der AHV weder national noch in einem Kanton eine Mehrheit findet.\nF\u00fcr die Umfrage wurden zwischen dem 2.\nund 16.\nNovember 2026 insgesamt 3\u2019013 Stimmberechtigte aus dem Online-Panel von YouGov Schweiz befragt.\nDie Ergebnisse zeigen, wie sich das Stimmungsbild seit dem ersten Stimmungsbarometer von Mitte Oktober entwickelt hat.\nDas Wichtigste in K\u00fcrze\nW\u00fcrde heute abgestimmt, k\u00e4me die Zusatzfinanzierung der AHV gem\u00e4ss MRP-Sch\u00e4tzung nur auf 39 Prozent Ja-Stimmen, 54 Prozent w\u00fcrden sie ablehnen.\nDie Feuerwerksinitiative k\u00e4me auf 59 Prozent Ja-Stimmen, bei 36 Prozent Nein und 5 Prozent Unentschlossenen.\nAn beiden Tendenzen hat sich seit Oktober wenig ge\u00e4ndert.\nBewegung gibt es bei der Fairness-Initiative.\nSie kommt zwar noch auf 45 Prozent Ja-Stimmen, das sind jedoch 12 Prozentpunkte weniger als im Oktober.\nDer Nein-Anteil ist um 13 Punkte auf 42 Prozent gestiegen, 13 Prozent sind unentschlossen.\nDer R\u00fcckgang hielt w\u00e4hrend der ganzen Befragung an.\nGegen Ende der Feldzeit lag bereits das Nein-Lager vorne.\nBeim Kriegsmaterialgesetz liegt das Ja-Lager mit 42 Prozent vor dem Nein-Lager mit 37 Prozent.\nEin F\u00fcnftel der Stimmberechtigten hat sich weiterhin noch nicht festgelegt, im Oktober waren es 29 Prozent.\nWer sich seither entschieden hat, verteilt sich ungef\u00e4hr gleichm\u00e4ssig auf beide Seiten.\nOb das Gesetz eine Mehrheit findet, h\u00e4ngt damit von den verbleibenden Unentschlossenen ab.\nWie offen das Rennen beim Kriegsmaterialgesetz ist, zeigt auch der Blick auf die statistische Unsicherheit.\nW\u00e4hrend der Ja-Anteil der Feuerwerksinitiative klar \u00fcber und jener der AHV-Vorlage klar unter der 50-Prozent-Marke liegt, ist bei der Fairness-Initiative und beim Kriegsmaterialgesetz noch ein gro",
+        "title": "Das zweite und finale YouGov Schweiz Stimmungsbarometer zu den eidgen\u00f6ssischen Abstimmungen am 29.\nNovember",
+        "url": "https://yougov.com/de-de/artikel/56001-fairness-initiative-bricht-ein-kriegsmaterialgesetz-bleibt-offen-wie-will-die-schweiz-am-29-november-abstimmen",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "2026-06-26",
+        "quotes": [
+          "Der Gegenvorschlag ist gescheitert, damit kommt die Initiative allein vors Volk.",
+          "Der Nationalrat lehnt einen Gegenvorschlag zur Feuerwerksinitiative ab."
+        ],
+        "text": "Der Gegenvorschlag ist gescheitert, damit kommt die Initiative allein vors Volk.\nDer Nationalrat lehnt einen Gegenvorschlag zur Feuerwerksinitiative ab.\n\nDie Feuerwerksinitiative will privates lautes Feuerwerk schweizweit verbieten \u2013 zum Wohl von Mensch und Tier.\nEin Gegenvorschlag sollte die Regulierung etwas abschw\u00e4chen, aber dennoch griffige Massnahmen enthalten.\nDie Initianten h\u00e4tten dann ihre Volksinitiative zur\u00fcckgenommen.\nDoch dazu kommt es nicht.\nDer Gegenvorschlag ist gescheitert, damit kommt die Initiative allein vors Volk.\nGegenvorschlag scheitert \u00fcberraschend\nFast unbemerkt ist der Gegenvorschlag zur Feuerwerksinitiative untergegangen.\nDer Nationalrat hat ihn vor einer Woche in der Schlussabstimmung am letzten Tag der Sommersession versenkt.\nDavor hatten Mehrheiten in beiden Parlamentskammern das Gegenprojekt unterst\u00fctzt.\nEs sollte die Initiantinnen und Initianten und die Tr\u00e4gervereine der Volksinitiative dazu bringen, ihr Begehren zur\u00fcckzuziehen.\nBesonders die Gr\u00fcnen wollten das Verbot auf Gesetzesstufe regeln und nicht in die Bundesverfassung schreiben.\nDoch im Laufe der Beratungen sei der Vorschlag immer schlechter geworden, sagt Gr\u00fcnen-Nationalrat Kilian Baumann: \u00abEs w\u00e4ren dann 90 Prozent der Feuerwerke gar nicht betroffen gewesen.\nEs h\u00e4tte also praktisch nichts an der gegenw\u00e4rtigen Situation ge\u00e4ndert.\u00bb\nIm Gegenvorschlag w\u00e4re nur noch knallendes Feuerwerk verboten gewesen \u2013 das aber wollten weder die Gr\u00fcnen noch die Verantwortlichen der Volksinitiative unterst\u00fctzen, so der Berner Biobauer.\nKritik von Links und Rechts\nSkeptisch waren auch b\u00fcrgerliche Parteien: Die SVP wehrte sich dezidiert gegen beides, die Volksini",
+        "title": "Verbot von B\u00f6llern: Feuerwerksinitiative kommt ohne Gegenvorschlag vors Volk (SRF)",
+        "url": "https://www.srf.ch/news/schweiz/verbot-von-boellern-feuerwerksinitiative-kommt-ohne-gegenvorschlag-vors-volk",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "2025-04-03",
+        "quotes": [
+          "68 percent of those who definitely intend to vote would currently vote in favour of the initiative."
+        ],
+        "text": "68 percent of those who definitely intend to vote would currently vote in favour of the initiative.\n\nFireworks initiative: Between dazzling lights and noise protection \u2013 what does Switzerland think?\nFireworks are simply part of life for many people in Switzerland \u2013 on New Year\u2019s Eve, 1 August and at big celebrations.\nBut they don\u2019t just go off in the sky; they also cause a bang in the political debate.\nThe popular initiative \u2018For a restriction on fireworks\u2019 aims to better protect people, animals and the environment from the noise pollution and emissions caused by fireworks.\nThe fireworks initiative aims to restrict the sale and use of loud fireworks by private individuals throughout Switzerland.\nThe fireworks initiative strikes a chord: 68 percent of those who definitely intend to vote would currently vote in favour of the initiative.\n28 percent would reject it.\nThis is typical for initiatives, as in the early stages of opinion formation, the focus tends to be on the problem addressed (noise pollution from fireworks) rather than the specific solution proposed (restrictions).\nThere is majority support for the proposal from left-wing and green circles, but also from the centre and the bourgeois camp.\nSupport is particularly high among women, younger people, the educated and pet owners \u2013 although the latter are not significantly more likely to support the initiative than people without pets.\nThe issue is therefore more widely supported than one might expect at first glance.\nAt the same time, there is a clear awareness of the problem among the population: noise, environmental pollution and the impact on animals are perceived as problematic side effects.\nThe fireworks initiative is therefore finding a receptive audience among Swiss voters, but initiatives always lose support over the course of a campaign \u2013 the big question is how much.\nFireworks are an emotionally charged moment for many people: the sky lights up, t",
+        "title": "Fireworks initiative: Between dazzling lights and noise protection \u2013 what does Switzerland think?\n(gfs.bern)",
+        "url": "https://www.gfsbern.ch/en/news/fireworks-initiative/",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-10-06",
+        "quotes": [
+          "getragen unter anderem von Vertreterinnen und Vertretern der SVP, der FDP, der Mitte",
+          "Die Gegner setzen auf bestehende kantonale und kommunale Regeln statt nationaler Verbote."
+        ],
+        "text": "getragen unter anderem von Vertreterinnen und Vertretern der SVP, der FDP, der Mitte\nDie Gegner setzen auf bestehende kantonale und kommunale Regeln statt nationaler Verbote.\n\n- Ein Komitee aus SVP, FDP, Mitte und Gewerbeverband wehrt sich gegen die Initiative.\n- Die Vorlage zielt auf den Verkauf und das Z\u00fcnden s\u00e4mtlicher l\u00e4rmerzeugender Feuerwerke ab.\n- Die Gegner setzen auf bestehende kantonale und kommunale Regeln statt nationaler Verbote.\nRund zwei Monate vor dem Urnengang formiert sich der Widerstand: Ein \u00fcberparteiliches B\u00fcndnis \u2013 getragen unter anderem von Vertreterinnen und Vertretern der SVP, der FDP, der Mitte sowie des Schweizerischen Gewerbeverbands \u2013 hat in Bern die Nein-Kampagne lanciert.\nAnlass ist die eidgen\u00f6ssische Volksabstimmung vom 29.\nNovember \u00fcber die Initiative \u00abF\u00fcr eine Einschr\u00e4nkung von Feuerwerk (Feuerwerksinitiative)\u00bb.\nIm Parlament war zuvor ein Gegenvorschlag f\u00fcr ein reines nationales B\u00f6llerverbot gescheitert.\nNicht nur Knallk\u00f6rper betroffen\nEntgegen der oft vereinfachten Annahme verlangt das Begehren nicht nur ein Aus f\u00fcr klassische Knallk\u00f6rper und B\u00f6ller.\nZiel ist vielmehr ein landesweites Verkaufs- und Anwendungsverbot f\u00fcr s\u00e4mtliche Feuerwerksk\u00f6rper, die L\u00e4rm erzeugen.\nW\u00e4hrend die Initianten auf die Belastung von Mensch, Tier und Umwelt verweisen, warnt die gegnerische Seite vor einschneidenden Konsequenzen.\nEin generelles Verbot gef\u00e4hrde Schweizer Traditionen, treffe Gewerbebetriebe sowie KMU empfindlich und bedeute weitreichende Einschr\u00e4nkungen f\u00fcr private wie lokale Festivit\u00e4ten.\nDer Aargauer Nationalrat Edgar Bischof (SVP) betonte, er verteidige nicht jeden Einsatz zu jeder Zeit und an jedem Ort.\nSicherheitsvorschriften, R\u00fccksicht und Verbote bei Trockenheit seien zu begr\u00fcss",
+        "title": "SRF: Nein campaign against the fireworks initiative launched",
+        "url": "https://www.srf.ch/news/schweiz/verbot-von-boellern-nein-kampagne-gegen-feuerwerksinitiative-lanciert",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-10-09",
+        "quotes": [
+          "Opponents see no need for a national ban.",
+          "Cantons and municipalities already have the authority to intervene.",
+          "Furthermore, the environmental impact lasts only a few days a year."
+        ],
+        "text": "Opponents see no need for a national ban.\nCantons and municipalities already have the authority to intervene.\nFurthermore, the environmental impact lasts only a few days a year.\n\nsal to a popular vote on their own.\nOn November 29, the initiative must secure a majority of both the popular vote and the cantons.\nThe initiative aims to protect people and animals from loud noises.\nThe committee argues that firecrackers cause stress for people who are sensitive to noise and panic among young children, as well as pets, wildlife, and farm animals.\nPet owners would have to travel with their pets around August 1.\nIn addition, the petition\u2019s organizers are bothered by the fact that fireworks are set off not only on public holidays, but also on the days before and after.\nThe Federal Council acknowledges some of these concerns.\nSuva receives an average of 70 reports per year of hearing injuries caused by fireworks.\nFrom 2016 to 2020, there were approximately 200 accidents per year among working people, mostly burns (40 percent) and hearing damage (35 percent).\nThen there\u2019s the environmental impact: Fireworks release several hundred metric tons of particulate matter each year, accounting for 2 to 3 percent of Switzerland\u2019s particulate matter emissions.\nThis leaves behind about 1,300 metric tons of residue, and approximately 100 metric tons of metals end up in soil and water.\nOpponents see no need for a national ban.\nCantons and municipalities already have the authority to intervene.\nFurthermore, the environmental impact lasts only a few days a year.\nFireworks account for a negligible portion of building fires: 93 out of an average of 8,500 cases per year, or 1.1 percent.\nThe Federal Council describes the environmental consequences as \u201climited in time and location.\u201d\nAdded to this are tradition and the economy.\nFor many, fireworks are part of the celebration, and some view them as an art form.\nThe industry generates annual revenue of 50 to 60 million Swiss francs; according to its own figures, about 70 percent of that comes from noise-producing fireworks.\nThis is shown by a study commissioned by the Federal Office for the Environment.\nImporters and fireworks companies would be particularly affected.\nThe Federal Council expects the impact on the economy as a whole to be minimal.\nThe Federal Council also warns of potential side effects: Illegal imports via online retailers could increase, and the government would have difficulty enforcing safety regulations in that area.\nAccording to the Federal Council, large-scale fireworks displays would only be permitted at events of supraregional significance.",
+        "title": "blue News: Fireworks initiative, everything you need to know",
+        "url": "https://www.bluewin.ch/en/news/switzerland/fireworks-initiative-everything-you-need-to-know-about-the-fireworks-ban-li.3630399",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "2026-11-18",
+        "quotes": [
+          "Had the vote taken place on 7 November 2026, the fireworks initiative would have been clearly approved"
+        ],
+        "text": "Had the vote taken place on 7 November 2026, the fireworks initiative would have been clearly approved\n\nizerische Gesellschaft f\u00fcr praktische Sozialforschung.\nEven in the early days, the findings published by the GfS Research Institute on opinion forming trends in Switzerland and in direct democratic processes were considered groundbreaking.\nFrom 1992, the GfS research institute had an independent office in Bern in the form of gfs.bern.\nOur clients include political parties, associations, private-sector companies, cities and municipalities, cantons, the Swiss Broadcasting Corporation (SRG/SRR) and also civil society organizations.\nOur services cover all kinds of market and opinion research, such as surveys, data science, evaluations, analyses around referendums and campaigning, as well as campaign analyses, issue monitoring or image and reputation analysis for the optimization of communication strategies.\nWe provide background information and rankings on referendums, opinion polls, barometers and monitors.\nWe have summarized the most important points for you and present the details here.\n18.11.2026 | Election and voting research\nIntended turnout at 52% | Fireworks initiative on course for approval, Fairness Initiative loses ground \u2013 two government-backed proposals remain on a knife-edge\nHad the vote taken place on 7 November 2026, the fireworks initiative would have been clearly approved and the Fairness Initiative rejected.\nThe proposal to finance the 13th AHV through a VAT increase still faces a narrow lead for the No camp, while the amendment to the War Materiel Act remains closely contested, with a slight advantage for Yes.\n09.11.2026 | Monitor\nTwo-thirds of Swiss companies regard the administrative burden imposed by government regulations as high, and almost as many report an increase compared with five years ago.\nThis burden primarily ties up human resources and has consequences: three in ten companies have already postponed, scaled back or abandoned projects as a result.\nHowever, the administrative burden is not rejected outright.\nAbove all, companies would like to see simpler, more standardised and better coordinated processes.\nThis is shown by the first Bureaucracy Monitor, carried out by gfs.bern on behalf of economiesuisse.\n29.10.2026 | Barometer\nThe Transition Barometer examines young people\u2019s educational choices on the one hand and the situation on the apprenticeship market on the other.\nA thematic spotlight on starting a vocational apprenticeship",
+        "title": "2nd SRG survey on the federal votes of 29 November 2026 (gfs.bern)",
+        "url": "https://www.gfsbern.ch/en/news/2nd-srg-survey-on-the-federal-votes-of-29-november-2026",
+        "verified": true
+      }
+    ],
+    "polymarket-7029662": [
+      {
+        "download_error": "no readable text on the page",
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "",
+        "title": "IMF PortWatch, Bab el-Mandeb Transit Calls (resolution page)",
+        "url": "https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [
+          "Source: IMF PortWatch (portwatch.imf.org), based on UN Global Platform AIS data.",
+          "This information is available free of charge from the IMF.",
+          "Chokepoint Transit Calls (Daily): latest reading for 28 geographies, with the period of each."
+        ],
+        "text": "Source: IMF PortWatch (portwatch.imf.org), based on UN Global Platform AIS data.\nThis information is available free of charge from the IMF.\nChokepoint Transit Calls (Daily): latest reading for 28 geographies, with the period of each.\n\nRTWATCH.CHOKEPOINT.TRANSITS.D\nIMF PortWatch, joint IMF / University of Oxford, estimates derived from UN Global Platform AIS data.\nArcGIS item metadata reports access: public with licenseInfo pointing at IMF Copyright and Usage.\nSection VIII covers IMF-produced statistics \"not owned by a third-party\", and the AIS derivation makes third-party ownership an open question here, so this is labelled separately from the IMF CPI series.\nDisplay with attribution to IMF PortWatch and the UN Global Platform.\nVerified 2026-08-03.\nResale permitted under IMF Copyright and Usage Section VIII (publication, distribution and sale of IMF statistical data allowed including commercially, conditional on accurate IMF attribution, data integrity, declaring material transformation, and informing standalone purchasers the data is free from the IMF).\nVerified against the primary source and approved by the owner 2026-08-03.\nLatest reading by geography\nSorted by value, highest first.\nEach row keeps its own period, and national definitions can differ, so the order is not a like for like ranking.\n| Chokepoint Transit Calls (Daily): latest reading for 28 geographies, with the period of each.\nSource: IMF PortWatch.\n| | | | |\n|---|---|---|---|---|\n| # | Country or area | Value (vessels/day) | Period | History |\n|---|---|---|---|---|\n| 1 | MALACCA | 258.0 | 2026-11-15 | History |\n| 2 | TAIWAN | 223.0 | 2026-11-15 | History |\n| 3 | KOREA | 184.0 | 2026-11-15 | History |\n| 4 | DOVER | 164.0 | 2026-11-15 | History |\n| 5 | BOHAI | 148.0 | 2026-11-15 | History |\n| 6 | GIBRALTAR | 130.0 | 2026-11-15 | History |\n| 7 | LUZON | 108.0 | 2026-11-15 | History |\n| 8 | CAPE_GOOD_HOPE | 87.0 | 2026-11-15 | History |\n| 9 | YUCATAN | 60.0 | 2026-11-15 | History |\n| 10 | BOSPORUS | 57.0 | 2026-11-15 | History |\n| 11 | MAKASSAR | 57.0 | 2026-11-15 | History |\n| 12 | SUEZ | 44.0 | 2026-11-15 | History |\n| 13 | ORESUND | 41.0 | 2026-11-15 | History |\n| 14 | LOMBOK | 39.0 | 2026-11-15 | History |\n| 15 | MINDORO | 38.0 | 2026-11-15 | History |\n| 16 | BAB_EL_MANDEB | 34.0 | 2026-11-15 | History |\n| 17 | TSUGARU | 31.0 | 2026-11-15 | History |\n| 18 | PANAMA | 30.0 | 2026-11-15 | History |\n| 19 | SUNDA | 27.0 | 2026-11-15 | History |\n| 20 | WINDWARD | 20.0 | 2026-11-15 | History |\n| 21 | TORRES | 15.0 | 2026-11-15 | History |\n| 22 | OMBAI | 13.0 | 2026-11-15 | History |\n| 23 | MONA | 11.0 | 2026-11-15 | History |\n| 24 | BALABAC | 6.0 | 2026-11-15 | History |\n| 25 | MAGELLAN | 5.0 | 2026-11-15 | History |\n| 26 | HORMUZ | 2.0 | 2026-11-15 | History |\n| 27 | KERCH | 1.0 | 2026-11-15 | History |\n| 28 | BERING | 0.0 | 2026-11-15 | History |\nSource: IMF PortWatch.\n28 geographies, periods 2026-11-15 to 2026-11-15.\nn/a means the source value is missing or withheld.\nExplore history by geography\nChoose one geography to chart its stored history in the series' own units and frequency.\n- Source\n- IMF PortWatch\n- Unit\n- vessels/day\n- Frequency\n- Daily\n- Series identity\n- PORTWATCH.CHOKEPOINT.TRANSITS.D\nThis catalog preserves stored source periods and status codes, but complete publisher flags, original release times and country-specific methods have not all been reviewed.\nThese are current stored readings and may be revised.\nExplore one geography\nChoose a geography from the latest readings to see its chart and stored history.\nDates filter the start of each reference period.\nSource and interpretation\nSource: IMF PortWatch (portwatch.imf.org), based on UN Global Platform AIS data.\nThis information is available free of charge from the IMF.\nLicence: imf-special-terms-viii.\nReuse remains subject to this source\u2019s terms.\nThe period and stored status columns reproduce this catalog\u2019s source fields.\nAn empty status means no stored flag, not a guarantee that the publisher supplied none.\nU-marked numeric readings are withheld; B-marked readings interrupt chart continuity.\nOther codes require the source\u2019s own guidance.\nThis viewer does not establish original release dates, complete revision history or comparable national methods.\nOpen publisher source",
+        "title": "Chokepoint Transit Calls (Daily), Statistics of the World (mirror of IMF PortWatch)",
+        "url": "https://statisticsoftheworld.com/series/PORTWATCH.CHOKEPOINT.TRANSITS.D",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-04-01",
+        "quotes": [
+          "IMF PortWatch only returns 1000 records per call.",
+          "The example processes the daily transit calls and estimated volume (capacity) since 2019"
+        ],
+        "text": "IMF PortWatch only returns 1000 records per call.\nThe example processes the daily transit calls and estimated volume (capacity) since 2019\n\nal & Allied Industries | None | None | None | c57c79bf612b4372b08a9c6ea9c97ef0 | None | 1 | POINT (32.43688 30.59335) |\n| 3 | chokepoint4 | Bab el-Mandeb Strait | None | None | None | Bab el-Mandeb Strait | 12.788597 | 43.349545 | 22519 | 6280 | 5940 | 1839 | 1074 | 7386 | Mineral Products | Chemical & Allied Industries | Vegetable Products | None | None | None | 6b1814d64903461b98144a6cc25eb79c | None | 4 | POINT (43.34954 12.7886) |\n| 6 | chokepoint7 | Cape of Good Hope | None | None | None | Cape of Good Hope | -34.927286 | 20.882737 | 17332 | 2018 | 10277 | 709 | 355 | 3973 | Mineral Products | Vegetable Products | Prepared Foodstuffs & Beverages | None | None | None | edf18f455a2b4637a3632b6af201abe9 | None | 7 | POINT (20.88274 -34.92729) |\nchokepoints_rs[\n[\n\"geometry\",\n\"portname\",\n\"vessel_count_total\",\n\"vessel_count_container\",\n\"vessel_count_dry_bulk\",\n\"vessel_count_general_cargo\",\n\"vessel_count_RoRo\",\n\"vessel_count_tanker\",\n\"industry_top1\",\n\"industry_top2\",\n\"industry_top3\",\n]\n].explore(\ncolumn=\"portname\",\ncmap=\"Dark2\",\nmarker_kwds={\"radius\": 15},\ntiles=\"Esri Ocean Basemap\",\nlegend_kwds={\"loc\": \"upper right\", \"caption\": \"Choke Points\"},\n)\n20.4.2.\nRetrieve the data#\nThe example processes the daily transit calls and estimated volume (capacity) since 2019 for the three chokepoints of interest: Bab el-Mandeb Strait, Cape of Good Hope, Suez Canal.\nTo build the URL for the API call, first, go to IMF PortWatch site and build a sample URL.\nThe one below was created to retrieve information for chokepoint 1, 4, and 7.\nThis will be useful for creating a function to retrieve the daily calls for the chokepoints of interest.\nThe function also needs to take into account that IMF PortWatch only returns 1000 records per call.\ndef get_chokepoint_data(chokepoints, url_base):\nfor chokepoint in chokepoints:\nif chokepoint == chokepoints[-1]:\nurl_base += f\"portid%3D%20'{chokepoint}'%20&outFields=*&outSR=4326&f=json&resultOffset=0\"\nelse:\nurl_base += f\"portid%3D%20'{chokepoint}'%20+OR+\"\nres = requests.get(url_base)\ndf = pd.DataFrame([d[\"attributes\"] for d in res.json()[\"features\"]])\noffset = 1000\nwhile len(df) % 1000 == 0: #retrieve 1000 records\nres = requests.get(url_base.replace(\"resultOffset=0\", f\"resultOffset={offset}\"))\ndf2 = pd.DataFrame([d[\"attributes\"] for d in res.json()[\"features\"]])\ndf = pd.concat([df, df2])\noffset += 1000\ndf.reset_index(inplace=True, drop=True)\ndf[\"date\"] = df.date.apply(lambda x: datetime.fromtimestamp(x / 1000))\ndf.sort_values([\"portid\", \"date\"], inplace=True)\nreturn df\nurl_base = \"https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0/query?where=\"\ndf_chokepoints = get_chokepoint_data(list(chokepoints[chokepoints['portname'].isin(cpoi)].portid.unique()), url_base)\ndf_chokepoints.loc[:, \"ymd\"] = df_chokepoints.date.dt.strftime(\"%Y-%m-%d\")\ndf_chokepoints.head()\n| | date | year | month | day | portid | portname | n_container | n_dry_bulk | n_general_cargo | n_roro | n_tanker",
+        "title": "Chokepoints Monitor - Methodology (World Bank Data Lab notebook)",
+        "url": "https://worldbank.github.io/alternative-data-for-crisis/notebooks/disruptions-business-trade/chokepoints-monitor.html",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Bab el-Mandeb Strait"
+        ],
+        "text": "Bab el-Mandeb Strait\n\nName:\nDaily_Chokepoints_Data\nDisplay Field:\nType:\nTable\nDescription:\nCopyright Text:\nMax Record Count:\n10000\nSupported query Formats:\nJSON, geoJSON, PBF\nUse Standardized Queries:\nTrue\nHasZ:\nfalse\nHasM:\nfalse\nHas Attachments:\nfalse\nHas Geometry Properties:\nfalse\nHTML Popup Type:\nesriServerHTMLPopupTypeNone\nObject ID Field:\nObjectId\nUnique ID Field:\nIsSystemMaintained : True\nGlobal ID Field:\nType ID Field:\nFields:\n- date (type: esriFieldTypeDateOnly, alias: date, SQL Type: sqlTypeDate, nullable: true, editable: true)\n- year (type: esriFieldTypeInteger, alias: year, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- month (type: esriFieldTypeInteger, alias: month, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- day (type: esriFieldTypeInteger, alias: day, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- portid (type: esriFieldTypeString, alias: portid, SQL Type: sqlTypeNVarchar, length: 4000, nullable: true, editable: true)\n- portname (type: esriFieldTypeString, alias: portname, SQL Type: sqlTypeNVarchar, length: 4000, nullable: true, editable: true)\n- n_container (type: esriFieldTypeInteger, alias: n_container, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- n_dry_bulk (type: esriFieldTypeInteger, alias: n_dry_bulk, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- n_general_cargo (type: esriFieldTypeInteger, alias: n_general_cargo, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- n_roro (type: esriFieldTypeInteger, alias: n_roro, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- n_tanker (type: esriFieldTypeInteger, alias: n_tanker, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- n_cargo (type: esriFieldTypeInteger, alias: n_cargo, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- n_total (type: esriFieldTypeInteger, alias: n_total, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- capacity_container (type: esriFieldTypeInteger, alias: capacity_container, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- capacity_dry_bulk (type: esriFieldTypeInteger, alias: capacity_dry_bulk, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- capacity_general_cargo (type: esriFieldTypeInteger, alias: capacity_general_cargo, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- capacity_roro (type: esriFieldTypeInteger, alias: capacity_roro, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- capacity_tanker (type: esriFieldTypeInteger, alias: capacity_tanker, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- capacity_cargo (type: esriFieldTypeInteger, alias: capacity_cargo, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- capacity (type: esriFieldTypeInteger, alias: capacity, SQL Type: sqlTypeInteger, nullable: true, editable: true)\n- ObjectId (type: esriFieldTypeOID, alias: ObjectId, SQL Type: sqlTypeInteger, length: 0, nullable: false, editable: false)\nTemplates:\nName: New Feature\nDescription:\nDrawing Tool: esriFeatureEditToolNone\nPrototype:\nIs Data Versioned:\nfalse\nHas Contingent Values:\nfalse\nSupports Rollback On Failure Parameter:\ntrue\nLast Edit Date:\n11/17/2026 10:15:06 AM\nSchema Last Edit Date:\n11/17/2026 10:15:06 AM\nData Last Edit Date:\n11/17/2026 10:15:06 AM\nSupported Operations:\nQuery\nQuery Pivot\nQuery Top Features\nQuery Analytic\nQuery Bins\nGenerate Renderer\nValidate SQL\nGet Estimates\nConvertFormat",
+        "title": "IMF PortWatch Daily_Chokepoints_Data layer (chokepoint4, Bab el-Mandeb Strait), daily n_total transit calls 2019-01-01 to 2026-11-15",
+        "url": "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0",
+        "verified": false
+      },
+      {
+        "primary": true,
+        "published": "2026-04-29",
+        "quotes": [
+          "More than two years on, transits through the Bab el-Mandeb strait between Yemen and Djibouti remain stuck at roughly half their pre-attack level."
+        ],
+        "text": "More than two years on, transits through the Bab el-Mandeb strait between Yemen and Djibouti remain stuck at roughly half their pre-attack level.\n\nGlobal Disruptions Are Testing How the World Moves Goods and People\nIMF Blog, April 29, 2026\nSource details\n- Canonical URL\n- Global Disruptions Are Testing How the World Moves Goods and People\nOther formats\nBibliographic details\n- Authors: IMF Blog Editors\n- Published: April 29, 2026\nNature of the disruptions\n- The war in the Middle East has severely disrupted maritime and air traffic, damaging infrastructure and interrupting transport corridors that are critical for global energy and goods.\n- Attacks on shipping that began in 2023 forced many vessels to reroute around Africa rather than use the Suez Canal.\n- More than two years on, transits through the Bab el-Mandeb strait between Yemen and Djibouti remain stuck at roughly half their pre-attack level.\n- The future of Strait of Hormuz transits and regional air traffic remains unknown.\nEvidentiary highlight (Chart of the Week)\n- The Chart of the Week illustrates that Bab el-Mandeb transits are at roughly half their pre-attack level, despite attacks beginning in 2023 and changes persisting more than two years on.\n- Rerouting around Africa replaced Suez Canal transits for many vessels, increasing voyage distances and complexity.\nEconomic impacts and distributional effects\n- As the April 2026 World Economic Outlook details, shipping and air disruptions:\n- slow trade,\n- raise costs along supply chains, and\n- hit tourism-dependent and import-reliant economies hardest.\n- Consumers experience higher prices on food and essentials.\n- Lower-income households bear the largest share of the cost increases.\n- If Hormuz transits and regional flights recover slowly like the Bab el-Mandeb path, the drag on growth will persist long after the fighting stops.\nPolicy implications and recommendations\n- Policies that strengthen the resilience of transport net",
+        "title": "IMF blog: Global Disruptions Are Testing How the World Moves Goods and People",
+        "url": "https://www.imf.org/en/blogs/articles/2026/04/29/global-disruptions-are-testing-how-the-world-moves-goods-and-people",
+        "verified": true
+      },
+      {
+        "checked_via": "archive",
+        "primary": false,
+        "published": "2026-08-17",
+        "quotes": [
+          "At least 273 ship transits were recorded through the Bab el Mandeb between July 27 and August 2",
+          "the Houthis announced a naval blockade targeting Saudi-affiliated shipping on July 20"
+        ],
+        "snapshot": "https://web.archive.org/web/20260910231546id_/https://www.lloydslist.com/LL1158203/The-Week-in-Charts-Red-Sea-traffic-holds-firm-despite-Houthi-blockade--NOAA-upgrades-El-Nio-warning-and-outlook-for-Panama-Canal-worsens",
+        "text": "At least 273 ship transits were recorded through the Bab el Mandeb between July 27 and August 2\nthe Houthis announced a naval blockade targeting Saudi-affiliated shipping on July 20\n\nThe Week in Charts: Red Sea traffic holds firm despite Houthi blockade | NOAA upgrades El Ni\u00f1o warning and outlook for Panama Canal worsens\n- Bab el Mandeb traffic remains broadly stable despite the Houthi blockade on Saudi-linked shipping\n- NOAA now puts odds of \u2018very strong\u2019 El Ni\u00f1o at over 90%, with 69% chance that conditions in October-December will be the most severe on record\n- Seaborne coal flows up 6% in the second quarter of the year\nLloyd\u2019s List\u2019s weekly showing of the data and figures behind our news, analysis and markets coverage\nLLOYD\u2019S List Intelligence data suggests shipping through the Bab el Mandeb has proved surprisingly resilient during the first weeks of the Houthi blockade on Saudi-linked shipping, even as the United Nations warns Yemen is edging closer to a return to full-scale war and maritime security analysts warn that Houthi attacks could yet escalate, wrote Editor-in-Chief Richard Meade.\nVessel traffic through the southern Red Sea chokepoint has remained relatively stable since the Houthis announced a naval blockade targeting Saudi-affiliated shipping on July 20, according to Lloyd\u2019s List Intelligence data.\nAt least 273 ship transits were recorded through the Bab el Mandeb between July 27 and August 2, slightly above the previous week\u2019s 269 crossings.\nAveraged across the first two weeks of the blockade, traffic was running about 15% below levels seen during the preceding month.\nNOAA upgrades El Ni\u00f1o warning and outlook for Panama Canal worsens\nYet another chokepoint could join the parade \u2014 alongside the Strait of Hormuz, Red Sea and Black Sea \u2014 if drought conditions return to the Panama Canal due to a predicted \u201cSuper El Ni\u00f1o\u201d in late 2026, wrote senior maritime reporter Greg Miller.\nThe National Oceanic and Atmospheric Administration said on Thursday that existing El Ni\u00f1o conditions are \u201cstrengthening\u201d with the chance of a \u201cvery strong\u201d El Ni\u00f1o in fall and winter 2026-2027 rising to over 90%, with a 69% chance that conditions in October-November will be the most severe on record.\nThe Panama Canal Authority (ACP) has already announced five successive draught restrictions for the neopanamax locks, culminating in the latest reduction to 47.5 ft (14.5m) effective September 3, down from the normal level of 50 ft that prevailed before July 3.\nCoal\u2019s rebound continues as El Nino bites\nMany h",
+        "title": "Lloyd's List: The Week in Charts, Red Sea traffic holds firm despite Houthi blockade",
+        "url": "https://www.lloydslist.com/LL1158203/The-Week-in-Charts-Red-Sea-traffic-holds-firm-despite-Houthi-blockade--NOAA-upgrades-El-Nio-warning-and-outlook-for-Panama-Canal-worsens",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "2026-11-12",
+        "quotes": [
+          "Traffic through the Bab el Mandeb totalled 1,363 transits last month, or 112.3m dwt.",
+          "Threat to shipping remains substantial in Red Sea, but there have been no recent incidents reported."
+        ],
+        "text": "Traffic through the Bab el Mandeb totalled 1,363 transits last month, or 112.3m dwt.\nThreat to shipping remains substantial in Red Sea, but there have been no recent incidents reported.\n\nSuez Canal\n- October 2026: 1,338 transits/125.6m dwt\n- September 2026: 1,228 transits/106.3m dwt\n- October traffic up 63% year on year (YoY), down 34% on pre-Houthi crisis levels\nBab el Mandeb\n- October 2026: 1,363 transits/112.3m dwt\n- September 2026: 1,215 transits/ 95.7m dwt\n- October traffic up 43% YoY, down 46% on pre-Houthi crisis levels\nExecutive summary\nSuez traffic hits a post-crisis high for the fifth consecutive month.\nThere were 1,338 transits in October equivalent to 125.6m dwt, an increase of 18% on September\u2019s dwt figures.\nThe average number of monthly transits from January to November 2023, before the mass exodus from the Red Sea, was 2009, or 182m in tonnage terms.\nActivity in the Red Sea\u2019s southern chokepoint grew 17% in October.\nTraffic through the Bab el Mandeb totalled 1,363 transits last month, or 112.3m dwt.\nThis is an increase of 17% month on month for dwt.\nMovements through the strait have returned to the elevated levels recorded after the start of the crisis in the Middle East Gulf, but it is containerships rather than crude tankers driving the recovery.\nKey takeaways\nDistorted tanker trades push Suez crude volumes above pre-crisis levels.\nThe pre-crisis monthly average for crude tanker traffic was 44.35m dwt.\nIn October crude traffic reached 47.13m dwt.\nThis is not a return to pre-crisis trading patterns, though.\nThe October surge in Suez tanker transits coincided with a sharp rebound in Yanbu crude loadings, which in turn boosted northbound crude trade.\nThe other big driver of tanker activity is Russian crude moving south towards India, coupled with ballast tanker returns north.\nMore than a third of large crude tanker passages through Suez involved sanctioned ships.\nEvergreen joins accelerating liner return to Suez, ending its near three-year absence from the route.\nThe Taiwanese carrier is the last Ocean Alliance partner to resume Suez transits.\nThe capacity released by carriers returning to Suez coupled with slowing demand risks pushing the trade towards oversupply.\nReturn of mainline containerships continues to gather pace, even as renewed Houthi attacks underline the security risks confronting carriers restoring Red Sea services.\nSome 426 boxship transits were made in October, up from 315 in September and 230 in October 2025.\nApproximately half of all containership transits are \u201cdark\u201d, with vessel-tracking systems disabled, highlighting the tension between carriers\u2019 commercial return to the shorter routing and continuing concern over security.\nSource: Lloyd\u2019s List Intelligence Red Sea Transit Monitor\nSecurity summary\nThreat to shipping remains substantial in Red Sea, but there have been no recent incidents reported.\nThe UK Maritime Trade Operations says there has been an increase in reporting from vessels of interactions with claimed Yemeni Authorities, but there have been no attacks since August 24.\nSuspicious activity in the Bab el Mandeb Strait was reported on 6 November.\nA large explosion was observed in the strait, but the cause and circumstances are unknown.\nEU governments have failed to reinforce their Red Sea naval mission despite repeated warnings that Operation Aspides lacks sufficient warships to meet growing demand from commercial shipping.\nEUNAVFOR Aspides communicated its force requirements to EU member states, but there is no indication that any additional contributions have been made.\nRisk outlook\nOctober numbers are clearest indicator of significant recovery to Red Sea traffic, but the situation is not \u201cnormal\u201d.\nThe unprecedented amount of crude tonnage moving through Suez is due to geopolitical disruptions, while containerships are the only market segment growing at a pace where reaching pre-crisis levels at both chokepoints seems achievable in the near term.\nStill",
+        "title": "Red Sea Brief - 12 November 2026",
+        "url": "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief---12-november-2026",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-16",
+        "quotes": [
+          "Yemeni government-aligned forces announced on November 15, that they were withdrawing"
+        ],
+        "text": "Yemeni government-aligned forces announced on November 15, that they were withdrawing\n\nThe withdrawal of Yemeni government forces from positions near the Bab el-Mandeb Strait has strengthened the Houthis\u2019 presence along the Red Sea coast, raising fresh concerns over maritime security and commercial shipping.\nAccording to Reuters, Yemeni government-aligned forces announced on November 15, that they were withdrawing from positions near the Bab el-Mandeb Strait, following weeks of fighting with Houthi forces over control of strategic coastal areas.\nThe Southern Armed Forces said they were redeploying from Dhubab Airport and surrounding positions in western Yemen to prioritize the defense of Aden and nearby government-held territory.\nThe withdrawal marks a setback for a six-week counteroffensive launched by Saudi-backed forces to regain coastal territory captured by the Houthis in September.\nDuring the counteroffensive, government-aligned forces recovered positions around Dhubab but failed to regain control of the strategic port of Mocha.\nFollowing the latest withdrawal, government troops reportedly repositioned farther south, while Houthi forces strengthened their presence near the Bab el-Mandeb Strait.\nThe developments raise concerns for commercial shipping passing through the narrow waterway, which connects the Red Sea with the Gulf of Aden and forms a critical part of the maritime route linking Asia and Europe through the Suez Canal.\nConcerns over maritime security\nThe Houthis\u2019 strengthened position along ",
+        "title": "Yemeni forces withdraw from positions near Bab el-Mandeb Strait (Safety4Sea, citing Reuters)",
+        "url": "https://safety4sea.com/yemeni-forces-withdraw-from-positions-near-bab-el-mandeb-strait/",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-16",
+        "quotes": [
+          "reported approximately 22 commercial vessel transits per day during November 12\u201314,",
+          "classified the southern Red Sea and Bab el-Mandeb threat as substantial."
+        ],
+        "text": "reported approximately 22 commercial vessel transits per day during November 12\u201314,\nclassified the southern Red Sea and Bab el-Mandeb threat as substantial.\n\n\ud83d\udd14 Subscribe to ShipUniverse Weekly \u2192\nYemen's internationally recognized government-aligned Southern Armed Forces announced on November 15 that they had withdrawn from Dhubab Airfield and positions overlooking the Bab el-Mandeb Strait, redeploying troops toward Aden and other defensive fronts.\nThe move follows Houthi territorial gains along Yemen's Red Sea coast in September and a subsequent government counteroffensive.\nHouthi forces claim control of additional approaches to the strait, including strategically important coastal positions, although independent confirmation of their precise territorial control remains incomplete.\nThe latest Joint Maritime Information Center assessment, dated November 15, classified the southern Red Sea and Bab el-Mandeb threat as substantial and reported approximately 22 commercial vessel transits per day during November 12\u201314, compared with a historical average of 61 per day in 2023.\nThose traffic figures precede Sunday's withdrawal.\nGovernment Forces Retreat From the Gateway to Suez\nTroops withdraw from Dhubab Airfield and the Bab el-Mandeb area while Houthi claims of expanded control remain only partly verified.\nThree positions that explain the maritime exposure\nSouthern forces publicly confirm redeployment from the airfield and neighboring coastal approaches west of Taiz.\nThe island divides the Bab el-Mandeb waterway.\nRenewed Houthi occupation is reported or anticipated, but precise current control requires verification.\nPeninsula and headland overlooking the eastern side of the strait.\nThe territory's military status remains contested.\nShipping was already far below its historic level\nJMIC records 67 commercial vessel transits across November 12\u201314, or 22.3 per day.\nThat is approximately 63.4% below its 2023 daily baseline of about 61.\nUsing rounded daily values of 22 and 61 gives a decline of roughly 64%.\nTiming matters: These transits occurred before the November 15 withdrawal.\nThey cannot be attributed to it.\nHow the ",
+        "title": "ShipUniverse report on Red Sea transits and JMIC assessment",
+        "url": "https://www.shipuniverse.com/?p=27890",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-06",
+        "quotes": [
+          "Tracking data showed an average of approximately 34 commercial transits daily from November 1 to 4,",
+          "Daily movements were recorded at 38, 37, 35 and 26 vessels, respectively."
+        ],
+        "text": "Tracking data showed an average of approximately 34 commercial transits daily from November 1 to 4,\nDaily movements were recorded at 38, 37, 35 and 26 vessels, respectively.\n\nShipping activity rebounds slightly in Bab al-Mandab as Hormuz tensions escalate\nCommercial shipping through the Bab al-Mandab Strait increased modestly, although the security environment remained volatile, an industry tracker reported.\nThe Joint Maritime Information Centre (JMIC), in its Update 111 Advisory Note dated November 5, 2026, distributed by the United Kingdom Maritime Trade Operations (UKMTO), reported one suspicious-activity incident in the southern Red Sea, identified as MSCIO 168/26, but no confirmed attack against a merchant vessel.\nTracking data showed an average of approximately 34 commercial transits daily from November 1 to 4, compared with around 28 per day in the preceding week, even as Iran-linked attacks have stepped up around the Strait of Hormuz.\nGet\u00a0it: Fast, verified news for FREE ...\ndownload the\u00a0Gulf News\u00a0app\u00a0\u2014 simply\u00a0click here\nDaily movements were recorded at 38, 37, 35 and 26 vessels, respectively.\nThe increase suggests some recovery in shipping activity.\nHowever, traffic remains below the levels recorded before the Houthi \"selective embargo\" announced on July 20.\nThe waterway remains open to commercial shipping.\nHouthi statements continue to indicate that non-Saudi commercial vessels may transit safely, although the JMIC cautioned that the area remains volatile.\nIn the Somali Basin, the fishing vessel AZINI, hijacked by armed pirates off northeastern Somalia on October 29, was reported liberated on November 2, closing the incident.\nHowever, one merchant vessel remains hijacked: the Tanzanian-flagged product and chemical tanker MT ASANA, seized on July 17, approximately 65 nautical miles southwest of Mukalla, Yemen.\nThe Gulf of Aden, Arabian Sea, Northern Red Sea and Suez Canal reported no confirmed attacks or significant disruptions.\nThe Eastern Mediterranean also remained at its established security baseline.\nA suspected pirate-action-group warning in the Gulf of Aden was reported to have remained in force until November 3, with no replacement warning identified.\nThe modest recovery in Bab al-Mand",
+        "title": "Bab al-Mandab ship traffic shows signs of recovery: report (Gulf News)",
+        "url": "https://gulfnews.com/business/energy/bab-al-mandab-ship-traffic-shows-signs-of-recovery-report-1.500737875",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-08-12",
+        "quotes": [
+          "Yemen's internationally recognised government has accused the Houthi rebel group of killing at least six people",
+          "The Houthis announced a blockade on Saudi shipping in the Red Sea"
+        ],
+        "text": "Yemen's internationally recognised government has accused the Houthi rebel group of killing at least six people\nThe Houthis announced a blockade on Saudi shipping in the Red Sea\n\nSix killed in Houthi attack on Bab al-Mandeb ship, Yemen\u2019s government says\nThe deaths on board the Egyptian-owned Tihamah mark first shipping deaths linked to Houthis since the US-Israel war on Iran began.\nCargo ship in flames after Houthi attack in Bab al-Mandeb strait\nYemen\u2019s internationally recognised government has accused the Houthi rebel group of killing at least six people and wounding 10 others in a double-tap strike on a cargo vessel in the Bab al-Mandeb strait.\nThe attack on the Egyptian-owned Tihamah on Tuesday marks the first shipping deaths linked to the Iran-aligned Houthis since the United States and Israel launched the war on Iran on February 28.\nRecommended Stories\nlist of 4 items\n- list 1 of 4What are the challenges facing the Mecca agreement?\n- list 2 of 4Will Pakistan-Saudi-Turkiye defence pact change US strategy?\n- list 3 of 4Iran changed the rules in Hormuz.\nThe Gulf is changing the rules for Iran\n- list 4 of 4Fishermen face deadly dangers as Yemen\u2019s Red Sea becomes a warzone\nYemen\u2019s Transport Ministry said three Pakistani nationals and one Indonesian national were killed after the Houthis fired three ballistic missiles at the commercial ship, sparking a fire and causing \u201csignificant damage\u201d to the vessel.\nYemen\u2019s coastguard said in a separate statement that the Houthis fired another missile at the ship as rescue personnel were evacuating the dead and wounded.\n\u201cThe attack struck the site of the rescue operation and resulted in ",
+        "title": "Six killed in Houthi attack on Bab al-Mandeb ship, Yemen's government says (Al Jazeera)",
+        "url": "https://www.aljazeera.com/news/2026/8/12/six-killed-in-houthi-attack-on-bab-al-mandeb-ship-yemens-government-says",
+        "verified": false
+      },
+      {
+        "primary": false,
+        "published": "2026-11-15",
+        "quotes": [
+          "could give the Houthis greater leverage over the maritime chokepoint, potentially increasing pressure on global shipping."
+        ],
+        "text": "could give the Houthis greater leverage over the maritime chokepoint, potentially increasing pressure on global shipping.\n\nYemeni forces aligned with the internationally recognised government said on Sunday they were withdrawing from an area overlooking the Bab Al Mandeb strait, a move that could leave the Iran-backed Houthi rebels in control of territory near the vital waterway.\nLast month, Yemeni government troops said they had recaptured the Dhubab area overlooking the sea lane, and the strategic port city of Mokha.\nThe southern forces' withdrawal from the Bab Al Mandeb area could give the Houthis greater leverage over the maritime chokepoint, potentially increasing pressure on global shipping as Iran continues to disrupt traffic through the Strait of Hormuz on the other side of the Arabian Peninsula.\n\"The Southern Armed Forces announce the implementation of a redeployment operation for its forces from Dhubab airport and the Bab Al Mandeb area, west of Taiz governorate,\" the group said.\n\"This step is taken based on the priority of securing the capital, Aden, and the neighbouring governorates, as well as strengthening the front lines and addressing existing threats.\"\nTaiz siege\nThey said that the redeployment would also support efforts to break the Houthi siege on Taiz city, to alleviate the suffering of its residents and end what they described as blockade and starvation policies.\nThe operations would be carried out with the support of the Saudi-led coalition backing Yemen's government, the statement said.\nGovernment forces launched a military campaign in October to recapture the strategic coastal areas from the Iran-backed militia, which had pushed south in September in an attempt to seize control of more of Yemen's Red Sea coastline.\nThe September offe",
+        "title": "Southern Yemeni forces withdraw from area near Bab al-Mandab (The National)",
+        "url": "https://www.thenationalnews.com/news/mena/2026/11/15/southern-yemeni-forces-withdraw-from-area-near-bab-al-mandab/",
+        "verified": true
+      },
+      {
+        "primary": true,
+        "published": "2026-11-16",
+        "quotes": [
+          "Houthi-run media reported on Sunday that the group had taken control of the area.",
+          "The development has raised concerns over international shipping and global oil supplies."
+        ],
+        "text": "Houthi-run media reported on Sunday that the group had taken control of the area.\nThe development has raised concerns over international shipping and global oil supplies.\n\nYemeni pro-government forces backed by Saudi Arabia have announced their withdrawal from an area overlooking the strategically important Bab al-Mandab Strait in the southern Red Sea, leaving the key shipping gateway under the control of the Iran-backed Houthi movement.\nYemen\u2019s military said troops were being redeployed from the Dhubab Airport and Bab al-Mandab area to strengthen front lines and defend the interim capital, Aden.\nThe withdrawal ends a weeks-long offensive to regain control of the territory after the Houthis seized parts of the region, including Perim Island at the southern entrance to the Red Sea and the strategic port city of Mokha, in September.\nHouthi-run media reported on Sunday that the group had taken control of the area.\nSaudi Arabia has not yet commented on the reported withdrawal.\nThe development has raised concerns over international shipping and global oil supplies.\nBab al-Mandab connects the Red Sea to the Gulf of Aden and the Arabian Sea making it one of the world\u2019s most important maritime trade routes.\nShips passing through the strait can access the Suez Canal, which links the Red Sea with the Mediterranean.",
+        "title": "Houthis take control of Bab al-Mandab strait area following withdrawal of Yemeni government forces (AIR)",
+        "url": "https://newsonair.gov.in/houthis-take-control-of-bab-al-mandab-strait-area-following-withdrawal-of-yemeni-government-forces/",
+        "verified": true
+      }
+    ],
+    "polymarket-7121567": [
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "{\"symbol\":\"BTCUSDT\",\"price\":\"63819.03000000\"}",
+          "{\"symbol\":\"BTCUSDT\",\"price\":\"63822.89000000\"}"
+        ],
+        "text": "{\"symbol\":\"BTCUSDT\",\"price\":\"63819.03000000\"}\n{\"symbol\":\"BTCUSDT\",\"price\":\"63822.89000000\"}",
+        "title": "Binance API: BTCUSDT ticker price",
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+        "verified": null
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '451 ' for url 'https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/S",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "[[1792454400000,\"81938.39000000\",\"83439.00000000\",\"81200.00000000\",\"83028.15000000\",\"13954.54986000\""
+        ],
+        "text": "[[1792454400000,\"81938.39000000\",\"83439.00000000\",\"81200.00000000\",\"83028.15000000\",\"13954.54986000\"",
+        "title": "Binance API: BTCUSDT 1-day klines (31 candles)",
+        "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "63865.27 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+          "63898.78 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+        ],
+        "text": "63865.27 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance\n63898.78 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+        "title": "Trade BTC/USDT Spot | Binance",
+        "url": "https://www.binance.com/en/trade/BTC_USDT",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "[1795046400000, \"63068.21000000\", \"63941.43000000\", \"62388.72000000\", \"63821.91000000\""
+        ],
+        "text": "[1795046400000, \"63068.21000000\", \"63941.43000000\", \"62388.72000000\", \"63821.91000000\"",
+        "title": "Binance Spot API: BTCUSDT daily klines",
+        "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=1000",
+        "verified": null
+      },
+      {
+        "download_error": "no readable text on the page",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+        ],
+        "text": "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time.",
+        "title": "Binance Spot API docs: Market Data endpoints",
+        "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+        "verified": null
+      },
+      {
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "Two-day meeting, December 8 - 9."
+        ],
+        "text": "Two-day meeting, December 8 - 9.\n\nDecember 2026\nFOMC Meetings\nTime:\nRelease Date(s):\n2:00 p.m.\nFOMC Minutes\nMeeting of December 8-9\n30\n2:00 p.m.\nFOMC Meeting\nTwo-day meeting, December 8 - 9\nPress Conference\n9\nStatistical Releases\nTime:\nRelease Date(s):\n2:00 p.m.\nSenior Credit Officer Opinion Survey on Dealer Financing Terms (SCOOS)\n17\n4:15 p.m.\nG.5 - Foreign Exchange Rates\n1\nG.20 - Finance Companies\nPublication date for this release is approximate.\n31\n12:00 p.m.\nZ.1 - Financial Accounts of the United States\n10\n3:00 p.m.\nG.19 - Consumer Credit\n7\n9:15 a.m.\nG.17 - Industrial Production and Capacity Utilization\n16\n4:30 p.m.\nH.4.1 - Factors Affecting Reserve Balances\n3, 10, 17, 24, 31\n1:00 p.m.\nH.6 - Money Stock Measures\n22\n4:15 p.m.\nH.10 - Foreign Exchange Rates\n7, 14, 21, 28\n4:15 p.m.\nH.8 - Assets and Liabilities of Commercial Banks in the U.S.\n4, 11, 18, 24\n1:00 p.m.\nCP - Commercial Paper\n1, 2, 3, 4, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 21, 22, 23, 24, 28, 29, 30, 31\n4:15 p.m.\nH.15 - Selected Interest Rates\n1, 2, 3, 4, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 21, 22, 23, 24, 28, 29, 30, 31\nOther\nTime:\nRelease Date(s):\nHoliday - Christmas Day\nThe daily and weekly statistical releases scheduled for today will be released on Monday December 28.\n25",
+        "title": "December 2026 FOMC meeting, Federal Reserve calendar",
+        "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+        "verified": true
+      },
+      {
+        "checked_via": "archive",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "October 2026 Nov.\n10, 2026 08:30 AM",
+          "November 2026 Dec.\n10, 2026 08:30 AM"
+        ],
+        "snapshot": "https://web.archive.org/web/20261113044353id_/https://www.bls.gov/schedule/news_release/cpi.htm",
+        "text": "October 2026 Nov.\n10, 2026 08:30 AM\nNovember 2026 Dec.\n10, 2026 08:30 AM\n\nAn official website of the United States government\n| | Schedule of Releases for the Consumer Price Index Subscribe to the BLS Online Calendar Online calendar subscription \u2014 automatically updated: If you use a recent version of an electronic calendar, you may be able to subscribe to the BLS Online Calendar.\nSee details below for users of different types of calendars.\nNOTE: We do not recommend using this online calendar with Outlook 2003 or older versions.\nThe calendar will not update automatically in those applications.\nThe BLS calendar contains publication dates for most news releases scheduled to be issued by the BLS national office in upcoming months.\nIt is updated as needed with additional news releases, usually at least a week before their scheduled publication date.\n|\n| Reference Month | Release Date | Release Time |\n|---|---|---|\n| October 2026 | Nov.\n10, 2026 | 08:30 AM |\n| November 2026 | Dec.\n10, 2026 | 08:30 AM |\n| December 2026 | Jan.\n13, 2027 | 08:30 AM |\n| January 2027 | Feb.\n11, 2027 | 08:30 AM |\n| February 2027 | Mar.\n10, 2027 | 08:30 AM |\n| March 2027 | Apr.\n13, 2027 | 08:30 AM |\n| April 2027 | May 12, 2027 | 08:30 AM |\n| May 2027 | Jun.\n10, 2027 | 08:30 AM |\n| June 2027 | Jul.\n14, 2027 | 08:30 AM |\n| July 2027 | Aug.\n11, 2027 | 08:30 AM |\n| August 2027 | Sep.\n14, 2027 | 08:30 AM |\n| September 2027 | Oct.\n14, 2027 | 08:30 AM |\n| October 2027 | Nov.\n10, 2027 | 08:30 AM |\n| November 2027 | Dec.\n10, 2027 | 08:30 AM |",
+        "title": "BLS CPI release schedule",
+        "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-18",
+        "quotes": [
+          "recorded $2.579 billion in net outflows across 12 sessions from Nov.\n2 through Nov.\n17",
+          "with BlackRock's iShares Bitcoin Trust (IBIT) accounting for $2.2509 billion, or 87.3%."
+        ],
+        "text": "recorded $2.579 billion in net outflows across 12 sessions from Nov.\n2 through Nov.\n17\nwith BlackRock's iShares Bitcoin Trust (IBIT) accounting for $2.2509 billion, or 87.3%.\n\nIBIT Drives 87.3% of $2.58 Billion in Bitcoin ETF Outflows Through Nov.\n17\nThe other 11 funds combined for $328.1 million in net outflows.\nIBIT\u2019s net assets were $50.086 billion as of Nov.\n17.\nU.S.\nspot Bitcoin (BTC) exchange-traded funds (ETFs) recorded $2.579 billion in net outflows across 12 sessions from Nov.\n2 through Nov.\n17, with BlackRock\u2019s iShares Bitcoin Trust (IBIT) accounting for $2.2509 billion, or 87.3%.\nThe tally adds the Nov.\n16 and 17 sessions to the earlier report on IBIT\u2019s November outflows through Nov.\n13.\nThe period covers 12 trading sessions, not the full calendar month.\nThe funds had net outflows in 10 sessions, while IBIT had outflows in 11.\nNov.\n16 was IBIT\u2019s only positive session in that span: the fund recorded a $76.5 million net inflow, and the 12-fund group recorded a $7.9 million net inflow.\nThe following session, IBIT had $209.5 million in net outflows as the group posted $239.9 million in net outflows.\nOn Nov.\n17, Grayscale\u2019s GBTC had $17.7 million in net outflows, ARKB had $13.1 million and BRRR had $3.6 million.\nMSBT recorded a $2.9 million net inflow, while Grayscale\u2019s BTC had a $1.1 million inflow.\nAcross Nov.\n16 and 17, the group\u2019s combined net outflow was $232 million, including $133 million from IBIT.\nThe other 11 funds together had $328.1 million in net outflows over the full period.\nThat is a net figure, with inflows into some products offsetting outflows at others.\nIBIT\u2019s net assets were $50.086 billion as of Nov.\n17.\nThat point-in-time balance is separate from th",
+        "title": "IBIT drives 87.3% of $2.58 billion in bitcoin ETF outflows through Nov.\n17",
+        "url": "https://www.tokenpost.com/news/investing/60700",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-18",
+        "quotes": [
+          "Another $239.94 million left the funds on Tuesday, taking withdrawals for the month to $2.58 billion.",
+          "Blackrock's IBIT led the selling with a $209.54 million outflow."
+        ],
+        "text": "Another $239.94 million left the funds on Tuesday, taking withdrawals for the month to $2.58 billion.\nBlackrock's IBIT led the selling with a $209.54 million outflow.\n\nBitcoin exchange-traded funds (ETFs) lost another $239.94 million on Tuesday, pushing November outflows to $2.58 billion, with Blackrock\u2019s IBIT once again absorbing most of the redemptions.\nBitcoin ETFs Lose $2.58B in November With Blackrock Driving the Exit\nKey Takeaways\n- Bitcoin ETFs lost $239.94M on Tuesday, taking November outflows to $2.58B.\n- Blackrock\u2019s IBIT drove $209.54M of selling as the fund shifted from support to pressure.\n- A durable rebound likely needs broad buying to return across IBIT and rival bitcoin funds.\nBitcoin ETFs Shed $240M as November Losses Keep Building\nNovember is developing into bitcoin ETFs\u2019 most persistent test in months.\nAnother $239.94 million left the funds on Tuesday, taking withdrawals for the month to $2.58 billion.\nThat figure is equivalent to roughly 3.2% of the category\u2019s current $79.65 billion asset base, illustrating the scale of the retreat even before accounting for changes in bitcoin\u2019s price.\nBlackrock\u2019s IBIT led the selling with a $209.54 million outflow.\nGrayscale\u2019s GBTC lost $17.74 million, Ark & 21Shares\u2019 ARKB shed $13.12 million, and Valkyrie\u2019s BRRR posted a $3.60 million exit.\nMorgan Stanley\u2019s MSBT attracted $2.93 million, while Grayscale\u2019s Bitcoin Mini Trust added $1.13 million.\nTrading value reached $2.35 billion.\nIBIT Shifts From Support to Source of Pressure\nThe biggest change in the flow picture continues to center on Blackrock.\nIBIT spent much of 2026 acting as the strongest source of bitcoin\u2019s price demand.\nMore recently, it has become the largest withdrawal channel.\nThe fund lost almost a billion during the week of Nov.\n9 through Nov.\n13.\nTuesday brought another $209.54 million exit.\nThat matters because earlier bitcoin ETF recoveries often began when IBIT returned to strong inflows.\nSustained redemptions from the market\u2019s largest vehicle remove a source of buying power that previously helped absorb weakness elsewhere.\nThe smaller inflows into Morgan Stanley and Grayscale show that some buyers remain active.\nTheir scale, however, remains modest compared with the capital leaving the larger funds.\nNovember Flows Point to a Deeper Institutional Reset\nThe ",
+        "title": "Bitcoin ETFs lose $2.58B in November with BlackRock driving the exit",
+        "url": "https://news.bitcoin.com/bitcoin-etf/bitcoin-etfs-lose-2-58b-in-november-with-blackrock-driving-the-exit/",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "2026-11-13",
+        "quotes": [
+          "Bitcoin\u2019s slide back toward $70,000 has no single headline trigger."
+        ],
+        "text": "Bitcoin\u2019s slide back toward $70,000 has no single headline trigger.\n\nBitcoin dipped under $70K, first time since August\nSummary\n- BTC is underperforming, the strength of the USD not helping it.\nNo fresh catalysts I have seen.\nBitcoin\u2019s slide back toward $70,000 has no single headline trigger.\nThe pressure is coming from several directions at once, and most of it is about money leaving rather than news arriving.\nSupport appears just above $66K.\nThe clearest signal is in exchange-traded funds.\nUS spot bitcoin ETFs have recorded five straight sessions of outflows, taking November\u2019s withdrawals to close to $2 billion and pushing net flows for 2026 into negative territory.\nAlmost all of that has come from BlackRock\u2019s iShares fund.\nThat suggests larger institutional holders are reducing exposure, rather than retail traders panicking.\nRates are doing the rest.\nThis week\u2019s hot US inflation report has markets pricing a high chance of a Federal Reserve hike in December.\nFed officials, including New York Fed President John Williams, have said there is more work to do.\nHigher real yields and a dollar near multi-month highs raise the cost of holding assets that pay no income, the same force that has pushed gold sharply lower this year.\nBitcoin is also caught in the unwinding of the broader \u201cdebasement trade\u201d: investors who bought hard assets because of worries about government debt are now focused on tighter pol",
+        "title": "Bitcoin dipped under $70K, first time since August",
+        "url": "https://investinglive.com/cryptocurrency/bitcoin-dipped-under-70k-first-time-since-august/",
+        "verified": true
+      },
+      {
+        "download_error": "HTTPStatusError: Client error '451 ' for url 'https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=3'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St",
+        "primary": true,
+        "published": "",
+        "quotes": [
+          "[1794960000000,\"64947.36000000\",\"65002.00000000\",\"62062.97000000\",\"63068.22000000\",\"18699.69566000\",1795046399999",
+          "[1795046400000,\"63068.21000000\",\"63941.43000000\",\"62388.72000000\",\"63817.26000000\",\"6200.16594000\",1795132799999"
+        ],
+        "text": "[1794960000000,\"64947.36000000\",\"65002.00000000\",\"62062.97000000\",\"63068.22000000\",\"18699.69566000\",1795046399999\n[1795046400000,\"63068.21000000\",\"63941.43000000\",\"62388.72000000\",\"63817.26000000\",\"6200.16594000\",1795132799999",
+        "title": "Binance API: BTCUSDT 1-day klines (last 3 candles)",
+        "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=3",
+        "verified": null
+      },
+      {
+        "primary": false,
+        "published": "2026-11-17",
+        "quotes": [
+          "At 8:15 a.m.\nEastern Time on November 17, 2026, the price of Bitcoin (1 BTC) is $65,016.66."
+        ],
+        "text": "At 8:15 a.m.\nEastern Time on November 17, 2026, the price of Bitcoin (1 BTC) is $65,016.66.\n\nAt 8:15 a.m.\nEastern Time on November 17, 2026, the price of Bitcoin (1 BTC) is $65,016.66.\nThat represents a $1,003.87 increase from yesterday morning and about a $27,141 loss compared with the price one year ago.\nCheck Out Our Daily Rates Reports\n- Discover the highest high-yield savings rates for November 18, 2026.\n- Discover the highest CD rates for November 18, 2026.\n- Discover the top CD rates from major banks on November 18, 2026.\n- Discover the current mortgage rates for November 18, 2026.\n- Discover current refi mortgage rates report for November 18, 2026.\n- Discover current ARM mortgage rates report for November 18, 2026.\n- Discover current HELOC rates for November 18, 2026.\n- Discover the current price of gold for November 18, 2026.\n- Discover the current price of silver for November 18, 2026.\nWhat is Bitcoin?\nBitcoin is the first cryptocurrency ever created and is still the most widely recognized digital coin available in 2026.\nIts market capitalization sits around $1.33 trillion, far above runner-up Ethereum, which has a market value of roughly $233 billion.\nAt its core, Bitcoin is a decentralized digital currency.\nThat means it operates on a peer-to-peer network inste",
+        "title": "Fortune: price of bitcoin 11/17/2026",
+        "url": "https://fortune.com/article/price-of-bitcoin-11-17-2026/",
+        "verified": true
+      },
+      {
+        "primary": false,
+        "published": "",
+        "quotes": [],
+        "text": "| | | | | | | | | | | | | | \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Total |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| | \u00a0\u00a0\u00a0\u00a0\u00a0IBIT | \u00a0\u00a0FBTC | \u00a0\u00a0\u00a0BITB | \u00a0\u00a0ARKB | BTCO | EZBC | BRRR | HODL | BTCW | MSBT | \u00a0\u00a0\u00a0\u00a0GBTC | \u00a0\u00a0\u00a0\u00a0BTC | |\n| Fee | 0.25% | 0.25% | 0.20% | 0.21% | 0.25% | 0.19% | 0.25% | 0.20% | 0.25% | 0.14% | 1.50% | 0.15% | |\n| 02 Nov 2026 | (405.3) | 6.7 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | (398.6) |\n| 03 Nov 2026 | (95.0) | 6.8 | 21.9 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 3.3 | 0.0 | (52.6) | (115.6) |\n| 04 Nov 2026 | (201.2) | 236.7 | 15.2 | 19.9 | 4.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 74.6 |\n| 05 Nov 2026 | (105.0) | (199.9) | 0.0 | (18.9) | 0.0 | (32.9) | 0.0 | (23.6) | 0.0 | 0.0 | (49.9) | 0.0 | (430.2) |\n| 06 Nov 2026 | (403.0) | 42.8 | (20.5) | (20.1) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | (11.1) | 0.0 | (411.9) |\n| 09 Nov 2026 | (213.2) | 0.0 | 0.0 | (9.9) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 22.1 | 0.0 | 0.0 | (201.0) |\n| 10 Nov 2026 | (78.2) | (36.8) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 20.0 | 0.0 | 0.0 | (95.0) |\n| 11 Nov 2026 | (269.7) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 9.0 | (39.1) | 0.0 | (299.8) |\n| 12 Nov 2026 | (203.8) | (32.6) | (26.4) | (18.5) | 0.0 | 0.0 | 0.0 | (6.1) | 0.0 | 3.3 | 0.0 | 0.0 | (284.1) |\n| 13 Nov 2026 | (143.5) | (41.9) | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | (185.4) |\n| 16 Nov 2026 | 76.5 | (11.3) | 0.0 | (4.3) | (6.5) | (3.8) | 0.0 | 0.0 | 0.0 | (1.5) | (34.6) | (6.6) | 7.9 |\n| 17 Nov 2026 | (209.5) | 0.0 | 0.0 | (13.1) | 0.0 | 0.0 | (3.6) | 0.0 | 0.0 | 2.9 | (17.7) | 1.1 | (239.9) |\n| 18 Nov 2026 | (148.7) | (69.3) | (36.6) | (19.3) | 0.0 | 0.0 | 0.0 | (1.8) | 0.0 | 0.0 | (20.3) | (10.5) | (306.5) |\n| Total | 63,911 | 10,083 | 1,964 | 886 | 133 | 299 | 326 | 977 | 74 | 870 | (28,221) | 2,863 | 54,163 |\n| Average | 89.1 | 14.1 | 2.7 | 1.2 | 0.2 | 0.4 | 0.5 | 1.4 | 0.1 | 5.5 | (39.4) | 5.0 | 75.5 |\n| Maximum | 1,119.9 | 473.4 | 237.9 | 289.1 | 63.4 | 60.9 | 43.4 | 118.8 | 118.5 | 99.0 | 102.5 | 191.1 | 1,373.8 |\n| Minimum | (528.3) | (356.6) | (280.7) | (327.9) | (62.0) | (74.1) | (74.8) | (38.4) | (53.8) | (5.3) | (642.5) | (318.2) | (1,113.7) |\nSource: Farside Investors\nNote: The above table is generated automatically.\nFarside Investors is not liable for any errors or inaccuracies in the data.\nTo see an alternative table with all the daily flow data, click here.\nSource: Farside Investors\nNote: These charts are updated automatically in real time\nNote: These charts are updated automatically in real time",
+        "title": "Farside Investors: US spot bitcoin ETF flows",
+        "url": "https://farside.co.uk/btc/",
+        "verified": null
+      }
+    ]
+  }
+}
