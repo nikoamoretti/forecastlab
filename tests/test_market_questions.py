@@ -848,7 +848,9 @@ def test_second_look_export_refuses_to_write_inside_artifacts(tmp_path: Path) ->
     assert not (script.ROOT / "artifacts" / "sub").exists()
 
 
-def test_second_look_cli_usage(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_second_look_cli_usage(tmp_path: Path, capsys: pytest.CaptureFixture[str], monkeypatch: pytest.MonkeyPatch) -> None:
+    # The command reads the clock; the fixture's markets close on 2026-11-20, so the real date made this test fail from that day.
+    monkeypatch.setattr(script, "utcnow", lambda: SL_NOW)
     directory = _look_dir(tmp_path)
     out = tmp_path / "packet.json"
     assert script.main(["second-look", "export", str(directory), "--out", str(out), "--topics", "Tech,Politics"]) == 0
