@@ -1,0 +1,29 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-7150180",
+      "market_id": "7150180",
+      "method": "market_price_v1",
+      "volume": 7069.467857000001,
+      "volume_floor": 2500,
+      "yes_price": 0.931
+    },
+    {
+      "id": "polymarket-7121672",
+      "market_id": "7121672",
+      "method": "market_price_v1",
+      "volume": 3796.0624289999996,
+      "volume_floor": 1000,
+      "yes_price": 0.67
+    },
+    {
+      "id": "polymarket-6942345",
+      "market_id": "6942345",
+      "method": "market_price_v1",
+      "volume": 2739.7950690000002,
+      "volume_floor": 2500,
+      "yes_price": 0.1645
+    }
+  ],
+  "taken_at": "2026-11-20T10:08:18.753119+00:00"
+}

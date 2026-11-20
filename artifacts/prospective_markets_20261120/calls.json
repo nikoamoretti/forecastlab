@@ -1,0 +1,26 @@
+{
+  "polymarket-6942345": {
+    "claude": 0.57,
+    "market": 0.1645,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.1645
+  },
+  "polymarket-7121672": {
+    "claude": 0.5,
+    "market": 0.67,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.67
+  },
+  "polymarket-7150180": {
+    "claude": 0.94,
+    "market": 0.931,
+    "max_move": 0.0,
+    "members": 1,
+    "method": "market_anchored_call_v1",
+    "probability": 0.931
+  }
+}

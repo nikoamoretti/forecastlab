@@ -1,0 +1,109 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket, Manifold or Kalshi) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-20T10:08:18.753119+00:00",
+          "method": "market_price_v1",
+          "probability": 0.931
+        },
+        {
+          "created_at": "2026-11-20T12:40:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.94,
+          "rationale": "Binance BTCUSDT was about 61,800 at 10:14 UTC on 2026-11-20 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), so 56,000 is 9.4% below spot with five days to go. 30-day daily volatility is 2.28%, and 95.2% of 1,995 historical 5-day windows stayed above that ratio (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31). The downtrend (84,093 on 2026-10-21 to 61,987 on 2026-11-19) and ETF outflows (https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-440337) fatten the downside tail, and a recent miss on a similar price threshold argues against going above the low-to-mid 90s.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-440337",
+            "https://cryptobriefing.com/bitcoin-falls-23-november-2026-bear-market/"
+          ]
+        }
+      ],
+      "id": "polymarket-7150180",
+      "market_id": "7150180",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $56,000 on November 25?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-25",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-november-25-2026",
+      "topic": "Crypto",
+      "volume": 7069.467857000001,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-20T10:08:18.753119+00:00",
+          "method": "market_price_v1",
+          "probability": 0.67
+        },
+        {
+          "created_at": "2026-11-20T12:40:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "OpenRouter's October 2026 total of 790T implies about 178T a week (https://openrouter.ai/data/october-2026), and a secondary report puts the week ending Oct 26 near 194T (https://cryptobriefing.com/openrouter-10-quadrillion-token-run-rate/, 2026-11-02). Growth of roughly 7% a week would put late November near 250-260T. The rankings page shows the top ten models summing to about 200T and one-day figures implying roughly 280T a week (https://openrouter.ai/rankings, 2026-11-20), while Thanksgiving week and the unclear resolving total add downside risk. This is close to a coin flip.",
+          "sources": [
+            "https://openrouter.ai/rankings",
+            "https://openrouter.ai/data/october-2026",
+            "https://openrouter.ai/data/newsletter/the-token-state-of-play",
+            "https://cryptobriefing.com/openrouter-10-quadrillion-token-run-rate/",
+            "https://openrouter.ai/blog/announcements/hugging-face-inference-providers/"
+          ]
+        },
+        {
+          "created_at": "2026-11-20T12:43:29.130209+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.68,
+          "rationale": "Week ending Oct 26 was about 194T and growth near 7% a week gives roughly 270T by late November; the top 10 models alone sum to about 200T, with a long tail beyond them, so the total is likely well above 200T. Thanksgiving week and the unclear 'displayed total' leave real downside, so I stay near the market.",
+          "saw_market_price": true
+        }
+      ],
+      "id": "polymarket-7121672",
+      "market_id": "7121672",
+      "outcome": null,
+      "question": "Will OpenRouter process 260T or more tokens the week of November 23?",
+      "resolution_criteria": "This market will resolve according to the total number of tokens processed on OpenRouter for the week of November 23 to November 29, 2026.\n\nThe total number of tokens is the weekly total displayed in the Top Models chart on OpenRouter's AI Model Rankings page (https://openrouter.ai/rankings#top-models). OpenRouter's weeks run from 12:00 AM UTC on Monday to 11:59 PM UTC on Sunday, and a week's figures continue to update until the following week's figures are first displayed.\n\nThis market will resolve according to the total displayed for the week of November 23 to November 29, 2026 once the figures for the week of November 30, 2026 are first displayed. If the figures for the week of November 30, 2026 have not been displayed by 11:59 PM ET on December 4, 2026, this market will resolve according to the total displayed for the week of November 23 to November 29, 2026 at that time.\n\nThis market will resolve based on the total as displayed on the chart, including any rounding applied by OpenRouter. If the displayed total falls exactly on the boundary between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "resolution_date": "2026-11-30",
+      "resolution_source": "https://polymarket.com/event/openrouter-token-usage-week-of-november-23",
+      "topic": "Tech",
+      "volume": 3796.0624289999996,
+      "volume_floor": 1000
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-20T10:08:18.753119+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1645
+        },
+        {
+          "created_at": "2026-11-20T12:40:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.57,
+          "rationale": "Search snippets show UKMTO warnings 206-26 and 207-26 on 2026-11-16 and 210-26 on 2026-11-17 (https://safety4sea.com/armed-security-team-prevents-attempted-boarding-off-yemen/, 2026-11-17), so at least three notices, and probably four or five, fall in the window by 17 Nov. Numbering has run near 6.8 a week in 2026, and Hormuz activity is elevated (https://gulfnews.com/business/energy/hormuz-attacks-rise-as-iran-steps-up-pressure-on-shipping-ukmto-warns-1.500737866, 2026-11-06). Nothing was found for 18-20 Nov and the official page returned 403, so the count is unverified, with real risk of 8 or more or of fewer than 4.",
+          "sources": [
+            "https://www.ukmto.org/recent-incidents",
+            "https://www.newsquawk.com/headlines/ukmto-reports-a-maritime-incident-50-nautical-miles-southwest-of-al-mukalla-yemen",
+            "https://safety4sea.com/armed-security-team-prevents-attempted-boarding-off-yemen/",
+            "https://gulfnews.com/business/energy/hormuz-attacks-rise-as-iran-steps-up-pressure-on-shipping-ukmto-warns-1.500737866",
+            "https://www.bernama.com/en/news.php?id=2635105"
+          ]
+        }
+      ],
+      "id": "polymarket-6942345",
+      "market_id": "6942345",
+      "outcome": null,
+      "question": "Will UKMTO publish 4-7 notices between November 16-November 22?",
+      "resolution_criteria": "This market will resolve according to the total number of notices that UKMTO (United Kingdom Maritime Trade Operations) publishes on its Recent Incidents page with a publication date from November 16, 2026, through November 22, 2026 (UTC), inclusive, as displayed on that page.\n\nAll notice types will count, including warnings, advisories, suspicious activity notices, and attack reports, including time-late reports of incidents that occurred before November 16, 2026 (UTC). Each notice will be counted once.\n\nUpdates to, corrections of, or reissues of a previously published notice will not count as separate notices, including any subsequent notice that updates or provides additional information on an incident already reported by UKMTO.\n\nOnly notices published by UKMTO will count. Maritime incidents that are not the subject of a UKMTO notice published within the specified period will not count, regardless of whether they occurred or are reported by other sources.\n\nThis market will resolve as soon as all notices for the specified period have been published. Notices published after November 22, 2026 (UTC) will not be considered, even if they relate to incidents within the specified period.\n\nThe resolution source for this market will be UKMTO, specifically the Recent Incidents page at https://www.ukmto.org/recent-incidents. If that page is unavailable, notices published through UKMTO's official channels may be used.",
+      "resolution_date": "2026-11-23",
+      "resolution_source": "https://polymarket.com/event/how-many-ukmto-notices-november-1622",
+      "topic": "World",
+      "volume": 2739.7950690000002,
+      "volume_floor": 2500
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v9+manifold_selection_v4+kalshi_selection_v1"
+}

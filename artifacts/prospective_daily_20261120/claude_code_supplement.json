@@ -1,0 +1,23 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-11-20T12:40:08+00:00",
+      "entry_id": "16e874d58dd170be",
+      "probability": 0.35,
+      "rationale": "The latest first print was exactly 203,000 (DOL, https://www.dol.gov/ui/data.pdf, 2026-11-19), which would resolve No on a repeat, and the 4-week average is 197,750 with only 2 of the last 12 weeks above 203,000. Against that, claims have risen from 191,000 to 202,000 to 203,000 and the prior week was revised up 2,000, so a first print of 204,000 or more is plausible. The pre-Thanksgiving week a year earlier dipped 6,000 (https://www.calculatedriskblog.com/2025/11/weekly-initial-unemployment-claims_26.html?m=1, 2025-11-26). I expect a first print centered near 201,000 with a spread of about 6,000.",
+      "release_event": "claims-2026-11-26",
+      "sources": [
+        "https://www.dol.gov/ui/data.pdf",
+        "https://fred.stlouisfed.org/series/ICSA",
+        "https://www.rttnews.com/3716457/u-s-jobless-claims-unexpectedly-inch-up-to-two-month-high.aspx",
+        "https://www.calculatedriskblog.com/2025/11/weekly-initial-unemployment-claims_26.html?m=1"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261120",
+  "generated_at": "2026-11-20T12:40:08+00:00",
+  "manifest_hash": "bed7822971d8bed39a95a7e32a4bd824bda334a3623f14aee405e515c300706e",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}

@@ -1,75 +1,75 @@
 {
   "calibration": {
-    "as_of": "2026-11-19",
-    "intercept": 0.20926,
-    "results": 258,
-    "slope": 0.691977
+    "as_of": "2026-11-20",
+    "intercept": 0.194145,
+    "results": 262,
+    "slope": 0.681314
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
-      "brier": 0.21217325836421602,
+      "brier": 0.21213484932649274,
       "coin_flip_brier": 0.25,
-      "forecasts": 326,
+      "forecasts": 330,
       "label": "Combined forecast",
-      "last_forecast_on": "2026-11-19",
+      "last_forecast_on": "2026-11-20",
       "method": "combined_median_v1",
-      "resolved": 264,
-      "right": 179,
+      "resolved": 270,
+      "right": 184,
       "toss_ups": 3,
-      "wrong": 82
+      "wrong": 83
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
-      "brier": 0.20555019305019304,
+      "brier": 0.20595245283018868,
       "coin_flip_brier": 0.25,
-      "forecasts": 320,
+      "forecasts": 324,
       "label": "Claude alone",
-      "last_forecast_on": "2026-11-19",
+      "last_forecast_on": "2026-11-20",
       "method": "claude_code_forecaster_v1",
-      "resolved": 259,
-      "right": 170,
+      "resolved": 265,
+      "right": 174,
       "toss_ups": 7,
-      "wrong": 82
+      "wrong": 84
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
-      "brier": 0.0495,
+      "brier": 0.04231666666666667,
       "coin_flip_brier": 0.25,
-      "forecasts": 15,
+      "forecasts": 16,
       "label": "Claude, second look",
-      "last_forecast_on": "2026-11-18",
+      "last_forecast_on": "2026-11-20",
       "method": "claude_second_look_v1",
-      "resolved": 5,
-      "right": 5,
+      "resolved": 6,
+      "right": 6,
       "toss_ups": 0,
       "wrong": 0
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.22268100201813332,
+      "brier": 0.2242193732299,
       "coin_flip_brier": 0.25,
-      "forecasts": 47,
+      "forecasts": 50,
       "label": "Learned model",
-      "last_forecast_on": "2026-11-19",
+      "last_forecast_on": "2026-11-20",
       "method": "learned_model_v1",
-      "resolved": 15,
-      "right": 12,
+      "resolved": 20,
+      "right": 16,
       "toss_ups": 0,
-      "wrong": 3
+      "wrong": 4
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
-      "brier": 0.20393194444444446,
+      "brier": 0.20484246575342466,
       "coin_flip_brier": 0.25,
       "forecasts": 78,
       "label": "Nemotron Ultra (judge)",
       "last_forecast_on": "2026-10-23",
       "method": "judge_nemotron_ultra_v1",
-      "resolved": 72,
+      "resolved": 73,
       "right": 50,
       "toss_ups": 0,
-      "wrong": 22
+      "wrong": 23
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Super) that forecasts from Claude's research notes.",
@@ -86,16 +86,16 @@
     },
     {
       "about": "Open-weights model (DeepSeek V4 Pro) that forecasts from Claude's research notes.",
-      "brier": 0.214584375,
+      "brier": 0.21493105590062114,
       "coin_flip_brier": 0.25,
       "forecasts": 170,
       "label": "DeepSeek V4 Pro (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_deepseek_v4_pro_v1",
-      "resolved": 160,
+      "resolved": 161,
       "right": 107,
       "toss_ups": 1,
-      "wrong": 52
+      "wrong": 53
     },
     {
       "about": "Open-weights model (Moonshot AI Kimi K2.6) that forecasts from Claude's research notes.",
@@ -112,27 +112,27 @@
     },
     {
       "about": "Open-weights model (Alibaba Qwen3.8 27B) that forecasts from Claude's research notes.",
-      "brier": 0.21028662420382166,
+      "brier": 0.21041392405063294,
       "coin_flip_brier": 0.25,
       "forecasts": 167,
       "label": "Qwen 3.8 27B (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_qwen38_27b_v1",
-      "resolved": 157,
-      "right": 113,
+      "resolved": 158,
+      "right": 114,
       "toss_ups": 0,
       "wrong": 44
     },
     {
       "about": "Open-weights model (MiniMax M3) that forecasts from Claude's research notes.",
-      "brier": 0.21350123456790127,
+      "brier": 0.21327361963190186,
       "coin_flip_brier": 0.25,
       "forecasts": 171,
       "label": "MiniMax M3 (judge)",
       "last_forecast_on": "2026-10-30",
       "method": "judge_minimax_m3_v1",
-      "resolved": 162,
-      "right": 113,
+      "resolved": 163,
+      "right": 114,
       "toss_ups": 2,
       "wrong": 47
     },
@@ -205,9 +205,9 @@
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
       "brier": 0.2532409395188137,
       "coin_flip_brier": 0.25,
-      "forecasts": 31,
+      "forecasts": 32,
       "label": "Statistical baseline",
-      "last_forecast_on": "2026-11-17",
+      "last_forecast_on": "2026-11-20",
       "method": "statistical_baseline_v1",
       "resolved": 27,
       "right": 11,
@@ -216,40 +216,40 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.20281283317065454,
+      "brier": 0.20421261789291664,
       "coin_flip_brier": 0.25,
-      "forecasts": 95,
+      "forecasts": 99,
       "label": "Claude, confidence-corrected",
-      "last_forecast_on": "2026-11-19",
+      "last_forecast_on": "2026-11-20",
       "method": "claude_calibrated_v1",
-      "resolved": 55,
-      "right": 40,
+      "resolved": 60,
+      "right": 44,
       "toss_ups": 0,
-      "wrong": 15
+      "wrong": 16
     },
     {
       "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
-      "brier": 0.16665258379120879,
+      "brier": 0.16856266532258066,
       "coin_flip_brier": 0.25,
-      "forecasts": 224,
+      "forecasts": 227,
       "label": "Prediction market (benchmark)",
-      "last_forecast_on": "2026-11-19",
+      "last_forecast_on": "2026-11-20",
       "method": "market_price_v1",
-      "resolved": 182,
-      "right": 137,
+      "resolved": 186,
+      "right": 140,
       "toss_ups": 0,
-      "wrong": 45
+      "wrong": 46
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
-      "brier": 0.1466253056,
+      "brier": 0.14248555557692308,
       "coin_flip_brier": 0.25,
       "forecasts": 61,
       "label": "Manifold (benchmark)",
       "last_forecast_on": "2026-11-19",
       "method": "manifold_price_v1",
-      "resolved": 50,
-      "right": 37,
+      "resolved": 52,
+      "right": 39,
       "toss_ups": 0,
       "wrong": 13
     },
@@ -267,21 +267,218 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-19",
+  "generated_on": "2026-11-20",
   "learned_model": {
-    "as_of": "2026-11-19",
-    "intercept": 0.103635,
-    "results": 233,
-    "slope": 0.925808,
+    "as_of": "2026-11-20",
+    "intercept": 0.071699,
+    "results": 236,
+    "slope": 0.896104,
     "weights": {
-      "Crypto": -0.25021,
-      "Economy": -0.185484,
-      "Politics": -0.365922,
-      "Tech": 0.425362,
-      "World": -0.429008
+      "Crypto": -0.155989,
+      "Economy": -0.1951,
+      "Politics": -0.396203,
+      "Tech": 0.408786,
+      "World": -0.433421
     }
   },
   "questions": [
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "claude": 0.9,
+        "market": 0.8981,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.8981
+      },
+      "detail": "This market resolves YES if Anthropic is trading on NASDAQ (or any other US exchange) at close of market (4:00 PM Eastern Time) on Friday Nov 20.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-11T14:21:26+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.9,
+          "rationale": "Anthropic publicly filed its S-1 on 2026-10-26, filed an S-1/A on 2026-11-10 setting a $70-78 range for 825M shares, and launched its roadshow the same day (https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/, https://www.anthropic.com/news). Sources report pricing on 2026-11-18 and first trade on 2026-11-19 (CNBC, 2026-11-10), leaving a day of cushion before the 2026-11-20 close. Risks are a market-driven delay or earlier timetable slips (September/October targets were missed), but a launched roadshow with a range rarely slips by more than a few days.",
+          "sources": [
+            "https://www.anthropic.com/news/s1-sec",
+            "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/",
+            "https://www.cnbc.com/2026/11/10/anthropic-sets-price-range-of-70-to-78-in-upcoming-ipo.html",
+            "https://www.sec.gov/cgi-bin/browse-edgar?company=anthropic&type=S-1&action=getcompany"
+          ]
+        },
+        {
+          "made_at": "2026-11-11T14:24:14.311285+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.92,
+          "rationale": "Roadshow launched Nov 10 with a $70-78 range; reported pricing Nov 18 and first trade Nov 19 leave one trading day of cushion. Launched roadshows rarely slip more than a few days. Slightly above market."
+        },
+        {
+          "as_of": "2026-11-11",
+          "claude": 0.9,
+          "claude_weight": 0.532066,
+          "intercept": 0.351934,
+          "market": 0.8981,
+          "method": "learned_model_v1",
+          "probability": 0.940939,
+          "results": 197,
+          "slope": 1.1052
+        },
+        {
+          "as_of": "2026-11-11",
+          "intercept": 0.318129,
+          "method": "claude_calibrated_v1",
+          "probability": 0.879052,
+          "raw": 0.9,
+          "results": 219,
+          "slope": 0.757935
+        },
+        {
+          "made_at": "2026-11-11T12:31:46.823210+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.8981
+        }
+      ],
+      "id": "manifold-dLEZL5CLgc",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-20",
+      "scored": true,
+      "source": "prospective_markets_20261111",
+      "source_url": "https://manifold.markets/EriccNsnA/will-anthropic-ipo-by-nov-20",
+      "status": "resolved",
+      "title": "Will Anthropic IPO by Nov 20?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.4,
+        "market": 0.945,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.945
+      },
+      "detail": "This market will resolve according to the calendar day, in China Standard Time, on which Donald Trump physically leaves China during his first visit to China that begins between market creation and November 22, 2026, 11:59 PM China Standard Time.\n\nA \"visit\" is defined as Trump physically entering the terrestrial or maritime territory of China. Trump will be considered to leave China once he physically leaves the terrestrial and maritime territory of China. Trump\u2019s presence in Chinese airspace will not be considered as being physically present in China.\n\nIf Donald Trump begins a visit to China before November 22, 2026, 11:59 PM China Standard Time, but does not leave China by that time, this market will resolve to \u201cAfter November 22\u201d.\n\nIf Donald Trump does not visit China by November 22, 2026, 11:59 PM China Standard Time, this market will resolve to \u201cNo visit by November 22\u201d.\n\nThe resolution source for this market will be official information from the government of the United States of America, official information from Trump or released by his verified social media accounts, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-13T13:29:57+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.4,
+          "rationale": "Trump said around 2026-11-09 he will attend the Shenzhen APEC leaders' meeting on Nov 18-19 (https://news.rthk.hk/rthk/en/component/k2/1877112-20261109.htm), with a reported Manila ASEAN stop on Nov 16 first (https://astig.ph/trump-asean-summit-manila-november-16-2026/). No White House itinerary or Chinese confirmation exists yet (https://www.voanews.com/a/ahead-of-china-trip-white-house-says-america-s-best-interest-will-drive-foreign-policy-20261105/8219368.html). I put roughly 80% on the visit happening, and given a visit, Nov 19 China time is the most likely exit day (meeting's last day) but Nov 18 (short trip) and Nov 20 or later (extra Xi/Putin talks, late US-time departure) are real alternatives.",
+          "sources": [
+            "https://news.rthk.hk/rthk/en/component/k2/1877112-20261109.htm",
+            "https://astig.ph/trump-asean-summit-manila-november-16-2026/",
+            "https://www.voanews.com/a/ahead-of-china-trip-white-house-says-america-s-best-interest-will-drive-foreign-policy-20261105/8219368.html",
+            "https://www.lg.gov.cn/english/news/latestnews/content/post_12588327.html",
+            "https://koreatimes.co.kr/world/20261107/china-confirms-discussions-underway-on-historic-xi-trump-putin-meeting"
+          ]
+        },
+        {
+          "as_of": "2026-11-13",
+          "claude": 0.4,
+          "claude_weight": -0.39072,
+          "intercept": 0.294748,
+          "market": 0.945,
+          "method": "learned_model_v1",
+          "probability": 0.98,
+          "results": 204,
+          "slope": 1.074711
+        },
+        {
+          "as_of": "2026-11-13",
+          "intercept": 0.309733,
+          "method": "claude_calibrated_v1",
+          "probability": 0.501244,
+          "raw": 0.4,
+          "results": 228,
+          "slope": 0.75162
+        },
+        {
+          "made_at": "2026-11-13T13:13:02.025033+00:00",
+          "method": "market_price_v1",
+          "probability": 0.945
+        }
+      ],
+      "id": "polymarket-6948156",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-20",
+      "scored": true,
+      "source": "prospective_markets_20261113",
+      "source_url": "https://polymarket.com/event/when-will-trump-leave-china-20261110",
+      "status": "resolved",
+      "title": "Will Trump leave China on November 19?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.35,
+        "market": 0.4,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.4
+      },
+      "detail": "A \"full lid\" at the White House is an official announcement indicating that the President's public activities for the day have concluded and no further public events, appearances, or news are expected.\n\nThis market will resolve to \u201cYes\u201d if the White House Press Office calls a full lid for the specified date by 6:30 PM ET on that date. Otherwise, this market will resolve to \u201cNo\u201d.\n\nOnly a full lid will qualify; lunch lids, intermissions, or any other press lid not explicitly listed as a full lid will not be sufficient to qualify this market towards a \"Yes\" resolution.\n\nA qualifying full lid may be reported by the resolution sources through 11:59 PM ET on the following day, provided the source indicates that it was called by the 6:30 PM ET cutoff.\n\nThis market will resolve according to the time listed by Roll Call of the first full lid called in the daily calendar (https://rollcall.com/factbase/trump/calendar/). If Roll Call does not list a lid time or is for any reason unavailable, this market will resolve according to Forth (https://www.forth.news/whpool).",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "No schedule for 2026-11-19 was found as of 2026-11-17. Roll Call's calendar already lists the date but its update rule is midnight ET or social push (https://rollcall.com/factbase/trump/calendar/). Recent evening lids were a travel/photo lid at 18:01 on 2026-11-05 (https://www.presidency.ucsb.edu/documents/pool-reports-november-5-2026), a lid at 9:05 pm on 2026-11-13 and an evening lid of unstated type on 2026-11-12. The 2025-11-19 lid came at 6:17 pm with type unstated (https://www.presidency.ucsb.edu/documents/pool-reports-november-19-2025). No 'Full lid called' entry was confirmed on any Roll Call month page opened, and only a full lid by 6:30 PM ET counts, so I stay below even odds.",
+          "sources": [
+            "https://rollcall.com/factbase/trump/calendar/",
+            "https://rollcall.com/factbase/trump/calendar/november-2026/",
+            "https://www.presidency.ucsb.edu/documents/pool-reports-november-12-2026",
+            "https://www.presidency.ucsb.edu/documents/pool-reports-november-5-2026",
+            "https://www.presidency.ucsb.edu/documents/pool-reports-november-19-2025"
+          ]
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.35,
+          "claude_weight": -0.356561,
+          "intercept": 0.151961,
+          "market": 0.4,
+          "method": "learned_model_v1",
+          "probability": 0.450621,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.43933,
+          "raw": 0.35,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.4
+        }
+      ],
+      "id": "polymarket-7088768",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-20",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/will-the-white-house-call-a-full-lid-by-630-pm-on-november-19-2026",
+      "status": "resolved",
+      "title": "Will the White House call a full lid by 6:30 PM on November 19?",
+      "topic": "Politics",
+      "verdict": "right"
+    },
     {
       "actual": "203,000 claims",
       "call": {
@@ -330,6 +527,126 @@
       "title": "Will weekly U.S. jobless claims for the week ending Nov 14, 2026 come in above 200,000 claims?",
       "topic": "Jobs",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.8,
+        "market": 0.9245,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.9245
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-13T13:29:57+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.8,
+          "rationale": "Reports dated 2026-11-13 put bitcoin near $68,400-69,000 after a roughly 6% daily drop and over $1.3B of liquidations (https://time.news/bitcoin-prices-dropped-below-69000-on-november-13-2026-marking-a-significant-decline/, https://cryptoticker.io/en/crypto-news-bitcoin-crash-liquidations-etf-outflows-november-13-2026/), about 7% above $64,000. With six days to the Nov 19 17:00 UTC Binance candle and roughly 2.5-3% daily volatility, staying above is about 0.80-0.85 likely; I shade down for the five-week losing streak and ETF outflows (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984). It is set slightly below the Nov 18 threshold to stay nested, and no FOMC decision falls before 2026-12-09.",
+          "sources": [
+            "https://time.news/bitcoin-prices-dropped-below-69000-on-november-13-2026-marking-a-significant-decline/",
+            "https://cryptoticker.io/en/crypto-news-bitcoin-crash-liquidations-etf-outflows-november-13-2026/",
+            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+            "https://fedratecalc.com/fomc-meeting-schedule/december-2026/"
+          ]
+        },
+        {
+          "as_of": "2026-11-13",
+          "claude": 0.8,
+          "claude_weight": -0.345245,
+          "intercept": 0.294748,
+          "market": 0.9245,
+          "method": "learned_model_v1",
+          "probability": 0.96686,
+          "results": 204,
+          "slope": 1.074711
+        },
+        {
+          "as_of": "2026-11-13",
+          "intercept": 0.309733,
+          "method": "claude_calibrated_v1",
+          "probability": 0.794407,
+          "raw": 0.8,
+          "results": 228,
+          "slope": 0.75162
+        },
+        {
+          "made_at": "2026-11-13T13:13:02.025033+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9245
+        }
+      ],
+      "id": "polymarket-6990957",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-19",
+      "scored": true,
+      "source": "prospective_markets_20261113",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-19-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $64,000 on November 19?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.93,
+        "market": 0.9355,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.9355
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-16T12:56:38+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.93,
+          "rationale": "Binance ETHUSDT was about 1,794-1,799 on 2026-11-16 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31), about 11% above 1,600, with roughly 3.2 days to the 17:00 UTC 2026-11-19 close and 30-day daily vol of 3.1%, which is about 2 sigma. ETH has fallen from about 2,400 on 2026-10-17 and ETF withdrawals continued (https://www.mitrade.com/insights/news/live-news/article-3-2246353-20261111), and my recent threshold calls on ETH and BTC missed in sell-offs, so I cut the thin-tailed figure for fat tails. No FOMC or CPI release falls before resolution (https://www.federalreserve.gov/newsevents/2026-december.htm)."
+        },
+        {
+          "as_of": "2026-11-16",
+          "claude": 0.93,
+          "claude_weight": -0.323328,
+          "intercept": 0.171912,
+          "market": 0.9355,
+          "method": "learned_model_v1",
+          "probability": 0.950942,
+          "results": 220,
+          "slope": 1.03356
+        },
+        {
+          "as_of": "2026-11-16",
+          "intercept": 0.237097,
+          "method": "claude_calibrated_v1",
+          "probability": 0.89718,
+          "raw": 0.93,
+          "results": 244,
+          "slope": 0.745812
+        },
+        {
+          "made_at": "2026-11-16T12:32:17.258238+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9355
+        }
+      ],
+      "id": "polymarket-6990900",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-19",
+      "scored": true,
+      "source": "prospective_markets_20261116",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-19-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $1,600 on November 19?",
+      "topic": "Crypto",
+      "verdict": "right"
     },
     {
       "actual": "Polymarket: Yes",
@@ -6737,6 +7054,70 @@
       "title": "Will commitments to the 1W public sale exceed $60M?",
       "topic": "Crypto",
       "verdict": "wrong"
+    },
+    {
+      "actual": "Manifold: No",
+      "call": {
+        "members": 5,
+        "method": "combined_median_v1",
+        "probability": 0.48
+      },
+      "detail": "Resolution criteria\n\nThe election will be held on November 3, 2026. The market resolves YES if Dan Sullivan wins the general election and is elected to represent Alaska in the U.S. Senate. The market resolves NO if any other candidate wins. Resolution will be determined by official results from the Alaska Division of Elections (https://www.elections.alaska.gov/candidates/).\n\nBackground\n\nSullivan, having been re-elected in 2020 with 53.9% of the vote, has declared his re-election bid. Three prominent election forecasters \u2014 Cook Political Report, Inside Elections, and Sabato's Crystal Ball \u2014 currently rate the 2026 Alaska Senate race as \"Solid Republican\". Sullivan's second-quarter fundraising haul totaled $1.4 million, positioning him well for what appears to be a low-threat election cycle.\n\nConsiderations\n\nA jungle primary election will be held on August 18, 2026, from which the top four candidates will advance to the general election. Sullivan has never been in the ranked-choice voting scenario that was implemented in 2022, so this will be his first election in which he faces the \"squirrelly voting system that dark-money installed in Alaska\" (according to Republicans). Former U.S. Representative from Alaska's at-large congressional district Mary Peltola has also expressed interest in running for this seat; I have a separate market on whether she will run.",
+      "forecasts": [
+        {
+          "made_at": "2026-10-21T10:55:44+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.45,
+          "rationale": "Mary Peltola (D) led Sullivan 49.5% to 41.4% in the 18 August primary (Alaska Division of Elections), and Rasmussen's 12 to 15 October poll of 775 likely voters has her ahead 44% to 42%, within the 3-point error. Cook rated the seat a Toss Up on 20 October, and Republican groups have spent more than $18 million (Washington Post, 6 October). Against that, Alaska last elected a Democratic senator in 2008, Sullivan won 53.9% in 2020, and a second Republican named Dan Sullivan on the ballot confuses voters, which the Guardian reported on 14 October. Ranked-choice reallocation is uncertain, so I make Sullivan slightly less than even.",
+          "sources": [
+            "https://www.elections.alaska.gov/enr26/results/ElectionSummaryReportRPT.pdf",
+            "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_alaska_senate",
+            "https://www.nbcnews.com/politics/2026-election/alaska-finalizes-senate-race-3-republicans-2-dan-sullivan-1-democrat-rcna595617",
+            "https://www.theguardian.com/us-news/2026/oct/14/trump-urges-alaska-vote-republican-dan-sullivan-midterms-battle"
+          ]
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_nemotron_ultra_v1",
+          "probability": 0.52,
+          "rationale": "Base rate: Sullivan won 53.9% in 2020 under plurality voting, but this is his first ranked-choice election with a strong Democratic opponent (Peltola) and a same-name Republican spoiler. Evidence: Primary showed Peltola leading by 8 points (49.5% vs 41.4%), but general election polling (Rasmussen, Oct 12-15) shows a statistical tie (Peltola 44%, Sullivan 42%, \u00b13% MOE). Cook Political Report rates it Toss Up. Structural factors favor Sullivan: incumbent advantage, Alaska's strong Republican lean (Trump won widely in 2024), Trump endorsement, and >$18M in national GOP spending. However, ranked-choice dynamics are unpredictable \u2014 second-choice preferences from the two minor Republicans (7% combined) and potential voter confusion between the two Sullivans create significant uncertainty. The race is genuinely competitive; a slight edge to Sullivan reflects the state's partisan baseline and incumbent resources, but Peltola's strength and the novel voting system keep it near a coin flip."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_deepseek_v4_pro_v1",
+          "probability": 0.52,
+          "rationale": "The base rate for an incumbent Republican in Alaska is high, but this race is rated a Toss Up by Cook Political Report and recent polling shows a statistical tie (Peltola 44%, Sullivan 42%). The presence of a second Republican named Dan Sullivan on the ballot introduces significant uncertainty under ranked-choice voting, potentially splitting the GOP vote. However, Alaska's Republican lean, heavy national GOP spending, and Trump's involvement give Sullivan a slight edge, though the outcome is highly uncertain."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_qwen38_27b_v1",
+          "probability": 0.48,
+          "rationale": "The base rate favors an incumbent in a red state, but Sullivan's primary loss and Peltola's lead in the latest Rasmussen poll make this a true toss-up. RCV transfers from the two minor Republican candidates and the six-point undecided pool are the key swing factors, with Trump's endorsement and national GOP spending supporting Sullivan. I put him slightly under even because Peltola's primary and polling lead suggests a modest edge."
+        },
+        {
+          "made_at": "2026-10-21T10:57:13.952713+00:00",
+          "method": "judge_minimax_m3_v1",
+          "probability": 0.42,
+          "rationale": "Base rate: Alaska is a red-leaning state (Trump won by wide margins, no Dem senator since 2008), and incumbents typically have structural advantages, but the race has shifted dramatically. Evidence: Peltola led the primary 49.5% to 41.4%, Rasmussen shows Peltola 44% to Sullivan 42% with 6% undecided, Cook moved the race to Toss Up, and $18M+ in GOP spending suggests internal concern. The ranked-choice system and the second 'Dan Sullivan' candidate create additional uncertainty that could help Peltola. The race is essentially a toss-up with a slight edge to Peltola given the polling and primary results."
+        },
+        {
+          "made_at": "2026-10-21T09:17:28.572088+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.26
+        }
+      ],
+      "id": "manifold-ULun8EOAAn",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-03",
+      "scored": true,
+      "source": "prospective_markets_20261021",
+      "source_url": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
+      "status": "resolved",
+      "title": "Will Dan Sullivan win re-election to Alaska's Senate seat in 2026?",
+      "topic": "Politics",
+      "verdict": "right"
     },
     {
       "actual": "Manifold: Yes",
@@ -17599,70 +17980,6 @@
     {
       "actual": null,
       "call": {
-        "members": 5,
-        "method": "combined_median_v1",
-        "probability": 0.48
-      },
-      "detail": "Resolution criteria\n\nThe election will be held on November 3, 2026. The market resolves YES if Dan Sullivan wins the general election and is elected to represent Alaska in the U.S. Senate. The market resolves NO if any other candidate wins. Resolution will be determined by official results from the Alaska Division of Elections (https://www.elections.alaska.gov/candidates/).\n\nBackground\n\nSullivan, having been re-elected in 2020 with 53.9% of the vote, has declared his re-election bid. Three prominent election forecasters \u2014 Cook Political Report, Inside Elections, and Sabato's Crystal Ball \u2014 currently rate the 2026 Alaska Senate race as \"Solid Republican\". Sullivan's second-quarter fundraising haul totaled $1.4 million, positioning him well for what appears to be a low-threat election cycle.\n\nConsiderations\n\nA jungle primary election will be held on August 18, 2026, from which the top four candidates will advance to the general election. Sullivan has never been in the ranked-choice voting scenario that was implemented in 2022, so this will be his first election in which he faces the \"squirrelly voting system that dark-money installed in Alaska\" (according to Republicans). Former U.S. Representative from Alaska's at-large congressional district Mary Peltola has also expressed interest in running for this seat; I have a separate market on whether she will run.",
-      "forecasts": [
-        {
-          "made_at": "2026-10-21T10:55:44+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.45,
-          "rationale": "Mary Peltola (D) led Sullivan 49.5% to 41.4% in the 18 August primary (Alaska Division of Elections), and Rasmussen's 12 to 15 October poll of 775 likely voters has her ahead 44% to 42%, within the 3-point error. Cook rated the seat a Toss Up on 20 October, and Republican groups have spent more than $18 million (Washington Post, 6 October). Against that, Alaska last elected a Democratic senator in 2008, Sullivan won 53.9% in 2020, and a second Republican named Dan Sullivan on the ballot confuses voters, which the Guardian reported on 14 October. Ranked-choice reallocation is uncertain, so I make Sullivan slightly less than even.",
-          "sources": [
-            "https://www.elections.alaska.gov/enr26/results/ElectionSummaryReportRPT.pdf",
-            "https://www.rasmussenreports.com/public_content/politics/elections/election_2026/election_2026_alaska_senate",
-            "https://www.nbcnews.com/politics/2026-election/alaska-finalizes-senate-race-3-republicans-2-dan-sullivan-1-democrat-rcna595617",
-            "https://www.theguardian.com/us-news/2026/oct/14/trump-urges-alaska-vote-republican-dan-sullivan-midterms-battle"
-          ]
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_nemotron_ultra_v1",
-          "probability": 0.52,
-          "rationale": "Base rate: Sullivan won 53.9% in 2020 under plurality voting, but this is his first ranked-choice election with a strong Democratic opponent (Peltola) and a same-name Republican spoiler. Evidence: Primary showed Peltola leading by 8 points (49.5% vs 41.4%), but general election polling (Rasmussen, Oct 12-15) shows a statistical tie (Peltola 44%, Sullivan 42%, \u00b13% MOE). Cook Political Report rates it Toss Up. Structural factors favor Sullivan: incumbent advantage, Alaska's strong Republican lean (Trump won widely in 2024), Trump endorsement, and >$18M in national GOP spending. However, ranked-choice dynamics are unpredictable \u2014 second-choice preferences from the two minor Republicans (7% combined) and potential voter confusion between the two Sullivans create significant uncertainty. The race is genuinely competitive; a slight edge to Sullivan reflects the state's partisan baseline and incumbent resources, but Peltola's strength and the novel voting system keep it near a coin flip."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_deepseek_v4_pro_v1",
-          "probability": 0.52,
-          "rationale": "The base rate for an incumbent Republican in Alaska is high, but this race is rated a Toss Up by Cook Political Report and recent polling shows a statistical tie (Peltola 44%, Sullivan 42%). The presence of a second Republican named Dan Sullivan on the ballot introduces significant uncertainty under ranked-choice voting, potentially splitting the GOP vote. However, Alaska's Republican lean, heavy national GOP spending, and Trump's involvement give Sullivan a slight edge, though the outcome is highly uncertain."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_qwen38_27b_v1",
-          "probability": 0.48,
-          "rationale": "The base rate favors an incumbent in a red state, but Sullivan's primary loss and Peltola's lead in the latest Rasmussen poll make this a true toss-up. RCV transfers from the two minor Republican candidates and the six-point undecided pool are the key swing factors, with Trump's endorsement and national GOP spending supporting Sullivan. I put him slightly under even because Peltola's primary and polling lead suggests a modest edge."
-        },
-        {
-          "made_at": "2026-10-21T10:57:13.952713+00:00",
-          "method": "judge_minimax_m3_v1",
-          "probability": 0.42,
-          "rationale": "Base rate: Alaska is a red-leaning state (Trump won by wide margins, no Dem senator since 2008), and incumbents typically have structural advantages, but the race has shifted dramatically. Evidence: Peltola led the primary 49.5% to 41.4%, Rasmussen shows Peltola 44% to Sullivan 42% with 6% undecided, Cook moved the race to Toss Up, and $18M+ in GOP spending suggests internal concern. The ranked-choice system and the second 'Dan Sullivan' candidate create additional uncertainty that could help Peltola. The race is essentially a toss-up with a slight edge to Peltola given the polling and primary results."
-        },
-        {
-          "made_at": "2026-10-21T09:17:28.572088+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.26
-        }
-      ],
-      "id": "manifold-ULun8EOAAn",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-03",
-      "scored": true,
-      "source": "prospective_markets_20261021",
-      "source_url": "https://manifold.markets/Plant/will-dan-sullivan-win-reelection-to",
-      "status": "pending",
-      "title": "Will Dan Sullivan win re-election to Alaska's Senate seat in 2026?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 4,
         "method": "combined_weighted_v1",
         "probability": 0.86,
@@ -18134,259 +18451,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.8,
-        "market": 0.9245,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.9245
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-13T13:29:57+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.8,
-          "rationale": "Reports dated 2026-11-13 put bitcoin near $68,400-69,000 after a roughly 6% daily drop and over $1.3B of liquidations (https://time.news/bitcoin-prices-dropped-below-69000-on-november-13-2026-marking-a-significant-decline/, https://cryptoticker.io/en/crypto-news-bitcoin-crash-liquidations-etf-outflows-november-13-2026/), about 7% above $64,000. With six days to the Nov 19 17:00 UTC Binance candle and roughly 2.5-3% daily volatility, staying above is about 0.80-0.85 likely; I shade down for the five-week losing streak and ETF outflows (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984). It is set slightly below the Nov 18 threshold to stay nested, and no FOMC decision falls before 2026-12-09.",
-          "sources": [
-            "https://time.news/bitcoin-prices-dropped-below-69000-on-november-13-2026-marking-a-significant-decline/",
-            "https://cryptoticker.io/en/crypto-news-bitcoin-crash-liquidations-etf-outflows-november-13-2026/",
-            "https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
-            "https://fedratecalc.com/fomc-meeting-schedule/december-2026/"
-          ]
-        },
-        {
-          "as_of": "2026-11-13",
-          "claude": 0.8,
-          "claude_weight": -0.345245,
-          "intercept": 0.294748,
-          "market": 0.9245,
-          "method": "learned_model_v1",
-          "probability": 0.96686,
-          "results": 204,
-          "slope": 1.074711
-        },
-        {
-          "as_of": "2026-11-13",
-          "intercept": 0.309733,
-          "method": "claude_calibrated_v1",
-          "probability": 0.794407,
-          "raw": 0.8,
-          "results": 228,
-          "slope": 0.75162
-        },
-        {
-          "made_at": "2026-11-13T13:13:02.025033+00:00",
-          "method": "market_price_v1",
-          "probability": 0.9245
-        }
-      ],
-      "id": "polymarket-6990957",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-19",
-      "scored": true,
-      "source": "prospective_markets_20261113",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-19-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $64,000 on November 19?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.93,
-        "market": 0.9355,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.9355
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-16T12:56:38+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.93,
-          "rationale": "Binance ETHUSDT was about 1,794-1,799 on 2026-11-16 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31), about 11% above 1,600, with roughly 3.2 days to the 17:00 UTC 2026-11-19 close and 30-day daily vol of 3.1%, which is about 2 sigma. ETH has fallen from about 2,400 on 2026-10-17 and ETF withdrawals continued (https://www.mitrade.com/insights/news/live-news/article-3-2246353-20261111), and my recent threshold calls on ETH and BTC missed in sell-offs, so I cut the thin-tailed figure for fat tails. No FOMC or CPI release falls before resolution (https://www.federalreserve.gov/newsevents/2026-december.htm)."
-        },
-        {
-          "as_of": "2026-11-16",
-          "claude": 0.93,
-          "claude_weight": -0.323328,
-          "intercept": 0.171912,
-          "market": 0.9355,
-          "method": "learned_model_v1",
-          "probability": 0.950942,
-          "results": 220,
-          "slope": 1.03356
-        },
-        {
-          "as_of": "2026-11-16",
-          "intercept": 0.237097,
-          "method": "claude_calibrated_v1",
-          "probability": 0.89718,
-          "raw": 0.93,
-          "results": 244,
-          "slope": 0.745812
-        },
-        {
-          "made_at": "2026-11-16T12:32:17.258238+00:00",
-          "method": "market_price_v1",
-          "probability": 0.9355
-        }
-      ],
-      "id": "polymarket-6990900",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-19",
-      "scored": true,
-      "source": "prospective_markets_20261116",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-november-19-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $1,600 on November 19?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.9,
-        "market": 0.8981,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.8981
-      },
-      "detail": "This market resolves YES if Anthropic is trading on NASDAQ (or any other US exchange) at close of market (4:00 PM Eastern Time) on Friday Nov 20.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-11T14:21:26+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.9,
-          "rationale": "Anthropic publicly filed its S-1 on 2026-10-26, filed an S-1/A on 2026-11-10 setting a $70-78 range for 825M shares, and launched its roadshow the same day (https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/, https://www.anthropic.com/news). Sources report pricing on 2026-11-18 and first trade on 2026-11-19 (CNBC, 2026-11-10), leaving a day of cushion before the 2026-11-20 close. Risks are a market-driven delay or earlier timetable slips (September/October targets were missed), but a launched roadshow with a range rarely slips by more than a few days.",
-          "sources": [
-            "https://www.anthropic.com/news/s1-sec",
-            "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/",
-            "https://www.cnbc.com/2026/11/10/anthropic-sets-price-range-of-70-to-78-in-upcoming-ipo.html",
-            "https://www.sec.gov/cgi-bin/browse-edgar?company=anthropic&type=S-1&action=getcompany"
-          ]
-        },
-        {
-          "made_at": "2026-11-11T14:24:14.311285+00:00",
-          "method": "claude_second_look_v1",
-          "probability": 0.92,
-          "rationale": "Roadshow launched Nov 10 with a $70-78 range; reported pricing Nov 18 and first trade Nov 19 leave one trading day of cushion. Launched roadshows rarely slip more than a few days. Slightly above market."
-        },
-        {
-          "as_of": "2026-11-11",
-          "claude": 0.9,
-          "claude_weight": 0.532066,
-          "intercept": 0.351934,
-          "market": 0.8981,
-          "method": "learned_model_v1",
-          "probability": 0.940939,
-          "results": 197,
-          "slope": 1.1052
-        },
-        {
-          "as_of": "2026-11-11",
-          "intercept": 0.318129,
-          "method": "claude_calibrated_v1",
-          "probability": 0.879052,
-          "raw": 0.9,
-          "results": 219,
-          "slope": 0.757935
-        },
-        {
-          "made_at": "2026-11-11T12:31:46.823210+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.8981
-        }
-      ],
-      "id": "manifold-dLEZL5CLgc",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-20",
-      "scored": true,
-      "source": "prospective_markets_20261111",
-      "source_url": "https://manifold.markets/EriccNsnA/will-anthropic-ipo-by-nov-20",
-      "status": "pending",
-      "title": "Will Anthropic IPO by Nov 20?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.4,
-        "market": 0.945,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.945
-      },
-      "detail": "This market will resolve according to the calendar day, in China Standard Time, on which Donald Trump physically leaves China during his first visit to China that begins between market creation and November 22, 2026, 11:59 PM China Standard Time.\n\nA \"visit\" is defined as Trump physically entering the terrestrial or maritime territory of China. Trump will be considered to leave China once he physically leaves the terrestrial and maritime territory of China. Trump\u2019s presence in Chinese airspace will not be considered as being physically present in China.\n\nIf Donald Trump begins a visit to China before November 22, 2026, 11:59 PM China Standard Time, but does not leave China by that time, this market will resolve to \u201cAfter November 22\u201d.\n\nIf Donald Trump does not visit China by November 22, 2026, 11:59 PM China Standard Time, this market will resolve to \u201cNo visit by November 22\u201d.\n\nThe resolution source for this market will be official information from the government of the United States of America, official information from Trump or released by his verified social media accounts, and a consensus of credible reporting.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-13T13:29:57+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.4,
-          "rationale": "Trump said around 2026-11-09 he will attend the Shenzhen APEC leaders' meeting on Nov 18-19 (https://news.rthk.hk/rthk/en/component/k2/1877112-20261109.htm), with a reported Manila ASEAN stop on Nov 16 first (https://astig.ph/trump-asean-summit-manila-november-16-2026/). No White House itinerary or Chinese confirmation exists yet (https://www.voanews.com/a/ahead-of-china-trip-white-house-says-america-s-best-interest-will-drive-foreign-policy-20261105/8219368.html). I put roughly 80% on the visit happening, and given a visit, Nov 19 China time is the most likely exit day (meeting's last day) but Nov 18 (short trip) and Nov 20 or later (extra Xi/Putin talks, late US-time departure) are real alternatives.",
-          "sources": [
-            "https://news.rthk.hk/rthk/en/component/k2/1877112-20261109.htm",
-            "https://astig.ph/trump-asean-summit-manila-november-16-2026/",
-            "https://www.voanews.com/a/ahead-of-china-trip-white-house-says-america-s-best-interest-will-drive-foreign-policy-20261105/8219368.html",
-            "https://www.lg.gov.cn/english/news/latestnews/content/post_12588327.html",
-            "https://koreatimes.co.kr/world/20261107/china-confirms-discussions-underway-on-historic-xi-trump-putin-meeting"
-          ]
-        },
-        {
-          "as_of": "2026-11-13",
-          "claude": 0.4,
-          "claude_weight": -0.39072,
-          "intercept": 0.294748,
-          "market": 0.945,
-          "method": "learned_model_v1",
-          "probability": 0.98,
-          "results": 204,
-          "slope": 1.074711
-        },
-        {
-          "as_of": "2026-11-13",
-          "intercept": 0.309733,
-          "method": "claude_calibrated_v1",
-          "probability": 0.501244,
-          "raw": 0.4,
-          "results": 228,
-          "slope": 0.75162
-        },
-        {
-          "made_at": "2026-11-13T13:13:02.025033+00:00",
-          "method": "market_price_v1",
-          "probability": 0.945
-        }
-      ],
-      "id": "polymarket-6948156",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-20",
-      "scored": true,
-      "source": "prospective_markets_20261113",
-      "source_url": "https://polymarket.com/event/when-will-trump-leave-china-20261110",
-      "status": "pending",
-      "title": "Will Trump leave China on November 19?",
-      "topic": "Politics",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.93,
         "market": 0.9285,
         "max_move": 0.0,
@@ -18685,70 +18749,6 @@
       "status": "pending",
       "title": "Will the price of XRP be above $0.90 on November 20?",
       "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.35,
-        "market": 0.4,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.4
-      },
-      "detail": "A \"full lid\" at the White House is an official announcement indicating that the President's public activities for the day have concluded and no further public events, appearances, or news are expected.\n\nThis market will resolve to \u201cYes\u201d if the White House Press Office calls a full lid for the specified date by 6:30 PM ET on that date. Otherwise, this market will resolve to \u201cNo\u201d.\n\nOnly a full lid will qualify; lunch lids, intermissions, or any other press lid not explicitly listed as a full lid will not be sufficient to qualify this market towards a \"Yes\" resolution.\n\nA qualifying full lid may be reported by the resolution sources through 11:59 PM ET on the following day, provided the source indicates that it was called by the 6:30 PM ET cutoff.\n\nThis market will resolve according to the time listed by Roll Call of the first full lid called in the daily calendar (https://rollcall.com/factbase/trump/calendar/). If Roll Call does not list a lid time or is for any reason unavailable, this market will resolve according to Forth (https://www.forth.news/whpool).",
-      "forecasts": [
-        {
-          "made_at": "2026-11-17T12:40:18+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.35,
-          "rationale": "No schedule for 2026-11-19 was found as of 2026-11-17. Roll Call's calendar already lists the date but its update rule is midnight ET or social push (https://rollcall.com/factbase/trump/calendar/). Recent evening lids were a travel/photo lid at 18:01 on 2026-11-05 (https://www.presidency.ucsb.edu/documents/pool-reports-november-5-2026), a lid at 9:05 pm on 2026-11-13 and an evening lid of unstated type on 2026-11-12. The 2025-11-19 lid came at 6:17 pm with type unstated (https://www.presidency.ucsb.edu/documents/pool-reports-november-19-2025). No 'Full lid called' entry was confirmed on any Roll Call month page opened, and only a full lid by 6:30 PM ET counts, so I stay below even odds.",
-          "sources": [
-            "https://rollcall.com/factbase/trump/calendar/",
-            "https://rollcall.com/factbase/trump/calendar/november-2026/",
-            "https://www.presidency.ucsb.edu/documents/pool-reports-november-12-2026",
-            "https://www.presidency.ucsb.edu/documents/pool-reports-november-5-2026",
-            "https://www.presidency.ucsb.edu/documents/pool-reports-november-19-2025"
-          ]
-        },
-        {
-          "as_of": "2026-11-17",
-          "claude": 0.35,
-          "claude_weight": -0.356561,
-          "intercept": 0.151961,
-          "market": 0.4,
-          "method": "learned_model_v1",
-          "probability": 0.450621,
-          "results": 225,
-          "slope": 1.051321
-        },
-        {
-          "as_of": "2026-11-17",
-          "intercept": 0.229744,
-          "method": "claude_calibrated_v1",
-          "probability": 0.43933,
-          "raw": 0.35,
-          "results": 250,
-          "slope": 0.765096
-        },
-        {
-          "made_at": "2026-11-17T10:24:03.289020+00:00",
-          "method": "market_price_v1",
-          "probability": 0.4
-        }
-      ],
-      "id": "polymarket-7088768",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-20",
-      "scored": true,
-      "source": "prospective_markets_20261117",
-      "source_url": "https://polymarket.com/event/will-the-white-house-call-a-full-lid-by-630-pm-on-november-19-2026",
-      "status": "pending",
-      "title": "Will the White House call a full lid by 6:30 PM on November 19?",
-      "topic": "Politics",
       "verdict": null
     },
     {
@@ -19597,6 +19597,70 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.57,
+        "market": 0.1645,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.1645
+      },
+      "detail": "This market will resolve according to the total number of notices that UKMTO (United Kingdom Maritime Trade Operations) publishes on its Recent Incidents page with a publication date from November 16, 2026, through November 22, 2026 (UTC), inclusive, as displayed on that page.\n\nAll notice types will count, including warnings, advisories, suspicious activity notices, and attack reports, including time-late reports of incidents that occurred before November 16, 2026 (UTC). Each notice will be counted once.\n\nUpdates to, corrections of, or reissues of a previously published notice will not count as separate notices, including any subsequent notice that updates or provides additional information on an incident already reported by UKMTO.\n\nOnly notices published by UKMTO will count. Maritime incidents that are not the subject of a UKMTO notice published within the specified period will not count, regardless of whether they occurred or are reported by other sources.\n\nThis market will resolve as soon as all notices for the specified period have been published. Notices published after November 22, 2026 (UTC) will not be considered, even if they relate to incidents within the specified period.\n\nThe resolution source for this market will be UKMTO, specifically the Recent Incidents page at https://www.ukmto.org/recent-incidents. If that page is unavailable, notices published through UKMTO's official channels may be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-20T12:40:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.57,
+          "rationale": "Search snippets show UKMTO warnings 206-26 and 207-26 on 2026-11-16 and 210-26 on 2026-11-17 (https://safety4sea.com/armed-security-team-prevents-attempted-boarding-off-yemen/, 2026-11-17), so at least three notices, and probably four or five, fall in the window by 17 Nov. Numbering has run near 6.8 a week in 2026, and Hormuz activity is elevated (https://gulfnews.com/business/energy/hormuz-attacks-rise-as-iran-steps-up-pressure-on-shipping-ukmto-warns-1.500737866, 2026-11-06). Nothing was found for 18-20 Nov and the official page returned 403, so the count is unverified, with real risk of 8 or more or of fewer than 4.",
+          "sources": [
+            "https://www.ukmto.org/recent-incidents",
+            "https://www.newsquawk.com/headlines/ukmto-reports-a-maritime-incident-50-nautical-miles-southwest-of-al-mukalla-yemen",
+            "https://safety4sea.com/armed-security-team-prevents-attempted-boarding-off-yemen/",
+            "https://gulfnews.com/business/energy/hormuz-attacks-rise-as-iran-steps-up-pressure-on-shipping-ukmto-warns-1.500737866",
+            "https://www.bernama.com/en/news.php?id=2635105"
+          ]
+        },
+        {
+          "as_of": "2026-11-20",
+          "claude": 0.57,
+          "claude_weight": -0.433421,
+          "intercept": 0.071699,
+          "market": 0.1645,
+          "method": "learned_model_v1",
+          "probability": 0.098758,
+          "results": 236,
+          "slope": 0.896104
+        },
+        {
+          "as_of": "2026-11-20",
+          "intercept": 0.194145,
+          "method": "claude_calibrated_v1",
+          "probability": 0.595361,
+          "raw": 0.57,
+          "results": 262,
+          "slope": 0.681314
+        },
+        {
+          "made_at": "2026-11-20T10:08:18.753119+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1645
+        }
+      ],
+      "id": "polymarket-6942345",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261120",
+      "source_url": "https://polymarket.com/event/how-many-ukmto-notices-november-1622",
+      "status": "pending",
+      "title": "Will UKMTO publish 4-7 notices between November 16-November 22?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.72,
         "market": 0.81,
         "max_move": 0.0,
@@ -19974,6 +20038,118 @@
     {
       "actual": null,
       "call": {
+        "claude": 0.94,
+        "market": 0.931,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.931
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-20T12:40:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.94,
+          "rationale": "Binance BTCUSDT was about 61,800 at 10:14 UTC on 2026-11-20 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), so 56,000 is 9.4% below spot with five days to go. 30-day daily volatility is 2.28%, and 95.2% of 1,995 historical 5-day windows stayed above that ratio (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31). The downtrend (84,093 on 2026-10-21 to 61,987 on 2026-11-19) and ETF outflows (https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-440337) fatten the downside tail, and a recent miss on a similar price threshold argues against going above the low-to-mid 90s.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-440337",
+            "https://cryptobriefing.com/bitcoin-falls-23-november-2026-bear-market/"
+          ]
+        },
+        {
+          "as_of": "2026-11-20",
+          "claude": 0.94,
+          "claude_weight": -0.155989,
+          "intercept": 0.071699,
+          "market": 0.931,
+          "method": "learned_model_v1",
+          "probability": 0.915305,
+          "results": 236,
+          "slope": 0.896104
+        },
+        {
+          "as_of": "2026-11-20",
+          "intercept": 0.194145,
+          "method": "claude_calibrated_v1",
+          "probability": 0.887834,
+          "raw": 0.94,
+          "results": 262,
+          "slope": 0.681314
+        },
+        {
+          "made_at": "2026-11-20T10:08:18.753119+00:00",
+          "method": "market_price_v1",
+          "probability": 0.931
+        }
+      ],
+      "id": "polymarket-7150180",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-25",
+      "scored": true,
+      "source": "prospective_markets_20261120",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-25-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $56,000 on November 25?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.35
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-21 be above 203,000 claims?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-20T12:40:08+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "The latest first print was exactly 203,000 (DOL, https://www.dol.gov/ui/data.pdf, 2026-11-19), which would resolve No on a repeat, and the 4-week average is 197,750 with only 2 of the last 12 weeks above 203,000. Against that, claims have risen from 191,000 to 202,000 to 203,000 and the prior week was revised up 2,000, so a first print of 204,000 or more is plausible. The pre-Thanksgiving week a year earlier dipped 6,000 (https://www.calculatedriskblog.com/2025/11/weekly-initial-unemployment-claims_26.html?m=1, 2025-11-26). I expect a first print centered near 201,000 with a spread of about 6,000.",
+          "sources": [
+            "https://www.dol.gov/ui/data.pdf",
+            "https://fred.stlouisfed.org/series/ICSA",
+            "https://www.rttnews.com/3716457/u-s-jobless-claims-unexpectedly-inch-up-to-two-month-high.aspx",
+            "https://www.calculatedriskblog.com/2025/11/weekly-initial-unemployment-claims_26.html?m=1"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.44551282051282054
+        },
+        {
+          "as_of": "2026-11-20",
+          "intercept": 0.194145,
+          "method": "claude_calibrated_v1",
+          "probability": 0.443341,
+          "raw": 0.35,
+          "results": 262,
+          "slope": 0.681314
+        }
+      ],
+      "id": "16e874d58dd170be",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-26",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261120",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "pending",
+      "title": "Will weekly U.S. jobless claims for the week ending Nov 21, 2026 come in above 203,000 claims?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.72,
         "market": 0.845,
         "max_move": 0.0,
@@ -20095,6 +20271,76 @@
       "status": "pending",
       "title": "Will Ritchie Torres be the next governor of New York?",
       "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "claude": 0.5,
+        "market": 0.67,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.67
+      },
+      "detail": "This market will resolve according to the total number of tokens processed on OpenRouter for the week of November 23 to November 29, 2026.\n\nThe total number of tokens is the weekly total displayed in the Top Models chart on OpenRouter's AI Model Rankings page (https://openrouter.ai/rankings#top-models). OpenRouter's weeks run from 12:00 AM UTC on Monday to 11:59 PM UTC on Sunday, and a week's figures continue to update until the following week's figures are first displayed.\n\nThis market will resolve according to the total displayed for the week of November 23 to November 29, 2026 once the figures for the week of November 30, 2026 are first displayed. If the figures for the week of November 30, 2026 have not been displayed by 11:59 PM ET on December 4, 2026, this market will resolve according to the total displayed for the week of November 23 to November 29, 2026 at that time.\n\nThis market will resolve based on the total as displayed on the chart, including any rounding applied by OpenRouter. If the displayed total falls exactly on the boundary between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-20T12:40:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.5,
+          "rationale": "OpenRouter's October 2026 total of 790T implies about 178T a week (https://openrouter.ai/data/october-2026), and a secondary report puts the week ending Oct 26 near 194T (https://cryptobriefing.com/openrouter-10-quadrillion-token-run-rate/, 2026-11-02). Growth of roughly 7% a week would put late November near 250-260T. The rankings page shows the top ten models summing to about 200T and one-day figures implying roughly 280T a week (https://openrouter.ai/rankings, 2026-11-20), while Thanksgiving week and the unclear resolving total add downside risk. This is close to a coin flip.",
+          "sources": [
+            "https://openrouter.ai/rankings",
+            "https://openrouter.ai/data/october-2026",
+            "https://openrouter.ai/data/newsletter/the-token-state-of-play",
+            "https://cryptobriefing.com/openrouter-10-quadrillion-token-run-rate/",
+            "https://openrouter.ai/blog/announcements/hugging-face-inference-providers/"
+          ]
+        },
+        {
+          "made_at": "2026-11-20T12:43:29.130209+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.68,
+          "rationale": "Week ending Oct 26 was about 194T and growth near 7% a week gives roughly 270T by late November; the top 10 models alone sum to about 200T, with a long tail beyond them, so the total is likely well above 200T. Thanksgiving week and the unclear 'displayed total' leave real downside, so I stay near the market."
+        },
+        {
+          "as_of": "2026-11-20",
+          "claude": 0.5,
+          "claude_weight": 0.408786,
+          "intercept": 0.071699,
+          "market": 0.67,
+          "method": "learned_model_v1",
+          "probability": 0.60272,
+          "results": 236,
+          "slope": 0.896104
+        },
+        {
+          "as_of": "2026-11-20",
+          "intercept": 0.194145,
+          "method": "claude_calibrated_v1",
+          "probability": 0.548384,
+          "raw": 0.5,
+          "results": 262,
+          "slope": 0.681314
+        },
+        {
+          "made_at": "2026-11-20T10:08:18.753119+00:00",
+          "method": "market_price_v1",
+          "probability": 0.67
+        }
+      ],
+      "id": "polymarket-7121672",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-30",
+      "scored": true,
+      "source": "prospective_markets_20261120",
+      "source_url": "https://polymarket.com/event/openrouter-token-usage-week-of-november-23",
+      "status": "pending",
+      "title": "Will OpenRouter process 260T or more tokens the week of November 23?",
+      "topic": "Tech",
       "verdict": null
     },
     {
@@ -20482,7 +20728,7 @@
     }
   ],
   "summary": {
-    "brier": 0.21217325836421602,
+    "brier": 0.21213484932649274,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -20509,16 +20755,16 @@
           "rule": 0.11523577566666666
         },
         "counted": {
-          "dates": 3,
-          "difference": 0.002312500000000002,
+          "dates": 4,
+          "difference": 0.0019273414285714274,
           "interval": [
-            -0.01637,
-            0.015657
+            -0.014851,
+            0.015204
           ],
-          "market": 0.047754166666666674,
+          "market": 0.042415515714285715,
           "meets_bar": false,
-          "questions": 6,
-          "rule": 0.050066666666666676
+          "questions": 7,
+          "rule": 0.04434285714285714
         },
         "id": "tech_move_v1",
         "label": "Tech questions",
@@ -20529,26 +20775,26 @@
         "about": "On every question, move up to 10 points from the market\u2019s price toward Claude\u2019s forecast.",
         "before": {
           "dates": 29,
-          "difference": 0.012536379764150923,
+          "difference": 0.01276860333333335,
           "interval": [
-            0.003588,
-            0.020177
+            0.003635,
+            0.020567
           ],
-          "market": 0.15238969471698113,
-          "questions": 212,
-          "rule": 0.16492607448113206
+          "market": 0.15199162103286384,
+          "questions": 213,
+          "rule": 0.1647602243661972
         },
         "counted": {
-          "dates": 6,
-          "difference": 0.0032567857142856704,
+          "dates": 8,
+          "difference": 0.0012018707692307562,
           "interval": [
-            -0.017322,
-            0.028117
+            -0.01618,
+            0.02089
           ],
-          "market": 0.25544977380952383,
+          "market": 0.2460274753846154,
           "meets_bar": false,
-          "questions": 21,
-          "rule": 0.2587065595238095
+          "questions": 26,
+          "rule": 0.24722934615384615
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -20566,16 +20812,16 @@
           "rule": null
         },
         "counted": {
-          "dates": 2,
-          "difference": -0.0013249999999999929,
+          "dates": 3,
+          "difference": -0.0017681016666666605,
           "interval": [
-            -0.012063,
-            0.005833
+            -0.010447,
+            0.004431
           ],
-          "market": 0.050824999999999995,
+          "market": 0.04408476833333333,
           "meets_bar": false,
-          "questions": 5,
-          "rule": 0.0495
+          "questions": 6,
+          "rule": 0.04231666666666667
         },
         "id": "tech_second_look_v1",
         "label": "Second look on Tech",
@@ -20593,16 +20839,16 @@
           "rule": null
         },
         "counted": {
-          "dates": 5,
-          "difference": 0.00028770323806665,
+          "dates": 7,
+          "difference": 0.0019362931648500281,
           "interval": [
-            -0.020885,
-            0.012648
+            -0.013029,
+            0.01184
           ],
-          "market": 0.22937466666666667,
+          "market": 0.22364445549999998,
           "meets_bar": false,
-          "questions": 15,
-          "rule": 0.22966236990473332
+          "questions": 20,
+          "rule": 0.22558074866485
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -20610,7 +20856,7 @@
         "status": "testing"
       }
     ],
-    "pending": 55,
+    "pending": 53,
     "progress": {
       "changes": [
         {
@@ -20632,16 +20878,16 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.2306730769230769,
-          "market": 0.2147280273076923,
-          "ours": 0.2232260822168846,
-          "questions": 26
+          "claude": 0.23015806451612902,
+          "market": 0.2133934780645161,
+          "ours": 0.2205208789560968,
+          "questions": 31
         },
         "before": {
-          "claude": 0.20196376811594202,
-          "market": 0.1550151295652174,
-          "ours": 0.20419867149758456,
-          "questions": 207
+          "claude": 0.20196634615384615,
+          "market": 0.15459486451923077,
+          "ours": 0.2043246394230769,
+          "questions": 208
         },
         "date": "2026-11-06"
       },
@@ -20665,11 +20911,11 @@
           "wrong": 4
         },
         {
-          "claude": 0.18200714285714287,
-          "market": 0.150106865,
-          "ours": 0.19437440476190476,
-          "questions": 42,
-          "right": 32,
+          "claude": 0.18248372093023255,
+          "market": 0.14818810069767444,
+          "ours": 0.1952122093023256,
+          "questions": 43,
+          "right": 33,
           "start": "2026-10-19",
           "wrong": 9
         },
@@ -20692,36 +20938,45 @@
           "wrong": 7
         },
         {
-          "claude": 0.2450625,
-          "market": 0.22727656249999997,
-          "ours": 0.2325177928489167,
-          "questions": 24,
-          "right": 18,
+          "claude": 0.2552407407407407,
+          "market": 0.23417579111111111,
+          "ours": 0.23883466253237037,
+          "questions": 27,
+          "right": 20,
           "start": "2026-11-09",
-          "wrong": 6
+          "wrong": 7
+        },
+        {
+          "claude": 0.06369999999999999,
+          "market": 0.08208012500000002,
+          "ours": 0.08208012500000002,
+          "questions": 2,
+          "right": 2,
+          "start": "2026-11-16",
+          "wrong": 0
         }
       ]
     },
-    "resolved": 264,
-    "right": 179,
+    "resolved": 270,
+    "right": 184,
     "toss_ups": 3,
-    "total": 326,
+    "total": 330,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.20516738197424894,
-      "claude_questions": 233,
-      "market": 0.16167837137339056,
-      "ours": 0.20632190187827895,
-      "questions": 233,
+      "claude": 0.20562301255230125,
+      "claude_questions": 239,
+      "market": 0.1622214629288703,
+      "ours": 0.20642540689388705,
+      "questions": 239,
       "since_anchored": {
-        "claude": 0.27553333333333335,
+        "claude": 0.2662923076923077,
         "date": "2026-11-10",
-        "market": 0.25544977380952383,
-        "ours": 0.25544977380952383,
-        "questions": 21
+        "market": 0.2460274753846154,
+        "ours": 0.2460274753846154,
+        "questions": 26
       }
     },
-    "wrong": 82
+    "wrong": 83
   },
   "version": "track_record_v2"
 }

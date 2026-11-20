@@ -1,0 +1,623 @@
+{
+ "polymarket-6942345": {
+  "against": "The strongest case for the outcome of three or fewer notices in the window (16-22 Nov 2026 UTC): the only confirmed window notices are 206-26 (16 Nov) and 210-26 (17 Nov).\nNumbers 207-209 may include a Hormuz follow-up or other updates, and updates do not count (16 Nov Hormuz alert; 17 Nov onward).\nNo notice dated 18-20 Nov 2026 was found in search (newest results 15-17 Nov), so 18-22 Nov may be quiet, and the 21-22 Nov part is unseen.\nThe numbering pace in fact 3 may include product types that never appear on the Recent Incidents page, or be inflated by a single busy week, which would lower the weekly count.\nBoth the 16 and 17 Nov items are secondary snippets, so the dates and whether each was a new notice are unverified.",
+  "base_rate": "Not established.\nI could not open the UKMTO Recent Incidents page or its 2026 PDFs (HTTP 403), and the one UKMTO summary PDF I opened had unreadable text, so I have no counted series of UKMTO notices per week.\nThe only counts I have are search-snippet JMIC cumulative incident totals (123 in mid-October 2025, 126 by week 47 of 2025), which cover a wider area and a different measure than UKMTO notices, so I did not derive a weekly base rate from them.\nA proper reference class needs the UKMTO notice archive by publication date for 2025 and 2026 year to date, which must be read from a browser or a",
+  "brief": "The question counts new notices UKMTO publishes on its Recent Incidents page with a publication date from 16 to 22 Nov 2026 UTC, and 4 through 7 inclusive is Yes; updates and corrections do not count. The official page returned HTTP 403 on 2026-11-20, so nothing here is confirmed from UKMTO itself and there are no primary sources with quotes. Search snippets report warning 206-26 on 2026-11-16 for an armed approach about 430 NM east of Socotra (https://www.bernama.com/en/news.php?id=2635105), 207-26 on 2026-11-16 for a projectile strike in the Strait of Hormuz (https://gulfnews.com/business/energy/hormuz-attacks-rise-as-iran-steps-up-pressure-on-shipping-ukmto-warns-1.500737866), and 210-26 on 2026-11-17 for an attempted boarding about 50 NM southwest of Al Mukalla (https://safety4sea.com/armed-security-team-prevents-attempted-boarding-off-yemen/, 2026-11-18; https://www.newsquawk.com/headlines/ukmto-reports-a-maritime-incident-50-nautical-miles-southwest-of-al-mukalla-yemen, 2026-11-17). Numbers 208 and 209 fall between these and may be additional notices in the window or updates. From 079-26 on 5 Jul and 210-26 on 17 Nov, the numbering implies about 6.8 per week, assuming every number appears on the page (https://www.ukmto.org/-/media/ukmto/products/20260705-warning_attack_079-26.pdf). A trade-press figure of 29 warnings on 28 incidents in October could not be checked. Hormuz attacks have been elevated since early November (JMIC update, 2026-11-05). No notice dated 18-20 Nov was found, and 21-22 Nov is unseen, so the later part of the window is unknown. No weekly base rate from a counted series was established. The answer would move toward Yes if official numbering shows 208-209 as new notices in the window and about two more by 22 Nov, and toward No if the page shows a quiet 18-22 Nov or a high count of 8 or more.",
+  "brief_written_at": "2026-11-20T12:40:20+00:00",
+  "different_now": "The reporting pace in the last week looks high.\nWithin about six days (13-17 Nov 2026) snippets show at least four separate UKMTO-linked incidents across three areas: Socotra, Al Mukalla, the Strait of Hormuz (two reports on 15-16 Nov) and a Somali hijacking on 13 Nov.\nIf that pace holds, it pushes the count toward the upper half of 4-7.\nAgainst that, the window already contains 16 and 17 Nov, so only 5 days (18-22 Nov) remain unseen, and no notices from 18-20 Nov were found.\nTime-late reports and any Hormuz follow-up updates matter: updates do not count, but new time-late notices do.\nThe main",
+  "facts": [
+   {
+    "fact": "The UKMTO Recent Incidents page (ukmto.org/recent-incidents) returned HTTP 403 Forbidden to automated fetches on 2026-11-20, so its notice list and dates could not be read.",
+    "source": 0
+   },
+   {
+    "fact": "Newsquawk, citing a UKMTO report, published on 17 Nov 2026 at 14:10 UTC a headline about a maritime incident about 50 NM southwest of Al Mukalla, Yemen, in which a cargo vessel was approached by a small skiff carrying weapons and ladders.",
+    "source": 1
+   },
+   {
+    "fact": "The UKMTO Recent Incidents page (ukmto.org/recent-incidents) returned HTTP 403 Forbidden to the fetch tool on 2026-11-20, so its notice list and dates could not be read.",
+    "source": 0
+   },
+   {
+    "fact": "A search snippet (not opened) lists a JMIC Week 47 dashboard total of 126 incidents since 1 January 2025 with 0 new that week, and a week 42 total of 123 incidents; the implied pace is under one incident a week across the whole JMIC area, which is not the same as UKMTO notice counts.",
+    "source": 4
+   },
+   {
+    "fact": "A Bernama item seen only in search results reports that UKMTO said four armed men on a boat approached an oil tanker east of Socotra, dated 2026-11-16.",
+    "source": 5
+   },
+   {
+    "fact": "Search snippets only, pages not opened: UKMTO's Recent Incidents page (ukmto.org/recent-incidents) returned HTTP 403 to automated fetches on 2026-11-20, and the Indian-Ocean Recent Incidents page also returned HTTP 403, so no notice titles, dates or reference numbers could be read from UKMTO itself.",
+    "source": 0
+   },
+   {
+    "fact": "Search snippet only: a UKMTO warning dated 2026-11-16 reported an armed boat with four men approaching an oil tanker about 430 NM east of Socotra; the tanker master also reported a possible mothership and a smaller skiff.",
+    "source": 5
+   },
+   {
+    "fact": "Search snippet only: a UKMTO report dated 2026-11-17 (14:10 UTC) concerned a cargo vessel approached by an armed skiff about 50 NM southwest of Al Mukalla; the security team fired a warning shot and the skiff left.",
+    "source": 1
+   },
+   {
+    "fact": "Search snippet only: UKMTO issued an alert on 2026-11-16 that a vessel was struck by an unknown projectile on an outbound transit of the Strait of Hormuz, listed as warning 207-26 in a secondary report; a separate tanker attack approaching the strait was reported on 2026-11-15, with the crew reported safe.",
+    "source": 7
+   },
+   {
+    "fact": "Search snippet only: a fishing vessel was hijacked about 67 NM northeast of Hobyo, Somalia, on 2026-11-13; no connection to the 16 Nov Socotra approach was established.",
+    "source": 5
+   },
+   {
+    "fact": "Search snippet only: a search for UKMTO reports dated 2026-11-18 returned none; the newest items found were dated 15 to 17 Nov 2026.",
+    "source": 7
+   },
+   {
+    "fact": "The UKMTO Recent Incidents page could not be read: it returned HTTP 403 when fetched on 2026-11-20, so no notice list, dates or numbers from it are confirmed.",
+    "source": 0
+   },
+   {
+    "fact": "UKMTO advisory 098-26 is dated 28 Jul 2026 by its file name.",
+    "source": 8
+   },
+   {
+    "fact": "UKMTO warning attack 079-26 is dated 5 Jul 2026 by its file name.\nTaking that date and the 210-26 notice of 17 Nov 2026 as numbers in one annual sequence gives 131 numbers in 135 days, about 6.8 per week, if every number is a notice that appears on the Recent Incidents page.\nThat assumption is unverified.",
+    "source": 9
+   },
+   {
+    "fact": "Search snippets report UKMTO warning 206-26 for a 16 Nov 2026 approach about 430 NM east of Socotra, and a separate 16 Nov 2026 alert (207-26) on a projectile strike in the Strait of Hormuz.",
+    "source": 5
+   },
+   {
+    "fact": "Search snippets report UKMTO warning 210-26 for an attempted boarding about 50 NM southwest of Al Mukalla, reported on 17 Nov 2026.",
+    "source": 10
+   },
+   {
+    "fact": "On 2026-11-20 the UKMTO Recent Incidents page (ukmto.org/recent-incidents) again returned HTTP 403 Forbidden to automated fetching, so its notice list, dates and numbers for 16-22 Nov 2026 remain unreadable.",
+    "source": 0
+   },
+   {
+    "fact": "Safety4Sea, published 2026-11-18, reports that UKMTO said the incident about 50 NM southwest of Al Mukalla was reported on 17 November 2026; the article gives no UKMTO warning number, so this confirms a 17 Nov report but not a count of notices.",
+    "source": 10
+   },
+   {
+    "fact": "A JMIC Update 111 advisory note dated 2026-11-05, distributed by UKMTO, reported four Strait of Hormuz attacks over 96 hours, all between 1 and 3 November off Oman's Musandam coast; this predates the 16-22 Nov window and does not count toward it.",
+    "source": 7
+   },
+   {
+    "fact": "The UKMTO Recent Incidents page (https://www.ukmto.org/recent-incidents) returned HTTP 403 Forbidden to the web-fetch tool on 2026-11-20, so its notice list, publication dates and reference numbers for 16 to 22 Nov 2026 could not be read or counted.",
+    "source": 0
+   },
+   {
+    "fact": "The MSCIO Atalanta Weekly Report for 14 to 20 Nov, a PDF on mscio.eu, opened with HTTP 200 on 2026-11-20, but its text was unreadable binary, so it gives no UKMTO notice number, date or count that could be counted for the window.",
+    "source": 11
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap",
+   "primary"
+  ],
+  "quotes_checked_at": "2026-11-20T10:19:05.820920+00:00",
+  "research_cost_usd": 0.3373,
+  "research_failed": null,
+  "research_seconds": 299.1,
+  "researched_at": "2026-11-20T10:18:11+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [],
+    "title": "UKMTO Recent Incidents page (settling source)",
+    "url": "https://www.ukmto.org/recent-incidents",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "Cargo vessel was approached by a small skiff carrying weapons and ladders."
+    ],
+    "title": "UKMTO reports a maritime incident 50NM southwest of Al Mukalla, Yemen (Newsquawk)",
+    "url": "https://www.newsquawk.com/headlines/ukmto-reports-a-maritime-incident-50-nautical-miles-southwest-of-al-mukalla-yemen",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "UKMTO VRA overview PDF, file dated 2026-08-28 by filename (could not be opened: HTTP 403)",
+    "url": "https://www.ukmto.org/-/media/ukmto/products/20260828-ukmto_vra_overview_u.pdf",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "UKMTO Summary Report 14Nov25 (opened, but the extracted text was unreadable)",
+    "url": "https://mscio.eu/media/documents/20251114_UKMTO_Summary_Report-14Nov25.pdf",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "JMIC Weekly Dashboard Week 47 Final (seen in search results only, not opened)",
+    "url": "https://mscio.eu/media/documents/JMIC_Weekly_Dashboard_Week_47_Final.pdf",
+    "verified": null
+   },
+   {
+    "published": "2026-11-16",
+    "quotes": [],
+    "title": "Bernama report on UKMTO notice, armed approach east of Socotra (seen in search results only, not opened)",
+    "url": "https://www.bernama.com/en/news.php?id=2635105",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "UKMTO Recent Incidents, Indian Ocean section (official page, returned in search results)",
+    "url": "https://www.ukmto.org/Indian-Ocean/Recent-Incidents",
+    "verified": null
+   },
+   {
+    "published": "2026-11-06",
+    "quotes": [
+     "The Joint Maritime Information Centre (JMIC), in its Update 111 Advisory Note dated November 5, 2026, distributed by the United Kingdom Maritime Trade Operations (UKMTO), reported four attacks in the Strait of Hormuz over 96 hours, compared with three in the preceding reporting period."
+    ],
+    "title": "Gulf News: Hormuz attacks rise as Iran steps up pressure on shipping, UKMTO warns (secondary)",
+    "url": "https://gulfnews.com/business/energy/hormuz-attacks-rise-as-iran-steps-up-pressure-on-shipping-ukmto-warns-1.500737866",
+    "verified": true
+   },
+   {
+    "published": "2026-07-28",
+    "quotes": [],
+    "title": "UKMTO advisory 098-26 (date taken from the file name, not opened)",
+    "url": "https://www.ukmto.org/-/media/ukmto/products/20260728-ukmto_advisory-098-26.pdf",
+    "verified": null
+   },
+   {
+    "published": "2026-07-05",
+    "quotes": [],
+    "title": "UKMTO warning attack 079-26 (date taken from the file name, not opened)",
+    "url": "https://www.ukmto.org/-/media/ukmto/products/20260705-warning_attack_079-26.pdf",
+    "verified": null
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "According to the United Kingdom Maritime Trade Operations (UKMTO), the incident was reported on November 17,"
+    ],
+    "title": "Safety4Sea report on UKMTO warning 210-26 (search snippet only, not opened)",
+    "url": "https://safety4sea.com/armed-security-team-prevents-attempted-boarding-off-yemen/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "MSCIO Atalanta Weekly Report, 14 Nov to 20 Nov",
+    "url": "https://www.mscio.eu/media/documents/MSCIO_ATALANTA_WEEKLY_REPORT_14_NOV-_20_NOV.pdf",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The UKMTO Recent Incidents page and its 2026 PDFs returned HTTP 403, so the official notice list, dates, and numbering for 16-20 Nov 2026 could not be read or counted; all facts above come from search snippets of secondary reports.",
+   "Only snippets were read for the Bernama, Newsquawk and Gulf News items; I opened none of them, so their quotes are empty and the dates are as the snippets give them.",
+   "It is unclear whether the 16 Nov Socotra warning, the 16 Nov Hormuz alert and the 17 Nov Mukalla report were each published as separate notices in the window; an alert could have been updated instead of reissued, which would not count.",
+   "No UKMTO notice dated 18-20 Nov 2026 was found; coverage of those days is missing, so the count of notices in 18-22 Nov is unknown.",
+   "The base rate is still unestablished: no counted UKMTO notice series per week for 2025 or 2026 was available, and a trade-press figure of 29 warnings on 28 incidents in October 2026 could not be checked against a primary page.",
+   "The UKMTO Recent Incidents page and its PDFs returned HTTP 403 and the mscio PDF had no readable text, so no notice on ukmto.org was confirmed, and no publication date or number from the official page is known."
+  ]
+ },
+ "polymarket-7121672": {
+  "against": "The strongest case for the 260T-or-more outcome being the less supported one: the only platform-wide weekly figure OpenRouter itself gives is 128.4T for the week of Sep 14, 2026, which needs about 2.0x growth over 10 weeks to reach 260T.\nOpenRouter's October recap gives 790T for the month, about 178T a week on average (my arithmetic), so 260T in the week of Nov 23 needs roughly 1.46x over about four weeks from the October average.\nThe displayed weekly top-10 entries on the rankings page sum to about 200T, so 260T requires about 60T from every model outside the top ten, and OpenRouter gives no total showing that.\nNothing OpenRouter has published dated after October 2026 gives a platform-wide weekly figure, so the growth since October is unverified.",
+  "base_rate": "Reference class: consecutive weekly platform totals in OpenRouter's own published series.\nCounted from the two primary pages I could open: the series rose from 0.5T (week of Jan 13, 2025) to 128.4T (week of Sep 14, 2026), about 87 weeks, an average of roughly 6.6% growth per week.\nThe October 2026 monthly total implies an average near 178T per week, about 34% above the mid-September level over roughly four weeks, or about 7.5% per week.\nReaching 260T from 128.4T needs about 2.0x in the 10 weeks from Sep 14 to Nov 23, roughly 7.3% per week.\nI could not count how many individual weeks met a give",
+  "brief": "The question resolves on the weekly total shown in OpenRouter's Top Models chart for Nov 23-29, 2026 (UTC), and 260T or more is Yes. The rankings page on 2026-11-20 shows usage data through Nov 19, the top entry Hy4 flash at 69.3T, and no chart-wide total (https://openrouter.ai/rankings). The ten listed models sum to about 199.97T, and one-day figures for seven models sum to about 40T, which would imply roughly 280T a week, so the full total depends on models outside the top ten. OpenRouter's newsletter gives 128.4T for the week of Sep 14, 2026 (https://openrouter.ai/data/newsletter/the-token-state-of-play, 2026-09-22), and the October recap gives 790T for the month, up 37% on September, or about 178T a week by my arithmetic (https://openrouter.ai/data/october-2026). A secondary report cites about 194T for the week ending Oct 26 (https://cryptobriefing.com/openrouter-10-quadrillion-token-run-rate/, 2026-11-02). Reaching 260T from 128.4T needs about 7.3% weekly growth over 10 weeks, close to the 6.6-7.5% pace implied by the history. On 2026-11-16 OpenRouter announced that Hugging Face Inference Providers chat models now route through it, with no volume given (https://openrouter.ai/blog/announcements/hugging-face-inference-providers/). The target week contains US Thanksgiving on Nov 26, which may reduce traffic, though no source measures this. The Hy4 flash entry is marked new and Hy4 shows -42%, so the top of the chart is volatile and some volume may be promotional. The resolver may sum bars, use a hidden total or use a different chart, which adds noise. The answer would move up if later pages show a platform total above 240T for the week of Nov 16, and down if totals come in near 200T.",
+  "brief_written_at": "2026-11-20T12:40:20+00:00",
+  "different_now": "The newest platform change found is the Nov 16, 2026 Hugging Face routing announcement.\nIt could add volume to the target week, but OpenRouter gives no size for it, so the direction is up and the size is unknown.\nNo OpenRouter release, data schedule or deadline dated between Nov 20 and Dec 4, 2026 was found on the pages opened.\nThe target week (Nov 23-29) contains US Thanksgiving on Nov 26, 2026; that could lower US-weekday traffic, but I found no source on OpenRouter usage during holidays, so this is my inference only.\nThe page still shows no chart-wide total, so the threshold depends on how ",
+  "facts": [
+   {
+    "fact": "The Top Models chart (heading 'Weekly usage of models across OpenRouter') shows per-model token figures only, with no chart-wide total displayed; the top entry is Hy4 flash (tencent) at 69.3T tokens, marked new, as read on 2026-11-20.",
+    "source": 0
+   },
+   {
+    "fact": "The rankings page shows 'Usage data through Nov 19, 2026' above the rankings, read on 2026-11-20.",
+    "source": 0
+   },
+   {
+    "fact": "The page's methodology says each model's weekly figure is a trailing seven-day window ending with the most recent complete UTC daily bucket, and the 'This Week' window is seven days.",
+    "source": 0
+   },
+   {
+    "fact": "The ten listed Top Models figures sum to about 199.97T tokens (my arithmetic on the displayed values: 69.3, 62.2, 16, 11.7, 10.7, 8.86, 7.53, 5.75, 4.01, 3.92), so the 260T threshold is not reached by the top ten alone; the chart's full total is not displayed.",
+    "source": 0
+   },
+   {
+    "fact": "OpenRouter's newsletter states weekly token volume was 0.5 trillion in the week of Jan 13, 2025 and 128.4 trillion in the week of Sep 14, 2026.",
+    "source": 1
+   },
+   {
+    "fact": "OpenRouter's October 2026 recap states October 2026 totaled 790T tokens, up 37% from September 2026.\nDividing by 31 days and multiplying by 7 gives an average of about 178T tokens per week in October (derived by me, not stated by OpenRouter).",
+    "source": 2
+   },
+   {
+    "fact": "A secondary report (Cryptobriefing, not opened) cites about 194 trillion tokens for the week ending Oct 26, 2026, sourced from a chart shared by an OpenRouter investor.\nOpenRouter's own pages I opened do not state this figure.",
+    "source": 3
+   },
+   {
+    "fact": "The OpenRouter rankings page I opened (view=week) shows per-model counts and 'Usage data through Nov 19, 2026' but no platform-wide weekly total.",
+    "source": 2
+   },
+   {
+    "fact": "On 2026-11-16 OpenRouter announced that chat models on Hugging Face Inference Providers now run through OpenRouter's routing.",
+    "source": 4
+   },
+   {
+    "fact": "OpenRouter's October 2026 recap gives a monthly total of 790T tokens, up 37% from September 2026.",
+    "source": 2
+   },
+   {
+    "fact": "OpenRouter's newsletter gives weekly volume of 128.4 trillion tokens for the week of Sep 14, 2026, and its figures run through Sep 20, 2026.",
+    "source": 1
+   },
+   {
+    "fact": "The rankings week view shows 'Usage data through Nov 19, 2026' and gives per-model and per-app figures only, with no platform-wide weekly total.",
+    "source": 5
+   },
+   {
+    "fact": "A June 25, 2026 Crypto Briefing report put total weekly platform volume at over 25 trillion tokens, which is an aggregator figure, not an OpenRouter statement.",
+    "source": 6
+   },
+   {
+    "fact": "OpenRouter's October 2026 recap gives 790T tokens for October 2026, up 37% from September, which averages about 178T per week over 31 days (my arithmetic, not stated by OpenRouter).",
+    "source": 2
+   },
+   {
+    "fact": "OpenRouter's newsletter gives 128.4T weekly tokens for the week of Sep 14, 2026, so reaching 260T by the week of Nov 23 requires about 2.0x in 10 weeks.",
+    "source": 1
+   },
+   {
+    "fact": "The rankings page's weekly Top Models entries sum to about 199.97T (69.3, 62.2, 16, 11.7, 10.7, 8.86, 7.53, 5.75, 4.01, 3.92), about 77% of 260T, with the remainder of the platform not displayed.",
+    "source": 0
+   },
+   {
+    "fact": "On the rankings page, the 'most recent complete day' view shows Hy4 flash at 22.6T tokens and DeepSeek V4.1 Flash 1017 at 9.58T, whose daily figures do not match the weekly ones: seven models' daily figures alone sum to about 40T, which would imply roughly 280T a week, above the weekly top-10 total of about 200T.",
+    "source": 0
+   },
+   {
+    "fact": "The rankings page shows Hy4 at 11.7T tokens with a change of -42%, and Hy4 flash is marked 'new', so the top-model order changed sharply within one chart.",
+    "source": 0
+   },
+   {
+    "fact": "OpenRouter's October recap says weekly charts start on Monday, consistent with the Nov 23-29 week beginning on Monday, Nov 23, 2026.",
+    "source": 2
+   },
+   {
+    "fact": "On 2026-11-16 OpenRouter announced that chat models on Hugging Face Inference Providers now run through OpenRouter's routing, with 160 models from 38 labs available this way.",
+    "source": 7
+   },
+   {
+    "fact": "The Nov 16 announcement gives no token volume or size for the Hugging Face routing change, so its effect on the target week is unmeasured.",
+    "source": 7
+   },
+   {
+    "fact": "A secondary report dated 2026-11-02 says OpenRouter processed about 194 trillion tokens in the week ending Oct 26, 2026, and 23.8 trillion tokens per day in October 2026.",
+    "source": 3
+   },
+   {
+    "fact": "OpenRouter's own October 2026 recap gives 790T tokens for October, which averages about 25.5T per day over 31 days, so the 23.8T/day secondary figure and the 790T monthly figure do not fully agree.",
+    "source": 2
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-20T10:19:05.820920+00:00",
+  "research_cost_usd": 0.1781,
+  "research_failed": null,
+  "research_seconds": 200.7,
+  "researched_at": "2026-11-20T10:18:11+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "Each model is ranked by the number of tokens it processed through the OpenRouter API, counting both prompt and completion tokens.\nUsage is aggregated into daily buckets in UTC and totalled per model variant, so variants of the same model, such as a free variant, are ranked separately.",
+     "Today, This Week, and This Month each cover a trailing window of one day, seven days, and thirty days, ending with the most recent complete daily bucket.",
+     "The date above the rankings is the newest usage bucket the leaderboard is computed from, not the time the page was rendered or deployed, so it advances only when new usage data is aggregated.",
+     "Usage data through Nov 19, 2026",
+     "Hy4 flash tencent 69.3T tokens new"
+    ],
+    "title": "OpenRouter AI Model Rankings",
+    "url": "https://openrouter.ai/rankings",
+    "verified": false
+   },
+   {
+    "published": "2026-09-22",
+    "quotes": [
+     "Weekly token volume on OpenRouter went from 0.5 trillion in the week of Jan 13, 2025 to 128.4 trillion in the week of Sep 14, 2026.\nRoughly a 250x increase in 20 months.",
+     "Weekly token volume on OpenRouter went from 0.5 trillion in the week of Jan 13, 2025 to 128.4 trillion in the week of Sep 14, 2026.",
+     "All figures are weekly totals from OpenRouter usage data, Jan 1, 2025 through Sep 20, 2026."
+    ],
+    "title": "OpenRouter Data newsletter: The Token State of Play (Inferred 01)",
+    "url": "https://openrouter.ai/data/newsletter/the-token-state-of-play",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "October was the largest month in OpenRouter's history: 790T tokens, up 37% from September and a startling 25x from January.",
+     "Data covers requests through the OpenRouter API from January 1 to October 31, 2026; the agentic chart starts in September 2025.",
+     "Weekly charts use weeks that start on Monday."
+    ],
+    "title": "OpenRouter October 2026 data recap",
+    "url": "https://openrouter.ai/data/october-2026",
+    "verified": true
+   },
+   {
+    "published": "2026-11-02",
+    "quotes": [
+     "OpenRouter processed approximately 194 trillion tokens in the week ending October 26, 2026.",
+     "The platform hit 23.8 trillion tokens per day in October 2026, growing at 33x year over year."
+    ],
+    "title": "Cryptobriefing: OpenRouter crosses a 10 quadrillion annual token run rate (secondary report, not opened)",
+    "url": "https://cryptobriefing.com/openrouter-10-quadrillion-token-run-rate/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Chat models on Hugging Face Inference Providers now run through OpenRouter's routing, and OpenRouter can send your traces to a Hugging Face Storage Bucket."
+    ],
+    "title": "OpenRouter announcements",
+    "url": "https://openrouter.ai/announcements",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Usage data through Nov 19, 2026"
+    ],
+    "title": "OpenRouter AI Model Rankings (week view)",
+    "url": "https://openrouter.ai/rankings?view=week",
+    "verified": false
+   },
+   {
+    "published": "2026-06-25",
+    "quotes": [
+     "The platform's total weekly volume has ballooned to over 25 trillion tokens, up from around 5 trillion just six months prior."
+    ],
+    "title": "OpenRouter data shows US AI models losing ground as Chinese alternatives dominate token usage",
+    "url": "https://cryptobriefing.com/openrouter-us-models-token-share-collapse/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-16",
+    "quotes": [
+     "Starting today, that extends to everyone building on Hugging Face.\nChat models on Hugging Face Inference Providers now run through OpenRouter, with the same routing across providers that OpenRouter customers already rely on.",
+     "160 models from 38 labs are available this way today, which is every model OpenRouter serves that has a page on the Hub."
+    ],
+    "title": "OpenRouter Now Powers Inference on Hugging Face",
+    "url": "https://openrouter.ai/blog/announcements/hugging-face-inference-providers/",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "The page shows no chart-wide weekly total, so the resolver may sum per-model bars, use a hidden figure, or use a different chart; the total used could differ from the one this answer assumes.",
+   "The week label for the Top Models chart is inferred; the page does not print the Nov 23-29 range.",
+   "No OpenRouter figure for any week after Oct 2026 was found on the pages opened; the 194T weekly figure for the week ending Oct 26 comes only from a secondhand report.",
+   "The size of the Hugging Face routing effect on OpenRouter volume is not stated.",
+   "Thanksgiving effects on usage are unsourced; the direction and size are unknown.",
+   "The rankings page prints no chart-wide weekly total, so the resolver's total could be a sum of bars, a hidden figure, or another chart; the total used could differ from the one assumed here."
+  ]
+ },
+ "polymarket-7150180": {
+  "against": "Evidence for No (price at or below $56,000 at the 17:00 UTC candle on 2026-11-25).\nBitcoin's recent pace has been fast: CoinGecko showed $62,199 at 01:44 UTC on 2026-11-15, down 16.3% over the week (cryptoticker, 2026-11-15), and CryptoBriefing put the month-to-date decline at about 16-23% by 2026-11-17.\nA further move of about 9.4% from the 2026-11-20 spot level over five days would be within the size of that recent weekly drop.\nOutflows were heavy: about $1.9 billion of US spot ETF net outflows during the sell-off (CryptoBriefing, 2026-11-17).\nThe same CoinTicker article names three conditions for the $60,000 level to hold: Fed rate expectations, ETF outflows, and leveraged long exposure, all three of which it describes as unresolved.\nTaken together, the 2026-11-15 to 2026-11-17 reports describe a market with weakening support, which is the case for the price falling further.",
+  "base_rate": "Reference class: 5-day-ahead BTC/USDT outcomes on Binance daily closes, 2021-05-31 to 2026-11-20 (about 5.5 years, 1,995 overlapping 5-day windows).\nA close 5 days later above 0.906 times the starting close (the 56,000 threshold is 9.4% below the 61,795.33 spot) happened in 95.2% of windows (1,900 of 1,995).\nThis uses daily closes, not the noon ET 1-minute candle, and the windows overlap, so the effective sample is smaller.\nIt is a count of past moves, not a forecast.",
+  "brief": "The question is whether the Binance BTC/USDT 1-minute candle closing at 12:00 ET (17:00 UTC) on 2026-11-25 has a close above $56,000; exactly 56,000 is No. Binance BTCUSDT read 61,799 to 61,810 at 10:13-10:14 UTC on 2026-11-20 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), so the threshold is 9.4% below spot. Daily closes fell from 84,093 on 2026-10-21 to 61,987 on 2026-11-19, with 63,068 on 2026-11-18 (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31). The standard deviation of daily log returns over the last 29 returns was 2.28%, which gives about 5.1% over five days, so the threshold sits near 1.9 standard deviations away on a thin-tailed model. In 1,995 overlapping 5-day windows since 2021-05-31, the close five days later was above 0.906 times the start in 95.2% of cases, though the windows overlap and use daily closes. This time the drawdown is steep: month-to-date declines of 16-23% (https://cryptobriefing.com/bitcoin-falls-23-november-2026-bear-market/, 2026-11-17) and US spot ETF outflows of $1.07B in the week of Nov 9-13 and $2.35B for November through nine trading days (https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-440337, 2026-11-14). The next FOMC meeting is Dec 8-9, and the BLS lists no releases between Nov 21 and Nov 25 (https://www.bls.gov/schedule/2026/11_sched_list.htm), so no scheduled macro catalyst falls in the window. Trade press names Fed expectations, ETF outflows and leveraged longs as unresolved risks to the $60,000 level (https://cryptoticker.io/en/bitcoin-price-62000-crash-fed-hike-60000-level-november-15-2026/, 2026-11-15). A weekly drop of 16% occurred just days ago, so a further 9.4% fall is within recent experience. The answer would move toward No on a break below 58,000 with renewed liquidations or large ETF outflows, and toward Yes if price stabilizes above 60,000 through the weekend. The single-pair, single-candle settlement rule adds small noise.",
+  "brief_written_at": "2026-11-20T12:40:20+00:00",
+  "different_now": "Flows are negative: US spot BTC ETFs lost about $2.35 billion in November through nine trading days (The Block, 2026-11-14), the largest monthly outflow since June, which leans toward further downside or weak support.\nDaily closes show a downtrend from 84093.42 (2026-10-21) to 61986.73 (2026-11-19), and the 2026-11-19 close sits about 9.4% above the 56,000 threshold, so this window is a longer drawdown than typical 5-day samples.\nThe only scheduled macro event I could confirm before resolution is none: the next FOMC meeting is December 8-9, after 2026-11-25.\nI found no confirmed CPI or other U",
+  "facts": [
+   {
+    "fact": "Binance BTCUSDT ticker price was 61799.17 USDT at 2026-11-20 10:13:28 UTC (from the server time endpoint read in the same session).",
+    "source": 0
+   },
+   {
+    "fact": "The Binance BTC/USDT trade page title showed 61779.28 with no timestamp, about 20 USD below the API price, so the two reads were taken at different moments.",
+    "source": 1
+   },
+   {
+    "fact": "Daily closes for BTCUSDT fell from 84093.42 (2026-10-21) to 61986.73 (2026-11-19), per the klines endpoint, which the docs describe as bars identified by open time.",
+    "source": 2
+   },
+   {
+    "fact": "Binance BTCUSDT last trade price was 61795.33 USDT at about 10:14 UTC on 2026-11-20.",
+    "source": 0
+   },
+   {
+    "fact": "Binance BTCUSDT daily candle for 2026-11-18 closed at 63068.22 USDT, and the 2026-11-19 candle closed at 61986.73 USDT (open of the current day's candle at 61795.33 as of the snapshot).",
+    "source": 3
+   },
+   {
+    "fact": "Over the last 30 completed daily closes (29 daily log returns, 2026-10-22 to 2026-11-19), the standard deviation of daily log returns of BTCUSDT closes was 0.0228.",
+    "source": 3
+   },
+   {
+    "fact": "Between 2021-05-31 and 2026-11-20, in 1,995 overlapping 5-day windows of Binance BTCUSDT daily closes, the close 5 days later was above 0.906 times the starting close (the threshold 56,000 / 61,795.33 ratio) in 95.2% of windows (1,900 of 1,995).",
+    "source": 3
+   },
+   {
+    "fact": "Binance BTCUSDT ticker price was 61810.43 USDT at 2026-11-20 10:14 UTC, read from the Binance API in this session.",
+    "source": 0
+   },
+   {
+    "fact": "US spot bitcoin ETFs had $1.07 billion in net outflows in the week of Nov 9-13, 2026 (SoSoValue data via The Block), and $2.35 billion of outflows in November after nine trading days, as of the 2026-11-14 article.",
+    "source": 4
+   },
+   {
+    "fact": "The Fed's 2026 FOMC calendar lists the next meeting after 2026-11-20 as December 8-9, 2026, with a Summary of Economic Projections; the page was last updated 2026-11-18.\nNo FOMC decision falls between now and the 2026-11-25 resolution.",
+    "source": 5
+   },
+   {
+    "fact": "Trade-press snippets from mid-November 2026 reported BTC falling to about $65,300 by Nov 15 from about $74,800 on Nov 9, and a later low near $62,000 by Nov 17; these were read only as search snippets and are not quoted here.",
+    "source": 4
+   },
+   {
+    "fact": "Bitcoin fell to roughly $62,000 in mid-November 2026, its weakest level since July or August 2026.",
+    "source": 6
+   },
+   {
+    "fact": "The month-to-date decline in mid-November 2026 was about 16-23%, depending on the starting point.",
+    "source": 6
+   },
+   {
+    "fact": "US spot bitcoin ETFs had net outflows of about $1.9 billion during the mid-November 2026 sell-off, per this article (not a primary ETF flow dataset).",
+    "source": 6
+   },
+   {
+    "fact": "At 01:44 UTC on 2026-11-15, bitcoin traded at $62,199 per CoinGecko, down 16.3% over the week.",
+    "source": 7
+   },
+   {
+    "fact": "The article says whether $60,000 holds depends on Fed rate expectations, spot bitcoin ETF outflows, and remaining leveraged long exposure.",
+    "source": 7
+   },
+   {
+    "fact": "The only BLS release dated 2026-11-20 to 2026-11-25 is State Employment and Unemployment for October 2026, at 10:00 AM ET on Friday 2026-11-20; the page lists no BLS releases from 2026-11-21 through 2026-11-25, and the next entry is Thanksgiving on 2026-11-26.",
+    "source": 8
+   },
+   {
+    "fact": "The BLS November 2026 schedule page was last modified on 2026-11-03, and the BLS warns that release dates can change because of past funding lapses.",
+    "source": 8
+   },
+   {
+    "fact": "The SoSoValue US spot bitcoin ETF flow page returned HTTP 403, so no ETF flow figure after the week of 2026-11-09 was verified from that primary source.",
+    "source": 9
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-20T10:19:05.820920+00:00",
+  "research_cost_usd": 0.1891,
+  "research_failed": null,
+  "research_seconds": 187.1,
+  "researched_at": "2026-11-20T10:18:11+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-20",
+    "quotes": [
+     "{\"symbol\":\"BTCUSDT\",\"price\":\"61799.17000000\"}",
+     "{\"symbol\":\"BTCUSDT\",\"price\":\"61795.33000000\"}",
+     "{\"symbol\":\"BTCUSDT\",\"price\":\"61810.43000000\"}"
+    ],
+    "title": "Binance API: BTCUSDT ticker price",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "61779.28 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+    ],
+    "title": "Trade BTC/USDT Spot | Binance",
+    "url": "https://www.binance.com/en/trade/BTC_USDT?type=spot",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+    ],
+    "title": "Binance Spot API: Market Data endpoints",
+    "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+    "verified": null
+   },
+   {
+    "published": "2026-11-20",
+    "quotes": [
+     "[1795132800000,\"61986.73000000\",\"62639.52000000\",\"61290.58000000\",\"61795.33000000\",\"9306.27660000\"",
+     "[1794960000000,\"64947.36000000\",\"65002.00000000\",\"62062.97000000\",\"63068.22000000\",\"18699.69566000\""
+    ],
+    "title": "Binance API: BTCUSDT 1-day klines (last 31 candles)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+    "verified": null
+   },
+   {
+    "published": "2026-11-14",
+    "quotes": [
+     "U.S.\nspot bitcoin ETFs posted $1.07 billion in net outflows last week",
+     "Bitcoin ETFs have come to lose $2.35 billion in November after nine trading days"
+    ],
+    "title": "The Block: Bitcoin ETFs lose $1 billion for the second week in a row",
+    "url": "https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-440337",
+    "verified": null
+   },
+   {
+    "published": "2026-11-18",
+    "quotes": [
+     "December 8-9*"
+    ],
+    "title": "Federal Reserve: FOMC calendars",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "verified": false
+   },
+   {
+    "published": "2026-11-17",
+    "quotes": [
+     "The world\u2019s largest crypto asset fell to roughly $62,000 in mid-November 2026, its weakest level since July or August of this year.",
+     "That works out to a month-to-date decline of about 16-23%, depending on where you mark the starting line.",
+     "US spot Bitcoin ETFs saw net outflows of around $1.9 billion during the sell-off."
+    ],
+    "title": "Bitcoin slides as much as 23% in November 2026, reviving 2022 bear market comparisons",
+    "url": "https://cryptobriefing.com/bitcoin-falls-23-november-2026-bear-market/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-15",
+    "quotes": [
+     "At 01:44 UTC on November 15, 2026, bitcoin traded at $62,199 according to [CoinGecko](https://www.coingecko.com/en/coins/bitcoin), down 8.9% in 24 hours and 16.3% over the week.",
+     "Whether $60,000 holds now depends on three things: rate expectations for the Federal Reserve, outflows from the spot bitcoin ETFs, and how much leveraged long exposure is still left in the market."
+    ],
+    "title": "Bitcoin Price Crashes to $62,000: Will $60,000 Hold?",
+    "url": "https://cryptoticker.io/en/bitcoin-price-62000-crash-fed-hike-60000-level-november-15-2026/",
+    "verified": false
+   },
+   {
+    "published": "2026-11-03",
+    "quotes": [
+     "Friday, November 20, 2026 / 10:00 AM / State Employment and Unemployment (Monthly) for October 2026",
+     "Friday, November 20, 2026 / 10:00 AM / Total Factor Productivity for Major Industries for Annual 2025",
+     "Thursday, November 26, 2026 / Thanksgiving Day"
+    ],
+    "title": "BLS release schedule, November 2026",
+    "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "SoSoValue US spot bitcoin ETF flow data (not readable)",
+    "url": "https://sosovalue.com/assets/etf/us-btc-spot",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "The Binance price is a single API read at 10:14 UTC; the trade page title read 61779.28 at an unstated time, so the live level may have moved since.",
+   "The Block quotes are shortened excerpts from the page (the fetch tool truncated them); the full sentences were not copied verbatim.",
+   "ETF flow data after the week of Nov 9-13 was not found; the tftc.io tracker appeared stale and Morningstar/Stocktwits items were 2025 articles.",
+   "The trade-press figures for Nov 14-17 ($65,300 and about $62,000 lows) came from search snippets and were not opened, so I could not verify them.",
+   "No primary-source CPI, Treasury, or ETF-issuer release date within Nov 20-25 was located; the BLS and BEA calendars were not opened, so any scheduled US data release in that window is unconfirmed.",
+   "Neither article is a primary source.\nBoth are trade-press pieces, and CryptoBriefing's ETF outflow figure is not checked against SoSoValue or issuer data."
+  ]
+ }
+}

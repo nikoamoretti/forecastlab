@@ -1,0 +1,30 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-25T17:00:00Z",
+      "id": "polymarket-7150180",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-november-25-2026",
+      "question": "Will the price of Bitcoin be above $56,000 on November 25?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-11-30T04:59:00Z",
+      "id": "polymarket-7121672",
+      "market_url": "https://polymarket.com/event/openrouter-token-usage-week-of-november-23",
+      "question": "Will OpenRouter process 260T or more tokens the week of November 23?",
+      "resolution_criteria": "This market will resolve according to the total number of tokens processed on OpenRouter for the week of November 23 to November 29, 2026.\n\nThe total number of tokens is the weekly total displayed in the Top Models chart on OpenRouter's AI Model Rankings page (https://openrouter.ai/rankings#top-models). OpenRouter's weeks run from 12:00 AM UTC on Monday to 11:59 PM UTC on Sunday, and a week's figures continue to update until the following week's figures are first displayed.\n\nThis market will resolve according to the total displayed for the week of November 23 to November 29, 2026 once the figures for the week of November 30, 2026 are first displayed. If the figures for the week of November 30, 2026 have not been displayed by 11:59 PM ET on December 4, 2026, this market will resolve according to the total displayed for the week of November 23 to November 29, 2026 at that time.\n\nThis market will resolve based on the total as displayed on the chart, including any rounding applied by OpenRouter. If the displayed total falls exactly on the boundary between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "topic": "Tech"
+    },
+    {
+      "closes_at": "2026-11-23T04:59:00Z",
+      "id": "polymarket-6942345",
+      "market_url": "https://polymarket.com/event/how-many-ukmto-notices-november-1622",
+      "question": "Will UKMTO publish 4-7 notices between November 16-November 22?",
+      "resolution_criteria": "This market will resolve according to the total number of notices that UKMTO (United Kingdom Maritime Trade Operations) publishes on its Recent Incidents page with a publication date from November 16, 2026, through November 22, 2026 (UTC), inclusive, as displayed on that page.\n\nAll notice types will count, including warnings, advisories, suspicious activity notices, and attack reports, including time-late reports of incidents that occurred before November 16, 2026 (UTC). Each notice will be counted once.\n\nUpdates to, corrections of, or reissues of a previously published notice will not count as separate notices, including any subsequent notice that updates or provides additional information on an incident already reported by UKMTO.\n\nOnly notices published by UKMTO will count. Maritime incidents that are not the subject of a UKMTO notice published within the specified period will not count, regardless of whether they occurred or are reported by other sources.\n\nThis market will resolve as soon as all notices for the specified period have been published. Notices published after November 22, 2026 (UTC) will not be considered, even if they relate to incidents within the specified period.\n\nThe resolution source for this market will be UKMTO, specifically the Recent Incidents page at https://www.ukmto.org/recent-incidents. If that page is unavailable, notices published through UKMTO's official channels may be used.",
+      "topic": "World"
+    }
+  ],
+  "selected_at": "2026-11-20T10:08:18.753119+00:00",
+  "selection": "polymarket_selection_v9+manifold_selection_v4+kalshi_selection_v1"
+}
