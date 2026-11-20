@@ -1,0 +1,51 @@
+{
+  "cells": [
+    {
+      "entry_id": "16e874d58dd170be",
+      "method": "statistical_baseline_v1",
+      "outcome": null,
+      "probability": 0.44551282051282054,
+      "release_event": "claims-2026-11-26",
+      "status": "forecasted"
+    },
+    {
+      "entry_id": "16e874d58dd170be",
+      "method": "claude_code_forecaster_v1 (post-freeze supplement)",
+      "outcome": null,
+      "probability": 0.35,
+      "release_event": "claims-2026-11-26",
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261120",
+  "interpretation": "Small, correlated sample; operational evidence only, not an accuracy or calibration claim.",
+  "manifest_hash": "bed7822971d8bed39a95a7e32a4bd824bda334a3623f14aee405e515c300706e",
+  "methods": {
+    "claude_code_forecaster_v1 (post-freeze supplement)": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    },
+    "statistical_baseline_v1": {
+      "assigned": 1,
+      "forecasted": 1,
+      "mean_brier": null,
+      "mean_log_loss": null,
+      "resolved_forecasts": 0,
+      "uninformed_50pct_brier": null
+    }
+  },
+  "outcomes": {
+    "16e874d58dd170be": {
+      "reason": "fred_initial_release_not_yet_published",
+      "status": "pending"
+    }
+  },
+  "resolved_entries": 0,
+  "scored_on": "2026-11-20",
+  "scoring_version": "prospective_artifact_scoring_v1",
+  "total_entries": 1
+}
