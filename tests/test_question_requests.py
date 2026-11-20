@@ -55,9 +55,14 @@ def test_claude_answers_are_recorded_and_appear_in_the_track_record(tmp_path, mo
         script.record(_answers(tmp_path, probability=0.99), today=date(2026, 10, 8))
     with pytest.raises(SystemExit, match="missing"):
         script.record(_answers(tmp_path, rationale=""), today=date(2026, 10, 8))
+    def on(day: date) -> type:
+        return type("FrozenDate", (date,), {"today": classmethod(lambda cls: day)})
+
+    # set_outcome reads the clock; the question resolves on 2026-12-10, so the real date made this check fail from that day.
+    monkeypatch.setattr(script, "date", on(date(2026, 10, 8)))
     with pytest.raises(SystemExit, match="resolves on"):
         script.set_outcome(target.parent, "req-1", "no", note="Held at 4.5%", source="https://www.federalreserve.gov/")
-    monkeypatch.setattr(script, "date", type("FrozenDate", (date,), {"today": classmethod(lambda cls: date(2026, 12, 11))}))
+    monkeypatch.setattr(script, "date", on(date(2026, 12, 11)))
     script.set_outcome(target.parent, "req-1", "no", note="Held at 4.5%", source="https://www.federalreserve.gov/")
     resolved = build_track_record(tmp_path / "artifacts", today=date(2026, 12, 11))["questions"][0]
     assert (resolved["status"], resolved["actual"], resolved["verdict"]) == ("resolved", "Held at 4.5%", "right")
