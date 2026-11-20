@@ -51,6 +51,13 @@
             "https://cryptobriefing.com/openrouter-10-quadrillion-token-run-rate/",
             "https://openrouter.ai/blog/announcements/hugging-face-inference-providers/"
           ]
+        },
+        {
+          "created_at": "2026-11-20T12:43:29.130209+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.68,
+          "rationale": "Week ending Oct 26 was about 194T and growth near 7% a week gives roughly 270T by late November; the top 10 models alone sum to about 200T, with a long tail beyond them, so the total is likely well above 200T. Thanksgiving week and the unclear 'displayed total' leave real downside, so I stay near the market.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-7121672",
