@@ -85,6 +85,15 @@ price unless a promoted rule applies, and no rule is promoted yet. The 10-point 
 used for a call; it is still scored in the shadows as the rule ``every_question_move_v1``. With no move there is nothing
 to hold back, so such a call carries no ``held`` mark.
 
+From OWN_CALL_FROM (2026-11-23) our call is Claude's own forecast again (``claude_call_v1``). The owner on 2026-11-21:
+a call that only repeats the market's price is useless. The market's price stays on every question as the yardstick, so
+on these questions "ours against the market" is the test of independent skill. A promoted call rule that matches the
+question still decides the call, applied from the market's price exactly as in the anchored period: a rule is promoted
+only after it has beaten the market on new results, which Claude's own forecast has not done (on 2026-11-21, over 239
+decided questions both priced, Claude alone scored 0.206 against the market's 0.162). Weak research holds nothing back
+here: the call is Claude's forecast as stated. Calls frozen for 2026-11-10 to 2026-11-22 keep
+``market_anchored_call_v1``.
+
 The headline score is the Brier score of our call over every decided, scored question
 (``summary.brier``); ``summary.vs_market`` is the fair comparison with the market on the
 questions it also priced, using the same call.
@@ -130,6 +139,10 @@ ANCHORED_FROM = date(2026, 11, 10)
 # price until a rule has proven it beats the market. It was 0.10 for one day and no call was frozen under it.
 DEFAULT_MOVE: float = 0.0
 CALL_BOUNDS = (0.02, 0.98)
+# From this day our call is Claude's own forecast again, with the market's price beside it as the yardstick (the owner on
+# 2026-11-21: a call that only repeats the market's price is useless). A promoted call rule still decides the call on
+# the questions it matches.
+OWN_CALL_FROM = date(2026, 11, 23)
 CLAUDE = "claude_code_forecaster_v1"
 # Claude's forecast after also seeing the market price and its own first forecast. Never an input to anything Claude
 # forecasts blind, and never part of an older call (see EXCLUDED).
@@ -192,6 +205,7 @@ CHANGES = (
     {"date": CORRECTED_CALL_FROM, "label": "Confidence correction"},
     {"date": DEEPER_RESEARCH_FROM, "label": "Deeper research"},
     {"date": ANCHORED_FROM, "label": "Call anchored to market"},
+    {"date": OWN_CALL_FROM, "label": "Call is Claude’s own forecast"},
 )
 # "Before / after" splits forecasts made on or after this day against earlier ones.
 PROGRESS_SPLIT = CORRECTED_CALL_FROM
@@ -210,7 +224,8 @@ COIN_FLIP_BRIER = 0.25
 FORECASTERS: dict[str, dict[str, str]] = {
     "claude_code_forecaster_v1": {
         "label": "Claude alone", "about": "Claude researches each question on the web and states a probability, "
-        "without seeing any market price. Tracked on its own beside our call; the test of independent skill."},
+        "without seeing any market price. Tracked on its own beside our call, and our call itself for questions first "
+        "forecast from {own}; the test of independent skill."},
     SECOND_LOOK: {
         "label": "Claude, second look",
         "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test "
@@ -249,16 +264,18 @@ FORECASTERS: dict[str, dict[str, str]] = {
                  "Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since."},
     "market_price_v1": {
         "label": "Prediction market (benchmark)",
-        "about": "Polymarket's price when we forecast. From 2026-11-10 our call {call}; "
-                 "the toughest bar to beat."},
+        "about": "Polymarket's price when we forecast. For questions first forecast {anchored} to {until} our call "
+                 "{call}; from {own} it is the yardstick beside Claude's own forecast. The toughest bar to beat."},
     "manifold_price_v1": {
         "label": "Manifold (benchmark)",
-        "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call "
-                 "{call}."},
+        "about": "Manifold's play-money price when we forecast (used when Polymarket has none). For questions first "
+                 "forecast {anchored} to {until} our call {call}; from {own} it is the yardstick beside Claude's own "
+                 "forecast."},
     "kalshi_price_v1": {
         "label": "Kalshi (benchmark)",
         "about": "Kalshi's price when we forecast: the midpoint of its best bid and ask. Used for questions that come from "
-                 "Kalshi. From 2026-11-10 our call {call}."},
+                 "Kalshi. For questions first forecast {anchored} to {until} our call {call}; from {own} it is the "
+                 "yardstick beside Claude's own forecast."},
 }
 SERIES_LABELS = {"unemployment": "U.S. unemployment rate", "payrolls": "U.S. job growth",
                  "cpi": "U.S. inflation (CPI)", "jobless_claims": "Weekly U.S. jobless claims",
@@ -271,14 +288,18 @@ PRIMARY_ORDER = list(FORECASTERS)
 
 
 def _about(info: dict[str, str], *, combined: bool = False) -> dict[str, str]:
-    """``info`` with its {call} filled in from DEFAULT_MOVE and the promoted rules, so the texts never hard-code a move."""
+    """``info`` with its placeholders filled in: {call} says what the call did in the anchored period, from DEFAULT_MOVE
+    and the promoted rules, and {anchored}, {until} and {own} are that period's first and last day and the first day of
+    Claude's own forecast as our call, so the texts never hard-code a move or a date."""
     if DEFAULT_MOVE > 0:
         most = max([DEFAULT_MOVE] + [r["move"] for r in CALL_RULES if r["status"] == "promoted"])
-        call = (f"starts from the market price and moves at most {round(most * 100)} points toward Claude's forecast" if combined
-                else f"starts from it and moves at most {round(most * 100)} points")
+        call = (f"started from the market price and moved at most {round(most * 100)} points toward Claude's forecast" if combined
+                else f"started from it and moved at most {round(most * 100)} points")
     else:
-        call = "is the market's price unless a tested edge applies" if combined else "is this price unless a tested edge applies"
-    return {**info, "about": info["about"].format(call=call)}
+        call = "was the market's price unless a tested edge applied" if combined else "was this price unless a tested edge applied"
+    return {**info, "about": info["about"].format(
+        call=call, anchored=ANCHORED_FROM.isoformat(), until=(OWN_CALL_FROM - timedelta(days=1)).isoformat(),
+        own=OWN_CALL_FROM.isoformat())}
 
 
 def _forecaster(method: str) -> str:
@@ -287,8 +308,10 @@ def _forecaster(method: str) -> str:
 
 COMBINED_INFO = {"label": "Combined forecast",
                  "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with "
-                          "better records counted for more. Since Nov 5 it is Claude's own forecast, which "
-                          "had beaten the combination. Since Nov 10 it {call}."}
+                          "better records counted for more. From Nov 5 it was Claude's own forecast, which "
+                          "had beaten the combination. For questions first forecast {anchored} to {until} it {call}. "
+                          "From {own} it is Claude's own forecast again, with the market's price beside it as the "
+                          "yardstick; a tested edge that has beaten the market takes its place on the questions it covers."}
 
 
 def _call(forecasts: list[dict[str, Any]]) -> dict[str, Any] | None:
@@ -409,6 +432,19 @@ def _anchored_call(forecasts: list[dict[str, Any]], weights: dict[str, float],
     if forecaster:
         call |= {"forecaster": forecaster, "target": target}
     return call | {"held": "weak research"} if held else call
+
+
+def _own_call(forecasts: list[dict[str, Any]], weights: dict[str, float],
+              research: dict[str, Any] | None = None, question_id: str = "", topic: str = "") -> dict[str, Any] | None:
+    """Claude's own forecast as our call (from OWN_CALL_FROM); a promoted call rule that matches still decides the call.
+
+    Such a rule has beaten the market on new results, so it is applied from the market's price as ``_anchored_call``
+    does. With no promoted rule for the question, or no market price, the call is whatever ``_claude_call`` gives.
+    """
+    if (_market_price(forecasts) is not None and _probability_of(forecasts, CLAUDE) is not None
+            and any(r["status"] == "promoted" and _applicable(r, topic, forecasts) for r in CALL_RULES)):
+        return _anchored_call(forecasts, weights, research, question_id, topic)
+    return _claude_call(forecasts, weights)
 
 
 def _corrected_call(forecasts: list[dict[str, Any]], weights: dict[str, float]) -> dict[str, Any] | None:
@@ -772,8 +808,10 @@ def _edge_tests(resolved: list[dict[str, Any]], artifacts: Path, research_files:
 
 
 def _call_policy() -> dict[str, Any]:
-    """How far the call may move, which rules are promoted and the bar a rule must clear, so the web copy follows the data."""
-    return {"default_move": DEFAULT_MOVE, "promoted": [r["label"] for r in CALL_RULES if r["status"] == "promoted"],
+    """How far the anchored call could move, the day Claude's own forecast became the call again, which rules are promoted
+    and the bar a rule must clear, so the web copy follows the data."""
+    return {"default_move": DEFAULT_MOVE, "own_from": OWN_CALL_FROM.isoformat(),
+            "promoted": [r["label"] for r in CALL_RULES if r["status"] == "promoted"],
             "bar": {"questions": PROMOTION_QUESTIONS, "dates": PROMOTION_DATES,
                     "interval": round(PROMOTION_INTERVAL[1] - PROMOTION_INTERVAL[0], 2)}}
 
@@ -839,7 +877,7 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             call = _call(question["forecasts"])
         else:
             calls = frozen[question["source"]]
-            pick = ((lambda forecasts, weights, q=question: _anchored_call(
+            pick = ((lambda forecasts, weights, q=question, rule=_own_call if day >= OWN_CALL_FROM else _anchored_call: rule(
                         forecasts, weights, _research(artifacts, q["source"], research_files), q["id"], q["topic"]))
                     if day >= ANCHORED_FROM
                     else _corrected_call if day >= CORRECTED_CALL_FROM

@@ -38,7 +38,8 @@ export type EdgeBlock = { questions: number; dates: number; rule: number | null;
   interval: [number, number] | null; meets_bar?: boolean };
 // about is one plain sentence on what the edge would do to our call (absent in records built before it was added).
 export type EdgeTest = { id: string; label: string; about?: string; status: "testing" | "promoted"; registered: string; counted: EdgeBlock; before: EdgeBlock };
-export type CallPolicy = { default_move: number; promoted: string[]; bar: { questions: number; dates: number; interval: number } };
+// own_from: the first forecast day on which our call is Claude's own forecast again (absent in records built before that change).
+export type CallPolicy = { default_move: number; own_from?: string; promoted: string[]; bar: { questions: number; dates: number; interval: number } };
 export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number; vs_market?: VersusMarket; progress?: Progress;
   call_policy?: CallPolicy; edge_tests?: EdgeTest[] };
   calibration?: { slope: number; intercept: number; results: number; as_of: string } | null;
