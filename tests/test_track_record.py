@@ -469,7 +469,8 @@ def test_the_record_scores_the_call_claude_alone_and_the_market_on_the_same_ques
                                         "claude": versus["claude"], "market": versus["market"]}
     week = record["summary"]["progress"]["weeks"][0]
     assert week["claude"] == pytest.approx(versus["claude"]) and week["ours"] == pytest.approx(versus["ours"])
-    assert record["summary"]["progress"]["changes"][-1] == {"date": "2026-11-10", "label": "Call anchored to market"}
+    assert record["summary"]["progress"]["changes"][-2:] == [
+        {"date": "2026-11-10", "label": "Call anchored to market"}, {"date": "2026-11-23", "label": "Call is Claude’s own forecast"}]
     claude = next(f for f in record["forecasters"] if f["method"] == CLAUDE)
     assert claude["label"] == "Claude alone" and claude["resolved"] == 3
 
@@ -508,7 +509,7 @@ def test_progress_groups_by_forecast_week_and_splits_before_and_after_nov_6(tmp_
     assert (second["start"], second["questions"]) == ("2026-11-09", 1)
     assert second["ours"] == pytest.approx(0.25) and second["market"] == pytest.approx(0.01)
     assert (second["right"], second["wrong"]) == (0, 0)  # an exact 50% is a toss-up
-    assert [c["date"] for c in progress["changes"]] == ["2026-10-24", "2026-11-06", "2026-11-09", "2026-11-10"]
+    assert [c["date"] for c in progress["changes"]] == ["2026-10-24", "2026-11-06", "2026-11-09", "2026-11-10", "2026-11-23"]
     split = progress["since_last_change"]
     assert split["date"] == "2026-11-06"
     assert split["before"]["questions"] == 1 and split["before"]["ours"] == pytest.approx(0.04)
@@ -553,11 +554,12 @@ def test_a_testing_rule_changes_no_call_and_a_default_move_is_what_moves_it(tmp_
     for qid in ("tech", "other"):
         assert call[qid] == {"method": "market_anchored_call_v1", "probability": 0.6, "members": 1, "claude": 0.9,
                              "market": 0.5, "max_move": 0.1}
-    assert record["summary"]["call_policy"] == {"default_move": 0.1, "promoted": [], "bar": {"questions": 40, "dates": 10, "interval": 0.9}}
+    assert record["summary"]["call_policy"] == {"default_move": 0.1, "own_from": "2026-11-23", "promoted": [],
+                                                "bar": {"questions": 40, "dates": 10, "interval": 0.9}}
     ours = next(f for f in record["forecasters"] if f["method"] == "combined_median_v1")
-    assert "moves at most 10 points toward Claude's forecast" in ours["about"]
+    assert "moved at most 10 points toward Claude's forecast" in ours["about"]
     market = next(f for f in record["forecasters"] if f["method"] == "market_price_v1")
-    assert "moves at most 10 points" in market["about"]
+    assert "moved at most 10 points" in market["about"]
 
 
 def test_by_default_the_call_is_the_market_price_and_claude_alone_is_still_scored(tmp_path: Path) -> None:
@@ -576,8 +578,58 @@ def test_by_default_the_call_is_the_market_price_and_claude_alone_is_still_score
     assert next(f for f in record["forecasters"] if f["method"] == CLAUDE)["resolved"] == 2
     assert record["summary"]["call_policy"]["default_move"] == 0.0
     ours = next(f for f in record["forecasters"] if f["method"] == "combined_median_v1")
-    assert "is the market's price unless a tested edge applies" in ours["about"] and "10 points" not in ours["about"]
-    assert "is this price unless a tested edge applies" in next(f for f in record["forecasters"] if f["method"] == "market_price_v1")["about"]
+    assert ("For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. "
+            "From 2026-11-23 it is Claude's own forecast again") in ours["about"] and "10 points" not in ours["about"]
+    market = next(f for f in record["forecasters"] if f["method"] == "market_price_v1")["about"]
+    assert ("For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; "
+            "from 2026-11-23 it is the yardstick beside Claude's own forecast.") in market
+    assert "our call itself for questions first forecast from 2026-11-23" in next(
+        f for f in record["forecasters"] if f["method"] == CLAUDE)["about"]
+
+
+def test_from_nov_23_the_call_is_claudes_own_forecast_and_the_market_is_the_yardstick(tmp_path: Path) -> None:
+    before = tmp_path / "prospective_markets_20261120"
+    _markets(before, [{"id": "fri", "date": "2026-11-25", "outcome": 1, "forecasts": [
+        {"method": CLAUDE, "probability": 0.9}, {"method": "market_price_v1", "probability": 0.5}]}])
+    _research(before, good=["fri"])
+    monday = tmp_path / "prospective_markets_20261123"
+    priced = [{"method": CLAUDE, "probability": 0.9}, {"method": "market_price_v1", "probability": 0.5}]
+    _markets(monday, [
+        {"id": "own", "date": "2026-11-25", "outcome": 1, "forecasts": priced},
+        {"id": "weak", "date": "2026-11-25", "outcome": 0, "forecasts": priced},   # thin research holds nothing back
+        {"id": "unpriced", "date": "2026-11-25", "outcome": 1, "forecasts": [{"method": CLAUDE, "probability": 0.7}]},
+        {"id": "noclaude", "date": "2026-11-25", "forecasts": [{"method": "market_price_v1", "probability": 0.5}]}])
+    _research(monday, good=["own"], warned=["weak"])
+    record = build_track_record(tmp_path, today=date(2026, 11, 26), freeze=True)
+    call = {q["id"]: q["call"] for q in record["questions"]}
+    # The last anchored day keeps the market's price; from Monday the call is what Claude said, blind.
+    assert call["fri"] == {"method": "market_anchored_call_v1", "probability": 0.5, "members": 1, "claude": 0.9, "market": 0.5, "max_move": 0.0}
+    for qid in ("own", "weak"):
+        assert call[qid] == {"method": "claude_call_v1", "probability": 0.9, "members": 1}
+    assert call["unpriced"] == {"method": "claude_call_v1", "probability": 0.7, "members": 1}
+    assert call["noclaude"] is None  # no forecaster of ours answered: no call, as in every earlier period
+    verdicts = {q["id"]: q["verdict"] for q in record["questions"]}
+    assert (verdicts["fri"], verdicts["own"], verdicts["weak"]) == ("toss_up", "right", "wrong")
+    assert json.loads((monday / "calls.json").read_text()) == {q: call[q] for q in ("own", "weak", "unpriced")}
+    # "Ours against the market" now measures Claude's own forecast on the questions forecast from Monday.
+    versus = record["summary"]["vs_market"]
+    assert versus["questions"] == 3 and versus["market"] == pytest.approx(0.25)
+    assert versus["ours"] == pytest.approx((0.25 + 0.01 + 0.81) / 3) and versus["claude"] == pytest.approx((0.01 + 0.01 + 0.81) / 3)
+    assert record["summary"]["call_policy"]["own_from"] == "2026-11-23"
+    # A later build changes nothing that was frozen.
+    again = build_track_record(tmp_path, today=date(2026, 11, 30), freeze=True)
+    assert {q["id"]: q["call"] for q in again["questions"]} == call
+
+
+def test_from_nov_23_a_promoted_rule_still_decides_the_questions_it_matches(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(track_record, "CALL_RULES", _rules(tech_move_v1="promoted"))
+    _tech_and_other(tmp_path, "20261123")
+    record = build_track_record(tmp_path, today=date(2026, 11, 23), freeze=True)
+    call = {q["id"]: q["call"] for q in record["questions"]}
+    # The proven edge is applied from the market's price, as in the anchored period; every other question is Claude's own.
+    assert call["tech"] == {"method": "market_anchored_call_v1", "probability": 0.6, "members": 1, "claude": 0.9, "market": 0.5,
+                            "max_move": 0.1, "rule": "tech_move_v1"}
+    assert call["other"] == {"method": "claude_call_v1", "probability": 0.9, "members": 1}
 
 
 def test_a_promoted_rule_moves_the_questions_it_matches_and_names_itself(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
