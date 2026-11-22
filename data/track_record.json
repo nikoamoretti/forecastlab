@@ -1,13 +1,13 @@
 {
   "calibration": {
-    "as_of": "2026-11-21",
-    "intercept": 0.233811,
-    "results": 273,
-    "slope": 0.693896
+    "as_of": "2026-11-22",
+    "intercept": 0.244504,
+    "results": 276,
+    "slope": 0.70394
   },
   "forecasters": [
     {
-      "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. Since Nov 5 it is Claude's own forecast, which had beaten the combination. Since Nov 10 it is the market's price unless a tested edge applies.",
+      "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. From Nov 5 it was Claude's own forecast, which had beaten the combination. For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. From 2026-11-23 it is Claude's own forecast again, with the market's price beside it as the yardstick; a tested edge that has beaten the market takes its place on the questions it covers.",
       "brier": 0.207899820527235,
       "coin_flip_brier": 0.25,
       "forecasts": 330,
@@ -20,7 +20,7 @@
       "wrong": 84
     },
     {
-      "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call; the test of independent skill.",
+      "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
       "brier": 0.20281485507246377,
       "coin_flip_brier": 0.25,
       "forecasts": 324,
@@ -228,7 +228,7 @@
       "wrong": 17
     },
     {
-      "about": "Polymarket's price when we forecast. From 2026-11-10 our call is this price unless a tested edge applies; the toughest bar to beat.",
+      "about": "Polymarket's price when we forecast. For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast. The toughest bar to beat.",
       "brier": 0.16329566497461928,
       "coin_flip_brier": 0.25,
       "forecasts": 227,
@@ -241,7 +241,7 @@
       "wrong": 47
     },
     {
-      "about": "Manifold's play-money price when we forecast (used when Polymarket has none). From 2026-11-10 our call is this price unless a tested edge applies.",
+      "about": "Manifold's play-money price when we forecast (used when Polymarket has none). For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast.",
       "brier": 0.14248555557692308,
       "coin_flip_brier": 0.25,
       "forecasts": 61,
@@ -254,7 +254,7 @@
       "wrong": 13
     },
     {
-      "about": "Kalshi's price when we forecast: the midpoint of its best bid and ask. Used for questions that come from Kalshi. From 2026-11-10 our call is this price unless a tested edge applies.",
+      "about": "Kalshi's price when we forecast: the midpoint of its best bid and ask. Used for questions that come from Kalshi. For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast.",
       "brier": 0.009025,
       "coin_flip_brier": 0.25,
       "forecasts": 1,
@@ -267,18 +267,18 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-21",
+  "generated_on": "2026-11-22",
   "learned_model": {
-    "as_of": "2026-11-21",
-    "intercept": 0.086323,
-    "results": 247,
-    "slope": 0.920949,
+    "as_of": "2026-11-22",
+    "intercept": 0.100235,
+    "results": 250,
+    "slope": 0.932784,
     "weights": {
-      "Crypto": -0.144538,
-      "Economy": -0.26912,
-      "Politics": -0.360725,
-      "Tech": 0.419963,
-      "World": -0.431531
+      "Crypto": -0.139275,
+      "Economy": -0.264977,
+      "Politics": -0.355633,
+      "Tech": 0.418967,
+      "World": -0.429647
     }
   },
   "questions": [
@@ -20736,6 +20736,7 @@
         "questions": 40
       },
       "default_move": 0.0,
+      "own_from": "2026-11-23",
       "promoted": []
     },
     "cancelled": 1,
@@ -20874,6 +20875,10 @@
         {
           "date": "2026-11-10",
           "label": "Call anchored to market"
+        },
+        {
+          "date": "2026-11-23",
+          "label": "Call is Claude\u2019s own forecast"
         }
       ],
       "since_last_change": {
