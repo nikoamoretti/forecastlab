@@ -1,0 +1,146 @@
+{
+  "reviewed_on": "2026-11-22",
+  "summary": "Six of the 13 misses were out-of-date prices or status (four Bitcoin thresholds, one stock touch, one finalist list); the rest were close calls or one-off events.",
+  "misses": [
+    {
+      "id": "polymarket-634976",
+      "cause": "unlucky",
+      "note": "Near-even race on tied polls; the narrow Democratic win was within polling error.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-04",
+      "probability": 0.48,
+      "outcome": 1
+    },
+    {
+      "id": "manifold-cq5ZZ2hh8I",
+      "cause": "misread_rules",
+      "note": "A disrupted plot that included the person was read as unlikely to count, but the rule was wide enough to allow it.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-05",
+      "probability": 0.08,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-6801798",
+      "cause": "stale_data",
+      "note": "Used a price read three days before the date and the price fell below the level since.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-14",
+      "probability": 0.77,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-6906853",
+      "cause": "unlucky",
+      "note": "Needed a further 8 cents in five days; the fall was a little faster than the trend.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-15",
+      "probability": 0.42,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-6639361",
+      "cause": "unlucky",
+      "note": "Modest lean to a beat on an unverified consensus; the miss was within ordinary earnings noise.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-17",
+      "probability": 0.64,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-6639367",
+      "cause": "unlucky",
+      "note": "A near coin flip on an unverified consensus; the company beat.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-17",
+      "probability": 0.47,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-6935919",
+      "cause": "stale_data",
+      "note": "Used a price read five days earlier; the price had fallen to the level by the resolution date.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-17",
+      "probability": 0.94,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-6733682",
+      "cause": "other",
+      "note": "Finalist list was never found, so the entrant's place and the final's date stayed unconfirmed.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-18",
+      "probability": 0.14,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-6967620",
+      "cause": "stale_data",
+      "note": "Used reports from five days earlier and could not read the settling exchange's own price.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-18",
+      "probability": 0.82,
+      "outcome": 0
+    },
+    {
+      "id": "6f27748ec336f18a",
+      "cause": "unlucky",
+      "note": "Latest print sat exactly on the threshold, so a small rise decided it.",
+      "topic": "Jobs",
+      "resolves_on": "2026-11-19",
+      "probability": 0.38,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-6990957",
+      "cause": "stale_data",
+      "note": "Latest price actually read was nine days old when the forecast was made.",
+      "topic": "Crypto",
+      "resolves_on": "2026-11-19",
+      "probability": 0.8,
+      "outcome": 0
+    },
+    {
+      "id": "polymarket-6948156",
+      "cause": "unlucky",
+      "note": "Travel schedule was unconfirmed and the final date was close to the edge of the window.",
+      "topic": "Politics",
+      "resolves_on": "2026-11-20",
+      "probability": 0.4,
+      "outcome": 1
+    },
+    {
+      "id": "polymarket-7025133",
+      "cause": "stale_data",
+      "note": "The price reaction after the results was not found, so the forecast rested on a two-day-old level.",
+      "topic": "Economy",
+      "resolves_on": "2026-11-20",
+      "probability": 0.1,
+      "outcome": 1
+    }
+  ],
+  "checklist_items": {
+    "Crypto": [
+      "For a price-above or price-below question, read the settling exchange's price on the forecast day itself and quote it with its date and time; if the latest reading is more than 24 hours old, say so and lower the stated confidence instead of carrying an older level forward."
+    ],
+    "Economy": [
+      "For an earnings-beat question, find the exact per-share threshold and the consensus it is based on from a page you opened, with its date and the release time, and count the last 8 results against that same measure; if the threshold cannot be confirmed, say so and stay near the base rate."
+    ]
+  },
+  "checklist_added": {
+    "Crypto": [
+      "For a price-above or price-below question, read the settling exchange's price on the forecast day itself and quote it with its date and time; if the latest reading is more than 24 hours old, say so and lower the stated confidence instead of carrying an older level forward."
+    ],
+    "Economy": [
+      "For an earnings-beat question, find the exact per-share threshold and the consensus it is based on from a page you opened, with its date and the release time, and count the last 8 results against that same measure; if the threshold cannot be confirmed, say so and stay near the base rate."
+    ]
+  },
+  "checklist_dropped": {
+    "Economy": [
+      "For a central-bank decision, find the bank's own calendar date, its last decision with the vote split, and the most recent economists' survey (Reuters, Bloomberg or the bank's own expectations survey) from a page you opened, with its date; a survey seen only in a search summary does not count, so say so if that is all you found."
+    ]
+  },
+  "checklist_version": 3,
+  "saved_on": "2026-11-22"
+}
