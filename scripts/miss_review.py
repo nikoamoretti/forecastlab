@@ -6,7 +6,10 @@
 ``export`` prints a compact packet (JSON) of Claude's misses: every resolved, scored question it got wrong,
 and any resolved forecast with a squared error of 0.36 or more (a call of 60 points or more off), each with
 the rule, Claude's probability and rationale, the outcome and the research it had (base rate, what was
-different, facts, the passes that ran). By default it lists every miss that no review in
+different, facts, the passes that ran). Each miss carries two days: ``forecast_day`` (when Claude forecast it) and
+``result_day`` (when it was decided), with ``days_ahead`` between them. The research is judged by what could be known
+on ``forecast_day``: on 2026-11-22 a reviewer read the single ``date`` the packet then had (the result day) as the
+forecast day and called five same-day price reads stale. By default it lists every miss that no review in
 ``data/miss_reviews/`` covers yet, whenever it resolved: a result can arrive after the review of its week (a
 held result, a slow count), and a date window would lose that miss for good. Such a miss is marked
 ``arrived_late``. ``--since`` lists every miss resolving on or after a date, reviewed or not. Nothing in it is
@@ -47,6 +50,10 @@ REVIEWS_DIR = "data/miss_reviews"
 BIG_ERROR = 0.36  # squared error; a forecast 0.6 or more away from the outcome
 CAUSES = ("stale_data", "wrong_base_rate", "misread_rules", "missed_scheduled_event", "overconfident",
           "unlucky", "other")
+HOW_TO_READ = ("forecast_day is the day Claude forecast the question; result_day is the day it was decided, days_ahead "
+               "days later. Judge the research by what could be known on forecast_day. stale_data means the latest "
+               "figure the research had was already old on forecast_day; a figure read that day that moved afterwards "
+               "is not stale (that is unlucky, or overconfident if the chance given left too little room for the move).")
 MAX_NOTE = 300
 MAX_ITEM = 400
 MIN_ITEM = 20
@@ -84,6 +91,22 @@ def misses(track: dict[str, Any]) -> list[tuple[dict[str, Any], dict[str, Any]]]
         if (p != 0.5 and (p > 0.5) != bool(outcome)) or (p - outcome) ** 2 >= BIG_ERROR:
             found.append((question, mine))
     return sorted(found, key=lambda row: (row[0]["resolves_on"], row[0]["id"]))
+
+
+def forecast_day(question: dict[str, Any], mine: dict[str, Any]) -> str | None:
+    """The day the forecast was made: its own timestamp, else the date in the name of its source directory."""
+    made = str(mine.get("made_at") or "")[:10]
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", made):
+        return made
+    named = re.search(r"(\d{4})(\d{2})(\d{2})$", question.get("source") or "")
+    return "-".join(named.groups()) if named else None
+
+
+def days_between(start: str | None, end: str | None) -> int | None:
+    try:
+        return (date.fromisoformat(str(end)[:10]) - date.fromisoformat(str(start)[:10])).days
+    except ValueError:
+        return None
 
 
 def research_for(root: Path, source: str, qid: str) -> dict[str, Any] | None:
@@ -130,7 +153,9 @@ def export(root: Path, since: str | None = None, today: str | None = None) -> di
             continue
         outcome = int(question["outcome"])
         actual = re.sub(r"^(Polymarket|Manifold|Kalshi|Metaculus):\s*", "", question.get("actual") or "")
-        found.append({"id": question["id"], "date": question["resolves_on"],
+        made = forecast_day(question, mine)
+        found.append({"id": question["id"], "forecast_day": made, "result_day": question["resolves_on"],
+                      "days_ahead": days_between(made, question["resolves_on"]),
                       "arrived_late": bool(since is None and last_review and question["resolves_on"] < last_review),
                       "topic": question.get("topic") or "Other",
                       "question": say(question.get("title"), 300), "resolution_rule": say(question.get("detail"), 1200),
@@ -142,6 +167,7 @@ def export(root: Path, since: str | None = None, today: str | None = None) -> di
     return {"generated_on": today or datetime.now(UTC).date().isoformat(), "forecaster": FORECASTER,
             "since": since, "last_review": last_review, "criteria": f"wrong calls, and any resolved forecast with squared error >= {BIG_ERROR}",
             "causes": list(CAUSES),
+            "how_to_read": HOW_TO_READ,
             "answer_with": {"reviewed_on": "YYYY-MM-DD", "summary": "one or two sentences",
                             "misses": [{"id": "<id>", "cause": "<one of causes>", "note": "one line"}],
                             "checklist_items": {"<topic>": ["one concrete research instruction"]}},

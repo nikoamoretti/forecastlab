@@ -29,7 +29,7 @@
       "Give the current price's distance from the threshold in percent and in multiples of the 30-day realised daily range, the hours left in the window, and any scheduled event inside it (ETF flow data, central-bank decision, token unlock, court date).",
       "For a running total, count or status (sale commitments, tally, events so far), find the latest figure from the official page or on-chain source and quote it with its date and time before anything else; if none from the last 48 hours exists, say so and widen the range.",
       "For a touch (hit or dip) question, state the touch chance as about twice the chance of ending beyond the level, from the last 20 days' realised volatility, and do not go below it without naming a concrete reason.",
-      "For a price-above or price-below question, read the settling exchange's price on the forecast day itself and quote it with its date and time; if the latest reading is more than 24 hours old, say so and lower the stated confidence instead of carrying an older level forward."
+      "For a price-above or price-below question more than one day ahead, give the chance from the last 7 days' realised daily volatility as well as the 30-day figure, and count how often a move of the needed size happened over the same number of days in the last 90 days; if the exchange's price or daily closes cannot be opened, say so first instead of taking the level from a news report."
     ],
     "Jobs": [
       "Find the first-published (advance) values for the last 8 weekly releases from the Labor Department's own release, not later revisions, and count how many were strictly above the question's threshold; the question resolves on the first print for its week.",

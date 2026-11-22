@@ -1,6 +1,6 @@
 {
   "reviewed_on": "2026-11-22",
-  "summary": "Six of the 13 misses were out-of-date prices or status (four Bitcoin thresholds, one stock touch, one finalist list); the rest were close calls or one-off events.",
+  "summary": "Four of the 13 misses were Bitcoin price levels called at 77% to 94% three to six days before one sharp fall; in two of them the exchange's price and volatility could not be read that day. The rest were close calls or one-off events.",
   "misses": [
     {
       "id": "polymarket-634976",
@@ -22,8 +22,8 @@
     },
     {
       "id": "polymarket-6801798",
-      "cause": "stale_data",
-      "note": "Used a price read three days before the date and the price fell below the level since.",
+      "cause": "unlucky",
+      "note": "Exchange price read on the forecast day; 77% matched the three-day base rate and the price then fell below the level within three days.",
       "topic": "Crypto",
       "resolves_on": "2026-11-14",
       "probability": 0.77,
@@ -58,8 +58,8 @@
     },
     {
       "id": "polymarket-6935919",
-      "cause": "stale_data",
-      "note": "Used a price read five days earlier; the price had fallen to the level by the resolution date.",
+      "cause": "overconfident",
+      "note": "Exchange price read on the forecast day; 94% sat above its own 89% five-day base rate during a month-long fall, and the price dropped more than 7.5% in five days.",
       "topic": "Crypto",
       "resolves_on": "2026-11-17",
       "probability": 0.94,
@@ -76,8 +76,8 @@
     },
     {
       "id": "polymarket-6967620",
-      "cause": "stale_data",
-      "note": "Used reports from five days earlier and could not read the settling exchange's own price.",
+      "cause": "overconfident",
+      "note": "The exchange's price and volatility could not be read on the forecast day, so 82% rested on that day's news reports, one day after a 6% drop.",
       "topic": "Crypto",
       "resolves_on": "2026-11-18",
       "probability": 0.82,
@@ -95,7 +95,7 @@
     {
       "id": "polymarket-6990957",
       "cause": "stale_data",
-      "note": "Latest price actually read was nine days old when the forecast was made.",
+      "note": "The latest price in the research was three days old on the forecast day because exchange pages would not open, and no volatility was computed.",
       "topic": "Crypto",
       "resolves_on": "2026-11-19",
       "probability": 0.8,
@@ -112,8 +112,8 @@
     },
     {
       "id": "polymarket-7025133",
-      "cause": "stale_data",
-      "note": "The price reaction after the results was not found, so the forecast rested on a two-day-old level.",
+      "cause": "overconfident",
+      "note": "Forecast before the first session after results; a level the stock had come within 1% of a week earlier was given 10% with no volatility computed.",
       "topic": "Economy",
       "resolves_on": "2026-11-20",
       "probability": 0.1,
@@ -122,7 +122,7 @@
   ],
   "checklist_items": {
     "Crypto": [
-      "For a price-above or price-below question, read the settling exchange's price on the forecast day itself and quote it with its date and time; if the latest reading is more than 24 hours old, say so and lower the stated confidence instead of carrying an older level forward."
+      "For a price-above or price-below question more than one day ahead, give the chance from the last 7 days' realised daily volatility as well as the 30-day figure, and count how often a move of the needed size happened over the same number of days in the last 90 days; if the exchange's price or daily closes cannot be opened, say so first instead of taking the level from a news report."
     ],
     "Economy": [
       "For an earnings-beat question, find the exact per-share threshold and the consensus it is based on from a page you opened, with its date and the release time, and count the last 8 results against that same measure; if the threshold cannot be confirmed, say so and stay near the base rate."
@@ -130,7 +130,7 @@
   },
   "checklist_added": {
     "Crypto": [
-      "For a price-above or price-below question, read the settling exchange's price on the forecast day itself and quote it with its date and time; if the latest reading is more than 24 hours old, say so and lower the stated confidence instead of carrying an older level forward."
+      "For a price-above or price-below question more than one day ahead, give the chance from the last 7 days' realised daily volatility as well as the 30-day figure, and count how often a move of the needed size happened over the same number of days in the last 90 days; if the exchange's price or daily closes cannot be opened, say so first instead of taking the level from a news report."
     ],
     "Economy": [
       "For an earnings-beat question, find the exact per-share threshold and the consensus it is based on from a page you opened, with its date and the release time, and count the last 8 results against that same measure; if the threshold cannot be confirmed, say so and stay near the base rate."
