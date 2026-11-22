@@ -407,6 +407,31 @@ test("when the call is the market's price by default, the copy and the question 
   await expect(page.getByText("60.0% chance of yes · the market’s 50.0%, moved toward Claude’s forecast under the tested edge “Tech questions”")).toBeVisible();
 });
 
+test("from the day our call is Claude's own forecast again, the copy and the question page say so", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-11-24T12:00:00Z"));
+  const claude = { method: "claude_code_forecaster_v1", probability: .9, rationale: "Strong base rate.", made_at: "2026-11-23T13:00:00Z" };
+  const market = { method: "market_price_v1", probability: .5 };
+  const open = { status: "pending", outcome: null, actual: null, resolves_on: "2026-11-27" };
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-11-24", forecasters,
+    summary: { resolved: 40, right: 25, wrong: 15, toss_ups: 0, brier: .19, coin_flip_brier: .25, pending: 2, cancelled: 0, total: 42,
+      call_policy: { default_move: 0, own_from: "2026-11-23", promoted: [], bar: { questions: 40, dates: 10, interval: .9 } },
+      vs_market: { questions: 30, ours: .15, market: .15, claude: .2, claude_questions: 30,
+        since_anchored: { date: "2026-11-10", questions: 12, ours: .15, claude: .21, market: .15 } } },
+    questions: [
+      question("earlier", "Will the earlier question resolve yes?", { ...open, topic: "Politics", forecasts: [claude, market],
+        call: { method: "market_anchored_call_v1", members: 1, claude: .9, market: .5, probability: .5, max_move: 0 } }),
+      question("own", "Will the new question resolve yes?", { ...open, topic: "Politics", forecasts: [claude, market],
+        call: { method: "claude_call_v1", members: 1, probability: .9 } })] } }));
+  await page.goto("/");
+  await expect(page.getByText("until Nov 23 our call started from the market and was its price unless a tested edge applied.")).toBeVisible();
+  await expect(page.getByText("From Nov 23 our call is Claude’s own forecast again, made without seeing the price, and the market is the yardstick beside it.")).toBeVisible();
+  await expect(page.getByText("so “ours vs market” mostly measures those edges")).toHaveCount(0);
+  await page.goto("/q/own");
+  await expect(page.getByText("90.0% chance of yes · Claude’s own forecast")).toBeVisible();
+  await page.goto("/q/earlier");
+  await expect(page.getByText("50.0% chance of yes · the market’s 50.0%; no tested edge applies to this question")).toBeVisible();
+});
+
 test("when a promoted second-look edge set the call, the question page says so", async ({ page }) => {
   await page.clock.setFixedTime(new Date("2026-11-20T12:00:00Z"));
   const claude = { method: "claude_code_forecaster_v1", probability: .9, rationale: "Strong base rate.", made_at: "2026-11-11T09:00:00Z" };

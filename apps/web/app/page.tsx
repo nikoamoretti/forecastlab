@@ -207,9 +207,13 @@ export default function TrackRecordPage() {
         {pending.length > 0 && <p className="mt-2 text-sm text-ink/65">{pending.length} still open: {open.length} coming up, {waiting.length} waiting for a result.</p>}
       </div>
      </div>
-     {vs?.since_anchored && <p className="mt-4 max-w-4xl text-sm leading-relaxed text-ink/60">From {shortDate(vs.since_anchored.date)} our call starts from the market{policy.default_move > 0
-       ? ` and cannot differ from it by more than ${points(policy.default_move)}, so “ours vs market” mostly measures those ${points(policy.default_move)}.`
-       : " and is its price unless a tested edge applies, so “ours vs market” mostly measures those edges."} “Claude alone vs market” is the test of independent skill.</p>}
+     {vs?.since_anchored && (policy.own_from
+       ? <p className="mt-4 max-w-4xl text-sm leading-relaxed text-ink/60">For questions forecast from {shortDate(vs.since_anchored.date)} until {shortDate(policy.own_from)} our call started from the market{policy.default_move > 0
+         ? ` and could not differ from it by more than ${points(policy.default_move)}`
+         : " and was its price unless a tested edge applied"}. From {shortDate(policy.own_from)} our call is Claude’s own forecast again, made without seeing the price, and the market is the yardstick beside it. “Claude alone vs market” is the test of independent skill throughout.</p>
+       : <p className="mt-4 max-w-4xl text-sm leading-relaxed text-ink/60">From {shortDate(vs.since_anchored.date)} our call starts from the market{policy.default_move > 0
+         ? ` and cannot differ from it by more than ${points(policy.default_move)}, so “ours vs market” mostly measures those ${points(policy.default_move)}.`
+         : " and is its price unless a tested edge applies, so “ours vs market” mostly measures those edges."} “Claude alone vs market” is the test of independent skill.</p>)}
     </section>
 
     {(weeks.length > 1 || s.progress) && <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
@@ -246,7 +250,9 @@ export default function TrackRecordPage() {
       note="A score only compares fairly on the same questions: the market comparison at the top uses the questions the market also priced, while each row below covers the questions that forecaster answered.">
       <details className="border-b border-rule/60 px-5 py-3 text-sm sm:px-6">
         <summary className="cursor-pointer text-ink/70 hover:text-ink">How our call has changed over time</summary>
-        <p className="mt-2 max-w-3xl leading-relaxed text-ink/65">First it was the middle of the forecasters’ probabilities, then (from Oct 24) a median where better records counted for more, from Nov 5 Claude’s own forecast, and from Nov 10 the market’s price{policy.default_move > 0 ? ` moved toward Claude’s forecast by at most ${points(policy.default_move)}` : ", moved toward Claude’s forecast only under a tested edge"}, held at the price when the research was thin. Claude’s forecast never sees the price; it is added only when the call is fixed. Each call is frozen when made. Claude alone stays on the list as its own forecaster, so the page shows both numbers; it is the test of independent skill, because our call {policy.default_move > 0 ? `can no longer differ from the market by more than ${points(policy.default_move)}` : "is the market’s price unless a tested edge applies"}.</p>
+        <p className="mt-2 max-w-3xl leading-relaxed text-ink/65">First it was the middle of the forecasters’ probabilities, then (from Oct 24) a median where better records counted for more, from Nov 5 Claude’s own forecast, and from Nov 10 the market’s price{policy.default_move > 0 ? ` moved toward Claude’s forecast by at most ${points(policy.default_move)}` : ", moved toward Claude’s forecast only under a tested edge"}, held at the price when the research was thin{policy.own_from
+          ? <>, and from {shortDate(policy.own_from)} Claude’s own forecast again, with the market’s price beside it as the yardstick (a tested edge that has beaten the market takes its place on the questions it covers). Claude’s forecast never sees the price. Each call is frozen when made. Claude alone stays on the list as its own forecaster, so the page shows both numbers for every period.</>
+          : <>. Claude’s forecast never sees the price; it is added only when the call is fixed. Each call is frozen when made. Claude alone stays on the list as its own forecaster, so the page shows both numbers; it is the test of independent skill, because our call {policy.default_move > 0 ? `can no longer differ from the market by more than ${points(policy.default_move)}` : "is the market’s price unless a tested edge applies"}.</>}</p>
       </details>
       <Forecasters forecasters={data.forecasters} asOf={data.generated_on} />
     </ListCard>
