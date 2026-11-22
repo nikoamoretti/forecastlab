@@ -842,8 +842,13 @@ def test_export_lists_wrong_calls_and_big_errors_with_the_research_and_no_market
     assert packet["causes"] == list(miss_review.CAUSES) and packet["since"] is None
     assert packet["current_checklists"] == {"Economy": ["Open the statistics office's release calendar."]}
     big = packet["misses"][1]
-    assert (big["date"], big["topic"], big["question"], big["probability"], big["outcome"]) == (
+    assert (big["result_day"], big["topic"], big["question"], big["probability"], big["outcome"]) == (
         "2026-10-22", "Economy", "Question big?", 0.35, "yes")
+    # the forecast day comes from the directory's name (no timestamp here), so the reviewer can tell it from the result day
+    assert (big["forecast_day"], big["days_ahead"]) == ("2026-10-22", 0) and "date" not in big
+    wrong = packet["misses"][0]
+    assert (wrong["forecast_day"], wrong["result_day"], wrong["days_ahead"]) == ("2026-10-20", "2026-10-20", 0)
+    assert "forecast_day" in packet["how_to_read"] and "stale_data" in packet["how_to_read"]
     assert big["squared_error"] == 0.423 and big["actual"] == "Yes" and big["rationale"] == "Why big."
     assert big["resolution_rule"] == "Resolves yes if the rate rises."
     assert big["research"] == {"researched_by": "claude-sonnet", "passes_ran": ["outside", "inside", "against"],
@@ -852,6 +857,22 @@ def test_export_lists_wrong_calls_and_big_errors_with_the_research_and_no_market
                                "unknowns": ["Revisions."], "sources_checked": "1 of 2 sources with every quote found"}
     assert packet["misses"][0]["research"] is None  # no research was saved for it
     assert miss_review.export(root, since="2026-10-22")["misses"][0]["id"] == "big"
+
+
+def test_export_gives_the_forecast_day_from_the_forecast_timestamp_and_the_days_to_the_result(tmp_path: Path) -> None:
+    root = review_root(tmp_path)
+    path = root / "data" / "track_record.json"
+    track = json.loads(path.read_text())
+    ahead = tr_question("ahead", 0.94, 0, "Crypto", "2026-10-29", source="prospective_markets_20261024")
+    ahead["forecasts"][1]["made_at"] = "2026-10-24T12:40:50+00:00"  # the timestamp wins over the directory name
+    nameless = tr_question("nameless", 0.9, 0, "Crypto", "2026-10-30", source="imported")
+    track["questions"] += [ahead, nameless]
+    path.write_text(json.dumps(track))
+    rows = {m["id"]: m for m in miss_review.export(root, today="2026-10-31")["misses"]}
+    assert (rows["ahead"]["forecast_day"], rows["ahead"]["result_day"], rows["ahead"]["days_ahead"]) == (
+        "2026-10-24", "2026-10-29", 5)
+    assert (rows["late"]["forecast_day"], rows["late"]["days_ahead"]) == ("2026-10-20", 8)  # from the directory name
+    assert (rows["nameless"]["forecast_day"], rows["nameless"]["days_ahead"]) == (None, None)  # unknown stays unknown
 
 
 def test_export_with_a_squared_error_of_at_least_036_includes_rights_and_wrongs_only_by_that_rule(tmp_path: Path) -> None:
