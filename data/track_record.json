@@ -8,16 +8,16 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. From Nov 5 it was Claude's own forecast, which had beaten the combination. For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. From 2026-11-23 it is Claude's own forecast again, with the market's price beside it as the yardstick; a tested edge that has beaten the market takes its place on the questions it covers.",
-      "brier": 0.2061467692669655,
+      "brier": 0.20633482374140852,
       "coin_flip_brier": 0.25,
       "forecasts": 350,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-23",
       "method": "combined_median_v1",
-      "resolved": 289,
+      "resolved": 290,
       "right": 201,
       "toss_ups": 3,
-      "wrong": 85
+      "wrong": 86
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
@@ -203,16 +203,16 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.2532409395188137,
+      "brier": 0.2535067119236931,
       "coin_flip_brier": 0.25,
       "forecasts": 32,
       "label": "Statistical baseline",
       "last_forecast_on": "2026-11-20",
       "method": "statistical_baseline_v1",
-      "resolved": 27,
+      "resolved": 28,
       "right": 11,
       "toss_ups": 0,
-      "wrong": 16
+      "wrong": 17
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
@@ -282,6 +282,37 @@
     }
   },
   "questions": [
+    {
+      "actual": "4.92%",
+      "call": {
+        "members": 1,
+        "method": "combined_weighted_v1",
+        "probability": 0.5105708245243129,
+        "weights": {
+          "statistical_baseline_v1": 15.92
+        }
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-20 be above 5.15 percent?",
+      "forecasts": [
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.5105708245243129
+        }
+      ],
+      "id": "1346d2fd3076f500",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261117",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "resolved",
+      "title": "Will the 10-year U.S. Treasury yield on Nov 20, 2026 be above 5.15%?",
+      "topic": "Interest rates",
+      "verdict": "wrong"
+    },
     {
       "actual": "Polymarket: No",
       "call": {
@@ -19510,37 +19541,6 @@
     {
       "actual": null,
       "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.5105708245243129,
-        "weights": {
-          "statistical_baseline_v1": 15.92
-        }
-      },
-      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-20 be above 5.15 percent?",
-      "forecasts": [
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.5105708245243129
-        }
-      ],
-      "id": "1346d2fd3076f500",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-23",
-      "scored": true,
-      "series": "treasury_10y",
-      "series_label": "10-year U.S. Treasury yield",
-      "source": "prospective_daily_20261117",
-      "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "status": "pending",
-      "title": "Will the 10-year U.S. Treasury yield on Nov 20, 2026 be above 5.15%?",
-      "topic": "Interest rates",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.38,
         "market": 0.8305,
         "max_move": 0.0,
@@ -21940,7 +21940,7 @@
     }
   ],
   "summary": {
-    "brier": 0.2061467692669655,
+    "brier": 0.20633482374140852,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -22069,7 +22069,7 @@
         "status": "testing"
       }
     ],
-    "pending": 54,
+    "pending": 53,
     "progress": {
       "changes": [
         {
@@ -22174,7 +22174,7 @@
         }
       ]
     },
-    "resolved": 289,
+    "resolved": 290,
     "right": 201,
     "toss_ups": 3,
     "total": 350,
@@ -22193,7 +22193,7 @@
         "questions": 43
       }
     },
-    "wrong": 85
+    "wrong": 86
   },
   "version": "track_record_v2"
 }
