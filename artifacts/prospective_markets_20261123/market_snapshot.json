@@ -1,0 +1,167 @@
+{
+  "markets": [
+    {
+      "id": "polymarket-6507392",
+      "market_id": "6507392",
+      "method": "market_price_v1",
+      "volume": 1040405.8966000001,
+      "volume_floor": 2500,
+      "yes_price": 0.171
+    },
+    {
+      "id": "polymarket-6172754",
+      "market_id": "6172754",
+      "method": "market_price_v1",
+      "volume": 213405.81862900002,
+      "volume_floor": 2500,
+      "yes_price": 0.545
+    },
+    {
+      "id": "polymarket-6440135",
+      "market_id": "6440135",
+      "method": "market_price_v1",
+      "volume": 112756.71335800001,
+      "volume_floor": 2500,
+      "yes_price": 0.435
+    },
+    {
+      "id": "polymarket-6655565",
+      "market_id": "6655565",
+      "method": "market_price_v1",
+      "volume": 60376.980038,
+      "volume_floor": 1000,
+      "yes_price": 0.925
+    },
+    {
+      "id": "polymarket-6424255",
+      "market_id": "6424255",
+      "method": "market_price_v1",
+      "volume": 57753.290129,
+      "volume_floor": 2500,
+      "yes_price": 0.17
+    },
+    {
+      "id": "polymarket-6507426",
+      "market_id": "6507426",
+      "method": "market_price_v1",
+      "volume": 183545.403407,
+      "volume_floor": 2500,
+      "yes_price": 0.1825
+    },
+    {
+      "id": "polymarket-6172689",
+      "market_id": "6172689",
+      "method": "market_price_v1",
+      "volume": 46588.593284,
+      "volume_floor": 2500,
+      "yes_price": 0.387
+    },
+    {
+      "id": "polymarket-6017072",
+      "market_id": "6017072",
+      "method": "market_price_v1",
+      "volume": 66915.040911,
+      "volume_floor": 2500,
+      "yes_price": 0.053
+    },
+    {
+      "id": "polymarket-4664495",
+      "market_id": "4664495",
+      "method": "market_price_v1",
+      "volume": 48043.083548,
+      "volume_floor": 1000,
+      "yes_price": 0.285
+    },
+    {
+      "id": "polymarket-5162929",
+      "market_id": "5162929",
+      "method": "market_price_v1",
+      "volume": 28748.127798,
+      "volume_floor": 2500,
+      "yes_price": 0.1
+    },
+    {
+      "id": "polymarket-6507442",
+      "market_id": "6507442",
+      "method": "market_price_v1",
+      "volume": 144709.236089,
+      "volume_floor": 2500,
+      "yes_price": 0.061
+    },
+    {
+      "id": "polymarket-6600819",
+      "market_id": "6600819",
+      "method": "market_price_v1",
+      "volume": 41727.48863199999,
+      "volume_floor": 2500,
+      "yes_price": 0.075
+    },
+    {
+      "id": "polymarket-7023983",
+      "market_id": "7023983",
+      "method": "market_price_v1",
+      "volume": 27823.237021999998,
+      "volume_floor": 2500,
+      "yes_price": 0.645
+    },
+    {
+      "id": "polymarket-4664724",
+      "market_id": "4664724",
+      "method": "market_price_v1",
+      "volume": 23155.088384000006,
+      "volume_floor": 1000,
+      "yes_price": 0.77
+    },
+    {
+      "id": "polymarket-6424258",
+      "market_id": "6424258",
+      "method": "market_price_v1",
+      "volume": 13004.393839,
+      "volume_floor": 2500,
+      "yes_price": 0.19
+    },
+    {
+      "id": "polymarket-6507458",
+      "market_id": "6507458",
+      "method": "market_price_v1",
+      "volume": 58171.062732,
+      "volume_floor": 2500,
+      "yes_price": 0.229
+    },
+    {
+      "id": "polymarket-6601259",
+      "market_id": "6601259",
+      "method": "market_price_v1",
+      "volume": 29863.467783999997,
+      "volume_floor": 2500,
+      "yes_price": 0.1105
+    },
+    {
+      "id": "polymarket-5636955",
+      "market_id": "5636955",
+      "method": "market_price_v1",
+      "volume": 23028.061026999996,
+      "volume_floor": 2500,
+      "yes_price": 0.245
+    },
+    {
+      "id": "manifold-nd2EnyRhcu",
+      "market_id": "nd2EnyRhcu",
+      "method": "manifold_price_v1",
+      "volume": 1880.3896601464148,
+      "volume_floor": 1000,
+      "volume_unit": "mana",
+      "yes_price": 0.6292
+    },
+    {
+      "id": "manifold-LAcRZtCRAz",
+      "market_id": "LAcRZtCRAz",
+      "method": "manifold_price_v1",
+      "volume": 84565.08720407635,
+      "volume_floor": 1000,
+      "volume_unit": "mana",
+      "yes_price": 0.95
+    }
+  ],
+  "taken_at": "2026-11-23T10:18:04.855574+00:00"
+}

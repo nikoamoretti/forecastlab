@@ -1,62 +1,62 @@
 {
   "calibration": {
-    "as_of": "2026-11-22",
-    "intercept": 0.244504,
-    "results": 276,
-    "slope": 0.70394
+    "as_of": "2026-11-23",
+    "intercept": 0.251147,
+    "results": 278,
+    "slope": 0.710198
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. From Nov 5 it was Claude's own forecast, which had beaten the combination. For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. From 2026-11-23 it is Claude's own forecast again, with the market's price beside it as the yardstick; a tested edge that has beaten the market takes its place on the questions it covers.",
-      "brier": 0.207899820527235,
+      "brier": 0.2061467692669655,
       "coin_flip_brier": 0.25,
-      "forecasts": 330,
+      "forecasts": 350,
       "label": "Combined forecast",
-      "last_forecast_on": "2026-11-20",
+      "last_forecast_on": "2026-11-23",
       "method": "combined_median_v1",
-      "resolved": 281,
-      "right": 194,
+      "resolved": 289,
+      "right": 201,
       "toss_ups": 3,
-      "wrong": 84
-    },
-    {
-      "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
-      "brier": 0.20281485507246377,
-      "coin_flip_brier": 0.25,
-      "forecasts": 324,
-      "label": "Claude alone",
-      "last_forecast_on": "2026-11-20",
-      "method": "claude_code_forecaster_v1",
-      "resolved": 276,
-      "right": 184,
-      "toss_ups": 7,
       "wrong": 85
     },
     {
-      "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
-      "brier": 0.046544444444444444,
+      "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
+      "brier": 0.20179154929577464,
       "coin_flip_brier": 0.25,
-      "forecasts": 16,
+      "forecasts": 344,
+      "label": "Claude alone",
+      "last_forecast_on": "2026-11-23",
+      "method": "claude_code_forecaster_v1",
+      "resolved": 284,
+      "right": 190,
+      "toss_ups": 7,
+      "wrong": 87
+    },
+    {
+      "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
+      "brier": 0.05289090909090909,
+      "coin_flip_brier": 0.25,
+      "forecasts": 20,
       "label": "Claude, second look",
-      "last_forecast_on": "2026-11-20",
+      "last_forecast_on": "2026-11-23",
       "method": "claude_second_look_v1",
-      "resolved": 9,
-      "right": 9,
+      "resolved": 11,
+      "right": 11,
       "toss_ups": 0,
       "wrong": 0
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.17756260686310346,
+      "brier": 0.16737080833705406,
       "coin_flip_brier": 0.25,
-      "forecasts": 50,
+      "forecasts": 70,
       "label": "Learned model",
-      "last_forecast_on": "2026-11-20",
+      "last_forecast_on": "2026-11-23",
       "method": "learned_model_v1",
-      "resolved": 29,
-      "right": 24,
+      "resolved": 37,
+      "right": 31,
       "toss_ups": 0,
-      "wrong": 5
+      "wrong": 6
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
@@ -216,37 +216,37 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.18919788285622535,
+      "brier": 0.18725166180192407,
       "coin_flip_brier": 0.25,
-      "forecasts": 99,
+      "forecasts": 119,
       "label": "Claude, confidence-corrected",
-      "last_forecast_on": "2026-11-20",
+      "last_forecast_on": "2026-11-23",
       "method": "claude_calibrated_v1",
-      "resolved": 71,
-      "right": 54,
+      "resolved": 79,
+      "right": 60,
       "toss_ups": 0,
-      "wrong": 17
+      "wrong": 19
     },
     {
       "about": "Polymarket's price when we forecast. For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast. The toughest bar to beat.",
-      "brier": 0.16329566497461928,
+      "brier": 0.16256494024390242,
       "coin_flip_brier": 0.25,
-      "forecasts": 227,
+      "forecasts": 245,
       "label": "Prediction market (benchmark)",
-      "last_forecast_on": "2026-11-20",
+      "last_forecast_on": "2026-11-23",
       "method": "market_price_v1",
-      "resolved": 197,
-      "right": 150,
+      "resolved": 205,
+      "right": 157,
       "toss_ups": 0,
-      "wrong": 47
+      "wrong": 48
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast.",
       "brier": 0.14248555557692308,
       "coin_flip_brier": 0.25,
-      "forecasts": 61,
+      "forecasts": 63,
       "label": "Manifold (benchmark)",
-      "last_forecast_on": "2026-11-19",
+      "last_forecast_on": "2026-11-23",
       "method": "manifold_price_v1",
       "resolved": 52,
       "right": 39,
@@ -267,21 +267,520 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-22",
+  "generated_on": "2026-11-23",
   "learned_model": {
-    "as_of": "2026-11-22",
-    "intercept": 0.100235,
-    "results": 250,
-    "slope": 0.932784,
+    "as_of": "2026-11-23",
+    "intercept": 0.10498,
+    "results": 252,
+    "slope": 0.938092,
     "weights": {
-      "Crypto": -0.139275,
-      "Economy": -0.264977,
-      "Politics": -0.355633,
-      "Tech": 0.418967,
-      "World": -0.429647
+      "Crypto": -0.140806,
+      "Economy": -0.263512,
+      "Politics": -0.353743,
+      "Tech": 0.42178,
+      "World": -0.429043
     }
   },
   "questions": [
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.26,
+        "market": 0.305,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.305
+      },
+      "detail": "This market will resolve according to the total number of tokens processed on OpenRouter for the week of November 16 to November 22, 2026.\n\nThe total number of tokens is the weekly total displayed in the Top Models chart on OpenRouter's AI Model Rankings page (https://openrouter.ai/rankings#top-models). OpenRouter's weeks run from 12:00 AM UTC on Monday to 11:59 PM UTC on Sunday, and a week's figures continue to update until the following week's figures are first displayed.\n\nThis market will resolve according to the total displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the total displayed for the week of November 16 to November 22, 2026 at that time.\n\nThis market will resolve based on the total as displayed on the chart, including any rounding applied by OpenRouter. If the displayed total falls exactly on the boundary between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-16T12:56:38+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.26,
+          "rationale": "The latest platform-level weekly totals were about 197.9T-204.5T for the weeks to 2026-11-02/03, growing 4-8.5% week on week (https://ahasignals.com/data/demand-briefs/v1/briefs/35883d57a1ab69a8a29e2e5230fa0f0b05bd5c4732cc3c1c9a3590f0c49cce37.md, 2026-11-04). Three more weeks of 3-4% growth would land near 223-230T, while flat usage would stay near 205T; the top model alone is now 59.2T versus 32.8T on 2026-10-19 (https://openrouter.ai/rankings), hinting at further growth. A 10T-wide bracket, an unclear definition of the displayed weekly total and the trailing-window mismatch keep this well under a coin flip."
+        },
+        {
+          "made_at": "2026-11-16T12:59:13.670504+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.27,
+          "rationale": "Last weekly totals ~198-205T (AhaSignals) imply ~215-230T after three more weeks at 2-4% growth; a 10T bracket plus ambiguity over the displayed total keeps it near the market."
+        },
+        {
+          "as_of": "2026-11-16",
+          "claude": 0.26,
+          "claude_weight": 0.465602,
+          "intercept": 0.171912,
+          "market": 0.305,
+          "method": "learned_model_v1",
+          "probability": 0.313703,
+          "results": 220,
+          "slope": 1.03356
+        },
+        {
+          "as_of": "2026-11-16",
+          "intercept": 0.237097,
+          "method": "claude_calibrated_v1",
+          "probability": 0.36749,
+          "raw": 0.26,
+          "results": 244,
+          "slope": 0.745812
+        },
+        {
+          "made_at": "2026-11-16T12:32:17.258238+00:00",
+          "method": "market_price_v1",
+          "probability": 0.305
+        }
+      ],
+      "id": "polymarket-6942351",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261116",
+      "source_url": "https://polymarket.com/event/openrouter-token-usage-week-of-november-16",
+      "status": "resolved",
+      "title": "Will OpenRouter process between 220T and 230T tokens the week of November 16?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.06,
+        "market": 0.085,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.085
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-16T12:56:38+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.06,
+          "rationale": "Binance BTCUSDT was about 64,100 on 2026-11-16 with a day low of 63,905 (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31), so a 1-minute low of 56,000 needs a fall of about 12.6% inside about 7.5 days, roughly 2.2 weekly sigmas, for a touch probability near 3% on thin-tailed math. Historical 7-day windows with a fall of that size were 5.4% since 2023 and 10.4% since 2019 using daily lows, and the recent slide from about 74,000 plus ETF outflows (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984) argue for some fat-tail premium. No FOMC or CPI falls in the window (https://www.federalreserve.gov/newsevents/2026-december.htm)."
+        },
+        {
+          "as_of": "2026-11-16",
+          "claude": 0.06,
+          "claude_weight": -0.323328,
+          "intercept": 0.171912,
+          "market": 0.085,
+          "method": "learned_model_v1",
+          "probability": 0.103143,
+          "results": 220,
+          "slope": 1.03356
+        },
+        {
+          "as_of": "2026-11-16",
+          "intercept": 0.237097,
+          "method": "claude_calibrated_v1",
+          "probability": 0.140031,
+          "raw": 0.06,
+          "results": 244,
+          "slope": 0.745812
+        },
+        {
+          "made_at": "2026-11-16T12:32:17.258238+00:00",
+          "method": "market_price_v1",
+          "probability": 0.085
+        }
+      ],
+      "id": "polymarket-7085177",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261116",
+      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-16-22-2026",
+      "status": "resolved",
+      "title": "Will Bitcoin dip to $56,000 November 16-22?",
+      "topic": "Crypto",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.03,
+        "market": 0.055,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.055
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.03,
+          "rationale": "Binance ETHUSDT was 1795.36 at 2026-11-17 10:26 UTC, and the lowest 1-minute Low since the window opened (2026-11-16 05:00 UTC) was 1787.11, so 1,500 is about 16.4% below spot (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). With 30-day daily vol of 3.1% and about 138 hours left, the threshold is roughly 2.2-2.4 sigma away, a touch chance of about 2% on thin tails. I add a little for fat tails, ETF outflows and hot-CPI/Fed-hike pressure (https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/, 2026-11-12), against a 6.7-11% historical 7-day base rate that starts from the full window.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&startTime=1794805200000&endTime=1794911160000&limit=1000",
+            "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/"
+          ]
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.03,
+          "claude_weight": -0.325984,
+          "intercept": 0.151961,
+          "market": 0.055,
+          "method": "learned_model_v1",
+          "probability": 0.067124,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.080928,
+          "raw": 0.03,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.055
+        }
+      ],
+      "id": "polymarket-7085204",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-november-16-22-2026",
+      "status": "resolved",
+      "title": "Will Ethereum dip to $1,500 November 16-22?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.2,
+        "market": 0.43,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.43
+      },
+      "detail": "This market will resolve according to the number of qualifying resets announced or initiated between 12:00 a.m. ET on November 16, 2026, and 11:59 p.m. ET on November 22, 2026.\n\nResets will be counted by the calendar date (ET) on which OpenAI announces or initiates them, and at most one reset will be counted per calendar date. Announcements, confirmations, or phased rollouts of a reset already counted will not add to the total.\n\nA qualifying reset is a discretionary, non-scheduled action by OpenAI that, ahead of the normal reset schedule, either zeroes or refills the weekly or generally applicable usage allowance for paid Codex or ChatGPT Work subscription users, or grants those users a reset that OpenAI characterizes as a banked or redeemable rate-limit reset, regardless of whether or when individual users redeem it. A reset will still qualify if certain models with separate usage limits, certain plans, or some users are not covered due to technical exceptions, phased rollout, or plan differences.\n\nNormal scheduled resets, resets granted only to individually selected users or accounts, temporary limit increases, additional usage or credits that do not refill existing allowances, and changes to pricing, plans, or usage caps will not qualify. Resets of OpenAI API rate limits or organizational usage tiers will also not qualify. Only qualifying resets announced or initiated within the specified week will be counted.\n\nAn official announcement stating that OpenAI has reset, is resetting, or will reset the limits on the same date as the announcement will count if published within the specified week, regardless of when the technical reset begins or is completed. Qualifying announcements include X posts by official OpenAI accounts or OpenAI employees authorized to announce Codex usage changes, for example: https://x.com/OpenAI/status/2042296046009626989 and https://x.com/sama/status/2041658719839383945.\n\nThis market will resolve to \"No\" as soon as the specified number of resets becomes impossible, for example because more resets than the specified number have already occurred.\n\nThe primary resolution source for this market will be official communications from OpenAI, including X posts published by @OpenAI, @OpenAIDevs, @sama, @thsottiaux, or any other OpenAI-operated account, as well as official OpenAI blog posts, changelogs, and in-product notices. However, a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "Dated discretionary Codex resets were 2026-04-08, about 2026-06-01 and 2026-07-14, with the 4M-user reset reported only in a snippet (https://officechai.com/ai/openais-codex-reaches-5-million-users-resets-rate-limits-for-users/, 2026-06-01). That is about 4-5 of roughly 32 weeks, and no week had two. Resets look more frequent lately (2026-10-28, and a banked reset announced 2026-11-12, reported at https://lapaasvoice.com/openai-rolls-out-banked-codex-usage-reset-to-all-accounts/, 2026-11-14), but the rollout of the Nov 12 reset does not count again. One BigGo article (2026-11-11) says Codex lead Sottiaux stepped back, and the evidence has only 1 primary source, so I stay near the base rate.",
+          "sources": [
+            "https://lapaasvoice.com/openai-rolls-out-banked-codex-usage-reset-to-all-accounts/",
+            "https://officechai.com/ai/openais-codex-reaches-5-million-users-resets-rate-limits-for-users/",
+            "https://vpsranking.com/news/ai/ai-2026-07-14-openai-codex-8m-users-limit-reset/",
+            "https://finance.biggo.com/news/301b6b33-e617-46bd-92d0-21ae94869294",
+            "https://learn.chatgpt.com/docs/changelog"
+          ]
+        },
+        {
+          "made_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.3,
+          "rationale": "Recent resets came about every two weeks (Oct 28, Nov 12) and a banked reset was just announced, but the Codex lead's 'graduated from the reset company' remark points to fewer resets. Exactly one in a 7-day window is about 30%."
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.2,
+          "claude_weight": 0.47212,
+          "intercept": 0.151961,
+          "market": 0.43,
+          "method": "learned_model_v1",
+          "probability": 0.339441,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.303454,
+          "raw": 0.2,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.43
+        }
+      ],
+      "id": "polymarket-7088841",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/how-many-codex-resets-week-of-november-16",
+      "status": "resolved",
+      "title": "Will there be exactly 1 Codex weekly usage limit reset in the week of November 16?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.02,
+        "market": 0.0505,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.0505
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for SOL/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the SOL/USDT \"High\" prices available at https://www.binance.com/en/trade/SOL_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance SOL/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-18T12:40:14+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "Binance SOLUSDT was 75.20 at 10:09 UTC on 2026-11-18 and the highest 1-minute High since the window opened on 2026-11-16 is 75.78 (https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m, 2026-11-18). Reaching 90 needs about +19.7% (ln 0.18) in roughly 115 hours; with 30-day daily vol of 3.2% that is about 2.6 sigma over the remaining window, a touch chance near 1%, which I raise slightly for fat tails. The recent trend is down (105.08 on 2026-10-19 to 75.18, https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31) and no dated catalyst is confirmed.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m&startTime=1794805200000&endTime=1794865140000&limit=1000",
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT"
+          ]
+        },
+        {
+          "as_of": "2026-11-18",
+          "claude": 0.02,
+          "claude_weight": -0.310932,
+          "intercept": 0.129127,
+          "market": 0.0505,
+          "method": "learned_model_v1",
+          "probability": 0.081939,
+          "results": 231,
+          "slope": 0.969082
+        },
+        {
+          "as_of": "2026-11-18",
+          "intercept": 0.219197,
+          "method": "claude_calibrated_v1",
+          "probability": 0.070973,
+          "raw": 0.02,
+          "results": 256,
+          "slope": 0.717156
+        },
+        {
+          "made_at": "2026-11-18T10:07:18.094471+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0505
+        }
+      ],
+      "id": "polymarket-7087528",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261118",
+      "source_url": "https://polymarket.com/event/what-price-will-solana-hit-november-16-22-2026",
+      "status": "resolved",
+      "title": "Will Solana reach $90 November 16-22?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.57,
+        "market": 0.1645,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.1645
+      },
+      "detail": "This market will resolve according to the total number of notices that UKMTO (United Kingdom Maritime Trade Operations) publishes on its Recent Incidents page with a publication date from November 16, 2026, through November 22, 2026 (UTC), inclusive, as displayed on that page.\n\nAll notice types will count, including warnings, advisories, suspicious activity notices, and attack reports, including time-late reports of incidents that occurred before November 16, 2026 (UTC). Each notice will be counted once.\n\nUpdates to, corrections of, or reissues of a previously published notice will not count as separate notices, including any subsequent notice that updates or provides additional information on an incident already reported by UKMTO.\n\nOnly notices published by UKMTO will count. Maritime incidents that are not the subject of a UKMTO notice published within the specified period will not count, regardless of whether they occurred or are reported by other sources.\n\nThis market will resolve as soon as all notices for the specified period have been published. Notices published after November 22, 2026 (UTC) will not be considered, even if they relate to incidents within the specified period.\n\nThe resolution source for this market will be UKMTO, specifically the Recent Incidents page at https://www.ukmto.org/recent-incidents. If that page is unavailable, notices published through UKMTO's official channels may be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-20T12:40:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.57,
+          "rationale": "Search snippets show UKMTO warnings 206-26 and 207-26 on 2026-11-16 and 210-26 on 2026-11-17 (https://safety4sea.com/armed-security-team-prevents-attempted-boarding-off-yemen/, 2026-11-17), so at least three notices, and probably four or five, fall in the window by 17 Nov. Numbering has run near 6.8 a week in 2026, and Hormuz activity is elevated (https://gulfnews.com/business/energy/hormuz-attacks-rise-as-iran-steps-up-pressure-on-shipping-ukmto-warns-1.500737866, 2026-11-06). Nothing was found for 18-20 Nov and the official page returned 403, so the count is unverified, with real risk of 8 or more or of fewer than 4.",
+          "sources": [
+            "https://www.ukmto.org/recent-incidents",
+            "https://www.newsquawk.com/headlines/ukmto-reports-a-maritime-incident-50-nautical-miles-southwest-of-al-mukalla-yemen",
+            "https://safety4sea.com/armed-security-team-prevents-attempted-boarding-off-yemen/",
+            "https://gulfnews.com/business/energy/hormuz-attacks-rise-as-iran-steps-up-pressure-on-shipping-ukmto-warns-1.500737866",
+            "https://www.bernama.com/en/news.php?id=2635105"
+          ]
+        },
+        {
+          "as_of": "2026-11-20",
+          "claude": 0.57,
+          "claude_weight": -0.433421,
+          "intercept": 0.071699,
+          "market": 0.1645,
+          "method": "learned_model_v1",
+          "probability": 0.098758,
+          "results": 236,
+          "slope": 0.896104
+        },
+        {
+          "as_of": "2026-11-20",
+          "intercept": 0.194145,
+          "method": "claude_calibrated_v1",
+          "probability": 0.595361,
+          "raw": 0.57,
+          "results": 262,
+          "slope": 0.681314
+        },
+        {
+          "made_at": "2026-11-20T10:08:18.753119+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1645
+        }
+      ],
+      "id": "polymarket-6942345",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261120",
+      "source_url": "https://polymarket.com/event/how-many-ukmto-notices-november-1622",
+      "status": "resolved",
+      "title": "Will UKMTO publish 4-7 notices between November 16-November 22?",
+      "topic": "World",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.91,
+        "market": 0.935,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.935
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-16T12:56:38+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.91,
+          "rationale": "Binance BTCUSDT was about 64,170-64,240 on 2026-11-16 (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31), so 58,000 is about 9.6% below with about 6 days to the 17:00 UTC 2026-11-22 print and 30-day daily vol of 2.31%, roughly 1.7 weekly sigmas. BTC dropped from 74,015 on 2026-11-11 to 64,150 on 2026-11-14, ETF flows are negative (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984), and token unlocks of over $113M are due that week (https://tokenomist.ai/research/weekly-unlock-digest-nov-9-15-2026-alloras-first-year-cliff-2). This is kept slightly below the November 20 version of the same threshold because of the extra two days."
+        },
+        {
+          "as_of": "2026-11-16",
+          "claude": 0.91,
+          "claude_weight": -0.323328,
+          "intercept": 0.171912,
+          "market": 0.935,
+          "method": "learned_model_v1",
+          "probability": 0.954415,
+          "results": 220,
+          "slope": 1.03356
+        },
+        {
+          "as_of": "2026-11-16",
+          "intercept": 0.237097,
+          "method": "claude_calibrated_v1",
+          "probability": 0.876818,
+          "raw": 0.91,
+          "results": 244,
+          "slope": 0.745812
+        },
+        {
+          "made_at": "2026-11-16T12:32:17.258238+00:00",
+          "method": "market_price_v1",
+          "probability": 0.935
+        }
+      ],
+      "id": "polymarket-7073766",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-22",
+      "scored": true,
+      "source": "prospective_markets_20261116",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-22-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $58,000 on November 22?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.92,
+        "market": 0.9325,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.9325
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.92,
+          "rationale": "Binance ETHUSDT was 1792.43 at 2026-11-17 10:37 UTC, 10.8% above 1,600, with about 102 hours to the 12:00 ET (17:00 UTC) 2026-11-22 candle (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). That distance is about 3.4-3.6 daily sigma, or about 1.6 horizon sigma, and 93.5% of 5-day windows since 2024 held above this ratio (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000). ETF outflows of $2.35B over seven weeks (https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/, 2026-11-12) and Waller's hike talk (2026-11-10) add downside risk, so I sit slightly below the Nov 20 forecast.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=2",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000",
+            "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/",
+            "https://cryptobriefing.com/bitcoin-74k-fed-waller-december-rate-hike/"
+          ]
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.92,
+          "claude_weight": -0.325984,
+          "intercept": 0.151961,
+          "market": 0.9325,
+          "method": "learned_model_v1",
+          "probability": 0.951304,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.890745,
+          "raw": 0.92,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9325
+        }
+      ],
+      "id": "polymarket-7073692",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-22",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-22-2026",
+      "status": "resolved",
+      "title": "Will the price of Ethereum be above $1,600 on November 22?",
+      "topic": "Crypto",
+      "verdict": "right"
+    },
     {
       "actual": "Polymarket: Yes",
       "call": {
@@ -19011,127 +19510,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.91,
-        "market": 0.935,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.935
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-16T12:56:38+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.91,
-          "rationale": "Binance BTCUSDT was about 64,170-64,240 on 2026-11-16 (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31), so 58,000 is about 9.6% below with about 6 days to the 17:00 UTC 2026-11-22 print and 30-day daily vol of 2.31%, roughly 1.7 weekly sigmas. BTC dropped from 74,015 on 2026-11-11 to 64,150 on 2026-11-14, ETF flows are negative (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984), and token unlocks of over $113M are due that week (https://tokenomist.ai/research/weekly-unlock-digest-nov-9-15-2026-alloras-first-year-cliff-2). This is kept slightly below the November 20 version of the same threshold because of the extra two days."
-        },
-        {
-          "as_of": "2026-11-16",
-          "claude": 0.91,
-          "claude_weight": -0.323328,
-          "intercept": 0.171912,
-          "market": 0.935,
-          "method": "learned_model_v1",
-          "probability": 0.954415,
-          "results": 220,
-          "slope": 1.03356
-        },
-        {
-          "as_of": "2026-11-16",
-          "intercept": 0.237097,
-          "method": "claude_calibrated_v1",
-          "probability": 0.876818,
-          "raw": 0.91,
-          "results": 244,
-          "slope": 0.745812
-        },
-        {
-          "made_at": "2026-11-16T12:32:17.258238+00:00",
-          "method": "market_price_v1",
-          "probability": 0.935
-        }
-      ],
-      "id": "polymarket-7073766",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-22",
-      "scored": true,
-      "source": "prospective_markets_20261116",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-22-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $58,000 on November 22?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.92,
-        "market": 0.9325,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.9325
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-17T12:40:18+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.92,
-          "rationale": "Binance ETHUSDT was 1792.43 at 2026-11-17 10:37 UTC, 10.8% above 1,600, with about 102 hours to the 12:00 ET (17:00 UTC) 2026-11-22 candle (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). That distance is about 3.4-3.6 daily sigma, or about 1.6 horizon sigma, and 93.5% of 5-day windows since 2024 held above this ratio (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000). ETF outflows of $2.35B over seven weeks (https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/, 2026-11-12) and Waller's hike talk (2026-11-10) add downside risk, so I sit slightly below the Nov 20 forecast.",
-          "sources": [
-            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
-            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=2",
-            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=1000",
-            "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/",
-            "https://cryptobriefing.com/bitcoin-74k-fed-waller-december-rate-hike/"
-          ]
-        },
-        {
-          "as_of": "2026-11-17",
-          "claude": 0.92,
-          "claude_weight": -0.325984,
-          "intercept": 0.151961,
-          "market": 0.9325,
-          "method": "learned_model_v1",
-          "probability": 0.951304,
-          "results": 225,
-          "slope": 1.051321
-        },
-        {
-          "as_of": "2026-11-17",
-          "intercept": 0.229744,
-          "method": "claude_calibrated_v1",
-          "probability": 0.890745,
-          "raw": 0.92,
-          "results": 250,
-          "slope": 0.765096
-        },
-        {
-          "made_at": "2026-11-17T10:24:03.289020+00:00",
-          "method": "market_price_v1",
-          "probability": 0.9325
-        }
-      ],
-      "id": "polymarket-7073692",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-22",
-      "scored": true,
-      "source": "prospective_markets_20261117",
-      "source_url": "https://polymarket.com/event/ethereum-above-on-november-22-2026",
-      "status": "pending",
-      "title": "Will the price of Ethereum be above $1,600 on November 22?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 1,
         "method": "combined_weighted_v1",
         "probability": 0.5105708245243129,
@@ -19220,320 +19598,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.26,
-        "market": 0.305,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.305
-      },
-      "detail": "This market will resolve according to the total number of tokens processed on OpenRouter for the week of November 16 to November 22, 2026.\n\nThe total number of tokens is the weekly total displayed in the Top Models chart on OpenRouter's AI Model Rankings page (https://openrouter.ai/rankings#top-models). OpenRouter's weeks run from 12:00 AM UTC on Monday to 11:59 PM UTC on Sunday, and a week's figures continue to update until the following week's figures are first displayed.\n\nThis market will resolve according to the total displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the total displayed for the week of November 16 to November 22, 2026 at that time.\n\nThis market will resolve based on the total as displayed on the chart, including any rounding applied by OpenRouter. If the displayed total falls exactly on the boundary between two brackets, this market will resolve to the higher bracket.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-16T12:56:38+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.26,
-          "rationale": "The latest platform-level weekly totals were about 197.9T-204.5T for the weeks to 2026-11-02/03, growing 4-8.5% week on week (https://ahasignals.com/data/demand-briefs/v1/briefs/35883d57a1ab69a8a29e2e5230fa0f0b05bd5c4732cc3c1c9a3590f0c49cce37.md, 2026-11-04). Three more weeks of 3-4% growth would land near 223-230T, while flat usage would stay near 205T; the top model alone is now 59.2T versus 32.8T on 2026-10-19 (https://openrouter.ai/rankings), hinting at further growth. A 10T-wide bracket, an unclear definition of the displayed weekly total and the trailing-window mismatch keep this well under a coin flip."
-        },
-        {
-          "made_at": "2026-11-16T12:59:13.670504+00:00",
-          "method": "claude_second_look_v1",
-          "probability": 0.27,
-          "rationale": "Last weekly totals ~198-205T (AhaSignals) imply ~215-230T after three more weeks at 2-4% growth; a 10T bracket plus ambiguity over the displayed total keeps it near the market."
-        },
-        {
-          "as_of": "2026-11-16",
-          "claude": 0.26,
-          "claude_weight": 0.465602,
-          "intercept": 0.171912,
-          "market": 0.305,
-          "method": "learned_model_v1",
-          "probability": 0.313703,
-          "results": 220,
-          "slope": 1.03356
-        },
-        {
-          "as_of": "2026-11-16",
-          "intercept": 0.237097,
-          "method": "claude_calibrated_v1",
-          "probability": 0.36749,
-          "raw": 0.26,
-          "results": 244,
-          "slope": 0.745812
-        },
-        {
-          "made_at": "2026-11-16T12:32:17.258238+00:00",
-          "method": "market_price_v1",
-          "probability": 0.305
-        }
-      ],
-      "id": "polymarket-6942351",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-23",
-      "scored": true,
-      "source": "prospective_markets_20261116",
-      "source_url": "https://polymarket.com/event/openrouter-token-usage-week-of-november-16",
-      "status": "pending",
-      "title": "Will OpenRouter process between 220T and 230T tokens the week of November 16?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.06,
-        "market": 0.085,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.085
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-16T12:56:38+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.06,
-          "rationale": "Binance BTCUSDT was about 64,100 on 2026-11-16 with a day low of 63,905 (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31), so a 1-minute low of 56,000 needs a fall of about 12.6% inside about 7.5 days, roughly 2.2 weekly sigmas, for a touch probability near 3% on thin-tailed math. Historical 7-day windows with a fall of that size were 5.4% since 2023 and 10.4% since 2019 using daily lows, and the recent slide from about 74,000 plus ETF outflows (https://theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984) argue for some fat-tail premium. No FOMC or CPI falls in the window (https://www.federalreserve.gov/newsevents/2026-december.htm)."
-        },
-        {
-          "as_of": "2026-11-16",
-          "claude": 0.06,
-          "claude_weight": -0.323328,
-          "intercept": 0.171912,
-          "market": 0.085,
-          "method": "learned_model_v1",
-          "probability": 0.103143,
-          "results": 220,
-          "slope": 1.03356
-        },
-        {
-          "as_of": "2026-11-16",
-          "intercept": 0.237097,
-          "method": "claude_calibrated_v1",
-          "probability": 0.140031,
-          "raw": 0.06,
-          "results": 244,
-          "slope": 0.745812
-        },
-        {
-          "made_at": "2026-11-16T12:32:17.258238+00:00",
-          "method": "market_price_v1",
-          "probability": 0.085
-        }
-      ],
-      "id": "polymarket-7085177",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-23",
-      "scored": true,
-      "source": "prospective_markets_20261116",
-      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-16-22-2026",
-      "status": "pending",
-      "title": "Will Bitcoin dip to $56,000 November 16-22?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.03,
-        "market": 0.055,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.055
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Ethereum (ETH/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Low\" prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-17T12:40:18+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.03,
-          "rationale": "Binance ETHUSDT was 1795.36 at 2026-11-17 10:26 UTC, and the lowest 1-minute Low since the window opened (2026-11-16 05:00 UTC) was 1787.11, so 1,500 is about 16.4% below spot (https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT). With 30-day daily vol of 3.1% and about 138 hours left, the threshold is roughly 2.2-2.4 sigma away, a touch chance of about 2% on thin tails. I add a little for fat tails, ETF outflows and hot-CPI/Fed-hike pressure (https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/, 2026-11-12), against a 6.7-11% historical 7-day base rate that starts from the full window.",
-          "sources": [
-            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
-            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1m&startTime=1794805200000&endTime=1794911160000&limit=1000",
-            "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/"
-          ]
-        },
-        {
-          "as_of": "2026-11-17",
-          "claude": 0.03,
-          "claude_weight": -0.325984,
-          "intercept": 0.151961,
-          "market": 0.055,
-          "method": "learned_model_v1",
-          "probability": 0.067124,
-          "results": 225,
-          "slope": 1.051321
-        },
-        {
-          "as_of": "2026-11-17",
-          "intercept": 0.229744,
-          "method": "claude_calibrated_v1",
-          "probability": 0.080928,
-          "raw": 0.03,
-          "results": 250,
-          "slope": 0.765096
-        },
-        {
-          "made_at": "2026-11-17T10:24:03.289020+00:00",
-          "method": "market_price_v1",
-          "probability": 0.055
-        }
-      ],
-      "id": "polymarket-7085204",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-23",
-      "scored": true,
-      "source": "prospective_markets_20261117",
-      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-november-16-22-2026",
-      "status": "pending",
-      "title": "Will Ethereum dip to $1,500 November 16-22?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.2,
-        "market": 0.43,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.43
-      },
-      "detail": "This market will resolve according to the number of qualifying resets announced or initiated between 12:00 a.m. ET on November 16, 2026, and 11:59 p.m. ET on November 22, 2026.\n\nResets will be counted by the calendar date (ET) on which OpenAI announces or initiates them, and at most one reset will be counted per calendar date. Announcements, confirmations, or phased rollouts of a reset already counted will not add to the total.\n\nA qualifying reset is a discretionary, non-scheduled action by OpenAI that, ahead of the normal reset schedule, either zeroes or refills the weekly or generally applicable usage allowance for paid Codex or ChatGPT Work subscription users, or grants those users a reset that OpenAI characterizes as a banked or redeemable rate-limit reset, regardless of whether or when individual users redeem it. A reset will still qualify if certain models with separate usage limits, certain plans, or some users are not covered due to technical exceptions, phased rollout, or plan differences.\n\nNormal scheduled resets, resets granted only to individually selected users or accounts, temporary limit increases, additional usage or credits that do not refill existing allowances, and changes to pricing, plans, or usage caps will not qualify. Resets of OpenAI API rate limits or organizational usage tiers will also not qualify. Only qualifying resets announced or initiated within the specified week will be counted.\n\nAn official announcement stating that OpenAI has reset, is resetting, or will reset the limits on the same date as the announcement will count if published within the specified week, regardless of when the technical reset begins or is completed. Qualifying announcements include X posts by official OpenAI accounts or OpenAI employees authorized to announce Codex usage changes, for example: https://x.com/OpenAI/status/2042296046009626989 and https://x.com/sama/status/2041658719839383945.\n\nThis market will resolve to \"No\" as soon as the specified number of resets becomes impossible, for example because more resets than the specified number have already occurred.\n\nThe primary resolution source for this market will be official communications from OpenAI, including X posts published by @OpenAI, @OpenAIDevs, @sama, @thsottiaux, or any other OpenAI-operated account, as well as official OpenAI blog posts, changelogs, and in-product notices. However, a consensus of credible reporting may also be used.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-17T12:40:18+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.2,
-          "rationale": "Dated discretionary Codex resets were 2026-04-08, about 2026-06-01 and 2026-07-14, with the 4M-user reset reported only in a snippet (https://officechai.com/ai/openais-codex-reaches-5-million-users-resets-rate-limits-for-users/, 2026-06-01). That is about 4-5 of roughly 32 weeks, and no week had two. Resets look more frequent lately (2026-10-28, and a banked reset announced 2026-11-12, reported at https://lapaasvoice.com/openai-rolls-out-banked-codex-usage-reset-to-all-accounts/, 2026-11-14), but the rollout of the Nov 12 reset does not count again. One BigGo article (2026-11-11) says Codex lead Sottiaux stepped back, and the evidence has only 1 primary source, so I stay near the base rate.",
-          "sources": [
-            "https://lapaasvoice.com/openai-rolls-out-banked-codex-usage-reset-to-all-accounts/",
-            "https://officechai.com/ai/openais-codex-reaches-5-million-users-resets-rate-limits-for-users/",
-            "https://vpsranking.com/news/ai/ai-2026-07-14-openai-codex-8m-users-limit-reset/",
-            "https://finance.biggo.com/news/301b6b33-e617-46bd-92d0-21ae94869294",
-            "https://learn.chatgpt.com/docs/changelog"
-          ]
-        },
-        {
-          "made_at": "2026-11-17T12:44:16.846434+00:00",
-          "method": "claude_second_look_v1",
-          "probability": 0.3,
-          "rationale": "Recent resets came about every two weeks (Oct 28, Nov 12) and a banked reset was just announced, but the Codex lead's 'graduated from the reset company' remark points to fewer resets. Exactly one in a 7-day window is about 30%."
-        },
-        {
-          "as_of": "2026-11-17",
-          "claude": 0.2,
-          "claude_weight": 0.47212,
-          "intercept": 0.151961,
-          "market": 0.43,
-          "method": "learned_model_v1",
-          "probability": 0.339441,
-          "results": 225,
-          "slope": 1.051321
-        },
-        {
-          "as_of": "2026-11-17",
-          "intercept": 0.229744,
-          "method": "claude_calibrated_v1",
-          "probability": 0.303454,
-          "raw": 0.2,
-          "results": 250,
-          "slope": 0.765096
-        },
-        {
-          "made_at": "2026-11-17T10:24:03.289020+00:00",
-          "method": "market_price_v1",
-          "probability": 0.43
-        }
-      ],
-      "id": "polymarket-7088841",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-23",
-      "scored": true,
-      "source": "prospective_markets_20261117",
-      "source_url": "https://polymarket.com/event/how-many-codex-resets-week-of-november-16",
-      "status": "pending",
-      "title": "Will there be exactly 1 Codex weekly usage limit reset in the week of November 16?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.02,
-        "market": 0.0505,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.0505
-      },
-      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1-minute candle for SOL/USDT during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"High\" price equal to or greater than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the SOL/USDT \"High\" prices available at https://www.binance.com/en/trade/SOL_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance SOL/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-18T12:40:14+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.02,
-          "rationale": "Binance SOLUSDT was 75.20 at 10:09 UTC on 2026-11-18 and the highest 1-minute High since the window opened on 2026-11-16 is 75.78 (https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m, 2026-11-18). Reaching 90 needs about +19.7% (ln 0.18) in roughly 115 hours; with 30-day daily vol of 3.2% that is about 2.6 sigma over the remaining window, a touch chance near 1%, which I raise slightly for fat tails. The recent trend is down (105.08 on 2026-10-19 to 75.18, https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31) and no dated catalyst is confirmed.",
-          "sources": [
-            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m&startTime=1794805200000&endTime=1794865140000&limit=1000",
-            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31",
-            "https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT"
-          ]
-        },
-        {
-          "as_of": "2026-11-18",
-          "claude": 0.02,
-          "claude_weight": -0.310932,
-          "intercept": 0.129127,
-          "market": 0.0505,
-          "method": "learned_model_v1",
-          "probability": 0.081939,
-          "results": 231,
-          "slope": 0.969082
-        },
-        {
-          "as_of": "2026-11-18",
-          "intercept": 0.219197,
-          "method": "claude_calibrated_v1",
-          "probability": 0.070973,
-          "raw": 0.02,
-          "results": 256,
-          "slope": 0.717156
-        },
-        {
-          "made_at": "2026-11-18T10:07:18.094471+00:00",
-          "method": "market_price_v1",
-          "probability": 0.0505
-        }
-      ],
-      "id": "polymarket-7087528",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-23",
-      "scored": true,
-      "source": "prospective_markets_20261118",
-      "source_url": "https://polymarket.com/event/what-price-will-solana-hit-november-16-22-2026",
-      "status": "pending",
-      "title": "Will Solana reach $90 November 16-22?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.82,
         "market": 0.86,
         "max_move": 0.0,
@@ -19592,70 +19656,6 @@
       "status": "pending",
       "title": "Will 30+ ships transit the Bab el-Mandeb Strait on any day week of November 16?",
       "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.57,
-        "market": 0.1645,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.1645
-      },
-      "detail": "This market will resolve according to the total number of notices that UKMTO (United Kingdom Maritime Trade Operations) publishes on its Recent Incidents page with a publication date from November 16, 2026, through November 22, 2026 (UTC), inclusive, as displayed on that page.\n\nAll notice types will count, including warnings, advisories, suspicious activity notices, and attack reports, including time-late reports of incidents that occurred before November 16, 2026 (UTC). Each notice will be counted once.\n\nUpdates to, corrections of, or reissues of a previously published notice will not count as separate notices, including any subsequent notice that updates or provides additional information on an incident already reported by UKMTO.\n\nOnly notices published by UKMTO will count. Maritime incidents that are not the subject of a UKMTO notice published within the specified period will not count, regardless of whether they occurred or are reported by other sources.\n\nThis market will resolve as soon as all notices for the specified period have been published. Notices published after November 22, 2026 (UTC) will not be considered, even if they relate to incidents within the specified period.\n\nThe resolution source for this market will be UKMTO, specifically the Recent Incidents page at https://www.ukmto.org/recent-incidents. If that page is unavailable, notices published through UKMTO's official channels may be used.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-20T12:40:20+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.57,
-          "rationale": "Search snippets show UKMTO warnings 206-26 and 207-26 on 2026-11-16 and 210-26 on 2026-11-17 (https://safety4sea.com/armed-security-team-prevents-attempted-boarding-off-yemen/, 2026-11-17), so at least three notices, and probably four or five, fall in the window by 17 Nov. Numbering has run near 6.8 a week in 2026, and Hormuz activity is elevated (https://gulfnews.com/business/energy/hormuz-attacks-rise-as-iran-steps-up-pressure-on-shipping-ukmto-warns-1.500737866, 2026-11-06). Nothing was found for 18-20 Nov and the official page returned 403, so the count is unverified, with real risk of 8 or more or of fewer than 4.",
-          "sources": [
-            "https://www.ukmto.org/recent-incidents",
-            "https://www.newsquawk.com/headlines/ukmto-reports-a-maritime-incident-50-nautical-miles-southwest-of-al-mukalla-yemen",
-            "https://safety4sea.com/armed-security-team-prevents-attempted-boarding-off-yemen/",
-            "https://gulfnews.com/business/energy/hormuz-attacks-rise-as-iran-steps-up-pressure-on-shipping-ukmto-warns-1.500737866",
-            "https://www.bernama.com/en/news.php?id=2635105"
-          ]
-        },
-        {
-          "as_of": "2026-11-20",
-          "claude": 0.57,
-          "claude_weight": -0.433421,
-          "intercept": 0.071699,
-          "market": 0.1645,
-          "method": "learned_model_v1",
-          "probability": 0.098758,
-          "results": 236,
-          "slope": 0.896104
-        },
-        {
-          "as_of": "2026-11-20",
-          "intercept": 0.194145,
-          "method": "claude_calibrated_v1",
-          "probability": 0.595361,
-          "raw": 0.57,
-          "results": 262,
-          "slope": 0.681314
-        },
-        {
-          "made_at": "2026-11-20T10:08:18.753119+00:00",
-          "method": "market_price_v1",
-          "probability": 0.1645
-        }
-      ],
-      "id": "polymarket-6942345",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-23",
-      "scored": true,
-      "source": "prospective_markets_20261120",
-      "source_url": "https://polymarket.com/event/how-many-ukmto-notices-november-1622",
-      "status": "pending",
-      "title": "Will UKMTO publish 4-7 notices between November 16-November 22?",
-      "topic": "World",
       "verdict": null
     },
     {
@@ -20105,6 +20105,66 @@
         "method": "claude_call_v1",
         "probability": 0.35
       },
+      "detail": "Resolves YES if the S&p500 closes at 7000.00 or higher on wed nov 25 2026 on Google finance.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "The S&P 500 closed at 7,175.83 on 2026-11-19 (https://fred.stlouisfed.org/series/SP500) and Yahoo showed 6,910.39 at the 2026-11-20 close, down 3.70% (https://finance.yahoo.com/quote/%5eSPX/, not independently corroborated), so 7,000 needs about +1.3% over three sessions (Nov 23, 24, 25). Realised volatility is elevated after a 4-day losing streak, so a three-day move of that size is plausible after a sharp drop, and the BEA GDP second estimate lands on the morning of 2026-11-25 (https://www.bea.gov/news/schedule/full). The Nov 23 close is unknown and Google Finance was not readable, so I stay below even odds.",
+          "sources": [
+            "https://fred.stlouisfed.org/series/SP500",
+            "https://finance.yahoo.com/quote/%5eSPX/",
+            "https://www.bea.gov/news/schedule/full",
+            "https://stockanalysis.com/market-bullets/2026-11-18/"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.35,
+          "claude_weight": -0.263512,
+          "intercept": 0.10498,
+          "market": 0.6292,
+          "method": "learned_model_v1",
+          "probability": 0.711667,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.453016,
+          "raw": 0.35,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.6292
+        }
+      ],
+      "id": "manifold-nd2EnyRhcu",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-25",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://manifold.markets/Jack1/sp500-closes-at-700000-or-higher-on",
+      "status": "pending",
+      "title": "S&P500 closes at 7000.00 or higher on Wednesday 25 Nov 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.35
+      },
       "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-21 be above 203,000 claims?",
       "forecasts": [
         {
@@ -20341,6 +20401,1158 @@
       "status": "pending",
       "title": "Will OpenRouter process 260T or more tokens the week of November 23?",
       "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.02
+      },
+      "detail": "Resolves as the Manifold market resolves: https://manifold.markets/Bayesian/will-a-millennium-prize-problem-be-qctyIIhtdl",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "CMI's rules require publication in a Qualifying Outlet, two years since publication and general acceptance before any award (https://www.claymath.org/millennium-problems/rules). OpenAI's Navier-Stokes claim is dated 2026-09-08 (https://openai.com/index/navier-stokes-solution/), CMI said on 2026-09-11 that the process is deliberately unhurried (https://www.claymath.org/navier-stokes-announcement), and a 2026-10-27 preprint questioned the Lean formalisation (https://www.kcl.ac.uk/news/openais-navier-stokes-proof-called-into-question). The problem still sits under Active problems, and a 2026 publication cannot clear the two-year wait by 2026-11-30.",
+          "sources": [
+            "https://www.claymath.org/millennium-problems/rules",
+            "https://www.claymath.org/navier-stokes-announcement",
+            "https://openai.com/index/navier-stokes-solution/",
+            "https://www.kcl.ac.uk/news/openais-navier-stokes-proof-called-into-question"
+          ]
+        },
+        {
+          "made_at": "2026-11-23T12:47:22.076439+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.85,
+          "rationale": "Prize rules alone imply NO (first forecast 0.02), but the 0.95 Manifold price plus CMI's 11 Sep 'apparently been settled' statement suggest the market's own definition treats Navier-Stokes as solved; I follow the market, discounted for the title and date ambiguity."
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.02,
+          "claude_weight": 0.42178,
+          "intercept": 0.10498,
+          "market": 0.95,
+          "method": "learned_model_v1",
+          "probability": 0.495934,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.074965,
+          "raw": 0.02,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.95
+        }
+      ],
+      "id": "manifold-LAcRZtCRAz",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-30",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://manifold.markets/Bayesian/will-a-millennium-prize-problem-be-qctyIIhtdl",
+      "status": "pending",
+      "title": "Will a Millennium Prize Problem be solved in November 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.11
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for BTC/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT Low prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.11,
+          "rationale": "Binance BTCUSDT was 61,352 on 2026-11-23 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), 10.4% above 55,000, with about 7.7 days left. The November low so far is a 55,130 daily low on 2026-11-21, which rebounded to 61,271 by the 22nd (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=8). A zero-drift barrier calculation with 2.46% daily volatility gives about 10%, and ETF outflows (https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-continue-bleeding-440337, 2026-11-14) plus fat tails keep it slightly above that.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=8",
+            "https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-continue-bleeding-440337"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.11,
+          "claude_weight": -0.140806,
+          "intercept": 0.10498,
+          "market": 0.171,
+          "method": "learned_model_v1",
+          "probability": 0.213537,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.225536,
+          "raw": 0.11,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.171
+        }
+      ],
+      "id": "polymarket-6507392",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-november-2026",
+      "status": "pending",
+      "title": "Will Bitcoin dip to $55,000 in November?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.58
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during a Pyth market session of November 2026, any Pyth 1-minute candle for the Active Month of ICE Futures Europe WTI Crude Futures (denoted by Pyth as \"CLL\") has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nOnly prices achieved during the Pyth market session on the specified timeframe's business days will be considered. The Pyth market session for a given business day can be seen under \"Schedule\" in the \"Data Coverage\" section of the respective CLL price feed on Pyth (See: https://app.pyth.com/explore?search=CLL), and may be modified for holiday or other special hours.\n\nThe Active Month is the nearest listed contract, except during that contract's final three trading sessions. At the open of the third-to-last trading session, the next listed contract becomes the Active Month.\n\nEach contract's last trading day will be determined by ICE Futures Europe per the WTI Crude Futures contract specification (generally the 4th US business day prior to the 25th calendar day of the month preceding the contract month, or five US business days prior if the 25th calendar day is not a US business day). The last trading day for each contract is posted at https://www.ice.com/products/213/WTI-Crude-Futures/expiry.\n\nFor example, if the last trading session for the nearest listed contract is the session for Monday the 20th, the next listed contract would become the Active Month at the start of the trading session for Thursday the 16th (8:00 PM ET on Wednesday), assuming a standard trading calendar.\n\nIf Pyth data is unavailable during the Pyth market session due to a system outage, data failure, or other disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the Active Month WTI Crude Oil Futures contract by ICE Futures Europe may be used to determine whether the listed price was reached during the Pyth market session (See: https://www.ice.com/report/10 with \"T-West Texas Intermediate Light Sweet Crude Future\" selected). The scheduled close of the Pyth market session does not constitute a system outage, data failure, or other disruption, and the ICE Futures Europe daily high/low will not be used to account for prices after this close.\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the underlying market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nIf the Active Month contract does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nThe resolution source for this market is Pyth \u2014 specifically, the ICE Futures Europe WTI Crude Futures Active Month \"High\" and \"Low\" prices available at https://app.pyth.com/explore?search=CLL, with the chart settings configured for 1-minute candles. Historical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "WTI Jan27 settled at 83.26 on 2026-11-18 with an intraday low of 81.20, its lowest settle since August (https://www.newsquawk.com/headlines/crude-wrap-wti-f7-settles-usd-275-lower-at-usd-8326bbl, 2026-11-18). Oil was trending down, and the broad risk-off move later that week (S&P 500 fell about 2% and then 3.7%, https://fred.stlouisfed.org/series/SP500) suggests prices did not recover. Against that, the Hormuz tanker-mine report (https://gvwire.com/2026/11/19/oil-prices-inch-up-as-tanker-disruptions-offset-surplus-supply-outlook/, 2026-11-19) and the OPEC+ meeting on 2026-11-29 are upside risks, and no price after 2026-11-18 or any Pyth CLL data was verified.",
+          "sources": [
+            "https://www.newsquawk.com/headlines/crude-wrap-wti-f7-settles-usd-275-lower-at-usd-8326bbl",
+            "https://gvwire.com/2026/11/19/oil-prices-inch-up-as-tanker-disruptions-offset-surplus-supply-outlook/",
+            "https://www.opec.org/pr-detail/2033620-1-november-2026.html"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.58,
+          "claude_weight": -0.263512,
+          "intercept": 0.10498,
+          "market": 0.545,
+          "method": "learned_model_v1",
+          "probability": 0.558925,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.617838,
+          "raw": 0.58,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.545
+        }
+      ],
+      "id": "polymarket-6172754",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/what-price-will-wti-hit-in-november-2026",
+      "status": "pending",
+      "title": "Will WTI Crude Oil (WTI) hit (LOW) $80 in November?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.2
+      },
+      "detail": "This market will resolve to \"Yes\" if the listed individual speaks with Donald Trump between market creation and November 30, 2026, 11:59 PM ET. Otherwise, it will resolve to \"No\".\n\nSpeaking is defined as any verbal interaction between the listed individual and Donald Trump, occurring either in person or through verbal communication by phone or video call.\n\nThe resolution source will be credible media reporting. However, in the absence of definitive or in the case of contradictory media reporting, statements by either of the specified individuals or their official representatives will also be considered.\n\nStatements by the specified individuals or their official representatives will only be considered conclusive if the claims explicitly, or in context unambiguously, indicate that a qualifying talk occurred within the specified timeframe and took place via verbal communication, and provided that such claims are not contradicted by the other specified individual, their representatives, or credible media reporting by the end of the third calendar date (ET) following the statement in question.\n\nThis market will resolve at the earlier of i) a qualifying verbal interaction being confirmed under the above rules or ii) 11:59 PM ET on the third calendar day following this market's above-specified timeframe.\n\nIf the date and time of a qualifying talk cannot be confirmed by a consensus of credible reporting by 11:59 PM ET on the third calendar day following this market's above-specified timeframe, it will resolve to \"No\" regardless of whether it was later confirmed to have taken place.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "The last Trump-Zelenskyy call found is 2026-06-14 (https://www.pravda.com.ua/eng/news/2026/06/14/8039262/), and November contact has run through envoys Witkoff and Kushner only (https://www.pravda.com.ua/eng/news/2026/11/12/8062612/, 2026-11-12). Direct contacts run at roughly one every three months, and the G-20 at Doral on 14-15 December falls after the window. A call after Trump's China summit with Putin is plausible, but the Washington Post and Bloomberg items on a pre-Christmas round are unopened snippets.",
+          "sources": [
+            "https://www.pravda.com.ua/eng/news/2026/06/14/8039262/",
+            "https://www.pravda.com.ua/eng/news/2026/11/12/8062612/",
+            "https://en.wikipedia.org/wiki/2026_G20_Miami_summit"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.2,
+          "claude_weight": -0.353743,
+          "intercept": 0.10498,
+          "market": 0.435,
+          "method": "learned_model_v1",
+          "probability": 0.564042,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.32445,
+          "raw": 0.2,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.435
+        }
+      ],
+      "id": "polymarket-6440135",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/who-will-trump-speak-to-by-november-30-2026",
+      "status": "pending",
+      "title": "Will Trump speak to Volodymyr Zelenskyy by November 30?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.87
+      },
+      "detail": "This market will resolve according to the calendar date (ET) on which Meta's next Muse Spark model (1.4+) is made available to the general public.\n\nA qualifying model must have a name or model identifier that includes \"Muse Spark\" and be designated as version 1.4 or higher, regardless of capitalization, hyphenation, spacing, or surrounding prefixes, suffixes, dates, or descriptors. For example, a version 1.4 or higher named in the same manner as Muse Spark 1.2 or Muse Spark 1.3 would qualify, including a new whole-number generation such as Muse Spark 2, while models whose name does not include \"Muse Spark\" or which retain a version designation below 1.4, such as Muse Spark 1.3 (released September 2, 2026, including any of its reasoning modes, open-weight re-releases, rollouts, promotions, or snapshots), Muse Glimmer, or Muse Image, will not qualify.\n\nA qualifying model must be launched and publicly accessible, including via open beta or open rolling waitlist signups. A closed beta or any form of private access will not suffice. The release must either be clearly defined and publicly announced by Meta as accessible to the general public, or otherwise be made publicly accessible and explicitly labeled on the company's official website. Labeling errors, placeholder text, or version names displayed on the website that do not correspond to a model that is actually accessible to the general public will not qualify.\n\nThe primary resolution source for this market will be official information from Meta, with additional verification from a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.87,
+          "rationale": "This question resolves Yes if no Muse Spark 1.4 or higher is publicly launched by 2026-11-30. Meta's newest Muse Spark release is 1.3 on 2026-09-02 (https://research.meta.ai/blog/introducing-muse-spark-1-3), and Meta's blog indexes show no 1.4 post as of 2026-11-23 (https://research.meta.ai/blog/). The only 1.4 traces are an internal string in a code pull request and a third-party listing (https://www.cometapi.com/muse-spark-1-4-coming-soon/, 2026-11-13). The 82-day gap is long against the earlier 27-28 day cadence, so a release inside the last week is possible but not signalled, and Meta's recent launches (Muse Ember on 2026-11-09, Spark Open on 2026-10-15) did not carry the qualifying name.",
+          "sources": [
+            "https://research.meta.ai/blog/introducing-muse-spark-1-3",
+            "https://research.meta.ai/blog/",
+            "https://www.cometapi.com/muse-spark-1-4-coming-soon/",
+            "https://research.meta.ai/blog/muse-ember"
+          ]
+        },
+        {
+          "made_at": "2026-11-23T12:47:22.076439+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.92,
+          "rationale": "No official 1.4 announcement as of Nov 23, Meta blog indexes show nothing, only code-string and third-party hints; one week left makes a launch unlikely, though the 82-day gap and Watermelon talk leave a small tail."
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.87,
+          "claude_weight": 0.42178,
+          "intercept": 0.10498,
+          "market": 0.925,
+          "method": "learned_model_v1",
+          "probability": 0.900599,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.832187,
+          "raw": 0.87,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.925
+        }
+      ],
+      "id": "polymarket-6655565",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/next-muse-spark-model-1pt4-released-onptptpt",
+      "status": "pending",
+      "title": "Will there be no next Meta Muse Spark model release by November 30, 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.3
+      },
+      "detail": "This market will resolve to \"Yes\" if Pakistan takes a qualifying military action against Afghanistan between this market\u2019s creation and the specified date, 11:59 PM Afghanistan Time (AFT). Otherwise this market will resolve to \"No.\"\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Pakistan, that directly impacts Afghanistan. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe qualifying military action must be carried out by the armed forces of Pakistan. Actions carried out by private military contractors, mercenaries, or proxy forces will not qualify. Where a qualifying action is carried out in the course of a coalition or multinational operation, it will qualify only if the armed forces of Pakistan directly conducted the strike.\n\nThe following actions do not constitute a qualifying military action:\nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on Afghanistan do not constitute a military action regardless of any damage incurred.\n\n\"Afghanistan\" refers to the terrestrial territory of Afghanistan, including its internal waters. Afghanistan\u2019s airspace is not encompassed. Where territorial borders are disputed, all territory claimed by and under the de facto control of Afghanistan as of market creation will qualify.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (AFT) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Pakistan and Afghanistan and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.3,
+          "rationale": "Pakistan struck Afghanistan on 2026-09-21 and 09-24 (https://www.cp24.com/news/world/2026/09/24/pakistani-airstrikes-target-afghanistan-after-islamabad-accuses-kabul-of-drone-attacks/), the Taliban claimed Pakistani drone strikes in Paktika on 2026-10-27, which Pakistan denied (https://www.longwarjournal.org/archives/2026/10/afghanistan-pakistan-border-clashes-continue-amid-reported-pakistani-outreach-to-anti-taliban-groups.php, 2026-10-29), and border fighting continued on 2026-11-01 and 11-20. No confirmed Pakistani air or drone strike has been found since late September, and claims often conflict, but tension is high and a lethal incident has brought strikes within days before.",
+          "sources": [
+            "https://www.cp24.com/news/world/2026/09/24/pakistani-airstrikes-target-afghanistan-after-islamabad-accuses-kabul-of-drone-attacks/",
+            "https://www.longwarjournal.org/archives/2026/10/afghanistan-pakistan-border-clashes-continue-amid-reported-pakistani-outreach-to-anti-taliban-groups.php",
+            "https://asianews.network/pakistan-warns-kabul-of-unbearable-punishment-as-clashes-persist-along-border/"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.3,
+          "claude_weight": -0.429043,
+          "intercept": 0.10498,
+          "market": 0.17,
+          "method": "learned_model_v1",
+          "probability": 0.154562,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.413236,
+          "raw": 0.3,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.17
+        }
+      ],
+      "id": "polymarket-6424255",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/pakistan-military-action-against-afghanistan-by-20261005",
+      "status": "pending",
+      "title": "Pakistan military action against Afghanistan by November 30, 2026?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.12
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for ETH/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the ETH/USDT Low prices available at https://www.binance.com/en/trade/ETH_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance ETH/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.12,
+          "rationale": "Binance ETHUSDT was about 1,722 on 2026-11-23, 12.9% above 1,500, and the November low so far is a 1,538 daily low on 2026-11-21 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31). With 3.45% daily volatility and about 7.7 days left, the barrier calculation gives roughly 15%. The 21 Nov low came with Bitcoin's matching dip and a same-day rebound, ETH ETF outflows continue (https://crypto.news/ether-etf-outflows-398-million-november/, 2026-11-17), so I sit a little below the thin-tailed figure.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+            "https://crypto.news/ether-etf-outflows-398-million-november/"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.12,
+          "claude_weight": -0.140806,
+          "intercept": 0.10498,
+          "market": 0.1825,
+          "method": "learned_model_v1",
+          "probability": 0.225782,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.237964,
+          "raw": 0.12,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1825
+        }
+      ],
+      "id": "polymarket-6507426",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/what-price-will-ethereum-hit-in-november-2026",
+      "status": "pending",
+      "title": "Will Ethereum dip to $1,500 in November?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.42
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of November 2026, any 1-minute candle for Gold (XAUUSD) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered. The trading session for a given business day typically begins at 6:00 PM ET on the prior calendar date. Under the standard schedule, trading is open from 6:00:00 PM ET Sunday through 5:00:00 PM ET Friday, with a daily break from 5:00:00 PM ET to 6:00:00 PM ET, except where modified by holiday or special-session hours.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIf Gold (XAUUSD) does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Gold (XAUUSD) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Metal.XAU%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the relevant CME COMEX futures contract for the underlying metal\u2014COMEX Gold Futures (GC)\u2014may be used to determine whether the listed price was reached during the applicable trading session.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.42,
+          "rationale": "Gold was about 3,617 on 2026-11-23 after a steep slide from 3,830 on 2026-11-16 (https://www.nationthailand.com/business/40073583) to a 3,520.6 close on 2026-11-20 and a 3,521.8 low on 2026-11-23 (https://twelvedata.com/markets/300755/commodity/xau-usd/historical-data). Those prints are within 0.6% of 3,500, and the Pyth 1-minute lows, including the 2026-11-20 intraday low, were never read, so a touch may already have happened. About six sessions remain, with the BEA release on 2026-11-25 the only scheduled US data (https://www.bea.gov/news/schedule), and the rebound of 2.4% on the 23rd argues buyers defended the area.",
+          "sources": [
+            "https://twelvedata.com/markets/300755/commodity/xau-usd/historical-data",
+            "https://www.nationthailand.com/business/40073583",
+            "https://www.kitco.com/charts/gold?sitetype=fullsite",
+            "https://www.bea.gov/news/schedule"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.42,
+          "claude_weight": -0.263512,
+          "intercept": 0.10498,
+          "market": 0.387,
+          "method": "learned_model_v1",
+          "probability": 0.410323,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.505478,
+          "raw": 0.42,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.387
+        }
+      ],
+      "id": "polymarket-6172689",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/what-price-will-xauusd-hit-in-november-2026",
+      "status": "pending",
+      "title": "Will Gold (XAUUSD) hit (LOW) $3,500 in November?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.04
+      },
+      "detail": "This market will resolve to \"Yes\" if the French government explicitly claims that the authorities of a foreign country deliberately caused or facilitated the unrest that began in France on October 17, 2026, by November 30, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nSuch a claim requires an on-the-record public statement issued by an authorized person or entity representing the French government, speaking in an official capacity, which expressly states that the authorities of a foreign country deliberately caused or facilitated the unrest. A statement from a lawmaker speaking in their own capacity or on behalf of a party not in government will not alone qualify. \n\nAmbiguous statements which imply responsibility but which do not directly claim it will not qualify. Statements that do not attribute deliberate intent to the authorities of a foreign country (e.g., \"foreign actors exploited the unrest to spread disinformation\") will not qualify. \n\nThe primary resolution source for this market will be official information from the French government; however, a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.04,
+          "rationale": "The official line is Macron's 2026-10-21 remark of no visible foreign interference, only foreign manipulation of information (https://www.aljazeera.com/amp/news/2026/10/21/frances-macron-says-protesters-wont-be-allowed-to-cause-chaos). Barrot's 2026-10-28 comments point to online content from abroad and not to state intent (https://www.thelocal.fr/20261028/two-thirds-of-fake-news-about-french-riots-came-from-abroad-says-minister), and the EU assessment reported on 2026-11-09 found no foreign actor started or escalated the unrest (https://www.al-monitor.com/originals/2026/11/exclusive-covert-russian-network-exploited-french-riots-social-media-eu-report). The rule needs an on-the-record statement that a foreign state's authorities deliberately caused or facilitated the unrest, which nothing found so far approaches.",
+          "sources": [
+            "https://www.aljazeera.com/amp/news/2026/10/21/frances-macron-says-protesters-wont-be-allowed-to-cause-chaos",
+            "https://www.thelocal.fr/20261028/two-thirds-of-fake-news-about-french-riots-came-from-abroad-says-minister",
+            "https://www.al-monitor.com/originals/2026/11/exclusive-covert-russian-network-exploited-french-riots-social-media-eu-report"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.04,
+          "claude_weight": -0.353743,
+          "intercept": 0.10498,
+          "market": 0.053,
+          "method": "learned_model_v1",
+          "probability": 0.076197,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.118585,
+          "raw": 0.04,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.053
+        }
+      ],
+      "id": "polymarket-6017072",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/france-accuses-foreign-country-of-provoking-unrest-by-november-30-20261021154154939",
+      "status": "pending",
+      "title": "France accuses foreign country of provoking unrest by November 30?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.2
+      },
+      "detail": "This market will resolve according to the company that owns the model that has the highest arena rank among primarily Chinese companies, based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on November 30, 2026, 12:00 PM ET.\n\nChinese Companies include but are not limited to Alibaba, Moonshot, Baidu, Z.ai, Xiaomi, DeepSeek, ByteDance, MiniMax, Meituan, Tencent, and StepFun. Companies not headquartered in China or not primarily owned or operating within the Chinese technology ecosystem are not considered primarily Chinese.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nQualifying Chinese Models will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cMeituan\u201d would be ranked ahead of \u201cXiaomi\u201d). This market will resolve based on the company that occupies first place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.2,
+          "rationale": "On the 2026-11-22 Arena Overall (no style control) table the top Chinese-company model is Xiaomi's MiMo-V2.6-Pro at rank 14 (1,493), and no Alibaba model is in the visible top 15 (https://arena.ai/leaderboard/text/overall-no-style-control). Alibaba launched Qwen4-Max on 2026-11-16 (https://www.alibabacloud.com/press-room/alibaba-unveils-qwen4-max), but it has no visible Text Overall entry yet. Alibaba wins only if Qwen4-Max is listed by the 2026-11-30 check and scores above about 1,493, and Moonshot, Z.ai or a new release could also intervene.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control",
+            "https://www.alibabacloud.com/press-room/alibaba-unveils-qwen4-max",
+            "https://tech.ifeng.com/c/8wED4aLjzyu"
+          ]
+        },
+        {
+          "made_at": "2026-11-23T12:47:22.076439+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.22,
+          "rationale": "Xiaomi MiMo-V2.6-Pro (1,493, rank 14) led Chinese models on Nov 22 and Qwen4-Max (released Nov 16) was not on the visible table; Alibaba needs a listing scoring above 1,493 within a week."
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.2,
+          "claude_weight": 0.42178,
+          "intercept": 0.10498,
+          "market": 0.285,
+          "method": "learned_model_v1",
+          "probability": 0.277954,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.32445,
+          "raw": 0.2,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.285
+        }
+      ],
+      "id": "polymarket-4664495",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/best-chinese-ai-company-end-of-november",
+      "status": "pending",
+      "title": "Will Alibaba have the best Chinese AI model at the end of November 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.23
+      },
+      "detail": "This market will resolve to \u201cYes\u201d if Iran targets the United Arab Emirates through a qualifying military action between market creation and the listed date, Gulf Standard Time (GST). Otherwise, this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Iran, directed at the United Arab Emirates. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nMilitary action that consists primarily or exclusively of munitions that are intercepted before impact will still qualify if they constitute a qualifying military action during the specified timeframe; whether the munitions were intercepted, where the munitions landed, and whether damage resulted will not be considered.\n\nA military action will be considered directed at the United Arab Emirates if it is directed at the terrestrial territory of the United Arab Emirates, including any internal waters.\n\nOnly military actions by Iranian forces explicitly claimed by the Islamic Republic of Iran, or confirmed to have originated from Iranian territory will count toward the resolution of this market. Attacks by proxy forces (i.e. Hezbollah, Houthis, etc.) will not count toward the resolution of this market.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (GST) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Iran and the United Arab Emirates and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.23,
+          "rationale": "Verified Iranian strikes on UAE territory during the ceasefire are sparse: 2026-05-04, 2026-08-18 and 2026-08-31 (https://www.aljazeera.com/news/2026/9/1/uae-intercepts-drone-after-us-and-iran-exchange-attacks), about five attack days in 229 days. Mid-November Iranian activity hit Bahrain, Kuwait and a UAE-owned ship in Hormuz rather than UAE land (https://gulfnews.com/uae/usisrael-iran-war-what-uae-residents-need-to-know-today-nov-18-2026-1.500751757, 2026-11-18), and fighting was described as on hold on 2026-11-12 (https://www.aljazeera.com/news/2026/11/12/no-war-no-peace-can-iran-break-the-deadlock-with-the-us). The renewed Gulf attacks and talk of US strikes after the midterms raise the risk above the ceasefire base rate, but I found no confirmed strike on UAE land in November.",
+          "sources": [
+            "https://www.aljazeera.com/news/2026/9/1/uae-intercepts-drone-after-us-and-iran-exchange-attacks",
+            "https://gulfnews.com/uae/usisrael-iran-war-what-uae-residents-need-to-know-today-nov-18-2026-1.500751757",
+            "https://www.aljazeera.com/news/2026/11/12/no-war-no-peace-can-iran-break-the-deadlock-with-the-us"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.23,
+          "claude_weight": -0.429043,
+          "intercept": 0.10498,
+          "market": 0.1,
+          "method": "learned_model_v1",
+          "probability": 0.084671,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.352745,
+          "raw": 0.23,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1
+        }
+      ],
+      "id": "polymarket-5162929",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/will-iran-target-united-arab-emirates-byptptpt-20260907",
+      "status": "pending",
+      "title": "Will Iran target the United Arab Emirates by November 30, 2026?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.02
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for SOL/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the SOL/USDT Low prices available at https://www.binance.com/en/trade/SOL_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance SOL/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "Binance SOLUSDT was about 72.3 on 2026-11-23 and the lowest 1-minute low in the window so far is 64.87 on 2026-11-21 (https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m&limit=1000). Reaching 50 needs a drop of about 31% in roughly 7.8 days, nearly 4 standard deviations of the window at 3.4% daily volatility. Only a tail event such as an exchange or network shock would do it.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=60",
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1m&limit=1000"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.02,
+          "claude_weight": -0.140806,
+          "intercept": 0.10498,
+          "market": 0.061,
+          "method": "learned_model_v1",
+          "probability": 0.091399,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.074965,
+          "raw": 0.02,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.061
+        }
+      ],
+      "id": "polymarket-6507442",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/what-price-will-solana-hit-in-november-2026",
+      "status": "pending",
+      "title": "Will Solana dip to $50 in November?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.12
+      },
+      "detail": "This market will resolve to \"Yes\" if Anthropic's private market valuation, as measured by the NPM Price reported by Nasdaq Private Market, LLC (NPM) for any date between market creation and November 30, 2026, is equal to or beyond (equal to or above for \u2191 HIGH valuations, equal to or below for \u2193 LOW valuations) the listed amount. Otherwise, this market will resolve to \"No\".\n\nNPM Prices are published for trading days only and are updated once daily at 1:00 PM ET on the following calendar day.\n\nIf NPM has not published relevant data for all business dates in the specified period by 1:00 PM ET on the calendar date following the specified date, this market will remain open until 11:59 PM ET on the third business day following the specified date. If no further data is released by that time, the market will resolve according to the data available.\n\nIf NPM ceases publishing relevant data prior to the end of the specified period, this market will resolve based on the NPM data published for the period prior to the cessation of coverage, as well as any applicable public market capitalization data following an IPO or direct listing.\n\nIf the company completes an IPO or direct listing before the end of the specified period, this market will consider, in addition to the relevant NPM valuations published between market creation and the IPO or direct listing date, the valuation implied by the official IPO or direct listing price, and the company\u2019s public market capitalization between the IPO or direct listing date and the end of the specified period.\n\nPublic market capitalization will be determined through appropriate calculation using official regular-hours trading prices published for the company\u2019s listed equities on its primary exchange for any trading day during the specified period, multiplied by the company's total number of shares outstanding at the relevant time. If necessary, to accurately capture the company\u2019s total market capitalization, rather than a stock-class-specific market capitalization, the calculation will include all outstanding share classes and apply any stated conversion ratios to the publicly traded class. Where no conversion right exists, such shares will be counted at their stated outstanding amount without discount, unless official filings explicitly specify differently. The number of outstanding shares will be determined from official company filings or disclosures (e.g., SEC filings).\n\nIf the listed company merges with or acquires another entity and remains the parent company, no change to resolution methodology applies.\n\nIf the listed company is acquired, merges into another entity and is no longer the surviving parent company, or otherwise ceases to exist as an independent entity prior to the end of the period, only NPM valuations and applicable public market capitalizations achieved prior to completion of the transaction will be considered for resolution. No transaction, acquisition, or merger consideration will be considered for resolution.\n\nThe resolution source for this market is NPM data published here: (https://fe.secondmarket.com/companies/company-3e197763-4ff8-4d8c-bd1f-cc2792937757/data). The resolution source for any period following an IPO, direct listing, or relevant corporate action, will be the relevant Market Cap figure displayed on https://www.nasdaq.com/ as well as official exchange trading data and publicly reported share counts.\n\nRevisions to previously published NPM data made after their initial release will not be considered, unless made to correct clearly erroneous data.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.12,
+          "rationale": "On the 424B4 count of about 13.2-13.37 billion shares (https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm), $1.575T needs about $118 a share, while ANT closed at $97.17 on 2026-11-19 and about $88.91 on 2026-11-20 (https://query1.finance.yahoo.com/v8/finance/chart/ANT?range=5d&interval=1d, not checked), a gain of about a third in six sessions. The route to Yes is a different share base, since CNBC put the fully diluted value near $1.5T at the $83 IPO price (https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html, 2026-11-18) and NPM's own conversion is unknown. Under the stated outstanding-shares rule that reading is unlikely to be used.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/2130357/000162828026074944/anthropicpbc-424b4.htm",
+            "https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html",
+            "https://www.aljazeera.com/economy/2026/11/19/anthropic-starts-trading-in-the-us-after-blockbuster-ipo",
+            "https://www.nasdaqprivatemarket.com/?p=96625"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.12,
+          "claude_weight": -0.263512,
+          "intercept": 0.10498,
+          "market": 0.075,
+          "method": "learned_model_v1",
+          "probability": 0.084032,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.237964,
+          "raw": 0.12,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.075
+        }
+      ],
+      "id": "polymarket-6600819",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/will-anthropics-valuation-hit-by-november-30-2026",
+      "status": "pending",
+      "title": "Will Anthropic's valuation hit (HIGH) $1.575T by November 30?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.58
+      },
+      "detail": "This market will resolve according to the cause or causes to which the U.S. government officially attributes the FAA's nationwide ground stop on November 13, 2026, between market creation and November 30, 2026, 11:59 PM ET.\n\nEach market will resolve to \"Yes\" if the U.S. government officially attributes the ground stop to the listed cause within this timeframe. Otherwise, this market will resolve to \"No\". More than one market may resolve to \"Yes\".\n\nThe ground stop refers to the nationwide departure ground stop the Federal Aviation Administration (FAA) issued on November 13, 2026. A cause qualifies if it is attributed as a cause of the ground stop or of the radio, radar, communications, or other system outage behind it.\n\nThe listed causes are defined as follows:\nEquipment or system failure: a malfunction of hardware, software, power, or telecommunications equipment used by the FAA or its contractors, including one set off by maintenance work or accidental damage. A cyberattack, jamming, or sabotage is not a failure.\nMaintenance or upgrade work: planned maintenance, an upgrade, a configuration change, or a cutover on an FAA or contractor system.\nCable cut or physical damage: accidental damage to a cable, line, antenna, or other physical equipment, including by construction work or weather.\nSoftware or configuration error: a fault in software, or a wrong setting or configuration, in an FAA or contractor system, including one introduced by an update or upgrade.\nTelecom carrier or contractor fault: the failure, damage, error, or work behind the outage was in equipment, a network, or a system run by a company other than the FAA, such as a telecommunications carrier or an FAA contractor.\nSMART AI system: a malfunction or error in, or the deployment or rollout of, the FAA's SMART air traffic management system, including its interaction with other FAA systems.\nEMP: an electromagnetic pulse (EMP), including one produced by a nuclear or non-nuclear weapon or device, that disrupted or damaged electrical or electronic equipment used by the FAA or its contractors. Solar storms and other natural geomagnetic disturbances will not count.\n\nA qualifying attribution is a public statement by an authorized representative of the U.S. federal government acting in an official capacity stating that the listed cause caused the ground stop or the outage behind it. Criminal charges filed by U.S. federal prosecutors alleging that the outage was caused by a cyberattack, jamming, or sabotage will also qualify for the relevant market.\n\nStatements describing a cause as suspected, likely, probable, under investigation, or not ruled out, or stating only that the outage bears the hallmarks of or is consistent with a cause, will not qualify. A statement that the ground stop followed a communication, radio, or radar outage or issue, without saying what caused that outage, will not qualify. A cause of a different outage or ground stop will not qualify. Statements by anonymous or unnamed officials or by governments of other countries will not qualify on their own.\n\nOnce a qualifying attribution is made, the relevant market will resolve to \"Yes\" regardless of any later retraction or the outcome of legal proceedings.\n\nThe primary resolution source for this market will be official statements and publications from the U.S. government; however, a consensus of credible reporting may also be used.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.58,
+          "rationale": "The FAA's Q&A (https://www.faa.gov/newsroom/nationwide-ground-stop-questions-and-answers, 2026-11-15) says it disabled the functionality of the originating Juniper routers and that L3Harris deployed a new router at El Dorado, while still investigating the root cause. Duffy was reported on 2026-11-14 as citing a malfunctioning router at a facility being upgraded from copper to fiber (https://aviationweek.com/air-transport/safety-ops-regulation/faa-says-router-malfunction-led-ground-stop) and on 2026-11-19 as saying the contractor was slow to isolate the issue (https://www.fox19.com/2026/11/19/duffy-ground-stop-could-have-been-shorter-if-contractor-spotted-issue-sooner/). The accepted categories are broad (equipment failure, upgrade work, contractor fault, configuration), but 'likely' or 'under investigation' wording does not count and the official pages could not be opened, so it turns on whether a firm on-the-record statement lands by 2026-11-30.",
+          "sources": [
+            "https://www.faa.gov/newsroom/nationwide-ground-stop-questions-and-answers",
+            "https://aviationweek.com/air-transport/safety-ops-regulation/faa-says-router-malfunction-led-ground-stop",
+            "https://www.fox19.com/2026/11/19/duffy-ground-stop-could-have-been-shorter-if-contractor-spotted-issue-sooner/",
+            "https://abc13.com/story/faa-halts-router-installation-following-nationwide-ground-stop/20048610/"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.58,
+          "claude_weight": -0.353743,
+          "intercept": 0.10498,
+          "market": 0.645,
+          "method": "learned_model_v1",
+          "probability": 0.681831,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.617838,
+          "raw": 0.58,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.645
+        }
+      ],
+      "id": "polymarket-7023983",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/what-technical-failure-caused-the-faas-nationwide-ground-stop",
+      "status": "pending",
+      "title": "Will it be confirmed that a software or configuration error caused the FAA's nationwide ground stop on November 13?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.55
+      },
+      "detail": "This market will resolve according to the third-highest ranked Company based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab filtered for \"Labs\" is checked on November 30, 2026, 12:00 PM ET.\n\nResults from the \"Lab Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control?rankBy=labs with style control off (Adjustments: None) and filtered for \"Labs\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nAI companies will be ordered primarily by their Lab Rank at the market\u2019s check time. If the results based on the lab ranking are ambiguous or unavailable, the relevant AI companies will be ordered according to their highest-ranking AI model in the leaderboard\u2019s \u201cModels\u201d view. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of AI lab/company names as listed in this market group will be used as a final tiebreaker (e.g., if the two models are tied by exact arena score, \u201cGoogle\u201d would be ranked ahead of \u201cSpaceXAI\u201d). This market will resolve based on the company that occupies third place under this ranking.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.55,
+          "rationale": "On the 2026-11-22 no-style-control Arena Labs view the top models read as Google (1,539), then Anthropic (Claude Opus 5.5 at 1,514), then Meta (Muse Wonder Max at 1,504), with no OpenAI model in the top 15 (https://arena.ai/leaderboard/text/overall-no-style-control?rankBy=labs, read through a subagent). Meta is only about 10 points behind Anthropic, so it could move to second, and OpenAI's GPT-6.2 Astra (2026-11-17, https://steamdb.com/en/ai/openai-gpt-6-2-astra-self-improvement) or a new Anthropic model such as Fable 5.2 (changelog 2026-11-19, https://arena.ai/company/leaderboard-changelog) could change the order. The views disagree on Meta's score and the Lab Rank column did not render.",
+          "sources": [
+            "https://arena.ai/leaderboard/text/overall-no-style-control?rankBy=labs",
+            "https://arena.ai/company/leaderboard-changelog",
+            "https://steamdb.com/en/ai/openai-gpt-6-2-astra-self-improvement",
+            "https://arena.ai/leaderboard/chat/text/models/muse-wonder-max-j0hb"
+          ]
+        },
+        {
+          "made_at": "2026-11-23T12:47:22.076439+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.75,
+          "rationale": "Nov 22 no-style-control view shows Google, Anthropic, then Meta (1,504) with no OpenAI model in top 15; main risk is GPT-6.2 Astra being added above Meta, while the lab view and score disagreement is noise."
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.55,
+          "claude_weight": 0.42178,
+          "intercept": 0.10498,
+          "market": 0.77,
+          "method": "learned_model_v1",
+          "probability": 0.692852,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.597164,
+          "raw": 0.55,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.77
+        }
+      ],
+      "id": "polymarket-4664724",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/third-best-ai-lab-end-of-november",
+      "status": "pending",
+      "title": "Will Meta be the third-best AI lab at the end of November 2026?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.08
+      },
+      "detail": "This market will resolve to \u201cYes\u201d if Iran targets Jordan through a qualifying military action between market creation and the listed date, Amman time. Otherwise, this market will resolve to \u201cNo.\u201d\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike, initiated by Iran, directed at Jordan. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action:\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nMilitary action that consists primarily or exclusively of munitions that are intercepted before impact will still qualify if they constitute a qualifying military action during the specified timeframe; whether the munitions were intercepted, where the munitions landed, and whether damage resulted will not be considered.\n\nA military action will be considered directed at Jordan if it is directed at the terrestrial territory of Jordan, including any internal waters.\n\nOnly military actions by Iranian forces explicitly claimed by the Islamic Republic of Iran, or confirmed to have originated from Iranian territory will count toward the resolution of this market. Attacks by proxy forces (i.e. Hezbollah, Houthis, etc.) will not count toward the resolution of this market.\n\nThe occurrence, attribution, and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence, attribution, or timing of a relevant military action, this market will remain open until the earlier of: i) the confirmation of the occurrence, attribution, and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Amman time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. At the end of the third calendar day, if conflicting reports remain, the incident will be adjudicated based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the governments and militaries of Iran and Jordan and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "The last confirmed Iranian missile attack on Jordan is 2026-09-09, when Jordan engaged 20 ballistic missiles (https://petra.gov.jo/index.php/en/news/jordan-armed-forces-intercept-18-iranian-ballistic-missiles-targeting-kingdom), leaving about 75 days with none found. Past bursts mostly followed US strikes, and on 2026-11-12 fighting was described as on hold but fragile (https://www.aljazeera.com/news/2026/11/12/no-war-no-peace-can-iran-break-the-deadlock-with-the-us). Mid-November Iranian attacks targeted Bahrain and Kuwait, not Jordan, so a Jordan strike would most likely need a renewed US-Iran escalation within the week.",
+          "sources": [
+            "https://petra.gov.jo/index.php/en/news/jordan-armed-forces-intercept-18-iranian-ballistic-missiles-targeting-kingdom",
+            "https://www.aljazeera.com/news/2026/11/12/no-war-no-peace-can-iran-break-the-deadlock-with-the-us",
+            "https://aljazeera.com/news/2026/11/1/mediators-continue-us-iran-negotiations-amid-war-rhetoric-what-we-know"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.08,
+          "claude_weight": -0.429043,
+          "intercept": 0.10498,
+          "market": 0.19,
+          "method": "learned_model_v1",
+          "probability": 0.303749,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.184914,
+          "raw": 0.08,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.19
+        }
+      ],
+      "id": "polymarket-6424258",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/will-iran-target-jordan-by-20260909",
+      "status": "pending",
+      "title": "Will Iran target Jordan by November 30, 2026?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.07
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for XRP/USDT during the month specified in the title (from 00:00 AM ET on the first day to 11:59 PM ET on the last), has a final Low price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the XRP/USDT Low prices available at https://www.binance.com/en/trade/XRP_USDT, with the chart settings on \"1m\" for one-minute candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance XRP/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.07,
+          "rationale": "Binance XRPUSDT was about 0.940 on 2026-11-23, 14.9% above 0.80, and a full 1-minute scan from 2026-11-01 found a lowest low of 0.86 on 2026-11-21 (https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1m). At 3.4% daily volatility over about 7.8 days the barrier calculation gives roughly 8-9%. The Ripple escrow release on 2026-12-01 (https://en.coinotag.com/ripple-1-billion-xrp-escrow-release-december-1, 2026-11-14) and ETF outflows (https://www.kucoin.com/blog/xrp-etf-outflows-8-month-high-2026, 2026-11-17) are modest pressures, while the 21 Nov low already rebounded.",
+          "sources": [
+            "https://api.binance.com/api/v3/klines?symbol=XRPUSDT&interval=1m",
+            "https://api.binance.com/api/v3/ticker/price?symbol=XRPUSDT",
+            "https://en.coinotag.com/ripple-1-billion-xrp-escrow-release-december-1",
+            "https://www.kucoin.com/blog/xrp-etf-outflows-8-month-high-2026"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.07,
+          "claude_weight": -0.140806,
+          "intercept": 0.10498,
+          "market": 0.229,
+          "method": "learned_model_v1",
+          "probability": 0.30142,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.169959,
+          "raw": 0.07,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.229
+        }
+      ],
+      "id": "polymarket-6507458",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/what-price-will-xrp-hit-in-november-2026",
+      "status": "pending",
+      "title": "Will XRP dip to $0.80 in November?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.1
+      },
+      "detail": "This market will resolve to \"Yes\" if Epic Games' private market valuation, as measured by the NPM Price reported by Nasdaq Private Market, LLC (NPM) for any date between market creation and November 30, 2026, is equal to or beyond (equal to or above for \u2191 HIGH valuations, equal to or below for \u2193 LOW valuations) the listed amount. Otherwise, this market will resolve to \"No\".\n\nNPM Prices are published for trading days only and are updated once daily at 1:00 PM ET on the following calendar day.\n\nIf NPM has not published relevant data for all business dates in the specified period by 1:00 PM ET on the calendar date following the specified date, this market will remain open until 11:59 PM ET on the third business day following the specified date. If no further data is released by that time, the market will resolve according to the data available.\n\nIf NPM ceases publishing relevant data prior to the end of the specified period, this market will resolve based on the NPM data published for the period prior to the cessation of coverage, as well as any applicable public market capitalization data following an IPO or direct listing.\n\nIf the company completes an IPO or direct listing before the end of the specified period, this market will consider, in addition to the relevant NPM valuations published between market creation and the IPO or direct listing date, the valuation implied by the official IPO or direct listing price, and the company\u2019s public market capitalization between the IPO or direct listing date and the end of the specified period.\n\nPublic market capitalization will be determined through appropriate calculation using official regular-hours trading prices published for the company\u2019s listed equities on its primary exchange for any trading day during the specified period, multiplied by the company's total number of shares outstanding at the relevant time. If necessary, to accurately capture the company\u2019s total market capitalization, rather than a stock-class-specific market capitalization, the calculation will include all outstanding share classes and apply any stated conversion ratios to the publicly traded class. Where no conversion right exists, such shares will be counted at their stated outstanding amount without discount, unless official filings explicitly specify differently. The number of outstanding shares will be determined from official company filings or disclosures (e.g., SEC filings).\n\nIf the listed company merges with or acquires another entity and remains the parent company, no change to resolution methodology applies.\n\nIf the listed company is acquired, merges into another entity and is no longer the surviving parent company, or otherwise ceases to exist as an independent entity prior to the end of the period, only NPM valuations and applicable public market capitalizations achieved prior to completion of the transaction will be considered for resolution. No transaction, acquisition, or merger consideration will be considered for resolution.\n\nThe resolution source for this market is NPM data published here: (https://fe.secondmarket.com/companies/data?start_date=2025-12-31&view=valuation&companies=company-625e5f47-7ff7-45c4-be95-0305665164bd). The resolution source for any period following an IPO, direct listing, or relevant corporate action, will be the relevant Market Cap figure displayed on https://www.nasdaq.com/ as well as official exchange trading data and publicly reported share counts.\n\nRevisions to previously published NPM data made after their initial release will not be considered, unless made to correct clearly erroneous data.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "NPM showed $203.88 per share as of 2026-11-09 (https://www.nasdaqprivatemarket.com/company/epic-games), after $196.69 on 2026-10-27, and the settling data page returned HTTP 403. The share count that turns the $8.2B threshold into a per-share level is unverified, and two Forge-derived counts put it at roughly $218-290 a share, 7% to 42% above the last print. NPM estimates for an illiquid stock move slowly, and the trend note (-54.65%) is negative, so a rise of that size in the remaining days looks unlikely.",
+          "sources": [
+            "https://www.nasdaqprivatemarket.com/company/epic-games",
+            "https://www.nasdaqprivatemarket.com/?p=9935",
+            "https://defillama.com/pre-ipo/epic-games"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.1,
+          "claude_weight": -0.263512,
+          "intercept": 0.10498,
+          "market": 0.1105,
+          "method": "learned_model_v1",
+          "probability": 0.139177,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.212601,
+          "raw": 0.1,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.1105
+        }
+      ],
+      "id": "polymarket-6601259",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/will-epic-games-valuation-hit-by-november-30-2026",
+      "status": "pending",
+      "title": "Will Epic Games' valuation hit (HIGH) $8.2B by November 30?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.1
+      },
+      "detail": "This market will resolve to \u201cYes\u201d if King Khalid International Airport (RUH) is targeted by a qualifying military action between market creation and the specified date, 11:59 PM Riyadh Time. Otherwise this market will resolve to \u201cNo.\u201d\n\nKing Khalid International Airport refers to the international airport serving Riyadh, Saudi Arabia (IATA: RUH; ICAO: OERK), including its runways, taxiways, aprons, terminals, and other facilities within the airport grounds.\n\nA qualifying military action refers to an air strike or a surface-to-surface missile strike that impacts King Khalid International Airport. An air strike includes bombs, air-to-surface missiles, and air-launched drones. A surface-to-surface missile strike includes one-way attack drones and surface-to-surface missiles such as cruise or ballistic missiles.\n\nThe following actions do not constitute a qualifying military action: \nMunitions destroyed or intercepted before impact;\nSurface-to-air missile strikes;\nSmall-arms fire;\nGround incursions;\nCyber operations;\nNaval gunfire and artillery fire;\nHowitzers, artillery pieces, mortars, and rocket artillery (e.g. MLRS systems);\nMinor surface-to-surface strikes, including short range loitering munitions, FPV drones, and ATGM strikes;\nAny threat, authorization, or announcement of force that has not been executed.\n\nAny munition that is intercepted or destroyed before impact does not constitute a qualifying military action. Debris, fragments, or any wreckage from intercepted munitions that land on King Khalid International Airport do not constitute a military action regardless of any damage incurred.\n\nA military action will be considered to impact King Khalid International Airport if it directly impacts any part of the airport grounds, including its runways, taxiways, aprons, terminals, or other airport facilities.\n\nThe occurrence and timing of a qualifying military action will be primarily determined based on a consensus of information available from the resolution sources. Where multiple sources conflict regarding the occurrence or timing of a relevant military action, this market will remain open until the earlier of:  i) the confirmation of the occurrence and timing of the action based on a consensus of information available from the resolution sources or ii) 3 full calendar days (Riyadh Time) from the date of the first credibly reported evidence of the action. If this period would extend past the end date, this market will remain open to allow for 3 full calendar days to pass. If, at the end of the third calendar day, conflicting reports remain as to the occurrence or timing of the action, this market will resolve based on the totality of information available from the resolution sources at that time. No single statement, denial, or presentation of evidence will govern where it is contradicted by the totality of information.\n\nThe resolution sources for this market will be official information from the government of Saudi Arabia and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "Houthi missiles hit Riyadh's King Khalid airport on 2026-10-10 and 10-11 (https://www.aljazeera.com/news/2026/10/11/saudi-arabia-says-1-dead-11-injured-in-latest-attack-on-riyadh-airport), but November attacks were intercepted on 11-15, 11-18 and 11-21 (https://www.aljazeera.com/news/2026/11/21/saudi-led-coalition-intercepts-three-houthi-missiles-headed-for-riyadh), and the 2026-11-19 hit was on the PIF tower, not the airport (https://www.aljazeera.com/news/2026/11/19/saudi-led-coalition-intercepts-houthi-missiles-targeting-riyadh-and-south). Launches at Riyadh are frequent and the Houthis claimed an airport target on 2026-11-18, but interceptions and debris do not count and no airport impact has been reported in about six weeks.",
+          "sources": [
+            "https://www.aljazeera.com/news/2026/10/11/saudi-arabia-says-1-dead-11-injured-in-latest-attack-on-riyadh-airport",
+            "https://www.aljazeera.com/news/2026/11/21/saudi-led-coalition-intercepts-three-houthi-missiles-headed-for-riyadh",
+            "https://www.aljazeera.com/news/2026/11/19/saudi-led-coalition-intercepts-houthi-missiles-targeting-riyadh-and-south"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.1,
+          "claude_weight": -0.353743,
+          "intercept": 0.10498,
+          "market": 0.245,
+          "method": "learned_model_v1",
+          "probability": 0.36085,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.212601,
+          "raw": 0.1,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "market_price_v1",
+          "probability": 0.245
+        }
+      ],
+      "id": "polymarket-5636955",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://polymarket.com/event/military-action-against-king-khalid-international-airport-ruh-byptptpt",
+      "status": "pending",
+      "title": "Military action against King Khalid International Airport (RUH) by November 30?",
+      "topic": "Politics",
       "verdict": null
     },
     {
@@ -20728,7 +21940,7 @@
     }
   ],
   "summary": {
-    "brier": 0.207899820527235,
+    "brier": 0.2061467692669655,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -20756,16 +21968,16 @@
           "rule": 0.11523577566666666
         },
         "counted": {
-          "dates": 5,
-          "difference": -0.0014533610000000002,
+          "dates": 6,
+          "difference": -0.003329884166666651,
           "interval": [
-            -0.013198,
-            0.011356
+            -0.013117,
+            0.007884
           ],
-          "market": 0.047555861000000005,
+          "market": 0.06279030083333333,
           "meets_bar": false,
-          "questions": 10,
-          "rule": 0.046102500000000005
+          "questions": 12,
+          "rule": 0.059460416666666675
         },
         "id": "tech_move_v1",
         "label": "Tech questions",
@@ -20786,16 +21998,16 @@
           "rule": 0.16358129204651162
         },
         "counted": {
-          "dates": 9,
-          "difference": 0.0032495254285714315,
+          "dates": 11,
+          "difference": 0.003165741627906976,
           "interval": [
-            -0.011393,
-            0.017595
+            -0.008742,
+            0.014895
           ],
-          "market": 0.20557870314285714,
+          "market": 0.19422840372093025,
           "meets_bar": false,
-          "questions": 35,
-          "rule": 0.20882822857142858
+          "questions": 43,
+          "rule": 0.19739414534883723
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -20813,16 +22025,16 @@
           "rule": null
         },
         "counted": {
-          "dates": 4,
-          "difference": -0.0026954011111111134,
+          "dates": 5,
+          "difference": -0.004034873636363644,
           "interval": [
-            -0.00937,
-            0.003238
+            -0.009286,
+            0.001052
           ],
-          "market": 0.04923984555555556,
+          "market": 0.06555305545454546,
           "meets_bar": false,
-          "questions": 9,
-          "rule": 0.046544444444444444
+          "questions": 11,
+          "rule": 0.06151818181818181
         },
         "id": "tech_second_look_v1",
         "label": "Second look on Tech",
@@ -20840,16 +22052,16 @@
           "rule": null
         },
         "counted": {
-          "dates": 8,
-          "difference": -0.003271939733482776,
+          "dates": 10,
+          "difference": -0.003271939942567581,
           "interval": [
-            -0.013299,
-            0.006217
+            -0.01121,
+            0.004199
           ],
-          "market": 0.18177342620689654,
+          "market": 0.1737296245945946,
           "meets_bar": false,
-          "questions": 29,
-          "rule": 0.17850148647341377
+          "questions": 37,
+          "rule": 0.17045768465202701
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -20857,7 +22069,7 @@
         "status": "testing"
       }
     ],
-    "pending": 42,
+    "pending": 54,
     "progress": {
       "changes": [
         {
@@ -20883,10 +22095,10 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.20473750000000002,
-          "market": 0.18534345175,
-          "ours": 0.190867187440975,
-          "questions": 40
+          "claude": 0.1983625,
+          "market": 0.17854801708333334,
+          "ours": 0.18315113015914583,
+          "questions": 48
         },
         "before": {
           "claude": 0.2016852380952381,
@@ -20952,36 +22164,36 @@
           "wrong": 7
         },
         {
-          "claude": 0.10745454545454546,
-          "market": 0.08751822727272728,
-          "ours": 0.08751822727272728,
-          "questions": 11,
-          "right": 10,
+          "claude": 0.13231052631578946,
+          "market": 0.11154038157894737,
+          "ours": 0.11154038157894737,
+          "questions": 19,
+          "right": 17,
           "start": "2026-11-16",
-          "wrong": 1
+          "wrong": 2
         }
       ]
     },
-    "resolved": 281,
-    "right": 194,
+    "resolved": 289,
+    "right": 201,
     "toss_ups": 3,
-    "total": 330,
+    "total": 350,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.20217359999999998,
-      "claude_questions": 250,
-      "market": 0.15835007956000002,
-      "ours": 0.201916449990556,
-      "questions": 250,
+      "claude": 0.20106705426356591,
+      "claude_questions": 258,
+      "market": 0.15792281643410852,
+      "ours": 0.20013829165751548,
+      "questions": 258,
       "since_anchored": {
-        "claude": 0.22794857142857144,
+        "claude": 0.2165139534883721,
         "date": "2026-11-10",
-        "market": 0.20557870314285714,
-        "ours": 0.20557870314285714,
-        "questions": 35
+        "market": 0.19422840372093025,
+        "ours": 0.19422840372093025,
+        "questions": 43
       }
     },
-    "wrong": 84
+    "wrong": 85
   },
   "version": "track_record_v2"
 }
