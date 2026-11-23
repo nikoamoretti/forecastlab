@@ -17,9 +17,15 @@ function ResultRow({ q }: { q: Question }) {
   return <li><Link href={`/q/${q.id}`} className="row grid gap-x-4 gap-y-1.5 sm:grid-cols-[5.75rem_1fr_auto] sm:items-center">
     <span><ResultMark verdict={q.verdict} scored={q.scored !== false} /></span>
     <span className="min-w-0">{q.title}
-      <span className="mt-1 block text-sm text-ink/60">We said {callText(q.call!.probability)} · actual {q.actual ?? (q.outcome ? "yes" : "no")} · {shortDate(q.resolves_on)}</span></span>
+      <span className="mt-1 block text-sm text-ink/60">{q.call ? `We said ${callText(q.call.probability)}` : "No forecast"} · actual {q.actual ?? (q.outcome ? "yes" : "no")} · {shortDate(q.resolves_on)}</span></span>
     <Chevron />
   </Link></li>;
+}
+
+// "2 of 3 right" over the questions we made a call on; one we did not forecast is no call, neither right nor wrong.
+function rightOf(items: Question[]) {
+  const called = items.filter(q => q.call);
+  return called.length ? `${called.filter(q => q.verdict === "right").length} of ${called.length} right` : "No call";
 }
 
 const settledBy = (q: Question) => marketNameOf(q.source_url) ?? "the official figure";
@@ -226,7 +232,7 @@ export default function TrackRecordPage() {
     <ListCard title="Latest results">
       {resolved.length
         ? <Expandable groups={groupBySeries(resolved)} label="results"
-            summary={g => `${g.items.filter(q => q.verdict === "right").length} of ${g.items.length} right · decided ${span(g)}`}>
+            summary={g => `${rightOf(g.items)} · decided ${span(g)}`}>
             {q => <ResultRow key={q.id} q={q} />}</Expandable>
         : <p className="px-5 py-4 text-ink/70 sm:px-6">Nothing has been decided yet.</p>}
     </ListCard>

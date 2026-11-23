@@ -608,6 +608,7 @@ def test_from_nov_23_the_call_is_claudes_own_forecast_and_the_market_is_the_yard
         assert call[qid] == {"method": "claude_call_v1", "probability": 0.9, "members": 1}
     assert call["unpriced"] == {"method": "claude_call_v1", "probability": 0.7, "members": 1}
     assert call["noclaude"] is None  # no forecaster of ours answered: no call, as in every earlier period
+    assert next(q for q in record["questions"] if q["id"] == "noclaude")["note"] == track_record.NO_FORECAST_NOTE
     verdicts = {q["id"]: q["verdict"] for q in record["questions"]}
     assert (verdicts["fri"], verdicts["own"], verdicts["weak"]) == ("toss_up", "right", "wrong")
     assert json.loads((monday / "calls.json").read_text()) == {q: call[q] for q in ("own", "weak", "unpriced")}
@@ -630,6 +631,41 @@ def test_from_nov_23_a_promoted_rule_still_decides_the_questions_it_matches(tmp_
     assert call["tech"] == {"method": "market_anchored_call_v1", "probability": 0.6, "members": 1, "claude": 0.9, "market": 0.5,
                             "max_move": 0.1, "rule": "tech_move_v1"}
     assert call["other"] == {"method": "claude_call_v1", "probability": 0.9, "members": 1}
+
+
+def _daily(directory: Path, cells: list[dict], outcomes: dict[str, dict]) -> None:
+    """A daily cohort of 10-year yield questions, one for each entry id in ``outcomes``."""
+    directory.mkdir()
+    spec = OPEN_YIELD | {"observation_period": "2026-11-27", "release_at": "2026-11-30T21:00:00Z"}
+    (directory / "frozen_manifest.json").write_text(json.dumps({"manifest": {"entries": [
+        {"entry_id": entry, "macro": spec} for entry in outcomes]}}))
+    (directory / "scores.json").write_text(json.dumps({"cells": cells, "outcomes": outcomes}))
+
+
+def test_from_nov_23_a_question_claude_did_not_forecast_has_no_call_and_counts_in_no_score(tmp_path: Path) -> None:
+    baseline, supplement = "statistical_baseline_v1", "claude_code_forecaster_v1 (post-freeze supplement)"
+    decided = {"status": "resolved", "value": "4.92", "outcome": 0}
+    # Before Nov 23 the baseline alone still made our call; a call frozen then stays as it is.
+    _daily(tmp_path / "prospective_daily_20261117", [{"entry_id": "old", "method": baseline, "probability": 0.51}], {"old": decided})
+    _daily(tmp_path / "prospective_daily_20261124", [
+        {"entry_id": "lost", "method": baseline, "probability": 0.51},  # its research failed, so Claude never forecast it
+        {"entry_id": "kept", "method": baseline, "probability": 0.51},
+        {"entry_id": "kept", "method": supplement, "probability": 0.2}], {"lost": decided, "kept": decided})
+    record = build_track_record(tmp_path, today=date(2026, 12, 1), freeze=True)
+    rows = {q["id"]: q for q in record["questions"]}
+    assert (rows["old"]["call"]["method"], rows["old"]["verdict"], rows["old"].get("note")) == ("combined_weighted_v1", "wrong", None)
+    assert rows["kept"]["call"] == {"method": "claude_call_v1", "probability": 0.2, "members": 1}
+    assert (rows["lost"]["call"], rows["lost"]["verdict"], rows["lost"]["note"]) == (None, None, track_record.NO_FORECAST_NOTE)
+    # The baseline's number is still shown on the question, but the question is in no tally: not ours, not the baseline's.
+    assert [f["method"] for f in rows["lost"]["forecasts"]] == [baseline]
+    summary = record["summary"]
+    assert (summary["resolved"], summary["right"], summary["wrong"], summary["unscored"], summary["total"]) == (2, 1, 1, 0, 3)
+    row = next(f for f in record["forecasters"] if f["method"] == baseline)
+    assert (row["forecasts"], row["resolved"]) == (3, 2)
+    assert json.loads((tmp_path / "prospective_daily_20261124" / "calls.json").read_text()) == {"kept": rows["kept"]["call"]}
+    # A later build gives it no call either, and changes nothing that was frozen.
+    again = build_track_record(tmp_path, today=date(2026, 12, 5), freeze=True)
+    assert {q["id"]: q["call"] for q in again["questions"]} == {qid: q["call"] for qid, q in rows.items()}
 
 
 def test_a_promoted_rule_moves_the_questions_it_matches_and_names_itself(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

@@ -432,6 +432,37 @@ test("from the day our call is Claude's own forecast again, the copy and the que
   await expect(page.getByText("50.0% chance of yes · the market’s 50.0%; no tested edge applies to this question")).toBeVisible();
 });
 
+test("a decided question Claude did not forecast shows no call, neither right nor wrong", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-12-01T12:00:00Z"));
+  const note = "Claude made no forecast on this question, so we have no call on it and it counts in no score.";
+  const yields = { topic: "Interest rates", series: "treasury_10y", series_label: "10-year Treasury yield", resolves_on: "2026-11-30", actual: "4.92%" };
+  await page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-12-01", forecasters,
+    summary: { resolved: 1, right: 1, wrong: 0, toss_ups: 0, brier: .04, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 2,
+      call_policy: { default_move: 0, own_from: "2026-11-23", promoted: [], bar: { questions: 40, dates: 10, interval: .9 } } },
+    questions: [
+      question("kept", "Will the 10-year yield on Nov 27 be above 5.15%?", { ...yields, outcome: 0,
+        forecasts: [{ method: "claude_code_forecaster_v1", probability: .2 }], call: { method: "claude_call_v1", members: 1, probability: .2 }, verdict: "right" }),
+      // Its research failed, so only the statistical baseline answered: no call of ours, and no verdict.
+      question("lost", "Will the 10-year yield on Nov 27 be above 4.80%?", { ...yields, outcome: 1, note,
+        forecasts: [{ method: "statistical_baseline_v1", probability: .51 }] })] } }));
+  await page.goto("/");
+  // The group counts only the question we called.
+  const group = page.getByRole("button", { name: /10-year Treasury yield/ });
+  await expect(group).toContainText("1 of 1 right");
+  await group.click();
+  const lost = page.getByRole("link", { name: /above 4\.80%/ });
+  await expect(lost).toContainText("No call");
+  await expect(lost).toContainText("No forecast · actual 4.92%");
+  await expect(lost).not.toContainText("Toss-up");
+  await expect(page.getByRole("link", { name: /above 5\.15%/ })).toContainText("We said No, 80% sure · actual 4.92%");
+  await lost.click();
+  await expect(page).toHaveURL(/\/q\/lost$/);
+  await expect(page.getByRole("complementary", { name: "No call" })).toContainText(note);
+  await expect(page.getByText("Integrity note")).toHaveCount(0);
+  await expect(page.getByText("Toss-up")).toHaveCount(0);
+  await expect(page.getByText("Actual: 4.92%")).toBeVisible();
+});
+
 test("when a promoted second-look edge set the call, the question page says so", async ({ page }) => {
   await page.clock.setFixedTime(new Date("2026-11-20T12:00:00Z"));
   const claude = { method: "claude_code_forecaster_v1", probability: .9, rationale: "Strong base rate.", made_at: "2026-11-11T09:00:00Z" };
