@@ -7,7 +7,8 @@ export function ResultMark({ verdict, large = false, scored = true }: { verdict:
   if (!scored) return <span className={`inline-block whitespace-nowrap rounded-full bg-ink/5 text-ink/70 ${size}`}>Not scored</span>;
   if (verdict === "right") return <span className={`inline-block whitespace-nowrap rounded-full bg-pine/10 font-medium text-pine ${size}`}>✓ Right</span>;
   if (verdict === "wrong") return <span className={`inline-block whitespace-nowrap rounded-full bg-brick/10 font-medium text-brick ${size}`}>✗ Wrong</span>;
-  return <span className={`inline-block whitespace-nowrap rounded-full bg-ink/5 text-ink/70 ${size}`}>Toss-up</span>;
+  // No verdict on a decided question: we made no call on it (Claude did not forecast it).
+  return <span className={`inline-block whitespace-nowrap rounded-full bg-ink/5 text-ink/70 ${size}`}>{verdict === "toss_up" ? "Toss-up" : "No call"}</span>;
 }
 
 export function CallPill({ probability }: { probability: number }) {

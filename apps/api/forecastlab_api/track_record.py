@@ -94,6 +94,12 @@ decided questions both priced, Claude alone scored 0.206 against the market's 0.
 here: the call is Claude's forecast as stated. Calls frozen for 2026-11-10 to 2026-11-22 keep
 ``market_anchored_call_v1``.
 
+In this period a question Claude did not forecast has no call (for example, a daily figure whose research failed, so
+only the statistical baseline answered). Until then such a question fell back to the weighted call, and one of them
+(forecast day 2026-11-17) was decided on 2026-11-23 with the baseline's 51% as our call. A question with no call stays
+on the page with NO_FORECAST_NOTE and counts in no score; the other forecasters' numbers on it are still shown. Calls
+already frozen are not touched.
+
 The headline score is the Brier score of our call over every decided, scored question
 (``summary.brier``); ``summary.vs_market`` is the fair comparison with the market on the
 questions it also priced, using the same call.
@@ -143,6 +149,9 @@ CALL_BOUNDS = (0.02, 0.98)
 # 2026-11-21: a call that only repeats the market's price is useless). A promoted call rule still decides the call on
 # the questions it matches.
 OWN_CALL_FROM = date(2026, 11, 23)
+# Shown on a question first forecast from OWN_CALL_FROM that Claude did not forecast: it gets no call.
+NO_FORECAST_NOTE = ("Claude made no forecast on this question, so we have no call on it "
+                    "and it counts in no score.")
 CLAUDE = "claude_code_forecaster_v1"
 # Claude's forecast after also seeing the market price and its own first forecast. Never an input to anything Claude
 # forecasts blind, and never part of an older call (see EXCLUDED).
@@ -439,9 +448,12 @@ def _own_call(forecasts: list[dict[str, Any]], weights: dict[str, float],
     """Claude's own forecast as our call (from OWN_CALL_FROM); a promoted call rule that matches still decides the call.
 
     Such a rule has beaten the market on new results, so it is applied from the market's price as ``_anchored_call``
-    does. With no promoted rule for the question, or no market price, the call is whatever ``_claude_call`` gives.
+    does. With no promoted rule for the question, or no market price, the call is Claude's forecast as stated. A
+    question Claude did not forecast has no call: another forecaster's number is never passed off as ours.
     """
-    if (_market_price(forecasts) is not None and _probability_of(forecasts, CLAUDE) is not None
+    if _probability_of(forecasts, CLAUDE) is None:
+        return None
+    if (_market_price(forecasts) is not None
             and any(r["status"] == "promoted" and _applicable(r, topic, forecasts) for r in CALL_RULES)):
         return _anchored_call(forecasts, weights, research, question_id, topic)
     return _claude_call(forecasts, weights)
@@ -887,6 +899,9 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             call = calls.get(question["id"])
         question["call"] = call
         question["verdict"] = verdict(call["probability"], question["outcome"]) if call else None
+        if (call is None and day is not None and day >= OWN_CALL_FROM and question["status"] != "cancelled"
+                and not question.get("note")):
+            question["note"] = NO_FORECAST_NOTE
     if freeze:
         for source, calls in frozen.items():
             path = artifacts / source / CALLS_FILE

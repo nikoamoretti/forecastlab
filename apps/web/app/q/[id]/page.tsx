@@ -34,6 +34,8 @@ export default function QuestionPage() {
   const marketName = marketNameOf(q.source_url);
   const market = marketName !== null;
   const anchored = q.call?.method === "market_anchored_call_v1";
+  // A question Claude did not forecast: its note says why there is no call (it is not an integrity note).
+  const noCall = !q.call && q.scored !== false;
   const claudeAlone = q.forecasts.find(f => f.method === "claude_code_forecaster_v1");
   // Claude's probability corrected for how its earlier calls at each confidence level turned out; frozen when the question was built.
   const corrected = q.forecasts.find(f => f.method === "claude_calibrated_v1" && f.raw != null) ?? null;
@@ -93,8 +95,8 @@ export default function QuestionPage() {
       <p className="mt-1 text-ink/70">Both are chances of yes. The correction comes from how Claude’s {corrected.results} earlier decided calls turned out at each confidence level.{" "}
         {q.call?.method === "claude_corrected_call_v1" ? "This is our call for this question." : "Shown for comparison; it is not part of our call."}</p></aside>}
 
-    {q.note && <aside className="card border-l-4 border-l-copper p-5 text-sm" aria-label="Integrity note">
-      <p className="font-medium">Integrity note{q.scored === false && " · not counted in any score"}</p><p className="mt-1 text-ink/80">{q.note}</p></aside>}
+    {q.note && <aside className="card border-l-4 border-l-copper p-5 text-sm" aria-label={noCall ? "No call" : "Integrity note"}>
+      <p className="font-medium">{noCall ? "No call" : "Integrity note"}{q.scored === false && " · not counted in any score"}</p><p className="mt-1 text-ink/80">{q.note}</p></aside>}
 
     {reasoning?.rationale && <section className="card p-5 sm:p-6">
       <h3 className="font-serif text-2xl">Why {labels[reasoning.method] ?? "the forecaster"} said {callText(reasoning.probability).split(",")[0].toLowerCase()}</h3>
