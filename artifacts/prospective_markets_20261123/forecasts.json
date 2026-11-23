@@ -109,6 +109,13 @@
             "https://www.cometapi.com/muse-spark-1-4-coming-soon/",
             "https://research.meta.ai/blog/muse-ember"
           ]
+        },
+        {
+          "created_at": "2026-11-23T12:47:22.076439+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.92,
+          "rationale": "No official 1.4 announcement as of Nov 23, Meta blog indexes show nothing, only code-string and third-party hints; one week left makes a launch unlikely, though the 82-day gap and Watermelon talk leave a small tail.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-6655565",
@@ -260,6 +267,13 @@
             "https://www.alibabacloud.com/press-room/alibaba-unveils-qwen4-max",
             "https://tech.ifeng.com/c/8wED4aLjzyu"
           ]
+        },
+        {
+          "created_at": "2026-11-23T12:47:22.076439+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.22,
+          "rationale": "Xiaomi MiMo-V2.6-Pro (1,493, rank 14) led Chinese models on Nov 22 and Qwen4-Max (released Nov 16) was not on the visible table; Alibaba needs a listing scoring above 1,493 within a week.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-4664495",
@@ -413,6 +427,13 @@
             "https://steamdb.com/en/ai/openai-gpt-6-2-astra-self-improvement",
             "https://arena.ai/leaderboard/chat/text/models/muse-wonder-max-j0hb"
           ]
+        },
+        {
+          "created_at": "2026-11-23T12:47:22.076439+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.75,
+          "rationale": "Nov 22 no-style-control view shows Google, Anthropic, then Meta (1,504) with no OpenAI model in top 15; main risk is GPT-6.2 Astra being added above Meta, while the lab view and score disagreement is noise.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-4664724",
@@ -597,6 +618,13 @@
             "https://openai.com/index/navier-stokes-solution/",
             "https://www.kcl.ac.uk/news/openais-navier-stokes-proof-called-into-question"
           ]
+        },
+        {
+          "created_at": "2026-11-23T12:47:22.076439+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.85,
+          "rationale": "Prize rules alone imply NO (first forecast 0.02), but the 0.95 Manifold price plus CMI's 11 Sep 'apparently been settled' statement suggest the market's own definition treats Navier-Stokes as solved; I follow the market, discounted for the title and date ambiguity.",
+          "saw_market_price": true
         }
       ],
       "id": "manifold-LAcRZtCRAz",
