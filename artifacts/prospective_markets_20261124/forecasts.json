@@ -1,0 +1,375 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket, Manifold or Kalshi) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.099
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.06,
+          "rationale": "BTC traded about 60k-64k on 2026-11-23 and 2026-11-24 with a 24h low near 60,351 (https://www.coinglass.com/currencies/BTC, https://kucoin.com/news/articles/crypto-daily-market-report-november-24-2026), so 52,000 is roughly 14% below spot. The week-to-Nov-21 low was about 55,100-55,300 (https://ceoeconomy.com/article/crypto-week-in-review-nov-21-2026), and ETF outflows continue, which keeps tail risk real after my 6% call on the Nov 16-22 dip missed. A touch of 52,000 within six days at current volatility is a tail event and must be no likelier than my 11% for a dip to 55,000 in November.",
+          "sources": [
+            "https://www.coinglass.com/currencies/BTC",
+            "https://kucoin.com/news/articles/crypto-daily-market-report-november-24-2026",
+            "https://ceoeconomy.com/article/crypto-week-in-review-nov-21-2026"
+          ]
+        }
+      ],
+      "id": "polymarket-7279419",
+      "market_id": "7279419",
+      "outcome": null,
+      "question": "Will Bitcoin dip to $52,000 November 23-29?",
+      "resolution_criteria": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "resolution_date": "2026-11-30",
+      "resolution_source": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-23-29-2026",
+      "topic": "Crypto",
+      "volume": 56788.10006900001,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0765
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "NVDA closed 150.96 on 2026-11-18 (https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-19-2026/) and made a new low below 148 in the week of Nov 16 (my 148 call resolved yes), so 200 is over 30% above spot with about four sessions left in November. The only close near 200 was 200.13 on 2026-11-04, before the CEO resignation and selloff (https://foxbusiness.com/markets/nvidia-shares-plunge-more-7-premarket-trading-ceo-uncertainty-rattles-ai-stocks, 2026-11-12). Candles before market creation do not count.",
+          "sources": [
+            "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-19-2026/",
+            "https://foxbusiness.com/markets/nvidia-shares-plunge-more-7-premarket-trading-ceo-uncertainty-rattles-ai-stocks"
+          ]
+        }
+      ],
+      "id": "polymarket-6722265",
+      "market_id": "6722265",
+      "outcome": null,
+      "question": "Will NVIDIA (NVDA) hit (HIGH) $200 in November?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during November 2026, any 1-minute candle for NVIDIA (NVDA) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the NVIDIA (NVDA) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.NVDA%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "resolution_date": "2026-12-01",
+      "resolution_source": "https://polymarket.com/event/what-price-will-nvda-hit-in-november-2026",
+      "topic": "Economy",
+      "volume": 47956.59963,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.214
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.33,
+          "rationale": "Salesforce reports Q3 FY27 on 2026-12-02 at 5:00 PM ET (https://investor.salesforce.com/news/news-details/2026/Salesforce-Announces-Date-of-Third-Quarter-Fiscal-2027-Earnings-Release-and-Webcast/default.aspx, 2026-11-10). The 2026-11-19 Copilotforce announcement reportedly includes a Data 360 and Microsoft Fabric (OneLake) zero-copy link, a fresh named reason to say Fabric, and any speaker including analysts counts (https://www.salesforce.com/ap/news/press-releases/2026/11/19/salesforce-and-microsoft-announce-copilotforce-bringing-salesforce-customer-context-and-sales-workflows-to-microsoft-copilot/). Against that, the integration is in preview or pilot, prepared remarks centre on Agentforce and Data 360, and no prior transcript could be checked for the word.",
+          "sources": [
+            "https://investor.salesforce.com/news/news-details/2026/Salesforce-Announces-Date-of-Third-Quarter-Fiscal-2027-Earnings-Release-and-Webcast/default.aspx",
+            "https://www.salesforce.com/ap/news/press-releases/2026/11/19/salesforce-and-microsoft-announce-copilotforce-bringing-salesforce-customer-context-and-sales-workflows-to-microsoft-copilot/",
+            "https://developer.salesforce.com/docs/data/data-cloud-int/guide/c360-a-microsoftfabriconelake-connector.html"
+          ]
+        }
+      ],
+      "id": "polymarket-7231495",
+      "market_id": "7231495",
+      "outcome": null,
+      "question": "Will Salesforce say \"Fabric\" during earnings call?",
+      "resolution_criteria": "This market will resolve based on the next earnings announcement of Salesforce currently scheduled to take place on December 2, 2026 at 5:00 PM ET.\n\nThis market will resolve to \"Yes\" if the listed term is mentioned by anyone during this event. Otherwise, the market will resolve to \"No\".\n\nThe resolution source will be audio of the event.\n\nFor full rules, see: https://polymarket-upload.s3.us-east-2.amazonaws.com/market_products/Mentions/Event+Mentions+Contract+DeFi.pdf",
+      "resolution_date": "2026-12-03",
+      "resolution_source": "https://polymarket.com/event/what-will-salesforce-say-during-their-next-earnings-call-20261202",
+      "topic": "Tech",
+      "volume": 2095.63,
+      "volume_floor": 1000
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.943
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.76,
+          "rationale": "USNI reported on 2026-11-18 that USS George Washington left the Middle East, leaving two carriers, USS George H.W. Bush and USS Theodore Roosevelt (https://news.usni.org/2026/11/18/carrier-uss-george-washington-leaves-middle-east-after-three-months). Roosevelt arrived around 2026-11-15 on a scheduled deployment (https://www.aljazeera.com/news/2026/11/16/uss-roosevelt-arrives-in-middle-east-is-the-us-iran-war-about-to-resume), so it is unlikely to leave within two weeks. The risk is Bush, deployed since 2026-03-31 and reportedly extended with the Navy declining to say more (https://www.stripes.com/branches/navy/2026-11-16/roosevelt-middle-east-iran-attacks-bahrain-23481485.html); a departure would make one carrier, and a new arrival three. Nothing after 11-19 was found.",
+          "sources": [
+            "https://news.usni.org/2026/11/18/carrier-uss-george-washington-leaves-middle-east-after-three-months",
+            "https://www.aljazeera.com/news/2026/11/16/uss-roosevelt-arrives-in-middle-east-is-the-us-iran-war-about-to-resume",
+            "https://www.stripes.com/branches/navy/2026-11-16/roosevelt-middle-east-iran-attacks-bahrain-23481485.html"
+          ]
+        }
+      ],
+      "id": "polymarket-5238401",
+      "market_id": "5238401",
+      "outcome": null,
+      "question": "Will there be 2 US aircraft carriers in CENTCOM on November 30, 2026?",
+      "resolution_criteria": "This market will resolve according to the number of U.S. Navy aircraft carriers physically located within the U.S. Central Command (CENTCOM) area of responsibility at 12:00 PM ET on November 30, 2026.\n\nFor the purposes of this market, \u201caircraft carriers\u201d refers only to U.S. Navy aircraft carriers designated CVN (e.g., Nimitz-class and Gerald R. Ford-class carriers). Amphibious assault ships (LHA/LHD), other vessels, and ships of any other country will not count.\n\nA carrier will count if it is within the CENTCOM area of responsibility at the specified time, including while making a port call or other stop within the area. A carrier outside the CENTCOM area of responsibility at the specified time (e.g., in transit, or making a port call in the U.S. Indo-Pacific Command or U.S. European Command areas of responsibility) will not count, regardless of whether it is assigned to CENTCOM operations. A carrier that enters the area on November 30, 2026 will count only if it entered at or before 12:00 PM ET; a carrier that departs the area on November 30, 2026 will count only if it departed after 12:00 PM ET.\n\nCarrier locations will be determined by official information from the U.S. Navy, the U.S. Department of Defense, U.S. Central Command, U.S. Indo-Pacific Command, or U.S. European Command, or by a consensus of credible reporting, and may be established by information published after the specified time. In the event of ambiguity as to the number of carriers within the area at the specified time, this market will remain open until the earlier of: (i) confirmation of the relevant carriers' locations at the specified time, or (ii) the end of the seventh calendar day (ET) following November 30, 2026. The market will resolve based on the totality of information available at that time. Any carrier whose presence within the area at the specified time remains materially ambiguous at that point will not be counted.\n\nThe resolution sources for this market will be official information from the United States government and military, including the U.S. Navy, the Department of Defense, U.S. Central Command, U.S. Indo-Pacific Command, and U.S. European Command, and a consensus of credible reporting.",
+      "resolution_date": "2026-12-01",
+      "resolution_source": "https://polymarket.com/event/how-many-us-aircraft-carriers-in-centcom-on-november-30",
+      "topic": "World",
+      "volume": 42857.10564000001,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9155
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.9,
+          "rationale": "BTC was about 60k-61k on 2026-11-23 and 11-24 after a brief spike to 64,427 (https://kucoin.com/news/articles/crypto-daily-market-report-november-24-2026), with a recent low near 55,100-55,300 (https://ceoeconomy.com/article/crypto-week-in-review-nov-21-2026). The 54,000 line is about 11% below spot with four days to the noon ET close on 2026-11-28, which a fall of that size in a downtrend with ETF outflows could still reach but is a tail outcome. It is consistent with my 94% for above 56,000 on Nov 25 and my low odds of a dip to 55,000 in November.",
+          "sources": [
+            "https://kucoin.com/news/articles/crypto-daily-market-report-november-24-2026",
+            "https://ceoeconomy.com/article/crypto-week-in-review-nov-21-2026"
+          ]
+        }
+      ],
+      "id": "polymarket-7233246",
+      "market_id": "7233246",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $54,000 on November 28?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-28",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-november-28-2026",
+      "topic": "Crypto",
+      "volume": 34845.479221,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.86
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "A Reuters poll run 2026-11-13 to 11-20 found 56 of 61 economists expecting a hike to 5.75% at the Dec 2-4 meeting (https://1027wbow.com/2026/11/20/indias-rbi-expected-to-raise-rates-in-december-deliver-final-hike-in-february-reuters-poll/). October CPI was 6.09%, above the 6% tolerance ceiling, after a 25 bp hike to 5.50% in October with a calibrated tightening stance (https://www.mospi.gov.in/uploads/latestreleasesfiles/1794480048335-Press%20Release%20of%20CPI%20for%20October%202026%20.pdf). Risks are a pause or a 50 bp move, which would not count as 25 bp; the baseline rests on snippets only.",
+          "sources": [
+            "https://1027wbow.com/2026/11/20/indias-rbi-expected-to-raise-rates-in-december-deliver-final-hike-in-february-reuters-poll/",
+            "https://www.mospi.gov.in/uploads/latestreleasesfiles/1794480048335-Press%20Release%20of%20CPI%20for%20October%202026%20.pdf",
+            "https://smefutures.com/rbi-mpc-december-2026-25-bps-repo-rate-hike/"
+          ]
+        }
+      ],
+      "id": "polymarket-5197570",
+      "market_id": "5197570",
+      "outcome": null,
+      "question": "Will the Reserve Bank of India increase the policy repo rate by 25 bps at the December meeting?",
+      "resolution_criteria": "This market will resolve according to the change in basis points in the policy repo rate resulting from the December 2026 meeting of the Reserve Bank of India Monetary Policy Committee, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Reserve Bank of India Monetary Policy Committee, including the statement or release from its December 2026 meeting, with the decision to be announced on December 4, 2026, as listed on the official Reserve Bank of India calendar (https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=62422). This market may resolve as soon as the statement or release of the Reserve Bank of India Monetary Policy Committee resulting from its December 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting. If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "resolution_date": "2026-12-04",
+      "resolution_source": "https://polymarket.com/event/reserve-bank-of-india-decision-in-december-2026",
+      "topic": "Economy",
+      "volume": 13698.761569999999,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.4525
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "No reported or scheduled in-person Trump-Musk meeting for Nov 24-30 was found; the latest dated contact was the 2026-10-08 medal summit (https://www.whitehouse.gov/gallery/president-donald-j-trump-attends-the-new-golden-age-summit-with-tech-and-science-leaders-at-the-donald-j-trump-institute-of-peace-in-washington-d-c/). Reported encounters run roughly every one to two months, so a given week carries a low base rate, with Thanksgiving on Nov 26 and the Project Meridian role (https://www.stripes.com/theaters/us/2026-10-01/elon-musk-project-meridian-23025679.html) adding some chance. Musk's recent 'I'm not MAGA' remarks (https://www.actionnewsjax.com/news/world/latest-trump-meets/FFDH5FN63QYJTIJRRTQX2KT53Q/) point to some distance.",
+          "sources": [
+            "https://www.whitehouse.gov/gallery/president-donald-j-trump-attends-the-new-golden-age-summit-with-tech-and-science-leaders-at-the-donald-j-trump-institute-of-peace-in-washington-d-c/",
+            "https://www.stripes.com/theaters/us/2026-10-01/elon-musk-project-meridian-23025679.html",
+            "https://www.actionnewsjax.com/news/world/latest-trump-meets/FFDH5FN63QYJTIJRRTQX2KT53Q/"
+          ]
+        }
+      ],
+      "id": "polymarket-6440122",
+      "market_id": "6440122",
+      "outcome": null,
+      "question": "Will Trump meet with Elon Musk by November 30, 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the listed individual meets with Donald Trump between market creation and November 30, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nA meeting is defined as any encounter where both the listed individual and Trump are present and interact with each other in person.\n\nThe resolution source will be a consensus of credible reporting.",
+      "resolution_date": "2026-12-01",
+      "resolution_source": "https://polymarket.com/event/who-will-trump-meet-with-by-november-30-2026",
+      "topic": "Politics",
+      "volume": 12506.637651000001,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.257
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.48,
+          "rationale": "Seoul called the 2026-11-04 launch the fourth in a month (https://www.thestar.com.my/news/world/2026/11/04/north-korea-fires-multiple-missiles-in-fourth-weapons-launch-in-a-month-seoul-says), and KCNA reported a strategic cruise missile test on 2026-11-02 (https://www.tasnimnews.ir/en/news/2026/11/03/3739008/north-korea-test-fires-strategic-cruise-missiles-kcna/amp), giving about two qualifying days so far. The Nov 4 air-defense test does not count, and the Nov 7 ballistic claim looks like a 2025 misdating; no launch was found for Nov 5-24, though that search was thin. The count stays at 2 only if no further launch day occurs in the last six days and no extra day is confirmed.",
+          "sources": [
+            "https://www.thestar.com.my/news/world/2026/11/04/north-korea-fires-multiple-missiles-in-fourth-weapons-launch-in-a-month-seoul-says",
+            "https://www.tasnimnews.ir/en/news/2026/11/03/3739008/north-korea-test-fires-strategic-cruise-missiles-kcna/amp",
+            "https://www.tasnimnews.ir/en/news/2026/11/05/3740977/north-korea-says-test-fired-new-air-defense-missile-system-long-range-cruise-missile/amp"
+          ]
+        }
+      ],
+      "id": "polymarket-6403111",
+      "market_id": "6403111",
+      "outcome": null,
+      "question": "Will there be exactly 2 North Korea tests in November 2026?",
+      "resolution_criteria": "This market will resolve to the number of calendar days on which North Korea (DPRK) conducts a missile launch during November 2026, Pyongyang Time.\n\nIf a single test event spans multiple calendar days, it will count only for the day on which it began.\n\nOnly test launches of ballistic missiles, cruise missiles, and anti-ship missiles will qualify.\n\nTest launches of other systems, including surface-to-air missiles (SAMs), multiple launch rocket systems (MLRS)/rocket artillery, torpedoes, or similar systems, will not qualify.\n\nResolution will be based on publicly available information from reliable sources such as official government statements, reports from international monitoring bodies like the United Nations, or reports from reputable international media.",
+      "resolution_date": "2026-12-01",
+      "resolution_source": "https://polymarket.com/event/number-of-north-korea-missile-tests-in-november-2026",
+      "topic": "World",
+      "volume": 9183.244821,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.08
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.06,
+          "rationale": "Spot gold fell about 9% in the week to 2026-11-20, touching about 3,513 with a close near 3,538 (https://ancstockinvestments.com/blog/2026/11/20/gold-price-this-week-worst-drop-since-march/), so 3,850 is roughly 9% above the last level. A rebound of that size inside one holiday-shortened week is a tail even with high volatility; it was last above the line on 2026-11-17 (Kitco snippet, https://www.kitco.com/charts/gold?sitetype=fullsite). No FOMC decision falls in the window (Dec 8-9), and no price after Nov 20 was found.",
+          "sources": [
+            "https://ancstockinvestments.com/blog/2026/11/20/gold-price-this-week-worst-drop-since-march/",
+            "https://www.kitco.com/charts/gold?sitetype=fullsite",
+            "https://goldrates.com/news/gold-prices-plunge-14-month-low-november-2026/"
+          ]
+        }
+      ],
+      "id": "polymarket-7210779",
+      "market_id": "7210779",
+      "outcome": null,
+      "question": "Will Gold (XAUUSD) hit (HIGH) $3,850 Week of November 23 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of the week of November 23 2026, any 1-minute candle for Gold (XAUUSD) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered. The trading session for a given business day typically begins at 6:00 PM ET on the prior calendar date. Under the standard schedule, trading is open from 6:00:00 PM ET Sunday through 5:00:00 PM ET Friday, with a daily break from 5:00:00 PM ET to 6:00:00 PM ET, except where modified by holiday or special-session hours.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIf Gold (XAUUSD) does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Gold (XAUUSD) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Metal.XAU%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the relevant CME COMEX futures contract for the underlying metal\u2014COMEX Gold Futures (GC)\u2014may be used to determine whether the listed price was reached during the applicable trading session.",
+      "resolution_date": "2026-11-27",
+      "resolution_source": "https://polymarket.com/event/will-xauusd-hit-week-of-november-23-2026",
+      "topic": "Economy",
+      "volume": 5265.106142,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.635
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.9,
+          "rationale": "Trump posts about 19 times a day on Truth Social (https://www.npr.org/2026/05/08/nx-s1-5749358/trump-truth-social-online-posts-iran-white-house-ballroom, 2026-05-08), and 2026 insults of named people appear regularly, such as Newsom on Oct 9 (https://atlantablackstar.com/2026/10/15/trump-claims-he-doesnt-call-people-names-then-newsom-throws-his-nastiest-insults-back-in-his-face-with-receipts/) and Ossoff and Talarico nicknames. No verified November 2026 insult was found and no public schedule for Nov 27 exists, so a quiet holiday-Friday is the main risk, along with the strict rule that reposts and policy criticism do not count.",
+          "sources": [
+            "https://www.npr.org/2026/05/08/nx-s1-5749358/trump-truth-social-online-posts-iran-white-house-ballroom",
+            "https://atlantablackstar.com/2026/10/15/trump-claims-he-doesnt-call-people-names-then-newsom-throws-his-nastiest-insults-back-in-his-face-with-receipts/",
+            "https://www.thedailybeast.com/donald-trump-80-hurls-obscene-nickname-at-rising-dem-star-jon-ossoff-in-morning-meltdown/"
+          ]
+        }
+      ],
+      "id": "polymarket-6596314",
+      "market_id": "6596314",
+      "outcome": null,
+      "question": "Will Donald Trump publicly insult someone on November 27, 2026?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if Donald Trump makes a public statement in which he insults any non-fictional individual on the specified date (ET). Otherwise, this market will resolve to \"No\".\n\nA qualifying public statement is any written, verbal, or recorded statement which is either made in a public setting, published by the speaker, or on the record to media, and the direct language of which is made publicly available on the specified date (ET). Pre-recorded public statements will count for the date (ET) that they are made publicly available. Statements made in private that are subsequently leaked will not qualify, even if credibly reported. Narrations and paraphrasings do not qualify.\n\nImages and videos posted on verified social media accounts will only qualify if they contain insulting language clearly directed at the individual, whether within the content itself or in an accompanying caption. Language within the content of a video will only qualify if Donald Trump is clearly portrayed as saying it. Insulting language within the content of a video said by anyone other than Donald Trump or a portrayal thereof will not qualify.\n\nA quote post will qualify if added language independently qualifies as an insult, or endorses insulting language directed at the individual within the quoted post; a repost of another account's post will not qualify.\n\nA public statement qualifies as an insult if it mocks, degrades, or disparages the individual either personally or professionally. This includes calling the individual a clearly insulting trait (e.g., weak, stupid, disloyal, a failure), using an insulting nickname (e.g., Crooked Hillary), using other clearly derogatory language, or using the negative form of a positive trait in a clearly derogatory manner (e.g., \u201cHe isn\u2019t smart\u201d, \u201cHe has no judgment\u201d). Disparaging the individual in their professional capacity will qualify (e.g., \"He is a disaster candidate,\" \"He is terrible at his job\"); however, negative comments directed at the individual's specific actions, policies, or decisions will not qualify (e.g., \"He has bad policies,\" \"He is wrong about healthcare\").\n\nA statement made in direct reference to the individual will qualify even if they are not named, so long as it is reasonably clear from context that they are the subject. \n\nThe resolution sources will be public statements made by Donald Trump and a consensus of credible reporting.",
+      "resolution_date": "2026-11-28",
+      "resolution_source": "https://polymarket.com/event/will-trump-publicly-insult-someone-on-november-2026",
+      "topic": "Politics",
+      "volume": 4299.886851,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.807
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.77,
+          "rationale": "Fortune had ETH at $1,716.20 on the morning of 2026-11-23 and about $1,731 on Nov 20 (https://fortune.com/article/price-of-ethereum-11-23-2026/, https://fortune.com/article/price-of-ethereum-11-20-2026/), about 7% above 1,600. ETH is down about 28% in a month with ETF outflows, and a 7% fall in three to four days is plausible at this volatility; the Nov 25 PCE release falls in the window (BEA snippet). This stays consistent with my 12% for a dip to 1,500 in November.",
+          "sources": [
+            "https://fortune.com/article/price-of-ethereum-11-23-2026/",
+            "https://fortune.com/article/price-of-ethereum-11-20-2026/",
+            "https://en.coinotag.com/ethereum-spot-etfs-8-4m-net-outflow-nov-16"
+          ]
+        }
+      ],
+      "id": "polymarket-7203504",
+      "market_id": "7203504",
+      "outcome": null,
+      "question": "Will the price of Ethereum be above $1,600 on November 27?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-27",
+      "resolution_source": "https://polymarket.com/event/ethereum-above-on-november-27-2026",
+      "topic": "Crypto",
+      "volume": 10385.643725000002,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.465
+        },
+        {
+          "created_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "NVDA closed 150.96 on 2026-11-18, down from 162.85 on Nov 13 (https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-19-2026/), and it made a low below 148 during the week of Nov 16 (my 148 call resolved yes), so it is likely below 150 now. A close above 160 on the shortened 2026-11-27 session needs a rebound of roughly 6% to 12% in about four sessions amid CEO succession worries (https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition, 2026-11-12). No close after Nov 18 was found, so the gap is uncertain.",
+          "sources": [
+            "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-19-2026/",
+            "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+            "https://www.nyse.com/markets/hours-calendars"
+          ]
+        }
+      ],
+      "id": "polymarket-7210452",
+      "market_id": "7210452",
+      "outcome": null,
+      "question": "Will NVIDIA (NVDA) finish week of November 23 above $160?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Close price for NVIDIA (NVDA) on the final day of trading of the week specified in the title (normally Friday) is higher than the listed price. Otherwise, this market will resolve to \"No.\"\n\nIf the two specified prices are exactly equal, this market will resolve to \"No\".\n\nClosing prices will be used exactly as published by Pyth, without rounding.\n\nIf NVIDIA (NVDA) does not trade at all during the regular session of the final trading day of the week, the market will resolve 50-50.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. If the relevant session is shortened (for example, due to a market-holiday schedule), the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of that shortened session will be used.\n\nIf the relevant day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other technical disruption, the official closing price published by the primary exchange on which the listed security trades will be used to determine the closing price for that day.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed security during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth. The target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market will be Pyth, specifically the \"Close\" values for the relevant 1-minute candle for NVIDIA (NVDA) available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD.",
+      "resolution_date": "2026-11-27",
+      "resolution_source": "https://polymarket.com/event/nvda-above-on-november-27-2026",
+      "topic": "Economy",
+      "volume": 2792.768228,
+      "volume_floor": 2500
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v9+manifold_selection_v4+kalshi_selection_v1",
+  "skipped": [
+    {
+      "id": "polymarket-7176639",
+      "reason": "research failed or timed out"
+    },
+    {
+      "id": "polymarket-7194766",
+      "reason": "research failed or timed out"
+    }
+  ]
+}

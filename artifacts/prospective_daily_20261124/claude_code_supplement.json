@@ -1,0 +1,22 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-11-24T13:11:35+00:00",
+      "entry_id": "ac2a98632cbd32cd",
+      "probability": 0.62,
+      "rationale": "The latest dated level is 5.051% on 2026-11-19 after four straight daily declines (https://www.morningstar.com/news/dow-jones/202611198503/10-year-treasury-yield-falls-to-5051-data-talk), with a FRED snippet of 5.10 for 2026-11-17 (https://fred.stlouisfed.org/series/DGS10). The 4.92 line is about 13 bp below that level with roughly six sessions left and no scheduled rate-moving release before the shortened 2026-11-27 session, but nothing after 11-19 was found and the series was 4.84 to 4.90 earlier in November. My earlier thresholds set near the then-current level resolved mixed, so I stay well short of confident.",
+      "release_event": "dgs10-2026-11-27",
+      "sources": [
+        "https://www.morningstar.com/news/dow-jones/202611198503/10-year-treasury-yield-falls-to-5051-data-talk",
+        "https://fred.stlouisfed.org/series/DGS10",
+        "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261124",
+  "generated_at": "2026-11-24T13:11:35+00:00",
+  "manifest_hash": "a2b4ca0d71f27c44674571a911c3c85eed03026d1d09bb835c1072d4cf6f9060",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}
