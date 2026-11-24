@@ -1,4 +1,4 @@
-"""Reviewed release entry point. A failed step leaves dispatch paused.
+"""Reviewed release entry point. A step that fails after the pause leaves dispatch paused.
 
 Run only after CI passes, with the owner's approval of the exact release commit.
 Database and Blob credentials are read into memory without logging their values.
@@ -48,13 +48,18 @@ def configure_release_environment(values):
 
 def release_with_clients(api_client, web_client, control_request=request):
     """Keep the backup, migration and staged-promotion path identical for both runners."""
-    print("Pausing dispatch and draining active work.", flush=True)
-    deadline = time.monotonic() + 720
-    while not control_request("/internal/release/pause")["drained"]:
-        if time.monotonic() >= deadline:
-            raise RuntimeError("release_drain_timeout")
-        time.sleep(15)
     try:
+        # Reading and uploading the committed files changes nothing in production, so a bundle that is
+        # too large or an upload Vercel refuses stops the release before dispatch is paused.
+        print("Uploading the release files.", flush=True)
+        api_bundle = api_client.prepare(ROOT, web=False)
+        web_bundle = web_client.prepare(ROOT, web=True)
+        print("Pausing dispatch and draining active work.", flush=True)
+        deadline = time.monotonic() + 720
+        while not control_request("/internal/release/pause")["drained"]:
+            if time.monotonic() >= deadline:
+                raise RuntimeError("release_drain_timeout")
+            time.sleep(15)
         values = api_client.environment()
         url = configure_release_environment(values)
         # pg_dump captures the OLD schema before importing the new application's
@@ -77,8 +82,8 @@ def release_with_clients(api_client, web_client, control_request=request):
             if connection.execute(text("SELECT enabled FROM autopilot_state WHERE id='personal'")).scalar():
                 raise RuntimeError("release_pause_lost")
         engine.dispose()
-        api = api_client.stage(ROOT, web=False)
-        web = web_client.stage(ROOT, web=True)
+        api = api_client.stage(ROOT, api_bundle, web=False)
+        web = web_client.stage(ROOT, web_bundle, web=True)
         api_client.smoke(api, "/health", 200)
         api_client.smoke(api, "/api/settings", 401)  # direct API calls, without the web proxy's secret, stay refused
         web_client.smoke(web, "/login", 200)

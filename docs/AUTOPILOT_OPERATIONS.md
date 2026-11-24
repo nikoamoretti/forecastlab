@@ -188,10 +188,14 @@ commit SHA, which is checked against the selected default-branch commit. Supply 
 copy a broad personal CLI token into repository secrets. The workflow must be
 merged into the repository's default branch before it can be dispatched there.
 
-`uv run python -m scripts.release_cloud` pauses dispatch, drains jobs, takes and read-verifies a
-private `pg_dump` snapshot, applies additive migrations, stages both applications,
-checks their health/access boundaries, then promotes API and web. Failed release
-steps leave dispatch paused. Completion resumes a previously approved policy
+`uv run python -m scripts.release_cloud` first reads both applications' committed files and
+uploads them to Vercel one by one (`POST /v2/files`); a bundle over the reviewed size
+(`BUNDLE_LIMIT` in `scripts/vercel_release.py`) or a refused upload ends the release there,
+with production untouched. It then pauses dispatch, drains jobs, takes and read-verifies a
+private `pg_dump` snapshot, applies additive migrations, stages both applications from the
+uploaded files, checks their health/access boundaries, then promotes API and web. A step that
+fails after the pause leaves dispatch paused; the next successful release resumes it. A refused
+Vercel call prints Vercel's error code in the failure reason. Completion resumes a previously approved policy
 only when its method/settings still qualify; a changed method stays paused.
 Dependency updates create reviewable Dependabot PRs for uv, npm and Actions.
 They are not merged or deployed automatically.
