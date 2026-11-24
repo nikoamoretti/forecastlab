@@ -1,0 +1,251 @@
+{
+ "ac2a98632cbd32cd": {
+  "against": "The case for NO (first published DGS10 for 2026-11-27 at or below 4.92) rests on a fall from the last level read.\nThe latest level found is 5.051 on 2026-11-19, so NO needs a drop of at least 13 bp by the 11-27 observation, in about six sessions.\nThe 2026-11-19 Dow Jones item reports four straight daily declines, with the yield at its lowest since Nov 10 (2026-11-19).\nThe series was 4.84 on 2026-11-05 and 4.86 on 2026-11-06, so 4.92 was passed within the past month and is not far out of range (snippet data).\nThe 2026-11-27 session is shortened (2:00 p.m.\nET early close per SIFMA), which means thin trading and can add noise to the closing level.\nNo scheduled rate-moving release between 11-19 and 11-27 was identified in the earlier pass.\nEvery official page I tried was refused by the proxy, so none of these points is confirmed by a primary quote.",
+  "base_rate": "No counts were obtained.\nThe DGS10 history (fredgraph.csv) and the Treasury daily par yield curve pages were refused by the fetch proxy, and the other pages I tried (Advisor Perspectives, Trading Economics, Morningstar) were also refused, so I could not count how often the next published DGS10 value exceeded a given threshold over the series' history.\nThe only evidence is search snippets, which are leads, not quotable sources.\nThe threshold of 4.92 sits inside the range those snippets report for November 2026, but the Nov 23 close is unknown.",
+  "brief": "The question asks whether the first published FRED DGS10 value for 2026-11-27 will be strictly above 4.92 percent (https://fred.stlouisfed.org/series/DGS10). No official page could be opened, so every level comes from search snippets. FRED snippets show 5.12 for 2026-11-16 and 5.10 for 2026-11-17, a fourth straight session above 5.00. A Dow Jones item dated 2026-11-19 reports the 10-year at 5.051%, down 0.014 point, the lowest since Nov 10 and four straight declines (https://www.morningstar.com/news/dow-jones/202611198503/10-year-treasury-yield-falls-to-5051-data-talk). Earlier in the month the series was 4.90 on 2026-11-04, 4.84 on 2026-11-05 and 4.86 on 2026-11-06, and the Treasury par yield was 4.98% on 2026-11-10, so 4.92 sits inside the month's range. No value for 2026-11-18 to 2026-11-24 was found. The observation date is the Friday after Thanksgiving; SIFMA recommended a full bond-market close on 2026-11-26 and a 2:00 p.m. ET early close on 2026-11-27 (snippet only). That leaves about six sessions from the last known level, and the 13 bp gap is roughly one standard deviation of a typical 5-6 session move in yields, which gives a base rate for staying above the line of somewhat better than half but not overwhelming. No scheduled rate-moving release, auction or Fed event falls before the observation; the December FOMC (Dec 8-9), November CPI (Dec 10) and the jobs report (Dec 4 or 8) are all later. The shortened session can add noise to the final level. Earlier thresholds set near the then-current level resolved mixed (above 4.86 on Nov 13: yes; above 4.94 on Nov 6: no; above 5.00 on Oct 30: no; above 5.10 on Oct 23: no). The answer would change if a verified FRED or Treasury print for Nov 20-24 showed the 10-year already near or below 4.92, or well above 5.05, or if a data surprise or a Fed repricing hit on Nov 25.",
+  "brief_written_at": "2026-11-24T13:11:41+00:00",
+  "different_now": "The observation that decides the question is 2026-11-27, which is the Friday after Thanksgiving (2026-11-26).\nTaking the bond-market holiday calendar as the basis (not verified on an opened page), the only trading days between the last known close (2026-11-24) and the observation are 2026-11-25 and 2026-11-27, and 11-27 is probably a shortened session.\nWithin that window I found no scheduled rate-moving release, auction or Fed event.\nThe CPI (Dec 10), the jobs report (Dec 4 or Dec 8) and the December FOMC (Dec 8-9) all fall after the observation date and do not affect the 11-27 value.\nSo the e",
+  "facts": [
+   {
+    "fact": "DGS10 is the Federal Reserve's daily 'Market Yield on U.S.\nTreasury Securities at 10-Year Constant Maturity, Quoted on an Investment Basis', in percent, not seasonally adjusted, sourced from the Board of Governors H.15 Selected Interest Rates release (from a search snippet; the FRED page could not be opened).",
+    "source": 0
+   },
+   {
+    "fact": "FRED shows a DGS10 value of 5.12 for 2026-11-16, updated 2026-11-17 3:16 PM CST (from a search snippet; not verified on the page).",
+    "source": 0
+   },
+   {
+    "fact": "FRED shows a DGS10 value of 5.10 for 2026-11-17 (from a search snippet; not verified on the page).\nThis is the latest value found; nothing dated 2026-11-18 to 2026-11-24 was found.",
+    "source": 0
+   },
+   {
+    "fact": "FRED shows a DGS10 value of 4.84 for 2026-11-05 and 4.90 for 2026-11-04 (from a search snippet; not verified on the page).",
+    "source": 0
+   },
+   {
+    "fact": "Treasury par yields for 2026-11-10 were 4.98% at 10 years, up from 4.88% the prior day (from a search snippet; the Treasury page could not be opened).",
+    "source": 1
+   },
+   {
+    "fact": "On 2026-11-10 the 10-year yield rose 0.120 percentage point to 4.982% intraday, per a Dow Jones report (from a search snippet; an intraday figure, not the H.15 daily value).",
+    "source": 2
+   },
+   {
+    "fact": "Search snippet only (page not opened): a FRED DGS10 snapshot updated Nov 6, 2026 showed the 10-year yield at 4.90%.",
+    "source": 0
+   },
+   {
+    "fact": "Search snippet only (page not opened): a Dow Jones/Morningstar item dated 2026-11-19 said the 10-year yield fell 0.014 point to 5.051%, the lowest since Nov 10 and down four straight sessions.",
+    "source": 4
+   },
+   {
+    "fact": "Search snippet only (page not opened): the 10-year yield rose 0.120 point to 4.982% on Nov 10, 2026, and the 2-year ended Nov 6 at 4.51%, with the 10-year at 4.86% that day.",
+    "source": 5
+   },
+   {
+    "fact": "Search snippets disagree on levels: FRED pages showed Oct 30, 2026 at 4.94 (Nov 2 snapshot) and 4.99 (Nov 6 snapshot), and Trading Economics put the yield at 5.15% around Nov 13.\nNo Nov 23 or Nov 24 value was found in any source opened.",
+    "source": 3
+   },
+   {
+    "fact": "Search snippet of the Fed's December 2026 events page: the December FOMC meeting is December 8-9, 2026, with the press conference on December 9 and the minutes scheduled for December 30, 2026 (page not opened, so not verified).",
+    "source": 6
+   },
+   {
+    "fact": "Search snippet of the Fed calendar: meeting dates are tentative until confirmed at the preceding meeting, and the calendar was last updated October 7, 2026 (page not opened).",
+    "source": 6
+   },
+   {
+    "fact": "Search snippet of the BLS December 2026 list: CPI for November 2026 data is scheduled for Thursday December 10, 2026 at 8:30 AM ET (page not opened).",
+    "source": 7
+   },
+   {
+    "fact": "Search snippets conflict on the November 2026 jobs report date: the BLS employment schedule shows December 4, 2026 at 8:30 AM ET, while the December list snippet shows December 8 (neither page opened).",
+    "source": 7
+   },
+   {
+    "fact": "Search snippet of the Treasury tentative Q4 2026 schedule: a 10-year note reopening is auctioned December 8, 2026 and settles December 15, 2026.\nThe schedule is tentative (PDF not opened).",
+    "source": 8
+   },
+   {
+    "fact": "No official value for DGS10 or the Treasury par yield for any date from 2026-11-18 to 2026-11-24 was obtained in this pass.\nThe fetch proxy refused the FRED DGS10 page and the Treasury November 2026 yield table.",
+    "source": 0
+   },
+   {
+    "fact": "SIFMA recommended a full bond market close on Thursday 2026-11-26 and an early close at 2:00 p.m.\nET on Friday 2026-11-27, the observation date (search snippet of the SIFMA release; page not opened).",
+    "source": 9
+   },
+   {
+    "fact": "On 2026-11-19 the 10-year Treasury yield fell 0.014 point to 5.051%, its lowest since Nov 10 and down four straight sessions (Dow Jones item; search snippet and earlier read, not re-opened in this pass).",
+    "source": 4
+   },
+   {
+    "fact": "The 10-year Treasury yield was 4.86% on 2026-11-06 (Advisor Perspectives snapshot; search snippet only, page not opened).",
+    "source": 5
+   },
+   {
+    "fact": "A Trading Economics headline reads 'US 10-Year Treasury Yield Hovers Near Two-Month Lows' (headline only; the article date and level were not read).",
+    "source": 10
+   },
+   {
+    "fact": "A FRED snapshot showed DGS10 at 4.84 for 2026-11-05 and 4.90 for 2026-11-04 (search snippet only; the FRED page was refused by the fetch proxy).",
+    "source": 0
+   },
+   {
+    "fact": "Search snippet of the SIFMA Thanksgiving 2026 release (dated Nov 12, 2026 in the snippet, page not opened) recommends a full bond-market close on Thursday 2026-11-26 and an early close at 2:00 p.m.\nET on Friday 2026-11-27.",
+    "source": 9
+   },
+   {
+    "fact": "Search snippets say the 10-year yield closed at 5.10% on 2026-11-17, its fourth straight session above 5.00%; this is a snippet, not an opened primary page.",
+    "source": 11
+   },
+   {
+    "fact": "A Dow Jones item dated 2026-11-19 (read in the earlier pass, not re-opened) reports the 10-year at 5.051%, down 0.014 point, after four straight daily declines; this is the latest dated level found.",
+    "source": 4
+   },
+   {
+    "fact": "A Trading Economics headline on the 10-year, 'US 10-Year Treasury Note Yield Edges Down' (item 601580), was found in search; its date and level were not read.",
+    "source": 11
+   },
+   {
+    "fact": "No DGS10 or Treasury par yield value dated 2026-11-18 through 2026-11-24 was found in any opened page or snippet.\nNeither the Treasury daily page nor FRED could be opened.",
+    "source": 3
+   },
+   {
+    "fact": "The FRED DGS10 series page could not be opened on 2026-11-24: the fetch proxy refused the connection, and the FRED fredgraph CSV for DGS10 was also refused.\nNo value for observation date 2026-11-27 was obtained from FRED.",
+    "source": 0
+   },
+   {
+    "fact": "The Federal Reserve H.15 release page could not be opened on 2026-11-24 (fetch proxy refused the connection), so no H.15 10-year value for any date from 2026-11-18 to 2026-11-24 was read.",
+    "source": 12
+   },
+   {
+    "fact": "The Treasury November 2026 daily par yield curve page could not be opened on 2026-11-24 (fetch proxy refused the connection), so no official 10-year Treasury par yield for November 2026 was read.",
+    "source": 3
+   },
+   {
+    "fact": "The SIFMA Thanksgiving 2026 press release could not be opened on 2026-11-24 (fetch proxy refused the connection), so the bond market close and early close recommendations for 2026-11-26 and 2026-11-27 are unverified from a primary page.",
+    "source": 9
+   },
+   {
+    "fact": "The BLS December 2026 release schedule could not be opened on 2026-11-24 (fetch proxy refused the connection), so the dates of the November 2026 CPI and jobs releases are unverified from a primary page.",
+    "source": 7
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap",
+   "primary"
+  ],
+  "quotes_checked_at": "2026-11-24T13:04:58.014335+00:00",
+  "research_cost_usd": 0.2853,
+  "research_failed": null,
+  "research_seconds": 302.7,
+  "researched_at": "2026-11-24T12:44:38+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Market Yield on U.S.\nTreasury Securities at 10-Year Constant Maturity, Quoted on an Investment Basis (DGS10), FRED",
+    "url": "https://fred.stlouisfed.org/series/DGS10",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Daily Treasury Rates, U.S.\nTreasury",
+    "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily",
+    "verified": null
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [],
+    "title": "10-Year Treasury Yield Rises to 4.982% \u2014 Data Talk (Dow Jones via Morningstar)",
+    "url": "https://www.morningstar.com/news/dow-jones/202611109496/10-year-treasury-yield-rises-to-4982-data-talk",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "U.S.\nTreasury daily par yield curve rates, November 2026 (TextView)",
+    "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202611",
+    "verified": null
+   },
+   {
+    "published": "2026-11-19",
+    "quotes": [],
+    "title": "10-Year Treasury Yield Falls to 5.051% \u2014 Data Talk (Dow Jones via Morningstar)",
+    "url": "https://www.morningstar.com/news/dow-jones/202611198503/10-year-treasury-yield-falls-to-5051-data-talk",
+    "verified": null
+   },
+   {
+    "published": "2026-11-06",
+    "quotes": [],
+    "title": "Treasury Yields Snapshot: November 6, 2026 (Advisor Perspectives)",
+    "url": "https://www.advisorperspectives.com/dshort/updates/2026/11/06/treasury-yields-snapshot-november-6-2026",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "December 2026, Federal Reserve Board events calendar",
+    "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "BLS release schedule, December 2026",
+    "url": "https://www.bls.gov/schedule/2026/12_sched_list.htm",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Tentative Auction Schedule, Q4 2026, Treasury",
+    "url": "https://home.treasury.gov/system/files/221/TentativeAuctionScheduleQ42026.pdf",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "SIFMA Fixed Income Market Close Recommendations in the U.S., the U.K., and Japan for Thanksgiving Day 2026",
+    "url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "US 10-Year Treasury Yield Hovers Near Two-Month Lows (Trading Economics)",
+    "url": "https://tradingeconomics.com/united-states/government-bond-yield/news/598729",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "US 10-Year Treasury Note Yield Edges Down (Trading Economics)",
+    "url": "https://tradingeconomics.com/united-states/government-bond-yield/news/601580",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Federal Reserve H.15 Selected Interest Rates",
+    "url": "https://www.federalreserve.gov/releases/h15/",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "No official value for 2026-11-18 to 2026-11-24 was read.\nThe FRED DGS10 page and the Treasury November 2026 par yield table were refused by the fetch proxy, so the settling series is still unverified.\nThe latest level (5.051 on 2026-11-19) comes from a Dow Jones/Morningstar item read in the earlier ",
+   "Secondary sources disagree on levels: Advisor Perspectives shows 4.86 for 2026-11-06, and AllInvestView shows 5.10 for 2026-11-17 (secondary, not official).\nNo primary page was opened to settle it.",
+   "Whether 2026-11-27 is a published H.15 observation with a shortened session, and the exact trading calendar for 11-25 to 11-27, are inferred, not read from an official page.",
+   "Checks 1 and 2 of the checklist were not done: no official 10-year series, no 20-day standard deviation, no trading-day count from a page, and no count of months with rising yields.\nThe local README for the fetch proxy could not be read (permission denied), so the proxy refusals could not be worked ",
+   "Checklist item 3 (scheduled releases before 11-27 with consensus forecasts) was not completed: no consensus was taken from an opened page.\nAny data release on 11-25 or 11-27 was not identified.",
+   "No DGS10 or Treasury par yield value for 2026-11-18 to 2026-11-24 was read; the 11-19 level may already have moved by 11-24."
+  ]
+ }
+}
