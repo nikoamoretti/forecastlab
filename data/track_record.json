@@ -1,34 +1,34 @@
 {
   "calibration": {
     "as_of": "2026-11-24",
-    "intercept": 0.244908,
-    "results": 285,
-    "slope": 0.698708
+    "intercept": 0.249781,
+    "results": 286,
+    "slope": 0.702163
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. From Nov 5 it was Claude's own forecast, which had beaten the combination. For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. From 2026-11-23 it is Claude's own forecast again, with the market's price beside it as the yardstick; a tested edge that has beaten the market takes its place on the questions it covers.",
-      "brier": 0.20495273734760494,
+      "brier": 0.20431796769915422,
       "coin_flip_brier": 0.25,
       "forecasts": 362,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-24",
       "method": "combined_median_v1",
-      "resolved": 291,
-      "right": 203,
+      "resolved": 292,
+      "right": 204,
       "toss_ups": 3,
       "wrong": 85
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
-      "brier": 0.2019986013986014,
+      "brier": 0.20140766550522649,
       "coin_flip_brier": 0.25,
       "forecasts": 357,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-24",
       "method": "claude_code_forecaster_v1",
-      "resolved": 286,
-      "right": 191,
+      "resolved": 287,
+      "right": 192,
       "toss_ups": 7,
       "wrong": 88
     },
@@ -47,14 +47,14 @@
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.1600650745691282,
+      "brier": 0.156533268844125,
       "coin_flip_brier": 0.25,
       "forecasts": 82,
       "label": "Learned model",
       "last_forecast_on": "2026-11-24",
       "method": "learned_model_v1",
-      "resolved": 39,
-      "right": 33,
+      "resolved": 40,
+      "right": 34,
       "toss_ups": 0,
       "wrong": 6
     },
@@ -216,27 +216,27 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.18709381585125925,
+      "brier": 0.18540902471985365,
       "coin_flip_brier": 0.25,
       "forecasts": 132,
       "label": "Claude, confidence-corrected",
       "last_forecast_on": "2026-11-24",
       "method": "claude_calibrated_v1",
-      "resolved": 81,
-      "right": 61,
+      "resolved": 82,
+      "right": 62,
       "toss_ups": 0,
       "wrong": 20
     },
     {
       "about": "Polymarket's price when we forecast. For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast. The toughest bar to beat.",
-      "brier": 0.16130745410628017,
+      "brier": 0.16062616826923076,
       "coin_flip_brier": 0.25,
       "forecasts": 257,
       "label": "Prediction market (benchmark)",
       "last_forecast_on": "2026-11-24",
       "method": "market_price_v1",
-      "resolved": 207,
-      "right": 159,
+      "resolved": 208,
+      "right": 160,
       "toss_ups": 0,
       "wrong": 48
     },
@@ -270,15 +270,15 @@
   "generated_on": "2026-11-24",
   "learned_model": {
     "as_of": "2026-11-24",
-    "intercept": 0.102992,
-    "results": 259,
-    "slope": 0.926713,
+    "intercept": 0.10711,
+    "results": 260,
+    "slope": 0.930266,
     "weights": {
-      "Crypto": -0.163141,
-      "Economy": -0.288074,
-      "Politics": -0.35576,
-      "Tech": 0.442499,
-      "World": -0.467612
+      "Crypto": -0.161682,
+      "Economy": -0.290942,
+      "Politics": -0.354257,
+      "Tech": 0.444634,
+      "World": -0.46708
     }
   },
   "questions": [
@@ -739,6 +739,69 @@
       "status": "resolved",
       "title": "Will Solana reach $90 November 16-22?",
       "topic": "Crypto",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.82,
+        "market": 0.86,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.86
+      },
+      "detail": "This market will resolve to \u201cYes\u201d if the number of transit calls through the Bab el-Mandeb Strait on any single date from November 16, 2026 to November 22, 2026, according to IMF PortWatch, is at least the number specified in the title. Otherwise, this market will resolve to \u201cNo\u201d.\n\nDaily figures are the total transit calls by container, dry bulk, roll-on/roll-off, general cargo, and tanker ships that IMF PortWatch publishes for each date.\n\nThis market will resolve once IMF PortWatch has published data for every date in the period. Revisions made after that point will not be considered, unless subject to the data integrity clause below. If any data is still unpublished 14 calendar days after the period\u2019s final date, this market will resolve on the most recent data published at that time.\n\nIn the case that the Resolution Source publishes data, sufficient to settle a Market, that is clearly erroneous and the result of technical or operational error, or of unauthorized interference with the Resolution Source or its data, the Market may remain open for a period of up to seven (7) calendar days (ET) from the time of the original release, in anticipation of a correction by the Resolution Source. If the Resolution Source publishes a corrected value within that period, that value will be eligible for resolution. If no corrected value is published within that period, Polymarket will issue a Clarification to determine whether the originally published value may be eligible for resolution, or whether other action is required to preserve the orderly functioning of the Market.\n\nThe resolution source for this market will be IMF PortWatch, specifically the Transit Calls data published for the Bab el-Mandeb Strait at https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-19T12:40:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.82,
+          "rationale": "PortWatch daily totals for 9-15 Nov were 29, 25, 19, 24, 28, 20, 34, so one day in the last week reached 30 (https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0). Over the trailing 90 days 82 of 91 seven-day windows had at least one day of 30+, though only about a third of days reached it, and Nov 1-15 had 4 of 15. A single 30+ day in seven is likely but not certain given the sub-30 drift, JMIC's ~22/day and the Houthi takeover of the strait area (https://newsonair.gov.in/houthis-take-control-of-bab-al-mandab-strait-area-following-withdrawal-of-yemeni-government-forces/, 2026-11-16); the resolution page itself could not be opened.",
+          "sources": [
+            "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0",
+            "https://www.shipuniverse.com/?p=27890",
+            "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief---12-november-2026",
+            "https://newsonair.gov.in/houthis-take-control-of-bab-al-mandab-strait-area-following-withdrawal-of-yemeni-government-forces/"
+          ]
+        },
+        {
+          "as_of": "2026-11-19",
+          "claude": 0.82,
+          "claude_weight": -0.185484,
+          "intercept": 0.103635,
+          "market": 0.86,
+          "method": "learned_model_v1",
+          "probability": 0.862913,
+          "results": 233,
+          "slope": 0.925808
+        },
+        {
+          "as_of": "2026-11-19",
+          "intercept": 0.20926,
+          "method": "claude_calibrated_v1",
+          "probability": 0.778774,
+          "raw": 0.82,
+          "results": 258,
+          "slope": 0.691977
+        },
+        {
+          "made_at": "2026-11-19T10:09:56.658463+00:00",
+          "method": "market_price_v1",
+          "probability": 0.86
+        }
+      ],
+      "id": "polymarket-7029662",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261119",
+      "source_url": "https://polymarket.com/event/peak-daily-ship-traffic-through-the-bab-el-mandeb-strait-week-of-november-16",
+      "status": "resolved",
+      "title": "Will 30+ ships transit the Bab el-Mandeb Strait on any day week of November 16?",
+      "topic": "Economy",
       "verdict": "right"
     },
     {
@@ -19655,69 +19718,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.82,
-        "market": 0.86,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.86
-      },
-      "detail": "This market will resolve to \u201cYes\u201d if the number of transit calls through the Bab el-Mandeb Strait on any single date from November 16, 2026 to November 22, 2026, according to IMF PortWatch, is at least the number specified in the title. Otherwise, this market will resolve to \u201cNo\u201d.\n\nDaily figures are the total transit calls by container, dry bulk, roll-on/roll-off, general cargo, and tanker ships that IMF PortWatch publishes for each date.\n\nThis market will resolve once IMF PortWatch has published data for every date in the period. Revisions made after that point will not be considered, unless subject to the data integrity clause below. If any data is still unpublished 14 calendar days after the period\u2019s final date, this market will resolve on the most recent data published at that time.\n\nIn the case that the Resolution Source publishes data, sufficient to settle a Market, that is clearly erroneous and the result of technical or operational error, or of unauthorized interference with the Resolution Source or its data, the Market may remain open for a period of up to seven (7) calendar days (ET) from the time of the original release, in anticipation of a correction by the Resolution Source. If the Resolution Source publishes a corrected value within that period, that value will be eligible for resolution. If no corrected value is published within that period, Polymarket will issue a Clarification to determine whether the originally published value may be eligible for resolution, or whether other action is required to preserve the orderly functioning of the Market.\n\nThe resolution source for this market will be IMF PortWatch, specifically the Transit Calls data published for the Bab el-Mandeb Strait at https://portwatch.imf.org/pages/6b1814d64903461b98144a6cc25eb79c.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-19T12:40:13+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.82,
-          "rationale": "PortWatch daily totals for 9-15 Nov were 29, 25, 19, 24, 28, 20, 34, so one day in the last week reached 30 (https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0). Over the trailing 90 days 82 of 91 seven-day windows had at least one day of 30+, though only about a third of days reached it, and Nov 1-15 had 4 of 15. A single 30+ day in seven is likely but not certain given the sub-30 drift, JMIC's ~22/day and the Houthi takeover of the strait area (https://newsonair.gov.in/houthis-take-control-of-bab-al-mandab-strait-area-following-withdrawal-of-yemeni-government-forces/, 2026-11-16); the resolution page itself could not be opened.",
-          "sources": [
-            "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0",
-            "https://www.shipuniverse.com/?p=27890",
-            "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief---12-november-2026",
-            "https://newsonair.gov.in/houthis-take-control-of-bab-al-mandab-strait-area-following-withdrawal-of-yemeni-government-forces/"
-          ]
-        },
-        {
-          "as_of": "2026-11-19",
-          "claude": 0.82,
-          "claude_weight": -0.185484,
-          "intercept": 0.103635,
-          "market": 0.86,
-          "method": "learned_model_v1",
-          "probability": 0.862913,
-          "results": 233,
-          "slope": 0.925808
-        },
-        {
-          "as_of": "2026-11-19",
-          "intercept": 0.20926,
-          "method": "claude_calibrated_v1",
-          "probability": 0.778774,
-          "raw": 0.82,
-          "results": 258,
-          "slope": 0.691977
-        },
-        {
-          "made_at": "2026-11-19T10:09:56.658463+00:00",
-          "method": "market_price_v1",
-          "probability": 0.86
-        }
-      ],
-      "id": "polymarket-7029662",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-23",
-      "scored": true,
-      "source": "prospective_markets_20261119",
-      "source_url": "https://polymarket.com/event/peak-daily-ship-traffic-through-the-bab-el-mandeb-strait-week-of-november-16",
-      "status": "pending",
-      "title": "Will 30+ ships transit the Bab el-Mandeb Strait on any day week of November 16?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.29,
         "market": 0.635,
         "max_move": 0.0,
@@ -22694,7 +22694,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20495273734760494,
+    "brier": 0.20431796769915422,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -22753,15 +22753,15 @@
         },
         "counted": {
           "dates": 12,
-          "difference": 0.003965041999999974,
+          "difference": 0.004157106304347874,
           "interval": [
-            -0.007409,
+            -0.007073,
             0.01532
           ],
-          "market": 0.18703670244444445,
+          "market": 0.18339677413043476,
           "meets_bar": false,
-          "questions": 45,
-          "rule": 0.19100174444444443
+          "questions": 46,
+          "rule": 0.18755388043478263
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -22807,15 +22807,15 @@
         },
         "counted": {
           "dates": 11,
-          "difference": -0.003081700866025633,
+          "difference": -0.0030248372051500105,
           "interval": [
-            -0.010939,
-            0.003854
+            -0.010672,
+            0.003764
           ],
-          "market": 0.16648272717948717,
+          "market": 0.162810659,
           "meets_bar": false,
-          "questions": 39,
-          "rule": 0.16340102631346154
+          "questions": 40,
+          "rule": 0.15978582179484999
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -22823,7 +22823,7 @@
         "status": "testing"
       }
     ],
-    "pending": 64,
+    "pending": 63,
     "progress": {
       "changes": [
         {
@@ -22849,10 +22849,10 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.199684,
-          "market": 0.17270270140000002,
-          "ours": 0.17712168995278,
-          "questions": 50
+          "claude": 0.19640392156862746,
+          "market": 0.1697006876470588,
+          "ours": 0.17403302936547058,
+          "questions": 51
         },
         "before": {
           "claude": 0.2016852380952381,
@@ -22918,33 +22918,33 @@
           "wrong": 7
         },
         {
-          "claude": 0.14174761904761907,
-          "market": 0.10400464285714286,
-          "ours": 0.10400464285714286,
-          "questions": 21,
-          "right": 19,
+          "claude": 0.13677727272727272,
+          "market": 0.10016806818181818,
+          "ours": 0.10016806818181818,
+          "questions": 22,
+          "right": 20,
           "start": "2026-11-16",
           "wrong": 2
         }
       ]
     },
-    "resolved": 291,
-    "right": 203,
+    "resolved": 292,
+    "right": 204,
     "toss_ups": 3,
     "total": 363,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.20130038461538463,
-      "claude_questions": 260,
-      "market": 0.15695737265384616,
-      "ours": 0.19884811345245768,
-      "questions": 260,
+      "claude": 0.20065325670498085,
+      "claude_questions": 261,
+      "market": 0.15643109919540232,
+      "ours": 0.19816133907141378,
+      "questions": 261,
       "since_anchored": {
-        "claude": 0.21717555555555557,
+        "claude": 0.21315869565217394,
         "date": "2026-11-10",
-        "market": 0.18703670244444445,
-        "ours": 0.18703670244444445,
-        "questions": 45
+        "market": 0.18339677413043476,
+        "ours": 0.18339677413043476,
+        "questions": 46
       }
     },
     "wrong": 85
