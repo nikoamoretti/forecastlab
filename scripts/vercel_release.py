@@ -81,8 +81,11 @@ class VercelProject:
         reason = "no_response"
         for attempt in range(3):
             try:
+                # x-now-digest and x-now-size are the older names of the same two values, which Vercel's own
+                # command line still sends; both spellings go out so either one is understood.
                 response = self.client.post("/v2/files", params={"teamId": self.team_id}, content=data, headers={
-                    "Content-Type": "application/octet-stream", "Content-Length": str(len(data)), "x-vercel-digest": digest})
+                    "Content-Type": "application/octet-stream", "Content-Length": str(len(data)),
+                    "x-vercel-digest": digest, "x-now-digest": digest, "x-now-size": str(len(data))})
             except httpx.TransportError:
                 time.sleep(wait * (attempt + 1))
                 continue

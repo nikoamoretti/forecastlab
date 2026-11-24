@@ -84,8 +84,10 @@ def test_release_uploads_each_file_once_and_the_deployment_names_files_by_digest
     def handler(request):
         if request.url.path == "/v2/files":
             assert request.method == "POST" and request.url.params["teamId"] == "team"
-            assert request.headers["x-vercel-digest"] == hashlib.sha1(request.content).hexdigest()
-            assert request.headers["content-length"] == str(len(request.content))
+            digest, size = hashlib.sha1(request.content).hexdigest(), str(len(request.content))
+            assert request.headers["x-vercel-digest"] == request.headers["x-now-digest"] == digest
+            assert request.headers.get_list("content-length") == [size] and request.headers["x-now-size"] == size
+            assert request.headers["content-type"] == "application/octet-stream"
             uploads.append(request.content)
             return httpx.Response(200, json={"urls": []})
         if request.url.path == "/v9/projects/project":
