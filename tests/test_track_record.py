@@ -668,6 +668,39 @@ def test_from_nov_23_a_question_claude_did_not_forecast_has_no_call_and_counts_i
     assert {q["id"]: q["call"] for q in again["questions"]} == {qid: q["call"] for qid, q in rows.items()}
 
 
+def test_a_frozen_call_on_a_question_claude_did_not_forecast_can_be_taken_out_and_the_frozen_file_stays(tmp_path: Path) -> None:
+    baseline, supplement = "statistical_baseline_v1", "claude_code_forecaster_v1 (post-freeze supplement)"
+    decided = {"status": "resolved", "value": "4.92", "outcome": 0}
+    directory = tmp_path / "prospective_daily_20261117"
+    _daily(directory, [
+        {"entry_id": "lost", "method": baseline, "probability": 0.51},  # its research failed: the baseline's number became our call
+        {"entry_id": "ours", "method": baseline, "probability": 0.51},
+        {"entry_id": "ours", "method": supplement, "probability": 0.6}], {"lost": decided, "ours": decided})
+    before = build_track_record(tmp_path, today=date(2026, 11, 23), freeze=True)
+    assert (before["summary"]["resolved"], before["summary"]["wrong"]) == (2, 2)
+    frozen = (directory / "calls.json").read_bytes()
+    (directory / "withdrawn_calls.json").write_text(json.dumps({"lost": {"note": "Taken out: Claude made no forecast.", "on": "2026-11-24"}}))
+
+    record = build_track_record(tmp_path, today=date(2026, 11, 24), freeze=True)
+
+    rows = {q["id"]: q for q in record["questions"]}
+    assert (rows["lost"]["call"], rows["lost"]["verdict"], rows["lost"]["note"]) == (None, None, "Taken out: Claude made no forecast.")
+    assert rows["lost"]["scored"] is True and [f["method"] for f in rows["lost"]["forecasts"]] == [baseline]
+    assert rows["ours"]["verdict"] == "wrong" and rows["ours"].get("note") is None
+    summary = record["summary"]
+    assert (summary["resolved"], summary["wrong"], summary["unscored"], summary["total"]) == (1, 1, 0, 2)
+    assert next(f for f in record["forecasters"] if f["method"] == baseline)["resolved"] == 1
+    # The frozen call is left exactly as it was written.
+    assert (directory / "calls.json").read_bytes() == frozen
+    # A call we made cannot be dropped this way, and neither can a question the directory does not have.
+    (directory / "withdrawn_calls.json").write_text(json.dumps({"ours": {"note": "No.", "on": "2026-11-24"}}))
+    with pytest.raises(ValueError, match="has a forecast by Claude"):
+        build_track_record(tmp_path, today=date(2026, 11, 24))
+    (directory / "withdrawn_calls.json").write_text(json.dumps({"typo": {"note": "No.", "on": "2026-11-24"}}))
+    with pytest.raises(ValueError, match="do not exist"):
+        build_track_record(tmp_path, today=date(2026, 11, 24))
+
+
 def test_a_promoted_rule_moves_the_questions_it_matches_and_names_itself(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(track_record, "DEFAULT_MOVE", 0.0)
     monkeypatch.setattr(track_record, "CALL_RULES", _rules(tech_move_v1="promoted"))
