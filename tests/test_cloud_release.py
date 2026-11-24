@@ -1,5 +1,9 @@
+import hashlib
+import json
 import os
+from pathlib import Path
 
+import httpx
 import pytest
 from scripts.release_cloud import configure_release_environment
 
@@ -58,6 +62,126 @@ def test_rest_environment_filters_out_preview_values(monkeypatch):
     monkeypatch.setattr(project, "request", request)
     assert project.environment() == {"DATABASE_URL_UNPOOLED": "production"}
     project.client.close()
+
+
+def _vercel(handler):
+    from scripts.vercel_release import VercelProject
+    project = VercelProject("project", "token", "team")
+    project.client.close()
+    project.client = httpx.Client(base_url="https://api.vercel.com", transport=httpx.MockTransport(handler))
+    return project
+
+
+def test_release_uploads_each_file_once_and_the_deployment_names_files_by_digest(monkeypatch):
+    from scripts import vercel_release
+
+    files = [{"file": "vercel.json", "data": b'{"regions": ["fra1"]}'}, {"file": "app.py", "data": b"x" * 4000},
+             {"file": "a/__init__.py", "data": b""}, {"file": "b/__init__.py", "data": b""}]
+    monkeypatch.setattr(vercel_release, "source_files", lambda root, web: files)
+    monkeypatch.setattr(vercel_release.subprocess, "check_output", lambda *args, **kwargs: "c" * 40 + "\n")
+    uploads, created = [], []
+
+    def handler(request):
+        if request.url.path == "/v2/files":
+            assert request.method == "POST" and request.url.params["teamId"] == "team"
+            assert request.headers["x-vercel-digest"] == hashlib.sha1(request.content).hexdigest()
+            assert request.headers["content-length"] == str(len(request.content))
+            uploads.append(request.content)
+            return httpx.Response(200, json={"urls": []})
+        if request.url.path == "/v9/projects/project":
+            return httpx.Response(200, json={"name": "forecastlab-api", "targets": {"production": {"id": "live"}}})
+        assert request.method == "POST" and request.url.path == "/v13/deployments"
+        created.append(json.loads(request.content))
+        return httpx.Response(200, json={"id": "dpl_new", "readyState": "READY", "url": "new.vercel.app"})
+
+    project = _vercel(handler)
+    bundle = project.prepare(Path("."), web=False)
+    assert sorted(uploads) == sorted([b"", b'{"regions": ["fra1"]}', b"x" * 4000])  # the two empty files are one upload
+    assert not created  # preparing a bundle creates no deployment
+    assert project.stage(Path("."), bundle, web=False)["id"] == "dpl_new"
+    body = created[0]
+    assert body["regions"] == ["fra1"] and body["meta"] == {"githubCommitSha": "c" * 40}
+    assert body["files"] == [{"file": f["file"], "sha": hashlib.sha1(f["data"]).hexdigest(), "size": len(f["data"])}
+                             for f in files]
+    assert len(json.dumps(body)) < 2000  # file contents travel in the uploads, never in this call
+    project.client.close()
+
+
+def test_a_refused_vercel_call_says_why_and_a_refused_upload_is_not_sent_again():
+    calls = []
+
+    def handler(request):
+        calls.append(request.url.path)
+        if request.url.path == "/v2/files":
+            return httpx.Response(403, json={"error": {"code": "forbidden", "message": "Not authorized"}})
+        return httpx.Response(400, json={"error": {"code": "bad_request", "message": "Request body too large\n<b>"}})
+
+    project = _vercel(handler)
+    with pytest.raises(RuntimeError, match=r"^vercel_api_failed:POST:/v2/files:403:forbidden:Not authorized$"):
+        project.upload(b"data", "0" * 40)
+    assert calls == ["/v2/files"]
+    with pytest.raises(RuntimeError, match=r"^vercel_api_failed:POST:/v13/deployments:400:bad_request:Request body too largeb$"):
+        project.request("/v13/deployments", method="POST", body={})
+    # a call that reads production settings logs the status and code only, never Vercel's message
+    with pytest.raises(RuntimeError, match=r"^vercel_api_failed:GET:/v10/projects/project/env:400:bad_request$"):
+        project.request("/v10/projects/project/env")
+    project.client.close()
+
+
+def test_an_upload_is_sent_again_after_a_server_error_and_gives_up_after_three():
+    answers = [httpx.Response(502), httpx.Response(200, json={})]
+    project = _vercel(lambda request: answers.pop(0))
+    project.upload(b"data", "0" * 40, wait=0)
+    assert not answers
+    answers.extend(httpx.Response(503, json={"error": {"code": "unavailable"}}) for _ in range(4))
+    with pytest.raises(RuntimeError, match=r"^vercel_api_failed:POST:/v2/files:503:unavailable$"):
+        project.upload(b"data", "0" * 40, wait=0)
+    assert len(answers) == 1
+    project.client.close()
+
+
+@pytest.mark.parametrize("refused", [False, True])
+def test_release_uploads_both_bundles_before_it_pauses_dispatch(refused):
+    from scripts.release_cloud import release_with_clients
+
+    order = []
+
+    class Client:
+        def __init__(self, name):
+            self.name, self.client = name, self
+
+        def prepare(self, root, *, web):
+            order.append(("prepare", self.name, web))
+            if refused and web:
+                raise RuntimeError("vercel_api_failed:POST:/v2/files:403")
+            return {}
+
+        def close(self):
+            order.append(("close", self.name))
+
+    def control(path):
+        order.append(path)
+        raise RuntimeError("stop_at_the_pause")
+
+    with pytest.raises(RuntimeError, match="vercel_api_failed" if refused else "stop_at_the_pause"):
+        release_with_clients(Client("api"), Client("web"), control)
+    # a refused upload ends the release with dispatch untouched
+    assert order == [("prepare", "api", False), ("prepare", "web", True),
+                     *([] if refused else ["/internal/release/pause"]), ("close", "api"), ("close", "web")]
+
+
+def test_the_committed_release_bundles_fit_the_reviewed_size():
+    # Fails here, before a merge, when a bundle outgrows BUNDLE_LIMIT; the release would refuse it too.
+    from scripts.release_cloud import ROOT
+    from scripts.vercel_release import BUNDLE_LIMIT, source_files
+
+    if not (ROOT / ".git").exists():
+        pytest.skip("not a git checkout")
+    for web in (False, True):
+        files = source_files(ROOT, web=web)
+        assert any(f["file"] == "vercel.json" for f in files)
+        assert all(isinstance(f["data"], bytes) for f in files)
+        assert sum(len(f["data"]) for f in files) <= BUNDLE_LIMIT
 
 
 def test_release_preserves_disabled_state_and_original_reason_across_polls(client):
