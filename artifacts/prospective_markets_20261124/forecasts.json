@@ -77,6 +77,13 @@
             "https://www.salesforce.com/ap/news/press-releases/2026/11/19/salesforce-and-microsoft-announce-copilotforce-bringing-salesforce-customer-context-and-sales-workflows-to-microsoft-copilot/",
             "https://developer.salesforce.com/docs/data/data-cloud-int/guide/c360-a-microsoftfabriconelake-connector.html"
           ]
+        },
+        {
+          "created_at": "2026-11-24T13:16:54.997034+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.29,
+          "rationale": "Call is confirmed for Dec 2 5pm ET; the Nov 19 Copilotforce announcement with a Data 360 and Microsoft Fabric link gives a fresh reason to say the word, and any speaker (including analysts) counts, but the integration is in preview and the digest could not check any prior transcript. Within 10 points of market.",
+          "saw_market_price": true
         }
       ],
       "id": "polymarket-7231495",
