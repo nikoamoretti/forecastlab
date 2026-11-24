@@ -1,60 +1,60 @@
 {
   "calibration": {
     "as_of": "2026-11-24",
-    "intercept": 0.236174,
-    "results": 284,
-    "slope": 0.699272
+    "intercept": 0.244908,
+    "results": 285,
+    "slope": 0.698708
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. From Nov 5 it was Claude's own forecast, which had beaten the combination. For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. From 2026-11-23 it is Claude's own forecast again, with the market's price beside it as the yardstick; a tested edge that has beaten the market takes its place on the questions it covers.",
-      "brier": 0.2061467692669655,
+      "brier": 0.20495273734760494,
       "coin_flip_brier": 0.25,
-      "forecasts": 349,
+      "forecasts": 362,
       "label": "Combined forecast",
-      "last_forecast_on": "2026-11-23",
+      "last_forecast_on": "2026-11-24",
       "method": "combined_median_v1",
-      "resolved": 289,
-      "right": 201,
+      "resolved": 291,
+      "right": 203,
       "toss_ups": 3,
       "wrong": 85
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
-      "brier": 0.20179154929577464,
+      "brier": 0.2019986013986014,
       "coin_flip_brier": 0.25,
-      "forecasts": 344,
+      "forecasts": 357,
       "label": "Claude alone",
-      "last_forecast_on": "2026-11-23",
+      "last_forecast_on": "2026-11-24",
       "method": "claude_code_forecaster_v1",
-      "resolved": 284,
-      "right": 190,
+      "resolved": 286,
+      "right": 191,
       "toss_ups": 7,
-      "wrong": 87
+      "wrong": 88
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
-      "brier": 0.05289090909090909,
+      "brier": 0.052158333333333334,
       "coin_flip_brier": 0.25,
-      "forecasts": 20,
+      "forecasts": 21,
       "label": "Claude, second look",
-      "last_forecast_on": "2026-11-23",
+      "last_forecast_on": "2026-11-24",
       "method": "claude_second_look_v1",
-      "resolved": 11,
-      "right": 11,
+      "resolved": 12,
+      "right": 12,
       "toss_ups": 0,
       "wrong": 0
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.16737080833705406,
+      "brier": 0.1600650745691282,
       "coin_flip_brier": 0.25,
-      "forecasts": 70,
+      "forecasts": 82,
       "label": "Learned model",
-      "last_forecast_on": "2026-11-23",
+      "last_forecast_on": "2026-11-24",
       "method": "learned_model_v1",
-      "resolved": 37,
-      "right": 31,
+      "resolved": 39,
+      "right": 33,
       "toss_ups": 0,
       "wrong": 6
     },
@@ -205,9 +205,9 @@
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
       "brier": 0.2532409395188137,
       "coin_flip_brier": 0.25,
-      "forecasts": 32,
+      "forecasts": 33,
       "label": "Statistical baseline",
-      "last_forecast_on": "2026-11-20",
+      "last_forecast_on": "2026-11-24",
       "method": "statistical_baseline_v1",
       "resolved": 27,
       "right": 11,
@@ -216,27 +216,27 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.18725166180192407,
+      "brier": 0.18709381585125925,
       "coin_flip_brier": 0.25,
-      "forecasts": 119,
+      "forecasts": 132,
       "label": "Claude, confidence-corrected",
-      "last_forecast_on": "2026-11-23",
+      "last_forecast_on": "2026-11-24",
       "method": "claude_calibrated_v1",
-      "resolved": 79,
-      "right": 60,
+      "resolved": 81,
+      "right": 61,
       "toss_ups": 0,
-      "wrong": 19
+      "wrong": 20
     },
     {
       "about": "Polymarket's price when we forecast. For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast. The toughest bar to beat.",
-      "brier": 0.16256494024390242,
+      "brier": 0.16130745410628017,
       "coin_flip_brier": 0.25,
-      "forecasts": 245,
+      "forecasts": 257,
       "label": "Prediction market (benchmark)",
-      "last_forecast_on": "2026-11-23",
+      "last_forecast_on": "2026-11-24",
       "method": "market_price_v1",
-      "resolved": 205,
-      "right": 157,
+      "resolved": 207,
+      "right": 159,
       "toss_ups": 0,
       "wrong": 48
     },
@@ -270,18 +270,81 @@
   "generated_on": "2026-11-24",
   "learned_model": {
     "as_of": "2026-11-24",
-    "intercept": 0.101121,
-    "results": 258,
-    "slope": 0.924555,
+    "intercept": 0.102992,
+    "results": 259,
+    "slope": 0.926713,
     "weights": {
-      "Crypto": -0.163858,
-      "Economy": -0.26521,
-      "Politics": -0.356518,
-      "Tech": 0.441354,
-      "World": -0.46787
+      "Crypto": -0.163141,
+      "Economy": -0.288074,
+      "Politics": -0.35576,
+      "Tech": 0.442499,
+      "World": -0.467612
     }
   },
   "questions": [
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.72,
+        "market": 0.81,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.81
+      },
+      "detail": "This market will resolve according to the model that has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on the specified date, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nNo new model will be added to this market after market creation. Any model not explicitly listed in this market will be encompassed under the \"Other\" option.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of model names as listed in this market group (full string, including suffixes such as \u201c-high\u201d and \u201c-max\u201d) will be used as a final tiebreaker (e.g., if two models remain tied, \u201cgemini-4-argon-high\u201d would be ranked ahead of \u201cgemini-4-carbon-high\u201d). This market will resolve to the model that comes first according to this order.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
+      "forecasts": [
+        {
+          "made_at": "2026-11-16T12:56:38+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.72,
+          "rationale": "On the arena.ai Text Overall (no style control) page dated 2026-11-11, Gemini 4 Carbon (High) was first at 1538 (preliminary, 4,273 votes) with Gemini 4 Argon (High) second at 1529 (https://arena.ai/leaderboard/text/overall-no-style-control); Carbon has led since about 2026-10-28 (https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/). The main threats are Anthropic's Fable 5.2, released 2026-11-09 and not yet on the text board (https://www.siliconreport.com/anthropic-releases-mythos-5-2-and-fable-5-2), and score drift within the overlapping 1538 plus or minus 10 interval. A seven-day horizon with new entries likely keeps Carbon ahead, but the lead is thin and the page was read only via a summarizing fetch."
+        },
+        {
+          "made_at": "2026-11-16T12:59:13.670504+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.79,
+          "rationale": "Carbon led at 1538 vs Argon 1529 on 2026-11-11 and wins the unrounded-score tiebreak if ranks tie; the main risk is Fable 5.2 entering the text board, but Fable 5.1 sits 26 points back."
+        },
+        {
+          "as_of": "2026-11-16",
+          "claude": 0.72,
+          "claude_weight": 0.465602,
+          "intercept": 0.171912,
+          "market": 0.81,
+          "method": "learned_model_v1",
+          "probability": 0.80771,
+          "results": 220,
+          "slope": 1.03356
+        },
+        {
+          "as_of": "2026-11-16",
+          "intercept": 0.237097,
+          "method": "claude_calibrated_v1",
+          "probability": 0.7194,
+          "raw": 0.72,
+          "results": 244,
+          "slope": 0.745812
+        },
+        {
+          "made_at": "2026-11-16T12:32:17.258238+00:00",
+          "method": "market_price_v1",
+          "probability": 0.81
+        }
+      ],
+      "id": "polymarket-6949221",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-24",
+      "scored": true,
+      "source": "prospective_markets_20261116",
+      "source_url": "https://polymarket.com/event/best-ai-model-on-november-23",
+      "status": "resolved",
+      "title": "Will gemini-4-carbon-high be the best AI model on November 23, 2026?",
+      "topic": "Tech",
+      "verdict": "right"
+    },
     {
       "actual": "4.92%",
       "call": null,
@@ -306,6 +369,63 @@
       "title": "Will the 10-year U.S. Treasury yield on Nov 20, 2026 be above 5.15%?",
       "topic": "Interest rates",
       "verdict": null
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.38,
+        "market": 0.8305,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.8305
+      },
+      "detail": "This market will resolve according to the change in basis points in the Bank of Israel Interest Rate resulting from the November 2026 meeting of the Bank of Israel Monetary Committee, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of Israel, including the statement or release from its November 2026 meeting, scheduled for November 23, 2026, as listed on the official Bank of Israel calendar (https://www.boi.org.il/en/economic-roles/monetary-policy/). This market may resolve as soon as the statement or release of the Bank of Israel Monetary Committee resulting from its November 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting. If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-16T12:56:38+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.38,
+          "rationale": "The Bank of Israel held at 3.25% on 2026-10-21 (https://tradingeconomics.com/israel/interest-rate/news/593876) after a Reuters poll said it would pause before the election and that a cut to 3% was still widely expected (https://gvwire.com/2026/10/20/bank-of-israel-to-pause-rate-cuts-ahead-of-october-27-election-reuters-poll/). October CPI then fell 0.1% m/m and 1.1% y/y, far below the +0.2-0.4% consensus (https://en.globes.co.il/en/article-inflation-unexpectedly-falls-sharply-home-prices-fall-1001563497, 2026-11-15), which tilts toward resuming cuts at the 2026-11-23 meeting. A hold stays a real possibility because no November economist poll was found and the primary BoI pages were unreadable."
+        },
+        {
+          "as_of": "2026-11-16",
+          "claude": 0.38,
+          "claude_weight": -0.116804,
+          "intercept": 0.171912,
+          "market": 0.8305,
+          "method": "learned_model_v1",
+          "probability": 0.886675,
+          "results": 220,
+          "slope": 1.03356
+        },
+        {
+          "as_of": "2026-11-16",
+          "intercept": 0.237097,
+          "method": "claude_calibrated_v1",
+          "probability": 0.46804,
+          "raw": 0.38,
+          "results": 244,
+          "slope": 0.745812
+        },
+        {
+          "made_at": "2026-11-16T12:32:17.258238+00:00",
+          "method": "market_price_v1",
+          "probability": 0.8305
+        }
+      ],
+      "id": "polymarket-6403128",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-23",
+      "scored": true,
+      "source": "prospective_markets_20261116",
+      "source_url": "https://polymarket.com/event/bank-of-israel-decision-in-november-2026",
+      "status": "resolved",
+      "title": "Will the Bank of Israel make no change to the Bank of Israel Interest Rate at the November meeting?",
+      "topic": "Economy",
+      "verdict": "right"
     },
     {
       "actual": "Polymarket: No",
@@ -19535,63 +19655,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.38,
-        "market": 0.8305,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.8305
-      },
-      "detail": "This market will resolve according to the change in basis points in the Bank of Israel Interest Rate resulting from the November 2026 meeting of the Bank of Israel Monetary Committee, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Bank of Israel, including the statement or release from its November 2026 meeting, scheduled for November 23, 2026, as listed on the official Bank of Israel calendar (https://www.boi.org.il/en/economic-roles/monetary-policy/). This market may resolve as soon as the statement or release of the Bank of Israel Monetary Committee resulting from its November 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting. If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-16T12:56:38+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.38,
-          "rationale": "The Bank of Israel held at 3.25% on 2026-10-21 (https://tradingeconomics.com/israel/interest-rate/news/593876) after a Reuters poll said it would pause before the election and that a cut to 3% was still widely expected (https://gvwire.com/2026/10/20/bank-of-israel-to-pause-rate-cuts-ahead-of-october-27-election-reuters-poll/). October CPI then fell 0.1% m/m and 1.1% y/y, far below the +0.2-0.4% consensus (https://en.globes.co.il/en/article-inflation-unexpectedly-falls-sharply-home-prices-fall-1001563497, 2026-11-15), which tilts toward resuming cuts at the 2026-11-23 meeting. A hold stays a real possibility because no November economist poll was found and the primary BoI pages were unreadable."
-        },
-        {
-          "as_of": "2026-11-16",
-          "claude": 0.38,
-          "claude_weight": -0.116804,
-          "intercept": 0.171912,
-          "market": 0.8305,
-          "method": "learned_model_v1",
-          "probability": 0.886675,
-          "results": 220,
-          "slope": 1.03356
-        },
-        {
-          "as_of": "2026-11-16",
-          "intercept": 0.237097,
-          "method": "claude_calibrated_v1",
-          "probability": 0.46804,
-          "raw": 0.38,
-          "results": 244,
-          "slope": 0.745812
-        },
-        {
-          "made_at": "2026-11-16T12:32:17.258238+00:00",
-          "method": "market_price_v1",
-          "probability": 0.8305
-        }
-      ],
-      "id": "polymarket-6403128",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-23",
-      "scored": true,
-      "source": "prospective_markets_20261116",
-      "source_url": "https://polymarket.com/event/bank-of-israel-decision-in-november-2026",
-      "status": "pending",
-      "title": "Will the Bank of Israel make no change to the Bank of Israel Interest Rate at the November meeting?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.82,
         "market": 0.86,
         "max_move": 0.0,
@@ -19650,69 +19713,6 @@
       "status": "pending",
       "title": "Will 30+ ships transit the Bab el-Mandeb Strait on any day week of November 16?",
       "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.72,
-        "market": 0.81,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.81
-      },
-      "detail": "This market will resolve according to the model that has the highest arena rank based on the arena.ai Text Arena (Overall) when the table under the \"Leaderboard\" tab is checked on the specified date, 12:00 PM ET.\n\nResults from the \"Rank\" column under the \"Text Arena | Overall\" Leaderboard tab at https://arena.ai/leaderboard/text/overall-no-style-control with style control off (Adjustments: None) and filtered for \"Models\" will be used to resolve this market.\n\nNote: Models marked \u201cAutoEval\u201d at the applicable check time will not be considered, regardless of whether they display a rank or score.\n\nNo new model will be added to this market after market creation. Any model not explicitly listed in this market will be encompassed under the \"Other\" option.\n\nModels will be ordered primarily by their leaderboard rank at the market\u2019s check time. If two or more models are tied on rank, they will be ordered by their Arena score, including any underlying, unrounded, granular values reflected in the data below the leaderboard. If a tie still remains, alphabetical order of model names as listed in this market group (full string, including suffixes such as \u201c-high\u201d and \u201c-max\u201d) will be used as a final tiebreaker (e.g., if two models remain tied, \u201cgemini-4-argon-high\u201d would be ranked ahead of \u201cgemini-4-carbon-high\u201d). This market will resolve to the model that comes first according to this order.\n\nThe resolution source for this market is the arena.ai Text Arena (Overall). If this resolution source is unavailable at check time, this market will remain open until the leaderboard comes back online and will resolve based on the first check after it becomes available. If it becomes permanently unavailable, this market will resolve to \"Other\".",
-      "forecasts": [
-        {
-          "made_at": "2026-11-16T12:56:38+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.72,
-          "rationale": "On the arena.ai Text Overall (no style control) page dated 2026-11-11, Gemini 4 Carbon (High) was first at 1538 (preliminary, 4,273 votes) with Gemini 4 Argon (High) second at 1529 (https://arena.ai/leaderboard/text/overall-no-style-control); Carbon has led since about 2026-10-28 (https://officechai.com/ai/gemini-4-carbon-tops-text-arena-places-2nd-on-agent-arena/). The main threats are Anthropic's Fable 5.2, released 2026-11-09 and not yet on the text board (https://www.siliconreport.com/anthropic-releases-mythos-5-2-and-fable-5-2), and score drift within the overlapping 1538 plus or minus 10 interval. A seven-day horizon with new entries likely keeps Carbon ahead, but the lead is thin and the page was read only via a summarizing fetch."
-        },
-        {
-          "made_at": "2026-11-16T12:59:13.670504+00:00",
-          "method": "claude_second_look_v1",
-          "probability": 0.79,
-          "rationale": "Carbon led at 1538 vs Argon 1529 on 2026-11-11 and wins the unrounded-score tiebreak if ranks tie; the main risk is Fable 5.2 entering the text board, but Fable 5.1 sits 26 points back."
-        },
-        {
-          "as_of": "2026-11-16",
-          "claude": 0.72,
-          "claude_weight": 0.465602,
-          "intercept": 0.171912,
-          "market": 0.81,
-          "method": "learned_model_v1",
-          "probability": 0.80771,
-          "results": 220,
-          "slope": 1.03356
-        },
-        {
-          "as_of": "2026-11-16",
-          "intercept": 0.237097,
-          "method": "claude_calibrated_v1",
-          "probability": 0.7194,
-          "raw": 0.72,
-          "results": 244,
-          "slope": 0.745812
-        },
-        {
-          "made_at": "2026-11-16T12:32:17.258238+00:00",
-          "method": "market_price_v1",
-          "probability": 0.81
-        }
-      ],
-      "id": "polymarket-6949221",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-24",
-      "scored": true,
-      "source": "prospective_markets_20261116",
-      "source_url": "https://polymarket.com/event/best-ai-model-on-november-23",
-      "status": "pending",
-      "title": "Will gemini-4-carbon-high be the best AI model on November 23, 2026?",
-      "topic": "Tech",
       "verdict": null
     },
     {
@@ -20204,6 +20204,300 @@
     {
       "actual": null,
       "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.06
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during a trading session of the week of November 23 2026, any 1-minute candle for Gold (XAUUSD) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during an applicable trading session of the specified timeframe's business days will be considered. The trading session for a given business day typically begins at 6:00 PM ET on the prior calendar date. Under the standard schedule, trading is open from 6:00:00 PM ET Sunday through 5:00:00 PM ET Friday, with a daily break from 5:00:00 PM ET to 6:00:00 PM ET, except where modified by holiday or special-session hours.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIf Gold (XAUUSD) does not trade at all during the listed time frame, this market will resolve to \"No\".\n\nIn the event of a contract specification change, feed change, or similar structural modification affecting the market during the listed time frame, this market will resolve based on adjusted prices as displayed on Pyth.\n\nThe resolution source for this market is Pyth \u2014 specifically, the Gold (XAUUSD) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Metal.XAU%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter.\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published for the relevant CME COMEX futures contract for the underlying metal\u2014COMEX Gold Futures (GC)\u2014may be used to determine whether the listed price was reached during the applicable trading session.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.06,
+          "rationale": "Spot gold fell about 9% in the week to 2026-11-20, touching about 3,513 with a close near 3,538 (https://ancstockinvestments.com/blog/2026/11/20/gold-price-this-week-worst-drop-since-march/), so 3,850 is roughly 9% above the last level. A rebound of that size inside one holiday-shortened week is a tail even with high volatility; it was last above the line on 2026-11-17 (Kitco snippet, https://www.kitco.com/charts/gold?sitetype=fullsite). No FOMC decision falls in the window (Dec 8-9), and no price after Nov 20 was found.",
+          "sources": [
+            "https://ancstockinvestments.com/blog/2026/11/20/gold-price-this-week-worst-drop-since-march/",
+            "https://www.kitco.com/charts/gold?sitetype=fullsite",
+            "https://goldrates.com/news/gold-prices-plunge-14-month-low-november-2026/"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.06,
+          "claude_weight": -0.288074,
+          "intercept": 0.102992,
+          "market": 0.08,
+          "method": "learned_model_v1",
+          "probability": 0.111918,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.157412,
+          "raw": 0.06,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.08
+        }
+      ],
+      "id": "polymarket-7210779",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-27",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/will-xauusd-hit-week-of-november-23-2026",
+      "status": "pending",
+      "title": "Will Gold (XAUUSD) hit (HIGH) $3,850 Week of November 23 2026?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.77
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.77,
+          "rationale": "Fortune had ETH at $1,716.20 on the morning of 2026-11-23 and about $1,731 on Nov 20 (https://fortune.com/article/price-of-ethereum-11-23-2026/, https://fortune.com/article/price-of-ethereum-11-20-2026/), about 7% above 1,600. ETH is down about 28% in a month with ETF outflows, and a 7% fall in three to four days is plausible at this volatility; the Nov 25 PCE release falls in the window (BEA snippet). This stays consistent with my 12% for a dip to 1,500 in November.",
+          "sources": [
+            "https://fortune.com/article/price-of-ethereum-11-23-2026/",
+            "https://fortune.com/article/price-of-ethereum-11-20-2026/",
+            "https://en.coinotag.com/ethereum-spot-etfs-8-4m-net-outflow-nov-16"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.77,
+          "claude_weight": -0.163141,
+          "intercept": 0.102992,
+          "market": 0.807,
+          "method": "learned_model_v1",
+          "probability": 0.812304,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.748224,
+          "raw": 0.77,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.807
+        }
+      ],
+      "id": "polymarket-7203504",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-27",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-27-2026",
+      "status": "pending",
+      "title": "Will the price of Ethereum be above $1,600 on November 27?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.1
+      },
+      "detail": "This market will resolve to \"Yes\" if the Close price for NVIDIA (NVDA) on the final day of trading of the week specified in the title (normally Friday) is higher than the listed price. Otherwise, this market will resolve to \"No.\"\n\nIf the two specified prices are exactly equal, this market will resolve to \"No\".\n\nClosing prices will be used exactly as published by Pyth, without rounding.\n\nIf NVIDIA (NVDA) does not trade at all during the regular session of the final trading day of the week, the market will resolve 50-50.\n\nFor a standard full trading session, the closing price refers to the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of regular trading hours on the primary exchange. If the relevant session is shortened (for example, due to a market-holiday schedule), the Pyth \"Close\" value of the 1-minute candle corresponding to the final minute of that shortened session will be used.\n\nIf the relevant day has no valid Pyth Close value for the 1-minute candle corresponding to the end of regular trading hours on the primary exchange, the market will use the last valid Pyth price achieved during the regular trading hours of the primary exchange as the effective closing price. If no valid Pyth price exists for that trading day due to a system outage, data failure, or other technical disruption, the official closing price published by the primary exchange on which the listed security trades will be used to determine the closing price for that day.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed security during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth. The target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market will be Pyth, specifically the \"Close\" values for the relevant 1-minute candle for NVIDIA (NVDA) available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.1,
+          "rationale": "NVDA closed 150.96 on 2026-11-18, down from 162.85 on Nov 13 (https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-19-2026/), and it made a low below 148 during the week of Nov 16 (my 148 call resolved yes), so it is likely below 150 now. A close above 160 on the shortened 2026-11-27 session needs a rebound of roughly 6% to 12% in about four sessions amid CEO succession worries (https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition, 2026-11-12). No close after Nov 18 was found, so the gap is uncertain.",
+          "sources": [
+            "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-19-2026/",
+            "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+            "https://www.nyse.com/markets/hours-calendars"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.1,
+          "claude_weight": -0.288074,
+          "intercept": 0.102992,
+          "market": 0.465,
+          "method": "learned_model_v1",
+          "probability": 0.637749,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.2158,
+          "raw": 0.1,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.465
+        }
+      ],
+      "id": "polymarket-7210452",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-27",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/nvda-above-on-november-27-2026",
+      "status": "pending",
+      "title": "Will NVIDIA (NVDA) finish week of November 23 above $160?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.9
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.9,
+          "rationale": "BTC was about 60k-61k on 2026-11-23 and 11-24 after a brief spike to 64,427 (https://kucoin.com/news/articles/crypto-daily-market-report-november-24-2026), with a recent low near 55,100-55,300 (https://ceoeconomy.com/article/crypto-week-in-review-nov-21-2026). The 54,000 line is about 11% below spot with four days to the noon ET close on 2026-11-28, which a fall of that size in a downtrend with ETF outflows could still reach but is a tail outcome. It is consistent with my 94% for above 56,000 on Nov 25 and my low odds of a dip to 55,000 in November.",
+          "sources": [
+            "https://kucoin.com/news/articles/crypto-daily-market-report-november-24-2026",
+            "https://ceoeconomy.com/article/crypto-week-in-review-nov-21-2026"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.9,
+          "claude_weight": -0.163141,
+          "intercept": 0.102992,
+          "market": 0.9155,
+          "method": "learned_model_v1",
+          "probability": 0.912244,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.855712,
+          "raw": 0.9,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.9155
+        }
+      ],
+      "id": "polymarket-7233246",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-28",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-28-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $54,000 on November 28?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.9
+      },
+      "detail": "This market will resolve to \"Yes\" if Donald Trump makes a public statement in which he insults any non-fictional individual on the specified date (ET). Otherwise, this market will resolve to \"No\".\n\nA qualifying public statement is any written, verbal, or recorded statement which is either made in a public setting, published by the speaker, or on the record to media, and the direct language of which is made publicly available on the specified date (ET). Pre-recorded public statements will count for the date (ET) that they are made publicly available. Statements made in private that are subsequently leaked will not qualify, even if credibly reported. Narrations and paraphrasings do not qualify.\n\nImages and videos posted on verified social media accounts will only qualify if they contain insulting language clearly directed at the individual, whether within the content itself or in an accompanying caption. Language within the content of a video will only qualify if Donald Trump is clearly portrayed as saying it. Insulting language within the content of a video said by anyone other than Donald Trump or a portrayal thereof will not qualify.\n\nA quote post will qualify if added language independently qualifies as an insult, or endorses insulting language directed at the individual within the quoted post; a repost of another account's post will not qualify.\n\nA public statement qualifies as an insult if it mocks, degrades, or disparages the individual either personally or professionally. This includes calling the individual a clearly insulting trait (e.g., weak, stupid, disloyal, a failure), using an insulting nickname (e.g., Crooked Hillary), using other clearly derogatory language, or using the negative form of a positive trait in a clearly derogatory manner (e.g., \u201cHe isn\u2019t smart\u201d, \u201cHe has no judgment\u201d). Disparaging the individual in their professional capacity will qualify (e.g., \"He is a disaster candidate,\" \"He is terrible at his job\"); however, negative comments directed at the individual's specific actions, policies, or decisions will not qualify (e.g., \"He has bad policies,\" \"He is wrong about healthcare\").\n\nA statement made in direct reference to the individual will qualify even if they are not named, so long as it is reasonably clear from context that they are the subject. \n\nThe resolution sources will be public statements made by Donald Trump and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.9,
+          "rationale": "Trump posts about 19 times a day on Truth Social (https://www.npr.org/2026/05/08/nx-s1-5749358/trump-truth-social-online-posts-iran-white-house-ballroom, 2026-05-08), and 2026 insults of named people appear regularly, such as Newsom on Oct 9 (https://atlantablackstar.com/2026/10/15/trump-claims-he-doesnt-call-people-names-then-newsom-throws-his-nastiest-insults-back-in-his-face-with-receipts/) and Ossoff and Talarico nicknames. No verified November 2026 insult was found and no public schedule for Nov 27 exists, so a quiet holiday-Friday is the main risk, along with the strict rule that reposts and policy criticism do not count.",
+          "sources": [
+            "https://www.npr.org/2026/05/08/nx-s1-5749358/trump-truth-social-online-posts-iran-white-house-ballroom",
+            "https://atlantablackstar.com/2026/10/15/trump-claims-he-doesnt-call-people-names-then-newsom-throws-his-nastiest-insults-back-in-his-face-with-receipts/",
+            "https://www.thedailybeast.com/donald-trump-80-hurls-obscene-nickname-at-rising-dem-star-jon-ossoff-in-morning-meltdown/"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.9,
+          "claude_weight": -0.35576,
+          "intercept": 0.102992,
+          "market": 0.635,
+          "method": "learned_model_v1",
+          "probability": 0.507861,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.855712,
+          "raw": 0.9,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.635
+        }
+      ],
+      "id": "polymarket-6596314",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-28",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/will-trump-publicly-insult-someone-on-november-2026",
+      "status": "pending",
+      "title": "Will Donald Trump publicly insult someone on November 27, 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "claude": 0.72,
         "market": 0.845,
         "max_move": 0.0,
@@ -20325,6 +20619,54 @@
       "status": "pending",
       "title": "Will Ritchie Torres be the next governor of New York?",
       "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.62
+      },
+      "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-27 be above 4.92 percent?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:35+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.62,
+          "rationale": "The latest dated level is 5.051% on 2026-11-19 after four straight daily declines (https://www.morningstar.com/news/dow-jones/202611198503/10-year-treasury-yield-falls-to-5051-data-talk), with a FRED snippet of 5.10 for 2026-11-17 (https://fred.stlouisfed.org/series/DGS10). The 4.92 line is about 13 bp below that level with roughly six sessions left and no scheduled rate-moving release before the shortened 2026-11-27 session, but nothing after 11-19 was found and the series was 4.84 to 4.90 earlier in November. My earlier thresholds set near the then-current level resolved mixed, so I stay well short of confident.",
+          "sources": [
+            "https://www.morningstar.com/news/dow-jones/202611198503/10-year-treasury-yield-falls-to-5051-data-talk",
+            "https://fred.stlouisfed.org/series/DGS10",
+            "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.514799154334038
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.642667,
+          "raw": 0.62,
+          "results": 285,
+          "slope": 0.698708
+        }
+      ],
+      "id": "ac2a98632cbd32cd",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-30",
+      "scored": true,
+      "series": "treasury_10y",
+      "series_label": "10-year U.S. Treasury yield",
+      "source": "prospective_daily_20261124",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "status": "pending",
+      "title": "Will the 10-year U.S. Treasury yield on Nov 27, 2026 be above 4.92%?",
+      "topic": "Interest rates",
       "verdict": null
     },
     {
@@ -20461,6 +20803,65 @@
       "status": "pending",
       "title": "Will a Millennium Prize Problem be solved in November 2026?",
       "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.06
+      },
+      "detail": "This market will immediately resolve to \"Yes\" if any Binance 1 minute candle for Bitcoin (BTC/USDT) during the date range specified in the title (from 12:00 AM ET on the first date to 11:59 PM ET on the last) has a final \"Low\" price equal to or lower than the price specified in the title. Otherwise, this market will resolve to \"No.\"\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Low\" prices available at https://www.binance.com/en/trade/BTC_USDT, with the chart settings on \"1m\" candles selected on the top bar.\n\nPlease note that the outcome of this market depends solely on the price data from the Binance BTC/USDT trading pair. Prices from other exchanges, different trading pairs, or spot markets will not be considered for the resolution of this market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.06,
+          "rationale": "BTC traded about 60k-64k on 2026-11-23 and 2026-11-24 with a 24h low near 60,351 (https://www.coinglass.com/currencies/BTC, https://kucoin.com/news/articles/crypto-daily-market-report-november-24-2026), so 52,000 is roughly 14% below spot. The week-to-Nov-21 low was about 55,100-55,300 (https://ceoeconomy.com/article/crypto-week-in-review-nov-21-2026), and ETF outflows continue, which keeps tail risk real after my 6% call on the Nov 16-22 dip missed. A touch of 52,000 within six days at current volatility is a tail event and must be no likelier than my 11% for a dip to 55,000 in November.",
+          "sources": [
+            "https://www.coinglass.com/currencies/BTC",
+            "https://kucoin.com/news/articles/crypto-daily-market-report-november-24-2026",
+            "https://ceoeconomy.com/article/crypto-week-in-review-nov-21-2026"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.06,
+          "claude_weight": -0.163141,
+          "intercept": 0.102992,
+          "market": 0.099,
+          "method": "learned_model_v1",
+          "probability": 0.135294,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.157412,
+          "raw": 0.06,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.099
+        }
+      ],
+      "id": "polymarket-7279419",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-30",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/what-price-will-bitcoin-hit-november-23-29-2026",
+      "status": "pending",
+      "title": "Will Bitcoin dip to $52,000 November 23-29?",
+      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -21552,6 +21953,306 @@
     {
       "actual": null,
       "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.02
+      },
+      "detail": "This market will resolve to \"Yes\" if, at any point after market creation and during November 2026, any 1-minute candle for NVIDIA (NVDA) has a final \"High\" or \"Low\" price equal to or beyond (above for \u2191 High Prices, below for \u2193 Low Prices) the listed price. Otherwise, this market will resolve to \"No\".\n\nOnly prices achieved during the regular trading hours of the primary exchange on which the listed security trades (typically 9:30 AM \u2013 4:00 PM ET) will be considered. Prices occurring during pre-market or after-hours trading will not qualify.\n\nPrices will be used exactly as published by Pyth, without rounding.\n\nIn the event of a stock split, reverse stock split, or similar corporate action affecting the listed company during the listed time frame, this market will resolve based on split-adjusted prices as displayed on Pyth.\n\nThe target price will be adjusted proportionally to reflect any stock splits. Resolution will be based on the historical price data as shown on Pyth after any adjustments have been applied.\n\nThe resolution source for this market is Pyth \u2014 specifically, the NVIDIA (NVDA) \"High\" and \"Low\" prices available at https://pythdata.app/explore/Equity.US.NVDA%2FUSD, with the chart settings configured for 1-minute candles.\n\nHistorical 1-minute candles may be accessed by appending a Unix timestamp (seconds) to the Pyth chart URL using the \"t=\" parameter. Any timestamp within the listed market time frame may be used to view the relevant candle data (e.g., https://pythdata.app/explore/Equity.US.NVDA%2FUSD?t=1773432000)\n\nIf the relevant Pyth data is unavailable due to a system outage, data failure, or other technical disruption that prevents verification of the required 1-minute candle data, the official daily high/low price published by the primary exchange on which the listed security trades will be used to determine whether the listed price was reached during the applicable trading session.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.02,
+          "rationale": "NVDA closed 150.96 on 2026-11-18 (https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-19-2026/) and made a new low below 148 in the week of Nov 16 (my 148 call resolved yes), so 200 is over 30% above spot with about four sessions left in November. The only close near 200 was 200.13 on 2026-11-04, before the CEO resignation and selloff (https://foxbusiness.com/markets/nvidia-shares-plunge-more-7-premarket-trading-ceo-uncertainty-rattles-ai-stocks, 2026-11-12). Candles before market creation do not count.",
+          "sources": [
+            "https://www.heygotrade.com/en/news/nvidia-nvda-stock-news-november-19-2026/",
+            "https://foxbusiness.com/markets/nvidia-shares-plunge-more-7-premarket-trading-ceo-uncertainty-rattles-ai-stocks"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.02,
+          "claude_weight": -0.288074,
+          "intercept": 0.102992,
+          "market": 0.0765,
+          "method": "learned_model_v1",
+          "probability": 0.141636,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.077677,
+          "raw": 0.02,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.0765
+        }
+      ],
+      "id": "polymarket-6722265",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/what-price-will-nvda-hit-in-november-2026",
+      "status": "pending",
+      "title": "Will NVIDIA (NVDA) hit (HIGH) $200 in November?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.76
+      },
+      "detail": "This market will resolve according to the number of U.S. Navy aircraft carriers physically located within the U.S. Central Command (CENTCOM) area of responsibility at 12:00 PM ET on November 30, 2026.\n\nFor the purposes of this market, \u201caircraft carriers\u201d refers only to U.S. Navy aircraft carriers designated CVN (e.g., Nimitz-class and Gerald R. Ford-class carriers). Amphibious assault ships (LHA/LHD), other vessels, and ships of any other country will not count.\n\nA carrier will count if it is within the CENTCOM area of responsibility at the specified time, including while making a port call or other stop within the area. A carrier outside the CENTCOM area of responsibility at the specified time (e.g., in transit, or making a port call in the U.S. Indo-Pacific Command or U.S. European Command areas of responsibility) will not count, regardless of whether it is assigned to CENTCOM operations. A carrier that enters the area on November 30, 2026 will count only if it entered at or before 12:00 PM ET; a carrier that departs the area on November 30, 2026 will count only if it departed after 12:00 PM ET.\n\nCarrier locations will be determined by official information from the U.S. Navy, the U.S. Department of Defense, U.S. Central Command, U.S. Indo-Pacific Command, or U.S. European Command, or by a consensus of credible reporting, and may be established by information published after the specified time. In the event of ambiguity as to the number of carriers within the area at the specified time, this market will remain open until the earlier of: (i) confirmation of the relevant carriers' locations at the specified time, or (ii) the end of the seventh calendar day (ET) following November 30, 2026. The market will resolve based on the totality of information available at that time. Any carrier whose presence within the area at the specified time remains materially ambiguous at that point will not be counted.\n\nThe resolution sources for this market will be official information from the United States government and military, including the U.S. Navy, the Department of Defense, U.S. Central Command, U.S. Indo-Pacific Command, and U.S. European Command, and a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.76,
+          "rationale": "USNI reported on 2026-11-18 that USS George Washington left the Middle East, leaving two carriers, USS George H.W. Bush and USS Theodore Roosevelt (https://news.usni.org/2026/11/18/carrier-uss-george-washington-leaves-middle-east-after-three-months). Roosevelt arrived around 2026-11-15 on a scheduled deployment (https://www.aljazeera.com/news/2026/11/16/uss-roosevelt-arrives-in-middle-east-is-the-us-iran-war-about-to-resume), so it is unlikely to leave within two weeks. The risk is Bush, deployed since 2026-03-31 and reportedly extended with the Navy declining to say more (https://www.stripes.com/branches/navy/2026-11-16/roosevelt-middle-east-iran-attacks-bahrain-23481485.html); a departure would make one carrier, and a new arrival three. Nothing after 11-19 was found.",
+          "sources": [
+            "https://news.usni.org/2026/11/18/carrier-uss-george-washington-leaves-middle-east-after-three-months",
+            "https://www.aljazeera.com/news/2026/11/16/uss-roosevelt-arrives-in-middle-east-is-the-us-iran-war-about-to-resume",
+            "https://www.stripes.com/branches/navy/2026-11-16/roosevelt-middle-east-iran-attacks-bahrain-23481485.html"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.76,
+          "claude_weight": -0.467612,
+          "intercept": 0.102992,
+          "market": 0.943,
+          "method": "learned_model_v1",
+          "probability": 0.970011,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.740831,
+          "raw": 0.76,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.943
+        }
+      ],
+      "id": "polymarket-5238401",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/how-many-us-aircraft-carriers-in-centcom-on-november-30",
+      "status": "pending",
+      "title": "Will there be 2 US aircraft carriers in CENTCOM on November 30, 2026?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.08
+      },
+      "detail": "This market will resolve to \"Yes\" if the listed individual meets with Donald Trump between market creation and November 30, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\".\n\nA meeting is defined as any encounter where both the listed individual and Trump are present and interact with each other in person.\n\nThe resolution source will be a consensus of credible reporting.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.08,
+          "rationale": "No reported or scheduled in-person Trump-Musk meeting for Nov 24-30 was found; the latest dated contact was the 2026-10-08 medal summit (https://www.whitehouse.gov/gallery/president-donald-j-trump-attends-the-new-golden-age-summit-with-tech-and-science-leaders-at-the-donald-j-trump-institute-of-peace-in-washington-d-c/). Reported encounters run roughly every one to two months, so a given week carries a low base rate, with Thanksgiving on Nov 26 and the Project Meridian role (https://www.stripes.com/theaters/us/2026-10-01/elon-musk-project-meridian-23025679.html) adding some chance. Musk's recent 'I'm not MAGA' remarks (https://www.actionnewsjax.com/news/world/latest-trump-meets/FFDH5FN63QYJTIJRRTQX2KT53Q/) point to some distance.",
+          "sources": [
+            "https://www.whitehouse.gov/gallery/president-donald-j-trump-attends-the-new-golden-age-summit-with-tech-and-science-leaders-at-the-donald-j-trump-institute-of-peace-in-washington-d-c/",
+            "https://www.stripes.com/theaters/us/2026-10-01/elon-musk-project-meridian-23025679.html",
+            "https://www.actionnewsjax.com/news/world/latest-trump-meets/FFDH5FN63QYJTIJRRTQX2KT53Q/"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.08,
+          "claude_weight": -0.35576,
+          "intercept": 0.102992,
+          "market": 0.4525,
+          "method": "learned_model_v1",
+          "probability": 0.674251,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.188226,
+          "raw": 0.08,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.4525
+        }
+      ],
+      "id": "polymarket-6440122",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/who-will-trump-meet-with-by-november-30-2026",
+      "status": "pending",
+      "title": "Will Trump meet with Elon Musk by November 30, 2026?",
+      "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.48
+      },
+      "detail": "This market will resolve to the number of calendar days on which North Korea (DPRK) conducts a missile launch during November 2026, Pyongyang Time.\n\nIf a single test event spans multiple calendar days, it will count only for the day on which it began.\n\nOnly test launches of ballistic missiles, cruise missiles, and anti-ship missiles will qualify.\n\nTest launches of other systems, including surface-to-air missiles (SAMs), multiple launch rocket systems (MLRS)/rocket artillery, torpedoes, or similar systems, will not qualify.\n\nResolution will be based on publicly available information from reliable sources such as official government statements, reports from international monitoring bodies like the United Nations, or reports from reputable international media.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.48,
+          "rationale": "Seoul called the 2026-11-04 launch the fourth in a month (https://www.thestar.com.my/news/world/2026/11/04/north-korea-fires-multiple-missiles-in-fourth-weapons-launch-in-a-month-seoul-says), and KCNA reported a strategic cruise missile test on 2026-11-02 (https://www.tasnimnews.ir/en/news/2026/11/03/3739008/north-korea-test-fires-strategic-cruise-missiles-kcna/amp), giving about two qualifying days so far. The Nov 4 air-defense test does not count, and the Nov 7 ballistic claim looks like a 2025 misdating; no launch was found for Nov 5-24, though that search was thin. The count stays at 2 only if no further launch day occurs in the last six days and no extra day is confirmed.",
+          "sources": [
+            "https://www.thestar.com.my/news/world/2026/11/04/north-korea-fires-multiple-missiles-in-fourth-weapons-launch-in-a-month-seoul-says",
+            "https://www.tasnimnews.ir/en/news/2026/11/03/3739008/north-korea-test-fires-strategic-cruise-missiles-kcna/amp",
+            "https://www.tasnimnews.ir/en/news/2026/11/05/3740977/north-korea-says-test-fired-new-air-defense-missile-system-long-range-cruise-missile/amp"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.48,
+          "claude_weight": -0.467612,
+          "intercept": 0.102992,
+          "market": 0.257,
+          "method": "learned_model_v1",
+          "probability": 0.207539,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.547105,
+          "raw": 0.48,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.257
+        }
+      ],
+      "id": "polymarket-6403111",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-01",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/number-of-north-korea-missile-tests-in-november-2026",
+      "status": "pending",
+      "title": "Will there be exactly 2 North Korea tests in November 2026?",
+      "topic": "World",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.33
+      },
+      "detail": "This market will resolve based on the next earnings announcement of Salesforce currently scheduled to take place on December 2, 2026 at 5:00 PM ET.\n\nThis market will resolve to \"Yes\" if the listed term is mentioned by anyone during this event. Otherwise, the market will resolve to \"No\".\n\nThe resolution source will be audio of the event.\n\nFor full rules, see: https://polymarket-upload.s3.us-east-2.amazonaws.com/market_products/Mentions/Event+Mentions+Contract+DeFi.pdf",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.33,
+          "rationale": "Salesforce reports Q3 FY27 on 2026-12-02 at 5:00 PM ET (https://investor.salesforce.com/news/news-details/2026/Salesforce-Announces-Date-of-Third-Quarter-Fiscal-2027-Earnings-Release-and-Webcast/default.aspx, 2026-11-10). The 2026-11-19 Copilotforce announcement reportedly includes a Data 360 and Microsoft Fabric (OneLake) zero-copy link, a fresh named reason to say Fabric, and any speaker including analysts counts (https://www.salesforce.com/ap/news/press-releases/2026/11/19/salesforce-and-microsoft-announce-copilotforce-bringing-salesforce-customer-context-and-sales-workflows-to-microsoft-copilot/). Against that, the integration is in preview or pilot, prepared remarks centre on Agentforce and Data 360, and no prior transcript could be checked for the word.",
+          "sources": [
+            "https://investor.salesforce.com/news/news-details/2026/Salesforce-Announces-Date-of-Third-Quarter-Fiscal-2027-Earnings-Release-and-Webcast/default.aspx",
+            "https://www.salesforce.com/ap/news/press-releases/2026/11/19/salesforce-and-microsoft-announce-copilotforce-bringing-salesforce-customer-context-and-sales-workflows-to-microsoft-copilot/",
+            "https://developer.salesforce.com/docs/data/data-cloud-int/guide/c360-a-microsoftfabriconelake-connector.html"
+          ]
+        },
+        {
+          "made_at": "2026-11-24T13:16:54.997034+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.29,
+          "rationale": "Call is confirmed for Dec 2 5pm ET; the Nov 19 Copilotforce announcement with a Data 360 and Microsoft Fabric link gives a fresh reason to say the word, and any speaker (including analysts) counts, but the integration is in preview and the digest could not check any prior transcript. Within 10 points of market."
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.33,
+          "claude_weight": 0.442499,
+          "intercept": 0.102992,
+          "market": 0.214,
+          "method": "learned_model_v1",
+          "probability": 0.301465,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.437846,
+          "raw": 0.33,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.214
+        }
+      ],
+      "id": "polymarket-7231495",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-03",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/what-will-salesforce-say-during-their-next-earnings-call-20261202",
+      "status": "pending",
+      "title": "Will Salesforce say \"Fabric\" during earnings call?",
+      "topic": "Tech",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 4,
         "method": "combined_median_v1",
         "probability": 0.36
@@ -21661,6 +22362,65 @@
       "status": "pending",
       "title": "Will the U.S. economy add more than 29,000 jobs in November 2026?",
       "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.85
+      },
+      "detail": "This market will resolve according to the change in basis points in the policy repo rate resulting from the December 2026 meeting of the Reserve Bank of India Monetary Policy Committee, relative to the level it was prior to this meeting.\n\nThe resolution source will be official information from the Reserve Bank of India Monetary Policy Committee, including the statement or release from its December 2026 meeting, with the decision to be announced on December 4, 2026, as listed on the official Reserve Bank of India calendar (https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=62422). This market may resolve as soon as the statement or release of the Reserve Bank of India Monetary Policy Committee resulting from its December 2026 meeting with relevant data is issued.\n\nIf the specified rate is defined by an upper and lower bound, the relevant change will be the change to the upper bound.\n\nIf the specified rate is changed to a level not expressed in the displayed options, the change will be rounded according to the following guidelines. Increases or decreases of less than 25 bps will be rounded to 25 bps (e.g. an increase or decrease of 10 bps would be considered to be an increase or decrease of 25 bps). Increases or decreases of greater than 25 bps will be rounded to the nearest 25 bps and will be rounded away from 0 in cases of equidistance (e.g., an increase or decrease of 37.5 bps would be considered to be an increase or decrease of 50 bps). Displayed options of \u201cIncrease\u201d or \u201cDecrease\u201d will include policy rate increases or decreases of any size.\n\nIf the specified meeting is postponed to a date and time before the start of the next scheduled meeting, this market will resolve based on the outcome of that postponed meeting. If the specified meeting is cancelled, or postponed such that no decision is announced by the start of the next scheduled meeting, this market will resolve to the \u201cNo Change\u201d bracket. Emergency changes to the specified rate not resulting from the specified meeting will not be considered.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-24T13:11:48+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.85,
+          "rationale": "A Reuters poll run 2026-11-13 to 11-20 found 56 of 61 economists expecting a hike to 5.75% at the Dec 2-4 meeting (https://1027wbow.com/2026/11/20/indias-rbi-expected-to-raise-rates-in-december-deliver-final-hike-in-february-reuters-poll/). October CPI was 6.09%, above the 6% tolerance ceiling, after a 25 bp hike to 5.50% in October with a calibrated tightening stance (https://www.mospi.gov.in/uploads/latestreleasesfiles/1794480048335-Press%20Release%20of%20CPI%20for%20October%202026%20.pdf). Risks are a pause or a 50 bp move, which would not count as 25 bp; the baseline rests on snippets only.",
+          "sources": [
+            "https://1027wbow.com/2026/11/20/indias-rbi-expected-to-raise-rates-in-december-deliver-final-hike-in-february-reuters-poll/",
+            "https://www.mospi.gov.in/uploads/latestreleasesfiles/1794480048335-Press%20Release%20of%20CPI%20for%20October%202026%20.pdf",
+            "https://smefutures.com/rbi-mpc-december-2026-25-bps-repo-rate-hike/"
+          ]
+        },
+        {
+          "as_of": "2026-11-24",
+          "claude": 0.85,
+          "claude_weight": -0.288074,
+          "intercept": 0.102992,
+          "market": 0.86,
+          "method": "learned_model_v1",
+          "probability": 0.859179,
+          "results": 259,
+          "slope": 0.926713
+        },
+        {
+          "as_of": "2026-11-24",
+          "intercept": 0.244908,
+          "method": "claude_calibrated_v1",
+          "probability": 0.811056,
+          "raw": 0.85,
+          "results": 285,
+          "slope": 0.698708
+        },
+        {
+          "made_at": "2026-11-24T10:24:52.124692+00:00",
+          "method": "market_price_v1",
+          "probability": 0.86
+        }
+      ],
+      "id": "polymarket-5197570",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-04",
+      "scored": true,
+      "source": "prospective_markets_20261124",
+      "source_url": "https://polymarket.com/event/reserve-bank-of-india-decision-in-december-2026",
+      "status": "pending",
+      "title": "Will the Reserve Bank of India increase the policy repo rate by 25 bps at the December meeting?",
+      "topic": "Economy",
       "verdict": null
     },
     {
@@ -21934,7 +22694,7 @@
     }
   ],
   "summary": {
-    "brier": 0.2061467692669655,
+    "brier": 0.20495273734760494,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -21962,16 +22722,16 @@
           "rule": 0.11523577566666666
         },
         "counted": {
-          "dates": 6,
-          "difference": -0.003329884166666651,
+          "dates": 7,
+          "difference": 0.00018010692307693366,
           "interval": [
-            -0.013117,
-            0.007884
+            -0.011185,
+            0.011925
           ],
-          "market": 0.06279030083333333,
+          "market": 0.06073720076923077,
           "meets_bar": false,
-          "questions": 12,
-          "rule": 0.059460416666666675
+          "questions": 13,
+          "rule": 0.0609173076923077
         },
         "id": "tech_move_v1",
         "label": "Tech questions",
@@ -21992,16 +22752,16 @@
           "rule": 0.16358129204651162
         },
         "counted": {
-          "dates": 11,
-          "difference": 0.003165741627906976,
+          "dates": 12,
+          "difference": 0.003965041999999974,
           "interval": [
-            -0.008742,
-            0.014895
+            -0.007409,
+            0.01532
           ],
-          "market": 0.19422840372093025,
+          "market": 0.18703670244444445,
           "meets_bar": false,
-          "questions": 43,
-          "rule": 0.19739414534883723
+          "questions": 45,
+          "rule": 0.19100174444444443
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -22019,16 +22779,16 @@
           "rule": null
         },
         "counted": {
-          "dates": 5,
-          "difference": -0.004034873636363644,
+          "dates": 6,
+          "difference": -0.003031967500000003,
           "interval": [
-            -0.009286,
-            0.001052
+            -0.008048,
+            0.001932
           ],
-          "market": 0.06555305545454546,
+          "market": 0.06309863416666667,
           "meets_bar": false,
-          "questions": 11,
-          "rule": 0.06151818181818181
+          "questions": 12,
+          "rule": 0.060066666666666664
         },
         "id": "tech_second_look_v1",
         "label": "Second look on Tech",
@@ -22046,16 +22806,16 @@
           "rule": null
         },
         "counted": {
-          "dates": 10,
-          "difference": -0.003271939942567581,
+          "dates": 11,
+          "difference": -0.003081700866025633,
           "interval": [
-            -0.01121,
-            0.004199
+            -0.010939,
+            0.003854
           ],
-          "market": 0.1737296245945946,
+          "market": 0.16648272717948717,
           "meets_bar": false,
-          "questions": 37,
-          "rule": 0.17045768465202701
+          "questions": 39,
+          "rule": 0.16340102631346154
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -22063,7 +22823,7 @@
         "status": "testing"
       }
     ],
-    "pending": 53,
+    "pending": 64,
     "progress": {
       "changes": [
         {
@@ -22089,10 +22849,10 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.1983625,
-          "market": 0.17854801708333334,
-          "ours": 0.18315113015914583,
-          "questions": 48
+          "claude": 0.199684,
+          "market": 0.17270270140000002,
+          "ours": 0.17712168995278,
+          "questions": 50
         },
         "before": {
           "claude": 0.2016852380952381,
@@ -22158,33 +22918,33 @@
           "wrong": 7
         },
         {
-          "claude": 0.13231052631578946,
-          "market": 0.11154038157894737,
-          "ours": 0.11154038157894737,
-          "questions": 19,
-          "right": 17,
+          "claude": 0.14174761904761907,
+          "market": 0.10400464285714286,
+          "ours": 0.10400464285714286,
+          "questions": 21,
+          "right": 19,
           "start": "2026-11-16",
           "wrong": 2
         }
       ]
     },
-    "resolved": 289,
-    "right": 201,
+    "resolved": 291,
+    "right": 203,
     "toss_ups": 3,
-    "total": 350,
+    "total": 363,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.20106705426356591,
-      "claude_questions": 258,
-      "market": 0.15792281643410852,
-      "ours": 0.20013829165751548,
-      "questions": 258,
+      "claude": 0.20130038461538463,
+      "claude_questions": 260,
+      "market": 0.15695737265384616,
+      "ours": 0.19884811345245768,
+      "questions": 260,
       "since_anchored": {
-        "claude": 0.2165139534883721,
+        "claude": 0.21717555555555557,
         "date": "2026-11-10",
-        "market": 0.19422840372093025,
-        "ours": 0.19422840372093025,
-        "questions": 43
+        "market": 0.18703670244444445,
+        "ours": 0.18703670244444445,
+        "questions": 45
       }
     },
     "wrong": 85
