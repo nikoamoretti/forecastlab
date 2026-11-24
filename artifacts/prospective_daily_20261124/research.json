@@ -1,0 +1,19 @@
+{
+  "cost_usd": {},
+  "failed": {
+    "ac2a98632cbd32cd": "RuntimeError: claude exited 1: e\":{}},\"safety_stops\":0,\"is_error\":true,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"Failed to authenticate: OAuth session expired and could not be refreshed\",\"type\":\"result\",\"duration_ms\":68,\"uuid\":\"330e3c2d-4794-4ea2-abde-75d095e2043d\",\"queued_"
+  },
+  "findings": {},
+  "mode": "live",
+  "model": "haiku",
+  "model_family": "claude",
+  "passes": 5,
+  "provider": "cursor",
+  "researched_at": "2026-11-24T10:25:42+00:00",
+  "researched_by": {},
+  "runs": 2,
+  "seconds": {
+    "ac2a98632cbd32cd": 4.9
+  },
+  "sources": {}
+}
