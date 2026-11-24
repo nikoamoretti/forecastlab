@@ -1,5 +1,6 @@
 {
   "cost_usd": {},
+  "downloaded_at": "2026-11-24T10:26:22.581250+00:00",
   "failed": {
     "ac2a98632cbd32cd": "RuntimeError: claude exited 1: e\":{}},\"safety_stops\":0,\"is_error\":true,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"Failed to authenticate: OAuth session expired and could not be refreshed\",\"type\":\"result\",\"duration_ms\":68,\"uuid\":\"330e3c2d-4794-4ea2-abde-75d095e2043d\",\"queued_"
   },

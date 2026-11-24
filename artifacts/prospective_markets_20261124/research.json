@@ -1,5 +1,6 @@
 {
   "cost_usd": {},
+  "downloaded_at": "2026-11-24T10:26:22.581527+00:00",
   "failed": {
     "polymarket-5197570": "RuntimeError: claude exited 1: e\":{}},\"safety_stops\":0,\"is_error\":true,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"Failed to authenticate: OAuth session expired and could not be refreshed\",\"type\":\"result\",\"duration_ms\":62,\"uuid\":\"6c530ac3-c0df-4556-8258-4157eb2b7c02\",\"queued_",
     "polymarket-5238401": "RuntimeError: claude exited 1: e\":{}},\"safety_stops\":0,\"is_error\":true,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"Failed to authenticate: OAuth session expired and could not be refreshed\",\"type\":\"result\",\"duration_ms\":84,\"uuid\":\"b7ef81aa-2db2-40f7-8d92-5c678042d454\",\"queued_",
