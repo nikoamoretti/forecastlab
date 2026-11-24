@@ -1,0 +1,51 @@
+name: Vercel upload probe
+# One-off check for the release fix of 2026-11-24: can the release tokens put a file in
+# Vercel's file store (POST /v2/files)? It creates no deployment and prints only status codes.
+on:
+  push:
+    branches: [claude/vercel-upload-probe]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: production
+    steps:
+      - name: Upload a small file and an empty file with each release token
+        env:
+          API_TOKEN: ${{ secrets.FORECASTLAB_API_VERCEL_TOKEN }}
+          WEB_TOKEN: ${{ secrets.FORECASTLAB_WEB_VERCEL_TOKEN }}
+          TEAM: team_bpaUtKwQ9fN7jXrJZlx3V2dN
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, re, urllib.error, urllib.request
+
+          def clean(value, limit):
+              return re.sub(r"[^A-Za-z0-9 _.,()/-]", "", str(value))[:limit]
+
+          for name in ("API_TOKEN", "WEB_TOKEN"):
+              token = os.environ.get(name, "")
+              if not token:
+                  print(name, "is not set in this environment")
+                  continue
+              for data in (b"forecastlab upload probe 2026-11-24\n", b""):
+                  request = urllib.request.Request(
+                      "https://api.vercel.com/v2/files?teamId=" + os.environ["TEAM"], data=data, method="POST",
+                      headers={"Authorization": "Bearer " + token, "Content-Type": "application/octet-stream",
+                               "Content-Length": str(len(data)), "x-vercel-digest": hashlib.sha1(data).hexdigest()})
+                  try:
+                      with urllib.request.urlopen(request, timeout=60) as response:
+                          status, body = response.status, response.read()
+                  except urllib.error.HTTPError as error:
+                      status, body = error.code, error.read()
+                  try:
+                      parsed = json.loads(body or b"{}")
+                  except ValueError:
+                      parsed = {}
+                  error = parsed.get("error", {}) if isinstance(parsed, dict) else {}
+                  error = error if isinstance(error, dict) else {}
+                  print(name, "bytes", len(data), "status", status, "code", clean(error.get("code", ""), 60),
+                        "message", clean(error.get("message", ""), 160),
+                        "keys", sorted(parsed) if isinstance(parsed, dict) else type(parsed).__name__)
+          PY
