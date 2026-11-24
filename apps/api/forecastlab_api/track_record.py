@@ -100,6 +100,12 @@ only the statistical baseline answered). Until then such a question fell back to
 on the page with NO_FORECAST_NOTE and counts in no score; the other forecasters' numbers on it are still shown. Calls
 already frozen are not touched.
 
+A call frozen earlier for a question Claude did not forecast can be taken out of the record, by the owner's decision
+only: the directory's ``withdrawn_calls.json`` (WITHDRAWN_FILE) maps the question's id to ``{"note", "on"}``. The builder
+then gives the question no call and shows that note; the entry in ``calls.json`` stays exactly as it was written. The
+builder refuses a withdrawal for a question Claude did forecast, or for an id the directory does not have, so the file
+cannot be used to drop a call we made. The first one is the 2026-11-17 question above (owner's decision of 2026-11-24).
+
 The headline score is the Brier score of our call over every decided, scored question
 (``summary.brier``); ``summary.vs_market`` is the fair comparison with the market on the
 questions it also priced, using the same call.
@@ -204,6 +210,9 @@ PROMOTION_INTERVAL = (0.05, 0.95)
 BOOTSTRAP_RESAMPLES = 2000
 BOOTSTRAP_SEED = 20261110
 CALLS_FILE = "calls.json"
+# Calls the owner took out of the record, beside calls.json: {question id: {"note": shown on the page, "on": the day}}.
+# Only for a question Claude did not forecast; the frozen calls.json entry is left as written and is no longer used.
+WITHDRAWN_FILE = "withdrawn_calls.json"
 CALIBRATED = "claude_calibrated_v1"
 CALIBRATED_FROM = date(2026, 10, 31)
 # The research upgrade (5 research passes) applies to forecasts made from this day.
@@ -472,6 +481,14 @@ def _research(artifacts: Path, source: str, loaded: dict[str, dict[str, Any] | N
     if source not in loaded:
         path = artifacts / source / "research.json"
         loaded[source] = json.loads(path.read_text()) if path.exists() else None
+    return loaded[source]
+
+
+def _withdrawn(artifacts: Path, source: str, loaded: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """A directory's withdrawn calls (WITHDRAWN_FILE), read once; empty when it has none."""
+    if source not in loaded:
+        path = artifacts / source / WITHDRAWN_FILE
+        loaded[source] = json.loads(path.read_text()) if path.exists() else {}
     return loaded[source]
 
 
@@ -883,6 +900,8 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             question["forecasts"].append({"method": LEARNED, **kept[question["id"]]})
             question["forecasts"].sort(key=lambda f: PRIMARY_ORDER.index(f["method"])
                                        if f["method"] in PRIMARY_ORDER else len(PRIMARY_ORDER))
+    withdrawn: dict[str, dict[str, Any]] = {}
+    taken_out: set[tuple[str, str]] = set()
     for question in questions:
         day = _forecast_day(question)
         if day is None or day < WEIGHTED_FROM:
@@ -897,11 +916,22 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
             if question["id"] not in calls and (fresh := pick(question["forecasts"], weights)):
                 calls[question["id"]] = fresh
             call = calls.get(question["id"])
+        withdrawal = _withdrawn(artifacts, question["source"], withdrawn).get(question["id"])
+        if withdrawal:
+            if _claude_probability(question) is not None:
+                raise ValueError(f"{question['source']}/{WITHDRAWN_FILE}: {question['id']} has a forecast by Claude; only a "
+                                 "call on a question Claude did not forecast can be withdrawn")
+            taken_out.add((question["source"], question["id"]))
+            call = None  # the frozen entry stays in calls.json; it is just not our call any more
         question["call"] = call
         question["verdict"] = verdict(call["probability"], question["outcome"]) if call else None
-        if (call is None and day is not None and day >= OWN_CALL_FROM and question["status"] != "cancelled"
+        if withdrawal:
+            question["note"] = withdrawal["note"]
+        elif (call is None and day is not None and day >= OWN_CALL_FROM and question["status"] != "cancelled"
                 and not question.get("note")):
             question["note"] = NO_FORECAST_NOTE
+    if unknown := sorted((source, qid) for source, entries in withdrawn.items() for qid in entries if (source, qid) not in taken_out):
+        raise ValueError(f"{WITHDRAWN_FILE} names questions that do not exist: {unknown}")
     if freeze:
         for source, calls in frozen.items():
             path = artifacts / source / CALLS_FILE

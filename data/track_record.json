@@ -1,23 +1,23 @@
 {
   "calibration": {
-    "as_of": "2026-11-23",
-    "intercept": 0.251147,
-    "results": 278,
-    "slope": 0.710198
+    "as_of": "2026-11-24",
+    "intercept": 0.236174,
+    "results": 284,
+    "slope": 0.699272
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. From Nov 5 it was Claude's own forecast, which had beaten the combination. For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. From 2026-11-23 it is Claude's own forecast again, with the market's price beside it as the yardstick; a tested edge that has beaten the market takes its place on the questions it covers.",
-      "brier": 0.20633482374140852,
+      "brier": 0.2061467692669655,
       "coin_flip_brier": 0.25,
-      "forecasts": 350,
+      "forecasts": 349,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-23",
       "method": "combined_median_v1",
-      "resolved": 290,
+      "resolved": 289,
       "right": 201,
       "toss_ups": 3,
-      "wrong": 86
+      "wrong": 85
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
@@ -203,16 +203,16 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.2535067119236931,
+      "brier": 0.2532409395188137,
       "coin_flip_brier": 0.25,
       "forecasts": 32,
       "label": "Statistical baseline",
       "last_forecast_on": "2026-11-20",
       "method": "statistical_baseline_v1",
-      "resolved": 28,
+      "resolved": 27,
       "right": 11,
       "toss_ups": 0,
-      "wrong": 17
+      "wrong": 16
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
@@ -267,31 +267,24 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-23",
+  "generated_on": "2026-11-24",
   "learned_model": {
-    "as_of": "2026-11-23",
-    "intercept": 0.10498,
-    "results": 252,
-    "slope": 0.938092,
+    "as_of": "2026-11-24",
+    "intercept": 0.101121,
+    "results": 258,
+    "slope": 0.924555,
     "weights": {
-      "Crypto": -0.140806,
-      "Economy": -0.263512,
-      "Politics": -0.353743,
-      "Tech": 0.42178,
-      "World": -0.429043
+      "Crypto": -0.163858,
+      "Economy": -0.26521,
+      "Politics": -0.356518,
+      "Tech": 0.441354,
+      "World": -0.46787
     }
   },
   "questions": [
     {
       "actual": "4.92%",
-      "call": {
-        "members": 1,
-        "method": "combined_weighted_v1",
-        "probability": 0.5105708245243129,
-        "weights": {
-          "statistical_baseline_v1": 15.92
-        }
-      },
+      "call": null,
       "detail": "Will the first published U.S. 10-year Treasury constant-maturity yield (FRED DGS10) for 2026-11-20 be above 5.15 percent?",
       "forecasts": [
         {
@@ -300,6 +293,7 @@
         }
       ],
       "id": "1346d2fd3076f500",
+      "note": "Claude made no forecast on this question because its research failed on Nov 17, 2026. Until Nov 24 the statistical baseline's 51% stood in as our call and it was counted as wrong. A number Claude did not give is not our call, so it was taken out: we have no call on it and it counts in no score.",
       "outcome": 0,
       "report_url": null,
       "resolves_on": "2026-11-23",
@@ -311,7 +305,7 @@
       "status": "resolved",
       "title": "Will the 10-year U.S. Treasury yield on Nov 20, 2026 be above 5.15%?",
       "topic": "Interest rates",
-      "verdict": "wrong"
+      "verdict": null
     },
     {
       "actual": "Polymarket: No",
@@ -21940,7 +21934,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20633482374140852,
+    "brier": 0.2061467692669655,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -22174,7 +22168,7 @@
         }
       ]
     },
-    "resolved": 290,
+    "resolved": 289,
     "right": 201,
     "toss_ups": 3,
     "total": 350,
@@ -22193,7 +22187,7 @@
         "questions": 43
       }
     },
-    "wrong": 86
+    "wrong": 85
   },
   "version": "track_record_v2"
 }
