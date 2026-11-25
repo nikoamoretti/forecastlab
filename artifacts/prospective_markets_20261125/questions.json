@@ -1,0 +1,62 @@
+{
+  "questions": [
+    {
+      "closes_at": "2026-11-27T17:00:00Z",
+      "id": "polymarket-7203524",
+      "market_url": "https://polymarket.com/event/bitcoin-above-on-november-27-2026",
+      "question": "Will the price of Bitcoin be above $58,000 on November 27?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-12-04T13:30:00Z",
+      "id": "polymarket-6992447",
+      "market_url": "https://polymarket.com/event/november-2026-unemployment-rate-canada",
+      "question": "Will Canada\u2019s November 2026 unemployment rate be 6.7%?",
+      "resolution_criteria": "This market will resolve according to the seasonally adjusted unemployment rate (15 years and over, total) reported by Statistics Canada in the Labour Force Survey for November 2026.\n\nThe resolution source for this market is the Labour Force Survey, published by Statistics Canada every month at https://www150.statcan.gc.ca/n1/dai-quo/cal1-eng.htm.\n\nThe next data release is scheduled for December 4, 2026. This market will resolve as soon as the relevant data is issued. Any revisions to the data after the first release will not count toward this market's resolution.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports unemployment to one decimal point. Thus, this is the level of precision that will be used when resolving the market.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-27T17:00:00Z",
+      "id": "polymarket-7203543",
+      "market_url": "https://polymarket.com/event/solana-above-on-november-27-2026",
+      "question": "Will the price of Solana be above $65 on November 27?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for SOL/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the SOL/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/SOL_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance SOL/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-12-04T13:30:00Z",
+      "id": "polymarket-6937481",
+      "market_url": "https://polymarket.com/event/november-unemployment-rate-2026",
+      "question": "Will the November 2026 unemployment rate be 4.1%?",
+      "resolution_criteria": "This market will resolve according to the seasonally adjusted unemployment rate (total unemployed, as a percent of the civilian labor force, official unemployment rate denoted as U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report for November 2026.\n\nThe resolution source for this market is the Monthly Employment Situation Report, published by the BLS every month at https://www.bls.gov/bls/news-release/empsit.htm, specifically the U-3 measure in Table A-15 for the month in question.\n\nThe relevant data release is scheduled for December 4, 2026, at 8:30 AM ET. This market will resolve as soon as the relevant data is issued. Any revisions to the data after the first release will not count toward this market's resolution.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports unemployment to one decimal point. Thus, this is the level of precision that will be used when resolving the market.",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-28T17:00:00Z",
+      "id": "polymarket-7233228",
+      "market_url": "https://polymarket.com/event/ethereum-above-on-november-28-2026",
+      "question": "Will the price of Ethereum be above $1,500 on November 28?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    },
+    {
+      "closes_at": "2026-12-04T13:30:00Z",
+      "id": "polymarket-6937533",
+      "market_url": "https://polymarket.com/event/how-many-jobs-added-in-november-2026",
+      "question": "Will the US add between 75k and 100k jobs in November?",
+      "resolution_criteria": "This market will resolve according to the change in the total nonfarm payroll employment reported by the BLS \"Employment Situation Summary\" for November 2026, scheduled to be released on December 4, 2026, at 8:30 AM ET.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket. \n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nThe BLS \"Employment Situation Summary\" may be found here: https://www.bls.gov/bls/newsrels.htm",
+      "topic": "Economy"
+    },
+    {
+      "closes_at": "2026-11-29T17:00:00Z",
+      "id": "polymarket-7260535",
+      "market_url": "https://polymarket.com/event/ethereum-above-on-november-29-2026",
+      "question": "Will the price of Ethereum be above $1,400 on November 29?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "topic": "Crypto"
+    }
+  ],
+  "selected_at": "2026-11-25T10:49:21.262111+00:00",
+  "selection": "polymarket_selection_v9+manifold_selection_v4+kalshi_selection_v1"
+}
