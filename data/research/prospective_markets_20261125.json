@@ -1,0 +1,1459 @@
+{
+ "polymarket-6937481": {
+  "against": "Sampling noise makes a 0.1-point move from 4.1% hard to tell apart from no change.\nBLS's own worked example puts the one-month significance threshold at 0.21 points for September 2025 (source 0), and the St.\nLouis Fed (2026-03-02) says 0.1 and 0.2 point single-month moves often fall within normal sampling variation (source 1).\nSo a November print of 4.0% or 4.2% would not need a real labor-market shift.\nOn the data side, continuing claims for the week of Nov/07 came in at 1,763K, above the 1,710K expected and the 1,693K prior (source 2, published 2026-11-19), which points to a softer trend than the 4.1% October print suggests.\nThe October print itself was 0.1 point below the consensus cited in the reply, so forecast misses of that size have already occurred this year.",
+  "base_rate": "Reference class: month-over-month moves in the BLS seasonally adjusted U-3 rate, from the BLS revised series (LNS14000000) as shown on the data page, not first-release prints.\nWindow counted: January 2024 to October 2026, 31 consecutive month-to-month transitions (the October-to-November 2025 gap is skipped because that value is missing).\nOf those 31, 10 left the rate unchanged (about 32%).\n26 of 31 moved by 0.1 point or less (about 84%); 5 moved by 0.2 or more.\nCounts by year: 2024, 4 unchanged of 11; 2025, 3 unchanged of 9 plus the December 2025 to January 2026 step, which moved 0.1; 2026, 3",
+  "brief": "The question settles on the first-published seasonally adjusted U-3 rate for November 2026 in the BLS Employment Situation, scheduled for 2026-12-04 at 08:30 ET (https://www.bls.gov/schedule/news_release/empsit.htm), and a value of exactly 4.1% is needed. October was 4.1%, down from 4.2% in September, below a 4.2% consensus, and BLS said the rate has stayed between 4.1 and 4.3% since March 2026 (https://www.bls.gov/news.release/empsit.nr0.htm, 2026-11-06). The reference class is monthly changes in the BLS seasonally adjusted rate from January 2024 to October 2026: of 31 transitions, 10 (about 32%) were unchanged, 26 moved by 0.1 or less and 5 moved by 0.2 or more (https://data.bls.gov/timeseries/LNS14000000). Sampling noise matters: BLS puts the 90% significance threshold for a one-month change near 0.21 points (https://www.bls.gov/cps/factsheets/statistical-significance-unemployment-rate-change-over-time.htm), and the St. Louis Fed says 0.1 and 0.2 point moves often sit within normal variation (https://www.stlouisfed.org/on-the-economy/2026/mar/understanding-statistical-significance-monthly-unemployment-data). Initial claims were 203,000 for the week ended Nov 14 (https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/, 2026-11-19), near historic lows, while continuing claims rose to 1.763 million against 1.710 million expected (https://www.newsquawk.com/headlines/us-continuing-jobless-claims-nov07-1763k-vs-exp-1710k-prev-1693k). Governor Waller called the labor market stable on 2026-11-10. No November consensus was found, and the release date could change only with a government funding lapse, none of which was found. Because 4.1% is the low edge of the recent band, a print of 4.2% is a live alternative to no change, and a Nov 25-26 claims release or a consensus forecast would sharpen this.",
+  "brief_written_at": "2026-11-25T12:41:05+00:00",
+  "different_now": "The labor market looks stable, not deteriorating.\nWeekly initial claims are near historic lows, at 203,000 for the week ended November 14 (reported 2026-11-19), and the four-week average is about 197,750.\nContinuing claims rose to about 1.76 million, which is a mild warning sign.\nWaller (2026-11-10) called the labor market stable.\nThe 4.1% October print came in below a 4.2% consensus, so the rate has held in a 4.1\u20134.3% band since March.\nBoth points lean toward the rate staying at 4.1%, but they do not settle a move of 0.1 point either way.\nThe December 8-9 FOMC meeting falls after the December",
+  "facts": [
+   {
+    "fact": "BLS reported the October 2026 U-3 unemployment rate at 4.1 percent (7.1 million unemployed) in the Employment Situation released Friday, November 6, 2026.",
+    "source": 0
+   },
+   {
+    "fact": "BLS's schedule lists the November 2026 reference-month Employment Situation for release on Dec.\n04, 2026 at 08:30 AM.",
+    "source": 1
+   },
+   {
+    "fact": "The BLS release for October 2026 revised August payroll change up by 53,000 (to +186,000) and September up by 31,000 (to +60,000).",
+    "source": 0
+   },
+   {
+    "fact": "BLS states the current edition of The Employment Situation is always posted at www.bls.gov/news.release/empsit.nr0.htm, and archived releases may have been revised.",
+    "source": 2
+   },
+   {
+    "fact": "The BLS reported the October 2026 seasonally adjusted unemployment rate at 4.1 percent in the release dated 2026-11-06.",
+    "source": 0
+   },
+   {
+    "fact": "The BLS said the unemployment rate had stayed between 4.1 and 4.3 percent since March 2026, as of the 2026-11-06 release.",
+    "source": 0
+   },
+   {
+    "fact": "The BLS data page shows the seasonally adjusted rate at 4.2 for September 2026 and 4.1 for October 2026 (extracted 2026-11-25), with no November 2026 value yet.",
+    "source": 3
+   },
+   {
+    "fact": "The BLS data page shows the seasonally adjusted rate at 4.5 for November 2025 and 4.4 for December 2025, and no value for October 2025 because of the 2025 appropriations lapse.",
+    "source": 3
+   },
+   {
+    "fact": "BLS reported the October 2026 unemployment rate at 4.1 percent with 7.1 million unemployed, released 2026-11-06.",
+    "source": 0
+   },
+   {
+    "fact": "The Federal Reserve's 2026 calendar lists the only meeting after November as December 8-9, which is associated with a Summary of Economic Projections; that meeting falls after the December 4 jobs release.",
+    "source": 4
+   },
+   {
+    "fact": "On 2026-11-10 Governor Waller described the labor market as stable with employment close to the FOMC's maximum-employment goal.",
+    "source": 5
+   },
+   {
+    "fact": "Initial jobless claims rose by 1,000 to a seasonally adjusted 203,000 for the week ended November 14, reported 2026-11-19; the four-week average was 197,750, and continuing claims were 1.763 million for the prior week (search summary; not opened in full).",
+    "source": 6
+   },
+   {
+    "fact": "For October 2026, the consensus median unemployment forecast was 4.2%, and the actual print was 4.1%, a downside surprise of 0.1 point (search summary of economist estimates; the original source was not opened).",
+    "source": 6
+   },
+   {
+    "fact": "BLS's worked example (September 2025 data) gives 0.21 points as the minimum one-month change in the unemployment rate needed for statistical significance at 90% confidence.",
+    "source": 8
+   },
+   {
+    "fact": "The St.\nLouis Fed (2026-03-02) says single-month changes of 0.1 and 0.2 percentage points often fall within normal sampling variation and are hard to interpret.",
+    "source": 9
+   },
+   {
+    "fact": "Continuing jobless claims were 1,763K for the week of Nov/07 against an expected 1,710K and a prior 1,693K, per the 2026-11-19 headline.",
+    "source": 10
+   },
+   {
+    "fact": "The BLS schedule page lists the November 2026 reference-month Employment Situation for Dec.\n04, 2026 at 08:30 AM, as fetched 2026-11-25.",
+    "source": 1
+   },
+   {
+    "fact": "The BLS 2026 calendar lists 'Friday, December 04, 2026', 08:30 AM, for the Employment Situation for November 2026; its December 2026 section was last modified November 09, 2026, and its November 2026 section November 03, 2026.",
+    "source": 11
+   },
+   {
+    "fact": "BLS states that its calendar is updated as needed, usually at least a week before a release date, so the December 4 date is confirmed by two BLS calendar pages roughly nine days before release.",
+    "source": 1
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-25T11:04:19.228925+00:00",
+  "research_cost_usd": 0.2263,
+  "research_failed": null,
+  "research_seconds": 240.6,
+  "researched_at": "2026-11-25T11:03:10+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-06",
+    "quotes": [
+     "Total nonfarm payroll employment rose by 165,000 in October, and the unemployment rate changed little at 4.1 percent, the U.S.\nBureau of Labor Statistics reported today.",
+     "Both the unemployment rate, at 4.1 percent, and the number of unemployed people, at 7.1 million, changed little in October.",
+     "Transmission of material in this news release is embargoed until 8:30 a.m.\n(ET) Friday, November 6, 2026",
+     "The unemployment rate has remained in a narrow range of 4.1 percent to 4.3 percent since March."
+    ],
+    "title": "The Employment Situation \u2014 October 2026 (BLS news release, current edition)",
+    "url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "November 2026 Dec.\n04, 2026 08:30 AM",
+     "The BLS calendar contains publication dates for most news releases scheduled to be issued by the BLS national office in upcoming months.\nIt is updated as needed with additional news releases, usually at least a week before their scheduled publication date."
+    ],
+    "title": "BLS release schedule for The Employment Situation",
+    "url": "https://www.bls.gov/schedule/news_release/empsit.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Data in archived news releases may have been revised in subsequent releases.",
+     "The current edition of The Employment Situation news release is always posted at www.bls.gov/news.release/empsit.nr0.htm."
+    ],
+    "title": "Employment Situation Archived News Releases (BLS)",
+    "url": "https://www.bls.gov/bls/news-release/empsit.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Data unavailable due to the 2025 lapse in appropriations."
+    ],
+    "title": "LNS14000000: Unemployment Rate (seasonally adjusted), BLS Data Finder",
+    "url": "https://data.bls.gov/timeseries/LNS14000000",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "* Meeting associated with a Summary of Economic Projections."
+    ],
+    "title": "FOMC Calendars (Federal Reserve Board)",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "verified": false
+   },
+   {
+    "published": "2026-11-10",
+    "quotes": [
+     "What is important in the near term is that I see the labor market as stable and employment at a level close to the FOMC's maximum-employment goal."
+    ],
+    "title": "Governor Waller, \"The Economic Outlook and Some Thoughts on Labor Market Dynamism\" (Federal Reserve Board)",
+    "url": "https://federalreserve.gov/newsevents/speech/waller20261110a.htm",
+    "verified": true
+   },
+   {
+    "published": "2026-11-19",
+    "quotes": [],
+    "title": "US jobless claims rise 1,000 to 203,000; continuing claims 1.67 million (news report, not opened in full)",
+    "url": "https://www.newkerala.com/news/a/us-jobless-claims-rise-1000-203000-continuing-claims-670.htm",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "DOL Unemployment Insurance weekly data (PDF; could not be read)",
+    "url": "https://www.dol.gov/ui/data.pdf?stream=top",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "But the _Needed_ column for the 1-month change (which represents the absolute value of the minimum change needed to be statistically significant at a 90 percent confidence level) is: 0.21"
+    ],
+    "title": "BLS fact sheet: statistical significance of unemployment rate change over time",
+    "url": "https://www.bls.gov/cps/factsheets/statistical-significance-unemployment-rate-change-over-time.htm",
+    "verified": false
+   },
+   {
+    "published": "2026-03-02",
+    "quotes": [
+     "When evaluating monthly unemployment data, it is important to recognize that single-month changes of 0.1 percentage points and even of 0.2 percentage points often fall within normal sampling variation and are thus difficult to interpret, while three-month cumulative changes provide stronger evidence of genuine trends."
+    ],
+    "title": "St.\nLouis Fed: Understanding Statistical Significance in Monthly Unemployment Data",
+    "url": "https://www.stlouisfed.org/on-the-economy/2026/mar/understanding-statistical-significance-monthly-unemployment-data",
+    "verified": true
+   },
+   {
+    "published": "2026-11-19",
+    "quotes": [
+     "US Continuing Jobless Claims (Nov/07) 1763K vs.\nExp.\n1710K (Prev.\n1693K)"
+    ],
+    "title": "Newsquawk: US Continuing Jobless Claims (Nov/07) 1763K vs.\nExp.\n1710K (Prev.\n1693K)",
+    "url": "https://www.newsquawk.com/headlines/us-continuing-jobless-claims-nov07-1763k-vs-exp-1710k-prev-1693k",
+    "verified": true
+   },
+   {
+    "published": "2026-11-09",
+    "quotes": [
+     "NOTE: All times on calendar are Eastern Time."
+    ],
+    "title": "BLS 2026 Release Calendar",
+    "url": "https://www.bls.gov/schedule/2026/home.htm",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "No November 2026 consensus forecast for the unemployment rate was found.\nThe only forecast found was for October, and it was a search snippet, not a page I opened.",
+   "The weekly claims figures come from a news summary I did not open in full.\nThe DOL claims PDF could not be read, so the week-ending dates and the next weekly release are not confirmed.",
+   "The Fed calendar page was truncated during fetch, so the full 2026 list was not verified beyond December.",
+   "The BLS schedule could still change: a government funding lapse was flagged in the settling-source notes, and no 2026 lapse affecting the December 4 date was found in the pages I opened.",
+   "Household-survey noise: the rate moved 4.2% to 4.1% between September and October, and a 0.1 change in the first print can come from sampling error alone.\nNothing in the sources I opened indicates the direction of the November figure.",
+   "No November 2026 consensus for the U-3 rate was found; the only forecast located was for October."
+  ]
+ },
+ "polymarket-6937533": {
+  "against": "The October print of +165,000 came in far above the +64,000 consensus that LSEG economists expected, per Fox Business on 2026-11-06, and the FactSet preview expected only +65,000 for the same month, so recent outturns have run well above forecasts.\nThe 2026-11-06 release also revised August up to +186,000 and September up to +60,000, which is a second sign that the recent trend is stronger than the 75k\u2013100k bracket.\nBoth points argue against a November print that falls in the 75k\u2013100k bracket.\nNo November 2026 consensus was found: the search results that name a November figure refer to 2025, and the one 2026 market page is not an economist forecast.",
+  "base_rate": "Reference class: monthly change in total nonfarm payrolls (BLS Employment Situation) that fell in the 75k\u2013100k bracket.\nUsing FRED PAYEMS current-vintage monthly changes computed from levels, Jan 2023\u2013Oct 2026 (46 months): 3 months in the bracket (2024-05 +78k, 2024-06 +87k, 2025-09 +76k), about 6.5%.\nBy year: 2023 0 of 12; 2024 2 of 12; 2025 1 of 12; 2026 0 of 10.\nCaveats: these are current revised values, not the first prints that resolve the market, and the bracket is 25k wide.\nThe 2025 annual benchmark revision and the first-print history were not checked against the BLS archive in this pa",
+  "brief": "The question settles on the first-published change in total nonfarm payrolls for November 2026 in the BLS Employment Situation due 2026-12-04 at 08:30 ET (https://www.bls.gov/schedule/news_release/empsit.htm); it resolves in the 75,000 to 100,000 bracket, with exact boundary values going to the higher bracket. October printed +165,000 with unemployment at 4.1%, and the release revised August up to +186,000 and September up to +60,000 (https://www.bls.gov/news.release/empsit.nr0.htm, 2026-11-06). October beat expectations of about +64,000 (LSEG) and +65,000 (FactSet) (https://www.foxbusiness.com/economy/us-jobs-report-october-2026.amp), while the 12-month average gain was 48,000. The reference class is FRED PAYEMS monthly changes, January 2023 to October 2026: 3 of 46 months (6.5%) fell between 75k and 100k (2024-05 +78k, 2024-06 +87k, 2025-09 +76k), none in 2023 or 2026 so far (https://fred.stlouisfed.org/data/PAYEMS.txt), though these are revised values, not first prints. Recent monthly prints range widely from 60k to 186k, so the plausible November range is wide and a 25k bracket takes a modest share. Initial claims were 203,000 for the week ended Nov 14 against 197,000 expected (https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/), a mild softening signal, and no November consensus was found. JOLTS on 2026-12-01 and the claims release around Nov 26 come before the report. A published consensus near 90,000 would make this outcome more likely, and one far from the bracket would make it less likely.",
+  "brief_written_at": "2026-11-25T12:41:05+00:00",
+  "different_now": "No consensus forecast for the November 2026 payroll print was found; the search results that mention a November figure refer to other years, so nothing public anchors the bracket.\nTwo signals point in different directions.\nThe 2026-11-06 revisions were upward (August +53k, September +31k), which argues against a weak underlying trend, and the October print of +165k is well above the 75k\u2013100k bracket.\nAgainst that, jobless claims rose to 203k for the week ended Nov 14, above the 197k consensus, which is a mild sign of softer hiring.\nThe 12-month average gain cited in the October release was 48k",
+  "facts": [
+   {
+    "fact": "BLS reported total nonfarm payroll employment rose by 165,000 in October 2026, with the unemployment rate at 4.1 percent; the release was embargoed to 8:30 a.m.\nET on Friday, November 6, 2026.",
+    "source": 0
+   },
+   {
+    "fact": "The BLS schedule lists the Employment Situation for November 2026 for release on Friday, December 4, 2026, at 8:30 a.m.\nET.",
+    "source": 1
+   },
+   {
+    "fact": "BLS reported total nonfarm payroll employment rose by 165,000 in October 2026, with unemployment at 4.1%; the release was published 2026-11-06.",
+    "source": 0
+   },
+   {
+    "fact": "The October 2026 report's average monthly gain over the prior 12 months was 48,000.",
+    "source": 2
+   },
+   {
+    "fact": "BLS revised the September 2026 change up from +29,000 to +60,000 in the 2026-11-06 release.",
+    "source": 2
+   },
+   {
+    "fact": "The November 2026 Employment Situation is scheduled for Friday, 2026-12-04 at 8:30 a.m.\nET.",
+    "source": 0
+   },
+   {
+    "fact": "On FRED's current vintage (last updated 2026-11-06), monthly changes from Jan 2023 to Oct 2026 include 2024: May +78k and Jun +87k; 2025: Sep +76k; none in 2023 or 2026 to date.\nThe Aug 2026 (+186k), Sep 2026 (+60k) and Oct 2026 (+165k) values match the BLS release.\nThese are revised values, not first prints.",
+    "source": 3
+   },
+   {
+    "fact": "BLS reported total nonfarm payrolls +165,000 for October 2026 in the release of 2026-11-06, with unemployment at 4.1%.",
+    "source": 0
+   },
+   {
+    "fact": "In the 2026-11-06 release, August 2026 was revised up to +186,000 (from +133,000) and September 2026 was revised up to +60,000 (from +29,000).",
+    "source": 0
+   },
+   {
+    "fact": "Initial jobless claims for the week ended 2026-11-14 were 203,000, up 1,000 from the prior week and above the 197,000 Dow Jones consensus, published 2026-11-19.",
+    "source": 4
+   },
+   {
+    "fact": "The November 2026 Employment Situation is scheduled for Dec.\n4, 2026 at 8:30 AM, per the BLS schedule.",
+    "source": 1
+   },
+   {
+    "fact": "The October 2026 JOLTS report is scheduled for Dec.\n1, 2026 at 10:00 AM, three days before the November jobs report.",
+    "source": 5
+   },
+   {
+    "fact": "The December 2026 FOMC meeting is listed for December 8-9, after the Dec.\n4 jobs release.",
+    "source": 6
+   },
+   {
+    "fact": "A FactSet preview projected the October 2026 total nonfarm payroll change at +65,000 (median estimate), against the September print of +29,000 that was then compared with a 94,000 median estimate.",
+    "source": 8
+   },
+   {
+    "fact": "Private payrolls rose 159,000 in October 2026 against 64,000 expected by economists polled by LSEG, per a November 6, 2026 Fox Business report on the release.",
+    "source": 7
+   },
+   {
+    "fact": "The BLS release page for the October 2026 report is the settling primary source for the November figure; the page could not be opened in this pass because BLS returned 'Access Denied' to automated retrieval (error code 0.4dc8c217.1795604371.d669ae48).",
+    "source": 0
+   },
+   {
+    "fact": "As of 2026-11-25 11:01 UTC, the latest official BLS total nonfarm payroll change is +165,000 for October 2026 (first print, released 2026-11-06), with unemployment at 4.1%.",
+    "source": 0
+   },
+   {
+    "fact": "The 2026-11-06 release revised September 2026 from +29,000 to +60,000 and August 2026 from +133,000 to +186,000.",
+    "source": 0
+   },
+   {
+    "fact": "The BLS release schedule lists the November 2026 Employment Situation for Friday, 2026-12-04 at 8:30 a.m.\nET (schedule read in the prior pass; the schedule page has no quotes in this reply).",
+    "source": 1
+   },
+   {
+    "fact": "A search on 2026-11-25 found no announced funding lapse or change to the 2026-12-04 release date; the most recent BLS calendar in results still lists Dec 4, 2026, but the search results were mostly older than March 2026, so this is not confirmed as of today.",
+    "source": 1
+   },
+   {
+    "fact": "No published economist consensus for November 2026 nonfarm payrolls was found in a search on 2026-11-25; the November figures in results refer to 2025 (for example, a 40,000 forecast and a 64,000 actual for November 2025).",
+    "source": 1
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-25T11:04:19.228925+00:00",
+  "research_cost_usd": 0.2117,
+  "research_failed": null,
+  "research_seconds": 271.5,
+  "researched_at": "2026-11-25T11:03:10+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-06",
+    "quotes": [
+     "Total nonfarm payroll employment rose by 165,000 in October, and the unemployment rate changed little at 4.1 percent, the U.S.\nBureau of Labor Statistics reported today.",
+     "Employment increased in professional and business services, in health care, and in transportation and warehousing.",
+     "The Employment Situation for November 2026 is scheduled to be published on Friday, December 4, 2026, at 8:30 a.m.\n(ET).",
+     "The change in total nonfarm payroll employment for August was revised up by 53,000, from +133,000 to +186,000, and the change for September was revised up by 31,000, from +29,000 to +60,000."
+    ],
+    "title": "Employment Situation Summary - 2026 M10 Results (THE EMPLOYMENT SITUATION - OCTOBER 2026)",
+    "url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The Employment Situation for November 2026 is scheduled to be published on Friday, December 4, 2026, at 8:30 a.m.\n(ET).",
+     "November 2026 / Dec.\n04, 2026 / 08:30 AM"
+    ],
+    "title": "BLS Schedule of Employment Situation releases",
+    "url": "https://www.bls.gov/schedule/news_release/empsit.htm",
+    "verified": false
+   },
+   {
+    "published": "2026-11-06",
+    "quotes": [
+     "Total nonfarm payroll employment rose by 165,000 in October, higher than the average monthly gain of 48,000 over the prior 12 months.",
+     "the change for September was revised up by 31,000, from +29,000 to +60,000."
+    ],
+    "title": "The Employment Situation \u2014 October 2026 release (BLS archive)",
+    "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm",
+    "verified": null
+   },
+   {
+    "published": "2026-11-06",
+    "quotes": [],
+    "title": "FRED series PAYEMS (All Employees, Total Nonfarm), data file",
+    "url": "https://fred.stlouisfed.org/data/PAYEMS.txt",
+    "verified": null
+   },
+   {
+    "published": "2026-11-19",
+    "quotes": [
+     "Initial jobless claims rose by 1,000 to 203,000 in the week ended November 14, more than economists expected.",
+     "Economists polled by Dow Jones had expected 197,000."
+    ],
+    "title": "Jobless claims rise for third week (StockAnalysis)",
+    "url": "https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "October 2026 / Dec.\n01, 2026 / 10:00 AM"
+    ],
+    "title": "BLS release schedule: JOLTS",
+    "url": "https://www.bls.gov/schedule/news_release/jolts.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "December 8-9*"
+    ],
+    "title": "Federal Reserve FOMC calendars",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "verified": false
+   },
+   {
+    "published": "2026-11-06",
+    "quotes": [],
+    "title": "US economy adds 165,000 jobs in October, blowing past expectations",
+    "url": "https://www.foxbusiness.com/economy/us-jobs-report-october-2026.amp",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "FactSet Insight: Total Nonfarm Payrolls for October 2026 are Projected to Rise by 65,000",
+    "url": "https://insight.factset.com/total-nonfarm-payrolls-for-october-2026-are-projected-to-rise-by-65000",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "No economist consensus for November 2026 payrolls was retrievable; the Morningstar preview page returned HTTP 403, so it could not be read.",
+   "The November claims-week data for the week ending Nov 21 was not found in sources; it would be published around Nov 26 and was not checked.",
+   "The tally's clock time was not captured in this pass; the date is confirmed but the HH:MM is approximate.",
+   "The October release revised August and September, so the first November print could be revised again in the January release; the question resolves on the first print.",
+   "Government data delays or schedule changes before Dec 4 were not searched beyond the BLS schedule page.",
+   "The BLS release page could not be opened in this pass (Access Denied), so the October figure, the 48k twelve-month average and the Nov 6 revisions rest on the prior pass and on search snippets, not on quotes from the page."
+  ]
+ },
+ "polymarket-6992447": {
+  "against": "The case for the 6.7% outcome (the rate is unchanged in November) rests on little that I could open.\nThe October print of 6.7%, dated 2026-11-06 per advisor.ca, is the threshold itself, so a November reading of 6.7% needs no move at all.\nSearch snippets dated 2026-11-06 indicate the October figure was a surprise: economists had expected 6.5%, and employment fell only 4.7K against a 12.5K consensus decline, which suggests the labour market was less weak than feared and the rise could partly reflect participation rather than job losses.\nThe snippets also say the labour force rose 28,000 in October, which would be consistent with the rate staying put if participation keeps rising.\nA stable reading is also plausible because the 2026 high was 6.9% in April, so 6.7% sits inside the range seen this year (snippet only).\nNone of this is confirmed by a page I could open, and I found no November 20",
+  "base_rate": "Reference class: month-over-month changes in Canada's seasonally adjusted unemployment rate (15+, one decimal) from the OECD monthly series on FRED, last updated 2026-11-16.\nCounted by hand from the page rows, not by code, so treat as careful tallies.\n1976-02 to 2026-10 (609 month pairs): exactly unchanged 135 (22%), moved by 0.1 either way 237, moved by more than 0.1 237.\n2000-02 to 2026-10 (321 pairs): exactly unchanged 73 (23%), moved by 0.1 either way 143, moved by more than 0.1 105.\nThe counts sum correctly to the pair totals.\nCaveats: the series is OECD's, not StatCan's first print, and ",
+  "brief": "The question settles on the first-published seasonally adjusted November 2026 unemployment rate from the Statistics Canada Labour Force Survey, reported to one decimal and due 2026-12-04 at 08:30 ET (https://www.financecalendar.com/event/canada-labour-force-survey-december-2026/); StatCan's own calendar page did not show that date. October printed 6.7%, up two tenths from 6.5% in September (https://www.cp24.com/news/canada/2026/11/06/unemployment-rate-rose-to-67-in-october-statcan-says/, 2026-11-06), above the 6.5% economists expected. Employment fell about 4,700 in October, a third monthly decline, and the StatCan Daily page itself returned HTTP 403, so details rest on search snippets. The OECD monthly series shows 2026 values of 6.5, 6.7, 6.7, 6.9, 6.6, 6.5, 6.4, 6.4, 6.5, 6.7 for January to October (https://fred.stlouisfed.org/data/LRHUTTTTCAM156S), so 6.7% is inside this year's range. The reference class is month-over-month changes in that series: since 2000, 73 of 321 pairs (23%) were unchanged, 143 moved by 0.1 and 105 moved by more; since 1976, 135 of 609 (22%) were unchanged. A YES needs November to equal October exactly. Economists and the series history suggest some reversal after a 0.2 jump is plausible, while three straight job declines and Capital Economics' comment on remaining slack point to a higher rate; RBC projects a slow decline over the next year. No November consensus was found. The Bank of Canada decision on 2026-12-09 falls after the release. The answer would change with a November consensus or any confirmation that the release date moved.",
+  "brief_written_at": "2026-11-25T12:41:05+00:00",
+  "different_now": "The latest print (6.7% in October, up from 6.5%) equals the threshold, so a YES needs the November rate to be unchanged to one decimal, and the reference class shows about 22% of monthly pairs unchanged (OECD series from the earlier pass).\nThe recent direction of employment points toward a higher rate: three straight monthly job declines, and the October rise was described by economists as a sign of remaining slack.\nRBC's view points the other way: a slow decline over the next year, with monthly numbers called volatile.\nScheduled before resolution: the November LFS on 2026-12-04 (the resolutio",
+  "facts": [
+   {
+    "fact": "Statistics Canada's Labour Force Survey for October 2026 was released on 2026-11-06 and reported a seasonally adjusted unemployment rate of 6.7%.",
+    "source": 1
+   },
+   {
+    "fact": "The October 2026 rate rose two tenths of a point from 6.5% in September 2026, per the CP24 article quoting Statistics Canada.",
+    "source": 1
+   },
+   {
+    "fact": "Per a search snippet I could not open, the 2026 peak of the unemployment rate was 6.9% in April 2026, so the October rate is below that peak; unverified against the StatCan Daily.",
+    "source": 0
+   },
+   {
+    "fact": "A search snippet from a Newfoundland and Labrador release-schedule document lists the November 2026 LFS release as 2026-12-04; the StatCan calendar page I opened does not show a date for that reference period, so this is unconfirmed by StatCan.",
+    "source": 2
+   },
+   {
+    "fact": "The Statistics Canada Labour Force Survey for October 2026, released 2026-11-06, put the seasonally adjusted unemployment rate at 6.7%, up two tenths of a point from 6.5% in September.",
+    "source": 1
+   },
+   {
+    "fact": "The OECD monthly series (distributed by FRED) shows Canada's seasonally adjusted unemployment rate at 6.4% in August 2026, 6.5% in September 2026 and 6.7% in October 2026.",
+    "source": 3
+   },
+   {
+    "fact": "The OECD monthly series shows 2026 values of Jan 6.5, Feb 6.7, Mar 6.7, Apr 6.9, May 6.6, Jun 6.5, Jul 6.4, Aug 6.4, Sep 6.5, Oct 6.7, so April 2026 (6.9%) is the 2026 high to date.",
+    "source": 3
+   },
+   {
+    "fact": "The Bank of Canada's calendar lists its December 2026 Interest Rate Announcement for December 9, 2026 at 09:45 ET.",
+    "source": 4
+   },
+   {
+    "fact": "Statistics Canada's major releases calendar page, as opened on this pass, shows no release date for the November 2026 Labour Force Survey; its only visible date is the modification date 2026-06-10.",
+    "source": 2
+   },
+   {
+    "fact": "Statistics Canada's October 2026 Labour Force Survey, released 2026-11-06, put the unemployment rate at 6.7%, up from 6.5% in September, with employment down about 4,700 jobs (search snippet; the Daily page returned HTTP 403 on this pass).",
+    "source": 0
+   },
+   {
+    "fact": "Yahoo Finance's report on the October 2026 survey says the economy lost 4,700 jobs and the rate rose to 6.7% (search snippet, not opened).",
+    "source": 5
+   },
+   {
+    "fact": "BNN Bloomberg, dated 2026-11-06, reports the labour market shed jobs for a third month in a row, with CIBC saying that trend is hard to ignore (search snippet, not opened).",
+    "source": 6
+   },
+   {
+    "fact": "Search reporting on 2026-11-06 says the October rate of 6.7% was above the 6.5% economists had expected, and that Capital Economics read the uptick as a sign of remaining slack in the job market (search snippet, not opened).",
+    "source": 6
+   },
+   {
+    "fact": "RBC Economics projects the Canadian unemployment rate will keep edging lower and fall below 6% in the second half of 2027 (search snippet, not opened).",
+    "source": 6
+   },
+   {
+    "fact": "A search result describes the November 2026 Labour Force Survey as due December 4, 2026, but Statistics Canada's calendar page opened on this pass does not show that date.",
+    "source": 2
+   },
+   {
+    "fact": "On 2026-11-06 Statistics Canada reported the unemployment rate rose two tenths of a point to 6.7% in October 2026.",
+    "source": 7
+   },
+   {
+    "fact": "The October 2026 Labour Force Survey was published on 2026-11-06 on Statistics Canada's Daily page, which returned HTTP 403 to my fetch, so its text is not verified here.",
+    "source": 0
+   },
+   {
+    "fact": "A 2026-11-06 preview headlined 'Canada's Unemployment Rate Expected to Hold' projected October at 6.5%, unchanged from September, and expected employment to rebound after September's 68.3K job loss (search snippet only; page did not load).",
+    "source": 8
+   },
+   {
+    "fact": "Search snippets dated 2026-11-06 say October employment fell 4.7K against a consensus decline of 12.5K, and that the 6.7% rate came in above the 6.5% economists had expected (snippets only, not opened).",
+    "source": 9
+   },
+   {
+    "fact": "Statistics Canada's April 2026 Labour Force Survey, published 2026-05-08, reported the seasonally adjusted unemployment rate rose 0.2 points to 6.9%.",
+    "source": 10
+   },
+   {
+    "fact": "A third-party calendar, last checked with its publisher on 2026-11-25, lists the November 2026 Labour Force Survey release for Friday 2026-12-04 at 08:30 Eastern.",
+    "source": 11
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-25T11:04:19.228925+00:00",
+  "research_cost_usd": 0.3156,
+  "research_failed": null,
+  "research_seconds": 382.2,
+  "researched_at": "2026-11-25T11:03:10+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-06",
+    "quotes": [],
+    "title": "The Daily: Labour Force Survey, October 2026 (Statistics Canada)",
+    "url": "https://www150.statcan.gc.ca/daily-quotidien/261106/dq261106a-eng.htm",
+    "verified": null
+   },
+   {
+    "published": "2026-11-06",
+    "quotes": [
+     "[Statistics Canada said Friday](https://www150.statcan.gc.ca/n1/daily-quotidien/261106/dq261106a-eng.htm) that the unemployment rate rose two tenths of a point to 6.7 per cent in October.",
+     "Statistics Canada said Friday that the unemployment rate rose two tenths of a point to 6.7 per cent in October."
+    ],
+    "title": "Unemployment rate rose to 6.7% in October, StatCan says (The Canadian Press, via CP24)",
+    "url": "https://www.cp24.com/news/canada/2026/11/06/unemployment-rate-rose-to-67-in-october-statcan-says/",
+    "verified": false
+   },
+   {
+    "published": "2026-06-10",
+    "quotes": [
+     "View the release dates for selected major economic indicators.",
+     "Annual release dates available in PDF format:",
+     "Date modified: 2026-06-10"
+    ],
+    "title": "Statistics Canada release dates for major economic indicators",
+    "url": "https://www150.statcan.gc.ca/n1/dai-quo/cal1-eng.htm",
+    "verified": null
+   },
+   {
+    "published": "2026-11-16",
+    "quotes": [
+     "2026-10-01 6.7",
+     "2026-09-01 6.5",
+     "2026-08-01 6.4"
+    ],
+    "title": "FRED: Infra-Annual Labor Statistics: Monthly Unemployment Rate Total: 15 Years or over for Canada (OECD, seasonally adjusted, monthly)",
+    "url": "https://fred.stlouisfed.org/data/LRHUTTTTCAM156S",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "December 9, 2026 ### Interest Rate Announcement (https://www.bankofcanada.ca/2026/12/interest-rate-announcement-december-9-2026/) 09:45 (ET) On eight scheduled dates each year, the Bank of Canada announces the setting for the overnight rate target in a press release explaining the factors behind the decision."
+    ],
+    "title": "Bank of Canada, December 2026 calendar entry: Interest Rate Announcement",
+    "url": "https://www.bankofcanada.ca/2026/12/",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Canada's unemployment rate jumps to 6.7% as economy loses 4,700 jobs (Yahoo Finance Canada)",
+    "url": "https://ca.finance.yahoo.com/news/canada-unemployment-rate-jumps-6-134729340.html",
+    "verified": null
+   },
+   {
+    "published": "2026-11-06",
+    "quotes": [],
+    "title": "BNN Bloomberg: Economists concerned after labour market sheds jobs for third month in a row",
+    "url": "https://www.bnnbloomberg.ca/business/economics/2026/11/06/economists-concerned-after-labour-market-sheds-jobs-for-third-month-in-a-row/",
+    "verified": null
+   },
+   {
+    "published": "2026-11-06",
+    "quotes": [
+     "Statistics Canada said Friday that the unemployment rate rose two tenths of a point to 6.7% in October."
+    ],
+    "title": "Unemployment rate rose to 6.7% in October",
+    "url": "https://www.advisor.ca/economy/unemployment-rate-rose-to-6-7-in-october/",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Canada's Unemployment Rate Expected to Hold as Hiring Rebounds (6.5%)",
+    "url": "https://www.tmgm.com/eng/analysis/market-news/article/canada-unemployment-rate-set-to-hold-at-65-as-hiring-recovers-202611060953",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Canada's Unemployment Rate Rises to 6.7% in October as Job Market Stalls",
+    "url": "https://www.todocanada.ca/canadas-unemployment-rate-rises-to-6-7-in-october-as-job-market-stalls/",
+    "verified": null
+   },
+   {
+    "published": "2026-05-08",
+    "quotes": [
+     "The unemployment rate increased by 0.2 percentage points to 6.9%, as more people searched for work."
+    ],
+    "title": "The Daily, Labour Force Survey, April 2026 (Statistics Canada)",
+    "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260508/dq260508a-eng.htm",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Statistics Canada is scheduled to publish its Labour Force Survey results for November 2026 on Friday, 4 December 2026 at 08:30 EST (13:30 UTC)."
+    ],
+    "title": "Canada Labour Force Survey December 2026 (financecalendar.com)",
+    "url": "https://www.financecalendar.com/event/canada-labour-force-survey-december-2026/",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "Statistics Canada's Daily pages returned HTTP 403 on this pass, so the October figures rest on search snippets, not the primary text; the StatCan calendar does not show the 2026-12-04 date, so that date is unconfirmed by StatCan.",
+   "One search summary gave the Bank of Canada's final 2026 rate decision as December 10, while the Bank's own calendar entry says December 9, 2026; the Bank's page was the one opened and is the one relied on.",
+   "No November 2026 consensus or forecast for the unemployment rate was found; the only November preview found does not clearly say whether its figures come from the Canadian survey.",
+   "No labour-market news from the last 7 days (2026-11-18 to 2026-11-25) beyond the October release commentary was found, and no source opened on this pass confirmed the Yahoo or BNN wording beyond the snippets.",
+   "The reported April 2026 peak of 6.9% was not re-checked on this pass.",
+   "The StatCan Daily page for October 2026 returned HTTP 403, and the TD page returned HTTP 410, so no primary text on the October release was read; all October detail beyond the advisor.ca quote rests on search snippets."
+  ]
+ },
+ "polymarket-7203524": {
+  "against": "The strongest case for Yes is that every price reading in hand is still above $58,000, and the latest dated one is the most recent: Fortune's $60,458.70 at 7:45 a.m.\nET on 2026-11-24 (source 1) is about 4.2% above the threshold.\nThe two undated readings sit closer, at about 1.6\u20131.7%: the Binance header at 58940.54 (source 3) and the CoinStats ticker at $59,006.48 (source 0).\nA close above $58,000 on Nov 27 therefore needs only a modest rebound or a flat move from the last quotes.\nAgainst that, ETF flows were negative in every week I could read, with about $1.28 billion of outflows Nov 2\u20136 (source 0) and about $1.07 billion Nov 9\u201313 (source 2), so no flow-driven support is visible in the evidence here.",
+  "base_rate": "No count was made in this pass.\nI did not build a reference class of past BTC threshold outcomes from primary data, so no frequency is reported.",
+  "brief": "The question settles on the Binance BTC/USDT 1-minute candle closing at 12:00 ET on 2026-11-27 (17:00 UTC under EST), and the Close must be strictly above 58,000. The Binance ticker returned 58,839.53 at about 10:54 UTC on 2026-11-25 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), about 1.4% above the threshold. The Binance daily candle for 2026-11-24 closed at 59,832 (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32). The standard deviation of 30 daily log returns on those klines is about 2.47%. Over roughly 2.2 days that gives a horizon move of about 3.7%, so the line sits about 0.4 horizon standard deviations below spot. No count of past threshold outcomes was built, so there is no empirical base rate beyond that volatility model. Dated quotes show a steady decline: about 65,650 on 2026-11-14 (https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-continue-bleeding-440337), 62,199 on 2026-11-15, 63,747.99 on 2026-11-19 and 60,458.70 on 2026-11-24 (https://fortune.com/article/price-of-bitcoin-11-24-2026/). US spot bitcoin ETFs lost about 1.28 billion dollars in the week of Nov 2-6 and about 1.07 billion in Nov 9-13, with no confirmed inflow week since. What is different this time is that price is already close to the line after a roughly 8% drop in ten days, and the normal model tends to underrate sudden dips. US Thanksgiving on 2026-11-26 may thin liquidity, though no scheduled macro event inside the window was confirmed. A rebound toward 60,000 or a further slide of about 1.5% would decide the question, and the Binance page readings (58,845 to 58,940) carried no timestamp.",
+  "brief_written_at": "2026-11-25T12:41:05+00:00",
+  "different_now": "Every dated quote in the last 11 days is falling: about $65,650 (Nov 14), $62,199 (Nov 15), $60,458.70 (Nov 24).\nThe only Binance-venue reading, 58940.54, is undated and sits about 1.6% above the $58,000 threshold, against about 4.2% for the last dated quote.\nThe trend pushes toward No, though the threshold is close to the level the earlier pass recorded as a July low.\nI found no scheduled event between now and resolution in the sources I opened.",
+  "facts": [
+   {
+    "fact": "Fortune reports BTC/USD at $63,747.99 at 6 a.m.\nET on November 19, 2026.",
+    "source": 0
+   },
+   {
+    "fact": "The Binance BTC/USDT spot page title shows 58925.89 with no timestamp; the body showed a 'Disconnected' status, so the figure may be stale.",
+    "source": 1
+   },
+   {
+    "fact": "Fortune reported BTC at $63,747.99 at 6 a.m.\nET on 2026-11-19.",
+    "source": 0
+   },
+   {
+    "fact": "Fortune reported BTC at $60,458.70 at 7:45 a.m.\nET on 2026-11-24, down from $63,747.99 five days earlier.",
+    "source": 3
+   },
+   {
+    "fact": "The Binance BTC/USDT trading page, opened on 2026-11-25, showed a last price of 58925.89 in its title line, with no timestamp and a 'Disconnected' status, so the live feed may not have been connected when the page was captured.",
+    "source": 2
+   },
+   {
+    "fact": "The Binance figure (58,925.89) is about 1.5% above the 58,000 threshold; the Fortune figure from 2026-11-24 (60,458.70) is about 4.1% above it.",
+    "source": 2
+   },
+   {
+    "fact": "I could not compute the 30-day standard deviation of daily log returns: I did not obtain a series of daily closes.",
+    "source": 3
+   },
+   {
+    "fact": "Fortune reported BTC/USD at $60,458.70 at 7:45 a.m.\nET on 2026-11-24, the latest dated 2026 quote found in this pass.",
+    "source": 3
+   },
+   {
+    "fact": "The Binance BTC/USDT spot page showed 58940.54 in its header when opened; the page carries no timestamp, so the reading's time is unknown and it differs by about $15 from the 58925.89 figure in the earlier pass.",
+    "source": 2
+   },
+   {
+    "fact": "CoinGecko showed bitcoin at $62,199 at 01:44 UTC on 2026-11-15, down 8.9% in 24 hours and 16.3% over the week.",
+    "source": 4
+   },
+   {
+    "fact": "The Block reported bitcoin trading around $65,650 on the morning of Saturday 2026-11-14.",
+    "source": 5
+   },
+   {
+    "fact": "From about $65,650 on 2026-11-14 to $60,458.70 on 2026-11-24, the dated quotes show a decline of about 8%.",
+    "source": 5
+   },
+   {
+    "fact": "U.S.\nspot bitcoin ETFs had about $1.28 billion of net outflows from Nov 2 to Nov 6, 2026, per a page dated 2026-11-09; this is the only ETF flow figure I could open, and no inflow week after mid-November is confirmed.",
+    "source": 6
+   },
+   {
+    "fact": "When the CoinStats page was fetched, its live ticker showed bitcoin at $59,006.48, down 1.71%, with no timestamp; that is about 1.7% above $58,000.",
+    "source": 6
+   },
+   {
+    "fact": "Fortune reported BTC/USD at $60,458.70 at 7:45 a.m.\nET on 2026-11-24, about 4.2% above $58,000.\nThis was read in an earlier pass and not reopened here.",
+    "source": 3
+   },
+   {
+    "fact": "The Block reported on 2026-11-14 that bitcoin ETFs lost about $1 billion for a second straight week, with the outflow week of Nov 9\u201313 at about $1.07 billion.\nThis was read in an earlier pass and not reopened here.",
+    "source": 5
+   },
+   {
+    "fact": "The Binance BTC/USDT spot page header showed 58940.54 when opened, with no timestamp, about 1.6% above $58,000.\nA separate read in an earlier pass showed 58925.89 and a 'Disconnected' status, so the reading may be stale.",
+    "source": 2
+   },
+   {
+    "fact": "The Binance BTC/USDT spot page title showed 58845.72 when fetched in this pass, with a 'Disconnected' status and no timestamp, so the reading's time is unknown and it may be stale.",
+    "source": 2
+   },
+   {
+    "fact": "StatMuse reports a Bitcoin daily close of $59,747.77 for November 24, 2026, which is about 3.0% above the $58,000 threshold.\nThe source does not name the exchange or pair, so it is not a Binance BTC/USDT measurement.",
+    "source": 7
+   },
+   {
+    "fact": "The same StatMuse page lists an undated latest price of $59,086, about 1.9% above $58,000.",
+    "source": 7
+   },
+   {
+    "fact": "The Binance BTCUSDT spot ticker returned a latest price of 58839.53 when queried on 2026-11-25 at about 10:54 UTC; the response carries no timestamp, so the time is the request time.",
+    "source": 8
+   },
+   {
+    "fact": "The Binance BTCUSDT 1-day kline with open time 1795478400000 (2026-11-24 00:00 UTC) closed at 59832.00, the Nov 24 daily close on Binance.",
+    "source": 9
+   },
+   {
+    "fact": "The Binance REST documentation defines the kline endpoint as returning 'Kline/candlestick bars for a symbol' and states that 'Klines are uniquely identified by their open time', so the 12:00 ET candle is identified by its open time.",
+    "source": 10
+   },
+   {
+    "fact": "The same Binance REST documentation describes the ticker endpoint as returning 'Latest price for a symbol or symbols.'",
+    "source": 10
+   },
+   {
+    "fact": "The Binance BTCUSDT 1-day kline for Nov 25 (open time 2026-11-25 00:00 UTC) was still open at query time, with a last price of 58811.30 at the time of that response, so it is not a final daily close.",
+    "source": 9
+   },
+   {
+    "fact": "Using the 30 completed daily closes from Oct 25 to Nov 24, 2026 on Binance BTCUSDT, the standard deviation of daily log returns is about 0.0247 (2.47%).",
+    "source": 9
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap",
+   "primary"
+  ],
+  "quotes_checked_at": "2026-11-25T11:04:19.228925+00:00",
+  "research_cost_usd": 0.304,
+  "research_failed": null,
+  "research_seconds": 279.2,
+  "researched_at": "2026-11-25T11:03:10+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-19",
+    "quotes": [
+     "At 6 a.m.\nEastern Time on November 19, 2026, the going rate for one Bitcoin (BTC) is $63,747.99."
+    ],
+    "title": "Current price of Bitcoin for Nov.\n19, 2026 | Fortune",
+    "url": "https://fortune.com/article/price-of-bitcoin-11-19-2026/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "58925.89 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+    "url": "https://www.binance.com/en/trade/BTC_USDT?type=spot",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "58925.89 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance",
+     "58940.54 Trade BTC/USDT Spot",
+     "58845.72 Trade BTC/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+    ],
+    "title": "Trade BTC/USDT Spot | Binance",
+    "url": "https://www.binance.com/en/trade/BTC_USDT",
+    "verified": null
+   },
+   {
+    "published": "2026-11-24",
+    "quotes": [
+     "At 7:45 a.m.\nEastern Time today, the price of Bitcoin (1 BTC) is $60,458.70.",
+     "November 24, 2026, 8:00 AM ET"
+    ],
+    "title": "Current price of Bitcoin for November 24, 2026",
+    "url": "https://fortune.com/article/price-of-bitcoin-11-24-2026/",
+    "verified": false
+   },
+   {
+    "published": "2026-11-15",
+    "quotes": [
+     "At 01:44 UTC on November 15, 2026, bitcoin traded at $62,199 according to CoinGecko, down 8.9% in 24 hours and 16.3% over the week."
+    ],
+    "title": "Bitcoin Price Crashes to $62,000: Will the $60,000 Level Hold?",
+    "url": "https://cryptoticker.io/en/bitcoin-price-62000-crash-fed-hike-60000-level-november-15-2026/",
+    "verified": false
+   },
+   {
+    "published": "2026-11-14",
+    "quotes": [
+     "The world's most valuable cryptocurrency fell further on Saturday morning, currently trading around $65,650, per The Block's Bitcoin price page."
+    ],
+    "title": "Bitcoin ETFs lose $1 billion for the second week in a row (The Block)",
+    "url": "https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-continue-bleeding-440337",
+    "verified": null
+   },
+   {
+    "published": "2026-11-09",
+    "quotes": [
+     "U.S.\nspot Bitcoin ETFs recorded approximately $1.28 billion in net outflows between November 2 and November 6, extending the recent run of withdrawals."
+    ],
+    "title": "Spot Bitcoin ETFs Weekly Report: $1.28B in Outflows (November 2\u20136, 2026)",
+    "url": "https://coinstats.app/news/59499a339fec6491ef38a0580daa5efe5d41056cf080b85ce327ea18bed0c4af_Spot-Bitcoin-ETFs-Weekly-Report-128B-in-Outflows-November-26-2026/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The closing price for Bitcoin (BTC) this year is $59,747.77, yesterday.",
+     "The latest price is $59,086."
+    ],
+    "title": "Bitcoin price 2026 | StatMuse Money",
+    "url": "https://www.statmuse.com/money/ask/bitcoin-price-2026",
+    "verified": true
+   },
+   {
+    "published": "2026-11-25",
+    "quotes": [
+     "{\"symbol\":\"BTCUSDT\",\"price\":\"58839.53000000\"}"
+    ],
+    "title": "Binance Spot API: symbol price ticker for BTCUSDT (live response)",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+    "verified": null
+   },
+   {
+    "published": "2026-11-25",
+    "quotes": [
+     "[1795478400000,\"61270.92000000\",\"61682.01000000\",\"59260.00000000\",\"59832.00000000\",\"19707.39868000\""
+    ],
+    "title": "Binance Spot API: BTCUSDT 1-day klines (live response)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Kline/candlestick bars for a symbol.",
+     "Klines are uniquely identified by their open time.",
+     "Latest price for a symbol or symbols."
+    ],
+    "title": "Binance Spot API documentation (rest-api.md, official Binance repo)",
+    "url": "https://raw.githubusercontent.com/binance/binance-spot-api-docs/master/rest-api.md",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "No timestamped Binance BTC/USDT price from 2026-11-24 or 2026-11-25 was found, so the current Binance level is unknown; the 58940.54 header has no time and the page showed a 'Disconnected' status in the earlier pass.",
+   "The daily-close series needed for the 30-day and 7-day realised volatility could not be obtained, so no volatility figure or chance is reported.",
+   "The Binance and Fortune quotes are from different venues or sources (BTC/USD vs BTC/USDT), so the gap between them is not a clean Binance measurement.",
+   "I did not confirm any scheduled event between 2026-11-25 and 2026-11-27 noon ET from an opened primary source; US Thanksgiving on 2026-11-26 may thin liquidity but is not sourced here.",
+   "ETF flow figures (week of Nov 9-13 outflows of about $1.07 billion; year-to-date outflows about $1.98 billion as of Nov 14) appeared only in search summaries and were not confirmed on an opened page, and no flow data after Nov 15 was found.",
+   "No timestamped BTC/USDT price from 2026-11-24 or 2026-11-25 was found, so spot is null and the current level is unknown."
+  ]
+ },
+ "polymarket-7203543": {
+  "against": "The strongest case for NO is trend and proximity.\nBinance daily closes fell from 100.95 on 2026-10-26 to 69.69 on 2026-11-24 (earlier pass), so the 65 level sits about 4% below spot after a month of losses.\nA crypto news headline dated 2026/11 reports SOL at multi-month lows on ETF outflows, China scrutiny and a market selloff, but I could not open the article.\nA mid-November summary reports SOL near $75 and a 52-week low near $60.20; if the $60.20 figure is right, 65 has already been broken earlier in the year, so it is not a firm floor.\nThe unlock calendar gives no in-window supply event (next unlock 2026-12-11, per a DeFiLlama summary I could not open).",
+  "base_rate": "Reference class: 2-day-ahead outcomes of Binance SOLUSDT daily closes.\nOver 997 overlapping 2-day windows from 999 completed daily candles (2024-03-01 to 2026-11-24), the close two days later was above the level equal to a 65 print from today's 67.77 spot (log return above ln(65/67.77)) in 803 windows, 80.5%.\nCaveats: windows overlap, the sample is one price regime, and this is a historical count, not a forecast.\nThe daily vol is the standard deviation of 29 log returns from 30 completed daily closes (the 2026-11-25 candle was partial and excluded).\nThe sources list the Binance API endpoints a",
+  "brief": "The question settles on the Binance SOL/USDT 1-minute candle closing at 12:00 ET on 2026-11-27, which is 17:00 UTC, with a Close strictly above 65. The Binance ticker read 67.73 at 10:52:31 UTC on 2026-11-25 (https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT), about 4.2% above the threshold, and the 2026-11-24 daily close was 69.69 (https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31). The standard deviation of 29 daily log returns is 0.0345, and 0.0293 over the last 7. With about 2.25 days left, spot is roughly 0.8 horizon standard deviations above the line. The reference class is 2-day-ahead Binance SOLUSDT daily closes: across 997 overlapping windows from 2024-03-01 to 2026-11-24, the close two days later cleared the equivalent level in 803, or 80.5% (https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=1000). What is different this time is the slide from 100.95 on 2026-10-26 to 69.69 on 2026-11-24, with a daily low of 64.87 on 2026-11-21, just under the threshold. Headlines cite ETF outflows, China scrutiny and a market-wide selloff (https://www.crowdfundinsider.com/2026/11/323271-solana-sol-price-reaches-multi-month-lows-as-etf-outflows-china-scrutiny-crypto-market-selloff-increase-pressure/), though the page could not be opened and ETF flow reports conflict. The next SOL unlock is listed for 2026-12-11, after resolution. A move back toward 70 or a break below 65 on bitcoin weakness would change the picture.",
+  "brief_written_at": "2026-11-25T12:41:05+00:00",
+  "different_now": "Spot is about 4.2% (log distance -0.041) above the 65 threshold, which is roughly 1.2 times the 30-day daily standard deviation of 0.0345 and about 1.4 times the 7-day figure of 0.0293; the 30-day low of 64.87 on 2026-11-21 sits just under the threshold.\nAbout 6.1 hours remain until 17:00 UTC (12:00 ET on 2026-11-27 under EST), which is about 30 hours after the latest read.\nThe 7-day realised vol is lower than the 30-day figure, which slightly narrows the expected move for a one-to-two-day horizon.\nI found no scheduled SOL-specific event inside the window that I could confirm from an opened pr",
+  "facts": [
+   {
+    "fact": "The Binance daily SOLUSDT candle opening 2026-11-24 00:00 UTC closed at 69.69 USDT.",
+    "source": 0
+   },
+   {
+    "fact": "The Binance daily SOLUSDT candle opening 2026-11-25 00:00 UTC (still open at fetch time, about 10:51 UTC) showed a close of 67.78 USDT, with a day range of 67.33 to 69.91.",
+    "source": 0
+   },
+   {
+    "fact": "The Binance SOL/USDT trade page title showed 67.73 at fetch time, but the page body showed 'Disconnected' and no timestamp, so this figure is unverified.",
+    "source": 1
+   },
+   {
+    "fact": "Standard deviation of the 29 daily log returns of completed Binance SOLUSDT daily closes from 2026-10-26 to 2026-11-24 is about 0.0345 (my calculation from the klines data).",
+    "source": 0
+   },
+   {
+    "fact": "Binance SOLUSDT ticker price was 67.77 at about 2026-11-25 10:51 UTC, about 4% above the 65 threshold (ln(65/67.77) \u2248 -0.042).",
+    "source": 2
+   },
+   {
+    "fact": "Binance SOLUSDT daily close on 2026-10-26 (UTC) was 100.95, and on 2026-11-24 (UTC) it was 69.69, after 72.03 on 2026-11-23.",
+    "source": 3
+   },
+   {
+    "fact": "The lowest daily low in the last 30 completed daily candles was 64.87, on 2026-11-21 (UTC).",
+    "source": 3
+   },
+   {
+    "fact": "At 10:52:31 UTC on 2026-11-25 the Binance SOLUSDT ticker price was 67.73 USDT, about 4.2% above 65.",
+    "source": 2
+   },
+   {
+    "fact": "From the Binance daily klines, the 29 daily log returns of completed closes (2026-10-26 to 2026-11-24) have a standard deviation of 0.0345; the last 7 returns have a standard deviation of 0.0293.",
+    "source": 0
+   },
+   {
+    "fact": "The lowest daily low in the last 30 completed Binance SOLUSDT daily candles is 64.87, and the highest daily high in that window is 103.85.",
+    "source": 0
+   },
+   {
+    "fact": "A search summary of a KuCoin flash report says Solana spot ETFs took in about $4.38M in the week of 2026-11-16 to 2026-11-20, ending a six-week outflow streak; another report in the same results says spot SOL ETFs returned to net outflows later that week.",
+    "source": 5
+   },
+   {
+    "fact": "A search summary of a CoinGlass vesting page lists the next discrete SOL unlock on 2026-12-11 (637.39K SOL), which falls after the resolution date.",
+    "source": 6
+   },
+   {
+    "fact": "A crypto news headline dated 2026/11 says SOL reached multi-month lows, attributing pressure to ETF outflows, China scrutiny and a crypto market selloff; the article itself could not be opened.",
+    "source": 7
+   },
+   {
+    "fact": "A mid-November 2026 search summary reports SOL trading near $75 after falling to its lowest level since mid-August, and another puts the 52-week low at about $60.20.\nThese figures conflict with each other and with the Binance daily data, so the $60.20 low could not be checked.",
+    "source": 7
+   },
+   {
+    "fact": "Spot Solana ETFs had consecutive outflow days through mid-November 2026, according to a tracker summary, though it still reports $644.1 million net inflows for 2026 to date; this conflicts with the earlier KuCoin ETF-inflow reading.",
+    "source": 7
+   },
+   {
+    "fact": "A mid-November 2026 summary reports that Chinese authorities halted planned offline events in the Solana Accelerate China 2026 series, adding pressure to sentiment; no primary statement was opened.",
+    "source": 7
+   },
+   {
+    "fact": "DeFiLlama's summary lists the next SOL unlock as 2026-12-11 at about 393,000 SOL per week, after the resolution date; the page itself could not be opened.",
+    "source": 8
+   },
+   {
+    "fact": "The Binance Solana price page showed $67.45 with a 24-hour change of -4.62%, and its last-updated stamp read 2026-11-25 09:56 UTC.",
+    "source": 9
+   },
+   {
+    "fact": "The Binance SOLUSDT ticker price was 67.73 USDT at 2026-11-25 10:52:31 UTC, the latest timestamped reading in this research chain; the 09:56 UTC page price is earlier and differs by about 0.4%.",
+    "source": 2
+   },
+   {
+    "fact": "DefiLlama's Solana unlock page could not be opened (HTTP 403), so the 2026-11-28 stake-release item found in search remains uncorroborated.",
+    "source": 8
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-25T11:04:19.228925+00:00",
+  "research_cost_usd": 0.2378,
+  "research_failed": null,
+  "research_seconds": 244.2,
+  "researched_at": "2026-11-25T11:03:10+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-25",
+    "quotes": [
+     "[1795478400000,\"72.02000000\",\"72.69000000\",\"68.57000000\",\"69.69000000\",\"2442849.56300000\"",
+     "[1795564800000,\"69.69000000\",\"69.91000000\",\"67.33000000\",\"67.78000000\",\"1372549.62900000\""
+    ],
+    "title": "Binance API: SOLUSDT daily klines (interval=1d, limit=31)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "67.73 Trade SOL/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+    ],
+    "title": "Trade SOL/USDT Spot | Binance",
+    "url": "https://www.binance.com/en/trade/SOL_USDT",
+    "verified": null
+   },
+   {
+    "published": "2026-11-25",
+    "quotes": [
+     "{\"symbol\":\"SOLUSDT\",\"price\":\"67.73000000\"}"
+    ],
+    "title": "Binance Spot API: SOLUSDT ticker price (opened 2026-11-25 ~10:51 UTC)",
+    "url": "https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Binance Spot API: SOLUSDT 1d klines, 1000 most recent candles (opened 2026-11-25 ~10:51 UTC)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=1000",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+    ],
+    "title": "Binance Spot API docs: Market data endpoints (Kline/Candlestick Data)",
+    "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "KuCoin news flash: Solana ETFs attract $4.38M inflows (search result, not opened)",
+    "url": "https://www.kucoin.com/news/flash/solana-etfs-attract-4-38m-inflows-as-bitcoin-etfs-lose-1-79b",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "CoinGlass: SOL token unlocks (search result, not opened)",
+    "url": "https://www.coinglass.com/currencies/SOL/vesting",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Solana (SOL) Price Reaches Multi-Month Lows as ETF Outflows, China Scrutiny, Crypto Market Selloff Increase Pressure (search snippet only; the page returned HTTP 403)",
+    "url": "https://www.crowdfundinsider.com/2026/11/323271-solana-sol-price-reaches-multi-month-lows-as-etf-outflows-china-scrutiny-crypto-market-selloff-increase-pressure/",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "DeFiLlama SOL unlocks (search snippet only; the page returned HTTP 403)",
+    "url": "https://defillama.com/unlocks/solana",
+    "verified": null
+   },
+   {
+    "published": "2026-11-25",
+    "quotes": [
+     "The live Solana price today is $67.45 USD."
+    ],
+    "title": "Solana Price - Binance",
+    "url": "https://www.binance.com/en/price/solana",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "Binance trade page was not opened in this pass, so the 1m candle near 17:00 UTC on 2026-11-27 is unread; the spot figure is the ticker endpoint, not the 1m Close.",
+   "I did not open any news page: the ETF flow and unlock facts are search summaries, not quotes from opened pages, and the ETF weeks conflict with each other.",
+   "A search summary said SOL dipped to about 65.20 on 2026-11-21 while the Binance daily low was 64.87; the source of that difference is unresolved.",
+   "A search result (MrNasDog) lists a 137K SOL stake-lock release on 2026-11-28, which I could not corroborate.",
+   "No news from the last 7 days with a dated primary source was found: the general news search returned only stale or undated price pages.",
+   "No Binance 1m candle near 17:00 UTC on 2026-11-27 has been read, and no settling value exists yet."
+  ]
+ },
+ "polymarket-7233228": {
+  "against": "The strongest case for No is that ETH is already close to the $1,500 line and trending down.\nBinance's price page showed $1,641.24 at 2026-11-25 10:55 UTC, and Fortune had $1,703.26 on 2026-11-24 at 7:45 a.m.\nET, so the price fell about 3.6% in roughly a day.\nFlow data points the same way: Mitrade reported $139.7M of net ether ETF outflows on 2026-11-02 and a $99.9M outflow in an article dated 2026-11-07.\nA crypto.news headline (undated in the snippet) says ETH 'tests $1,500 support as ETF selling and whale losses mount', and a separate undated analytics piece names $1,500 as a downside target.\nUnder the question's rule, a Close above $1,500 is required, and a Close exactly at $1,500.00 counts as No.\nThe Binance reading is about 9.4% above the line with roughly three days left, so a drop of about 8.6% from the latest print would be enough to resolve No.",
+  "base_rate": "Not counted.\nI did not open a daily close series for ETH, so I could not compute a reference-class count of how often ETH finished above a threshold, and I did not compute the 30-day daily log-return standard deviation.\nOnly spot reads from Nov 20 to Nov 25, 2026 were gathered (about $1,560 low on Nov 20 per a BTCS filing via secondary reporting, $1,703 on Nov 24, $1,655 on Nov 25), with no primary daily series.",
+  "brief": "The question settles on the Binance ETH/USDT 1-minute candle closing at 12:00 ET on 2026-11-28, which is 17:00 UTC, with a Close strictly above 1,500. Binance's price page showed ETH at 1,641.24 at 10:55 UTC on 2026-11-25 (https://www.binance.com/price/ethereum), about 9.4% above the line. The Binance daily close on 2026-11-24 was 1,680.11 and the lowest daily close in the last 31 bars was 1,623.09 on 2026-11-20 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31). The standard deviation of daily log returns is 0.0351 over 29 closes. Over about 3.2 days that gives a horizon move near 6.3%, so the line is about 1.4 horizon standard deviations below spot. No historical frequency count was built. Fortune had 1,703.26 on 2026-11-24 and 1,797.42 on 2026-11-18 (https://fortune.com/article/price-of-ethereum-11-24-2026/), a month earlier it was about 2,371, and daily closes fell from 1,929.88 on 2026-11-13 to 1,623.09 on 2026-11-20. ETF flow snippets show outflows on most days in early to mid November, and a crypto.news headline says ETH is testing 1,500 support (https://crypto.news/ethereum-tests-1500-support-as-etf-selling-and-whale-losses-mount-will-it-crash/), though it was not opened. No ETH-specific scheduled event was found before 2026-11-28. The candle identity (opening at versus ending at 12:00 ET) is slightly ambiguous but matters little at this distance. A drop of about 8.6% from the latest read would decide the question, and a break toward 1,550 before Friday would raise that risk sharply.",
+  "brief_written_at": "2026-11-25T12:41:05+00:00",
+  "different_now": "The latest primary-style print (Binance price page, 2026-11-25 10:55 UTC, $1,641.24) sits about 9.4% above the $1,500 threshold, and the window closes on 2026-11-28 17:00 UTC (12:00 ET under EST).\nRecent flow data is net-negative: aggregator snippets show ether ETF outflows on most days in early-to-mid November 2026 (about $222.7M across Nov 10-16 per one report), which is the only directional signal found and it is a backward-looking flow read, not a forecast.\nI found no scheduled ETH-specific event (unlock, upgrade, court date, ETF decision) between now and 2026-11-28, so the calendar is emp",
+  "facts": [
+   {
+    "fact": "On 2026-11-24 at 7:45 a.m.\nET, ETH was priced at $1,703.26 per Fortune.",
+    "source": 1
+   },
+   {
+    "fact": "On 2026-11-18 at 6:30 a.m.\nET, ETH was trading at $1,797.42 per Fortune.",
+    "source": 2
+   },
+   {
+    "fact": "The Binance ETH/USDT page fetched on 2026-11-25 showed 1643.92 in its title, with no timestamp and a 'Disconnected' marker, so the reading is unverified.",
+    "source": 0
+   },
+   {
+    "fact": "Binance's ETH price page showed $1,655.38 USD, last updated 2026-11-25 05:58 UTC, down 2.82% over the prior 24 hours.",
+    "source": 3
+   },
+   {
+    "fact": "Fortune reported ETH at $1,703.26 at 7:45 a.m.\nET on 2026-11-24, with a 1-month-ago reference of $2,371.48.",
+    "source": 1
+   },
+   {
+    "fact": "Binance's ETH price page showed ETH at USD 1,641.24 with a last-updated stamp of 2026-11-25 10:55 UTC and a 24-hour change of -2.14%.",
+    "source": 3
+   },
+   {
+    "fact": "The Binance ETH/USDT trade page on 2026-11-25 showed 1643.45 in its title, with no timestamp and a 'Disconnected' marker, so that reading is unverified and differs from the 1641.24 on the price page.",
+    "source": 0
+   },
+   {
+    "fact": "A Mitrade report (snippet only, page not opened) puts US spot ether ETF net outflows at about $139.7M on 2026-11-02, citing Farside Investors data.",
+    "source": 4
+   },
+   {
+    "fact": "A Coinotag report (snippet only, page not opened) puts US spot ether ETF net outflow at about $8.4M on 2026-11-16.",
+    "source": 5
+   },
+   {
+    "fact": "Between the given 2026-11-24 Fortune print of $1,703.26 and the 2026-11-25 Binance price page of $1,641.24, ETH fell about 3.6% in roughly one day.",
+    "source": 3
+   },
+   {
+    "fact": "Mitrade reported that US spot ether ETFs had net outflows of $139.7M on 2026-11-02, citing Farside data (snippet only; page not opened in this pass).",
+    "source": 4
+   },
+   {
+    "fact": "Mitrade's article dated 2026-11-07 carries the headline 'Ether ETFs Face Another $99.9M Outflow as Demand Stays Uneven' (snippet only; page not opened in this pass).",
+    "source": 6
+   },
+   {
+    "fact": "Binance's ETH price page showed ETH at USD 1,641.24 with a last-updated stamp of 2026-11-25 10:55 UTC, down 2.14% over 24 hours; this is about 9.4% above the $1,500 threshold.",
+    "source": 3
+   },
+   {
+    "fact": "Fortune reported ETH at $1,703.26 at 7:45 a.m.\nET on 2026-11-24.\nFrom that print to the 2026-11-25 Binance reading, ETH fell about 3.6%, so reaching a Close at or below $1,500 by 2026-11-28 needs a further fall of roughly 8.6% from $1,641.24.",
+    "source": 1
+   },
+   {
+    "fact": "CoinGecko's ETH daily table shows a close of $1,677.95 for 2026-11-24, with 2026-11-25 not yet closed (N/A) on the page read.",
+    "source": 8
+   },
+   {
+    "fact": "CoinGecko's ETH daily table shows closes ranging from $1,619.51 on 2026-11-20 to $2,237.05 on 2026-11-07, a fall of about 28% over the 18 closes shown.",
+    "source": 8
+   },
+   {
+    "fact": "Binance's ETH price page showed ETH at USD 1,641.24 at 2026-11-25 10:55 UTC (from the prior pass; this pass did not reopen the page, so quotes are empty).",
+    "source": 3
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-25T11:04:19.228925+00:00",
+  "research_cost_usd": 0.2421,
+  "research_failed": null,
+  "research_seconds": 239.6,
+  "researched_at": "2026-11-25T11:03:10+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "",
+    "quotes": [
+     "1643.45 Trade ETH/USDT Spot | Crypto, bStocks & tCommodities | Binance"
+    ],
+    "title": "Trade ETH/USDT Spot | Binance (resolution page)",
+    "url": "https://www.binance.com/en/trade/ETH_USDT",
+    "verified": null
+   },
+   {
+    "published": "2026-11-24",
+    "quotes": [
+     "At 7:45 a.m.\nEastern Time today, one Ethereum (ETH) is priced at $1,703.26."
+    ],
+    "title": "Price of Ethereum 11-24-2026 (Fortune)",
+    "url": "https://fortune.com/article/price-of-ethereum-11-24-2026/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-18",
+    "quotes": [
+     "At 6:30 a.m.\nEastern Time on November 18, 2026, Ethereum (1 ETH) is trading at $1,797.42."
+    ],
+    "title": "Price of Ethereum 11-18-2026 (Fortune)",
+    "url": "https://fortune.com/article/price-of-ethereum-11-18-2026/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-25",
+    "quotes": [
+     "The live Ethereum price today is $1,655.38 USD.",
+     "Page last updated: 11/25/26, 5:58 AM (UTC)",
+     "1 ETH \u2248 USD 1,641.24",
+     "Page last updated: 11/25/26, 10:55 AM (UTC)"
+    ],
+    "title": "Ethereum Price, Binance",
+    "url": "https://www.binance.com/price/ethereum",
+    "verified": null
+   },
+   {
+    "published": "2026-11-04",
+    "quotes": [],
+    "title": "Ether ETFs Shed $139.7M on November 2, Extending a Difficult Run for Fund Flows",
+    "url": "https://www.mitrade.com/insights/news/live-news/article-3-2226277-20261104",
+    "verified": null
+   },
+   {
+    "published": "2026-11-16",
+    "quotes": [],
+    "title": "Ethereum spot ETFs $8.4M net outflow, Nov 16",
+    "url": "https://en.coinotag.com/ethereum-spot-etfs-8-4m-net-outflow-nov-16",
+    "verified": null
+   },
+   {
+    "published": "2026-11-07",
+    "quotes": [],
+    "title": "Ether ETFs Face Another $99.9M Outflow as Demand Stays Uneven",
+    "url": "https://www.mitrade.com/insights/news/live-news/article-3-2239153-20261107",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Ethereum tests $1,500 support as ETF selling and whale losses mount.\nWill it crash?",
+    "url": "https://crypto.news/ethereum-tests-1500-support-as-etf-selling-and-whale-losses-mount-will-it-crash/",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "| 2026-11-24 | $1,677.95 |",
+     "| 2026-11-23 | $1,709.32 |",
+     "| 2026-11-20 | $1,619.51 |"
+    ],
+    "title": "CoinGecko - Ethereum Historical Data",
+    "url": "https://www.coingecko.com/en/coins/ethereum/historical_data",
+    "verified": false
+   }
+  ],
+  "unknowns": [
+   "No daily close series was opened, so the 30-day daily log-return standard deviation is not computed (daily_vol_30d is null) and no reference-class or 7-day volatility figure is available.",
+   "The two Binance readings disagree: 1641.24 on the price page (timestamped) versus 1643.45 in the trade-page title (untimestamped, 'Disconnected' marker).\nThe trade page is the settling source, and its live Close on 2026-11-28 at 12:00 ET is not yet available.",
+   "ETF flow figures come from search snippets of Mitrade and Coinotag, and the pages were not opened, so their quotes are empty.\nFigures for Nov 17-25, 2026 were not found, so the flow picture after Nov 16 is missing.",
+   "Candle-identity ambiguity (the candle opening at 12:00:00 versus the one ending at 12:00:00) and the ET/UTC conversion were not resolved by any source here, and a close exactly equal to $1,500 resolves No.",
+   "No macro calendar (CPI, FOMC, Ethereum network or token events) for 2026-11-25 to 2026-11-28 was checked, so the scheduled-events part of the research is incomplete.",
+   "No page in this pass was opened, so every quote is empty and the Mitrade and crypto.news figures come from search snippets.\nTheir figures are unverified."
+  ]
+ },
+ "polymarket-7260535": {
+  "against": "The strongest case for the No outcome (ETH closing at or below $1,400 at noon ET on 2026-11-29) is a downtrend with persistent ETF selling.\nOn 2026-11-15 ETH hit about $1,715 at 01:45 UTC and was down 18.6% on the week (cryptoticker snippet, not opened), so the price has already fallen through several prior support levels.\nSpot ETF flows were negative in early November, with $139.7 million of outflows on 2026-11-02 (Mitrade).\nCointelegraph's February 6, 2026 analysis named $1,400 as the downside target if a prior pattern repeated (opened page, but five months old and not a November forecast).\nAgainst a $1,641.24 read on 2026-11-25, a roughly 15% drop in about four days is a large but not unprecedented move, and the weekend 17:00 UTC print may have thin liquidity.",
+  "base_rate": "Not computed.\nI did not retrieve a daily ETH/USDT close history, so I could not count how often ETH closed above a given threshold over a comparable horizon, and I could not compute the 30-day daily log-return standard deviation.\nThe only figures obtained are the spot reading above and an approximate Nov 24 level of about $1,700 from search snippets that I did not open.",
+  "brief": "The question settles on the Binance ETH/USDT 1-minute candle closing at 12:00 ET on 2026-11-29, which is 17:00 UTC on a Saturday, with a Close strictly above 1,400. Binance's price page showed ETH at 1,641.24 at 10:55 UTC on 2026-11-25 (https://www.binance.com/en/price/ethereum), about 14.7% above the line, and the open 2026-11-25 daily bar was at about 1,648. Binance daily closes fell from 1,929.88 on 2026-11-13 to 1,623.09 on 2026-11-20, then 1,680.11 on 2026-11-24 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31). The standard deviation of 29 daily log returns is 0.0351. About 4.2 days remain, a horizon move near 7.2%, so the threshold is about a 2.2-sigma fall away. No empirical base rate of such moves was computed. Fortune had ETH at 1,703.26 on 2026-11-24, about 28% below a month earlier (https://fortune.com/article/price-of-ethereum-11-24-2026/), and a cryptoticker piece reported an intraday low near 1,715 on 2026-11-15 with ETH down 18.6% on the week (https://cryptoticker.io/en/ethereum-price-crash-1715-63-percent-below-record-november-15-2026/). Spot ether ETFs have had outflows through much of November, and a seven-week outflow total of 2.35 billion dollars is cited without a date. The next FOMC meeting is December 8-9, after resolution, and weekend liquidity is thinner. A further slide of 15% in four days would be needed, and a sharp market-wide liquidation or ETF-driven break below 1,500 would change the picture.",
+  "brief_written_at": "2026-11-25T12:41:05+00:00",
+  "different_now": "No central-bank decision falls inside the window: the Fed's December meeting is December 8-9, after the November 29 resolution (per the Fed calendar snippet).\nNov 29, 2026 is a Saturday, so the 12:00 ET (17:00 UTC) candle is a weekend print with thin spot-ETF involvement, since US ETFs do not trade on weekends.\nRoughly 102 hours remain from the last Binance read (2026-11-25 10:55 UTC, $1,641.24, taken in the earlier pass) to 2026-11-29 17:00 UTC.\nThe threshold of $1,400 is about 15% below that read (1,641.24 to 1,400 is -14.7%).\nReported ETF flows were negative for most of early November, whic",
+  "facts": [
+   {
+    "fact": "Binance's Ethereum price page showed $1,641.24 USD, down 2.14% over 24 hours, with the page last updated 11/25/26 10:55 AM UTC.",
+    "source": 0
+   },
+   {
+    "fact": "The Binance ETH_USDT trade page opened with a page title showing 1645.66, but the price table did not render and the page status read 'Disconnected'; no timestamp was shown.\nThis differs from the price page figure of $1,641.24.",
+    "source": 1
+   },
+   {
+    "fact": "Binance's Spot API kline endpoint defines klines by open time, with an interval parameter that is case-sensitive and supports 1m; the close is field index 4 of each bar.",
+    "source": 2
+   },
+   {
+    "fact": "Fortune reported ETH at $1,703.26 at 7:45 a.m.\nET on 2026-11-24, about 28% below its level one month earlier.",
+    "source": 3
+   },
+   {
+    "fact": "Binance's ETH/USD price page showed $1,641.24 with a 24h change of -2.14%, last updated 2026-11-25 10:55 UTC.",
+    "source": 0
+   },
+   {
+    "fact": "CoinDesk's markets table listed Binance ETH-USDT at 1,644.83 USDT with a 24h change of -2.34%; the page shows no timestamp.",
+    "source": 4
+   },
+   {
+    "fact": "The Federal Reserve calendar lists the December 2026 FOMC meeting as December 8-9, 2026, after the November 29 resolution date (snippet from search, page not opened).",
+    "source": 5
+   },
+   {
+    "fact": "A search snippet reports US spot Ether ETFs had net outflows of about $139.7 million on November 2, 2026, extending a weak run of fund flows (page not opened).",
+    "source": 6
+   },
+   {
+    "fact": "A Fortune price article reports ETH at $2,232.62 at 8:15 a.m.\nET on 2026-10-30, down $88.20 from the prior day (snippet, page not opened).",
+    "source": 7
+   },
+   {
+    "fact": "A February 6, 2026 Cointelegraph analysis said that if history repeated, ETH/USD would extend its downtrend toward $1,400; this is a February piece, not a November forecast.",
+    "source": 8
+   },
+   {
+    "fact": "On 2026-11-15, ether fell to an intraday low of about $1,715 at 01:45 UTC per CoinGecko five-minute data, down 18.6% over the week (search snippet, page not opened).",
+    "source": 9
+   },
+   {
+    "fact": "Binance's ETH price page showed $1,641.24 on 2026-11-25 at 10:55 UTC, about 14.7% above the $1,400 threshold.",
+    "source": 0
+   },
+   {
+    "fact": "US spot Ether ETFs logged net outflows of $139.7 million on 2026-11-02, extending a difficult run of fund flows (Mitrade, page read in an earlier pass).",
+    "source": 6
+   },
+   {
+    "fact": "A Crypto Briefing headline reports Ether ETFs with $2.35 billion in outflows over seven weeks; no date shown and the page was not opened, so the window is unverified.",
+    "source": 10
+   },
+   {
+    "fact": "Binance ETHUSDT daily kline opening 2026-11-25 00:00 UTC showed a close of 1648.45 at fetch time; this bar is still open, so the close is a live price, not a final daily close.",
+    "source": 11
+   },
+   {
+    "fact": "Binance ETHUSDT daily kline opening 2026-11-24 00:00 UTC closed at 1680.11.",
+    "source": 11
+   },
+   {
+    "fact": "Binance ETHUSDT daily closes over 2026-11-13 to 2026-11-20 fell from 1929.88 to 1623.09, the lowest daily close in the 31-bar window, on 2026-11-20.",
+    "source": 11
+   },
+   {
+    "fact": "From the 29 complete daily closes 2026-10-26 to 2026-11-24, the sample standard deviation of daily log returns is 0.0351 (computed locally from the Binance closes).",
+    "source": 11
+   },
+   {
+    "fact": "Including the live 2026-11-25 close, the 30-return sample standard deviation is 0.0345 (computed locally from the Binance closes).",
+    "source": 11
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-25T11:04:19.228925+00:00",
+  "research_cost_usd": 0.2747,
+  "research_failed": null,
+  "research_seconds": 290.9,
+  "researched_at": "2026-11-25T11:03:10+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-25",
+    "quotes": [
+     "The live Ethereum price today is $1,641.24 USD.",
+     "Page last updated: 11/25/26, 10:55 AM (UTC)",
+     "1 ETH \u2248 USD 1,641.24"
+    ],
+    "title": "Ethereum Price - Binance",
+    "url": "https://www.binance.com/en/price/ethereum",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Trade ETH/USDT Spot - Binance",
+    "url": "https://www.binance.com/en/trade/ETH_USDT",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "Kline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time."
+    ],
+    "title": "Binance Spot API docs - Market Data endpoints",
+    "url": "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints",
+    "verified": null
+   },
+   {
+    "published": "2026-11-24",
+    "quotes": [
+     "At 7:45 a.m.\nEastern Time today, one Ethereum (ETH) is priced at $1,703.26."
+    ],
+    "title": "Current price of Ethereum for November 24, 2026 - Fortune",
+    "url": "https://fortune.com/article/price-of-ethereum-11-24-2026/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Ethereum markets (CoinDesk)",
+    "url": "https://www.coindesk.com/price/ethereum/markets",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "December 2026 FOMC meeting (Federal Reserve)",
+    "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+    "verified": null
+   },
+   {
+    "published": "2026-11-04",
+    "quotes": [],
+    "title": "Ether ETFs Shed $139.7M on November 2, Extending a Difficult Run for Fund Flows",
+    "url": "https://www.mitrade.com/insights/news/live-news/article-3-2226277-20261104",
+    "verified": null
+   },
+   {
+    "published": "2026-10-30",
+    "quotes": [],
+    "title": "Price of Ethereum 10-30-2026 (Fortune)",
+    "url": "https://fortune.com/article/price-of-ethereum-10-30-2026/",
+    "verified": null
+   },
+   {
+    "published": "2026-02-06",
+    "quotes": [
+     "Ether (ETH) has fallen by 30% over the past seven days, sliding to $1,900 from $2,800.",
+     "If history repeats, the ETH/USD pair will extend the downtrend toward $1,400.",
+     "The sellers were also US-based spot Ether ETFs, which have recorded $1.1 billion in net outflows in the past two weeks."
+    ],
+    "title": "Ether leads crypto losses 30% crash: where is the bottom?\n(Cointelegraph)",
+    "url": "https://cointelegraph.com/news/ether-leads-crypto-losses-30-percent-crash-where-is-the-bottom",
+    "verified": true
+   },
+   {
+    "published": "2026-11-15",
+    "quotes": [],
+    "title": "Ethereum Price Crashes to $1,715, Now 63% Below Its Record High",
+    "url": "https://cryptoticker.io/en/ethereum-price-crash-1715-63-percent-below-record-november-15-2026/",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Ether ETFs See $2.35 Billion Outflows Over Seven Weeks (Crypto Briefing)",
+    "url": "https://cryptobriefing.com/ether-etfs-2-35-billion-outflows-seven-weeks/",
+    "verified": null
+   },
+   {
+    "published": "2026-11-25",
+    "quotes": [
+     "[1795564800000,\"1680.10000000\",\"1680.11000000\",\"1633.11000000\",\"1648.45000000\""
+    ],
+    "title": "Binance Spot API: ETHUSDT 1d klines (31 bars)",
+    "url": "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+    "verified": null
+   }
+  ],
+  "unknowns": [
+   "No Binance 1-minute candle or daily close history was opened in this pass, so the 30-day daily log-return volatility and the count of 90-day moves of this size are not computed.",
+   "I did not open any of the search result pages; all facts above are from search snippets, and their quotes are left empty as required.",
+   "No news dated within the last 7 days (2026-11-18 to 2026-11-25) was found; the newest price article found is Fortune's 2026-10-30 piece, so the price path since then rests on the earlier pass.",
+   "The ETF flow figures come from secondary aggregators and may be revised; the reports disagree on the ETH price level in November (one cites a range of $2,000-$2,400, another about $1,812).",
+   "Whether Binance's 12:00 ET candle is the 11:59-12:00 or the 12:00-12:01 candle is still unverified.",
+   "No ETH daily close history was retrieved, so the 30-day daily log-return standard deviation is not computed (daily_vol_30d is null)."
+  ]
+ }
+}

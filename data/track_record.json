@@ -1,62 +1,62 @@
 {
   "calibration": {
-    "as_of": "2026-11-24",
-    "intercept": 0.249781,
-    "results": 286,
-    "slope": 0.702163
+    "as_of": "2026-11-25",
+    "intercept": 0.25918,
+    "results": 290,
+    "slope": 0.712815
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. From Nov 5 it was Claude's own forecast, which had beaten the combination. For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. From 2026-11-23 it is Claude's own forecast again, with the market's price beside it as the yardstick; a tested edge that has beaten the market takes its place on the questions it covers.",
-      "brier": 0.20431796769915422,
+      "brier": 0.20516412734967132,
       "coin_flip_brier": 0.25,
-      "forecasts": 362,
+      "forecasts": 369,
       "label": "Combined forecast",
-      "last_forecast_on": "2026-11-24",
+      "last_forecast_on": "2026-11-25",
       "method": "combined_median_v1",
-      "resolved": 292,
-      "right": 204,
+      "resolved": 295,
+      "right": 205,
       "toss_ups": 3,
-      "wrong": 85
+      "wrong": 87
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
-      "brier": 0.20140766550522649,
+      "brier": 0.20007793103448276,
       "coin_flip_brier": 0.25,
-      "forecasts": 357,
+      "forecasts": 364,
       "label": "Claude alone",
-      "last_forecast_on": "2026-11-24",
+      "last_forecast_on": "2026-11-25",
       "method": "claude_code_forecaster_v1",
-      "resolved": 287,
-      "right": 192,
+      "resolved": 290,
+      "right": 195,
       "toss_ups": 7,
       "wrong": 88
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
-      "brier": 0.052158333333333334,
+      "brier": 0.08417142857142858,
       "coin_flip_brier": 0.25,
       "forecasts": 21,
       "label": "Claude, second look",
       "last_forecast_on": "2026-11-24",
       "method": "claude_second_look_v1",
-      "resolved": 12,
+      "resolved": 14,
       "right": 12,
-      "toss_ups": 0,
-      "wrong": 0
+      "toss_ups": 1,
+      "wrong": 1
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.156533268844125,
+      "brier": 0.1576299063222093,
       "coin_flip_brier": 0.25,
-      "forecasts": 82,
+      "forecasts": 89,
       "label": "Learned model",
-      "last_forecast_on": "2026-11-24",
+      "last_forecast_on": "2026-11-25",
       "method": "learned_model_v1",
-      "resolved": 40,
-      "right": 34,
+      "resolved": 43,
+      "right": 36,
       "toss_ups": 0,
-      "wrong": 6
+      "wrong": 7
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
@@ -216,29 +216,29 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.18540902471985365,
+      "brier": 0.1821526761979059,
       "coin_flip_brier": 0.25,
-      "forecasts": 132,
+      "forecasts": 139,
       "label": "Claude, confidence-corrected",
-      "last_forecast_on": "2026-11-24",
+      "last_forecast_on": "2026-11-25",
       "method": "claude_calibrated_v1",
-      "resolved": 82,
-      "right": 62,
+      "resolved": 85,
+      "right": 65,
       "toss_ups": 0,
       "wrong": 20
     },
     {
       "about": "Polymarket's price when we forecast. For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast. The toughest bar to beat.",
-      "brier": 0.16062616826923076,
+      "brier": 0.16243039810426538,
       "coin_flip_brier": 0.25,
-      "forecasts": 257,
+      "forecasts": 264,
       "label": "Prediction market (benchmark)",
-      "last_forecast_on": "2026-11-24",
+      "last_forecast_on": "2026-11-25",
       "method": "market_price_v1",
-      "resolved": 208,
-      "right": 160,
+      "resolved": 211,
+      "right": 161,
       "toss_ups": 0,
-      "wrong": 48
+      "wrong": 50
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast.",
@@ -267,18 +267,18 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-24",
+  "generated_on": "2026-11-25",
   "learned_model": {
-    "as_of": "2026-11-24",
-    "intercept": 0.10711,
-    "results": 260,
-    "slope": 0.930266,
+    "as_of": "2026-11-25",
+    "intercept": 0.123285,
+    "results": 264,
+    "slope": 0.936135,
     "weights": {
-      "Crypto": -0.161682,
-      "Economy": -0.290942,
-      "Politics": -0.354257,
-      "Tech": 0.444634,
-      "World": -0.46708
+      "Crypto": -0.157673,
+      "Economy": -0.286235,
+      "Politics": -0.349483,
+      "Tech": 0.516983,
+      "World": -0.465221
     }
   },
   "questions": [
@@ -343,6 +343,206 @@
       "status": "resolved",
       "title": "Will gemini-4-carbon-high be the best AI model on November 23, 2026?",
       "topic": "Tech",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.29,
+        "market": 0.635,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.635
+      },
+      "detail": "This market will resolve to the AI lab with the second highest market share on OpenRouter for the week of November 16 to November 22, 2026.\n\nA lab's market share is the percentage displayed for that lab in the Market Share chart, set to Percentage, for the week of November 16 to November 22, 2026. The \"stealth\" and \"others\" groupings are not labs; if either occupies the relevant rank, it will be skipped and the next ranked lab will be used.\n\nThis market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 at that time. If no data is available for the week of November 16 to November 22, 2026 at that time, this market will resolve to \"Other\".\n\nThe AI labs will be primarily ranked by the percentage displayed in the Market Share chart, set to Percentage. If two or more labs are tied on market share in percentage terms, the lab with the larger token count displayed in the Absolute view of the chart will be ranked higher. If a tie still remains, the lab whose listed name comes first alphabetically will be ranked higher. This market will resolve to the AI lab ranked 2nd after applying this ranking.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.29,
+          "rationale": "On the OpenRouter Market Share chart for the week beginning 2026-11-09, DeepSeek had 31.8%, OpenAI 19.0% and Google 15.1% (up 14% on the week), so Google is third, 3.9 points behind OpenAI (https://openrouter.ai/rankings?view=week). Google released Gemini 4 Carbon (2026-11-10) and Gemini 4 Hydrogen (2026-11-12), per https://aistudio.google.com/docs/changelog, which could lift its share in the Nov 16-22 week. One week of change is thin evidence, though, and overtaking OpenAI needs a swing of about 4 points in a week, so I stay below one-third.",
+          "sources": [
+            "https://openrouter.ai/rankings?view=week",
+            "https://openrouter.ai/rankings",
+            "https://aistudio.google.com/docs/changelog",
+            "https://www.googlewatchblog.de/2026/11/gemini-update-nov2026-zwei/amp/"
+          ]
+        },
+        {
+          "made_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.5,
+          "rationale": "Nov 9 week had Google 15.1% (+14%, likely relative, from about 13.2%) vs OpenAI 19.0% (+1%), a 3.9-point gap; Gemini 4 launched Nov 10 and 12, so a full launch week could close it. The market at 63.5% may see daily data, so I moved partway up from the first forecast."
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.29,
+          "claude_weight": 0.47212,
+          "intercept": 0.151961,
+          "market": 0.635,
+          "method": "learned_model_v1",
+          "probability": 0.512485,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.388099,
+          "raw": 0.29,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.635
+        }
+      ],
+      "id": "polymarket-7088838",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-24",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/2nd-ai-lab-by-openrouter-market-share-week-of-november-16",
+      "status": "resolved",
+      "title": "Will Google have the second highest OpenRouter market share the week of November 16?",
+      "topic": "Tech",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.64,
+        "market": 0.325,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.325
+      },
+      "detail": "This market will resolve to the AI lab with the third highest market share on OpenRouter for the week of November 16 to November 22, 2026.\n\nA lab's market share is the percentage displayed for that lab in the Market Share chart, set to Percentage, for the week of November 16 to November 22, 2026. The \"stealth\" and \"others\" groupings are not labs; if either occupies the relevant rank, it will be skipped and the next ranked lab will be used.\n\nThis market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 at that time. If no data is available for the week of November 16 to November 22, 2026 at that time, this market will resolve to \"Other\".\n\nThe AI labs will be primarily ranked by the percentage displayed in the Market Share chart, set to Percentage. If two or more labs are tied on market share in percentage terms, the lab with the larger token count displayed in the Absolute view of the chart will be ranked higher. If a tie still remains, the lab whose listed name comes first alphabetically will be ranked higher. This market will resolve to the AI lab ranked 3rd after applying this ranking.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-17T12:40:18+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.64,
+          "rationale": "In the OpenRouter week beginning 2026-11-09, Google was third at 15.1% behind DeepSeek 31.8% and OpenAI 19.0%, and 8.1 points ahead of Z.ai at 7.0% (https://openrouter.ai/rankings?view=week). Third place holds unless Google closes the 3.9-point gap to OpenAI, which the Gemini 4 releases of 2026-11-10 and 2026-11-12 could help it do (https://aistudio.google.com/docs/changelog), or falls far below Z.ai and Anthropic, which is unlikely in one week. The chance of Google passing OpenAI is about 30%, so third is the clear but not safe outcome. This is consistent with my Google-second forecast.",
+          "sources": [
+            "https://openrouter.ai/rankings?view=week",
+            "https://openrouter.ai/rankings",
+            "https://aistudio.google.com/docs/changelog"
+          ]
+        },
+        {
+          "made_at": "2026-11-17T12:44:16.846434+00:00",
+          "method": "claude_second_look_v1",
+          "probability": 0.45,
+          "rationale": "Google was third at 15.1% in the Nov 9 week, 3.9 points behind OpenAI and 8 points ahead of Z.ai, so third holds unless Gemini 4 momentum carries it past OpenAI. Complement of the Google-second question, with a small chance Google finishes first or lower."
+        },
+        {
+          "as_of": "2026-11-17",
+          "claude": 0.64,
+          "claude_weight": 0.47212,
+          "intercept": 0.151961,
+          "market": 0.325,
+          "method": "learned_model_v1",
+          "probability": 0.500068,
+          "results": 225,
+          "slope": 1.051321
+        },
+        {
+          "as_of": "2026-11-17",
+          "intercept": 0.229744,
+          "method": "claude_calibrated_v1",
+          "probability": 0.661493,
+          "raw": 0.64,
+          "results": 250,
+          "slope": 0.765096
+        },
+        {
+          "made_at": "2026-11-17T10:24:03.289020+00:00",
+          "method": "market_price_v1",
+          "probability": 0.325
+        }
+      ],
+      "id": "polymarket-7088823",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-24",
+      "scored": true,
+      "source": "prospective_markets_20261117",
+      "source_url": "https://polymarket.com/event/3rd-ai-lab-by-openrouter-market-share-week-of-november-16",
+      "status": "resolved",
+      "title": "Will Google have the third highest OpenRouter market share the week of November 16?",
+      "topic": "Tech",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.93,
+        "market": 0.939,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.939
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-19T12:40:13+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.93,
+          "rationale": "Binance BTCUSDT read about 63,820 on 2026-11-19 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), 10% above 58,000, with 30-day daily volatility of 2.3% (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31). The 5-day reference class stayed above this ratio in 92.2% of all windows and 96.3% of the last two years; heavy ETF outflows ($2.58B in November, https://news.bitcoin.com/bitcoin-etf/bitcoin-etfs-lose-2-58b-in-november-with-blackrock-driving-the-exit/) and a 23% slide in a month argue for a fatter left tail than the price math. Own 90%+ calls have run slightly over-confident, so I stay a little below the 96-97% figures.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://news.bitcoin.com/bitcoin-etf/bitcoin-etfs-lose-2-58b-in-november-with-blackrock-driving-the-exit/",
+            "https://investinglive.com/cryptocurrency/bitcoin-dipped-under-70k-first-time-since-august/"
+          ]
+        },
+        {
+          "as_of": "2026-11-19",
+          "claude": 0.93,
+          "claude_weight": -0.25021,
+          "intercept": 0.103635,
+          "market": 0.939,
+          "method": "learned_model_v1",
+          "probability": 0.935329,
+          "results": 233,
+          "slope": 0.925808
+        },
+        {
+          "as_of": "2026-11-19",
+          "intercept": 0.20926,
+          "method": "claude_calibrated_v1",
+          "probability": 0.880712,
+          "raw": 0.93,
+          "results": 258,
+          "slope": 0.691977
+        },
+        {
+          "made_at": "2026-11-19T10:09:56.658463+00:00",
+          "method": "market_price_v1",
+          "probability": 0.939
+        }
+      ],
+      "id": "polymarket-7121567",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-24",
+      "scored": true,
+      "source": "prospective_markets_20261119",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-24-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $58,000 on November 24?",
+      "topic": "Crypto",
       "verdict": "right"
     },
     {
@@ -19718,206 +19918,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.29,
-        "market": 0.635,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.635
-      },
-      "detail": "This market will resolve to the AI lab with the second highest market share on OpenRouter for the week of November 16 to November 22, 2026.\n\nA lab's market share is the percentage displayed for that lab in the Market Share chart, set to Percentage, for the week of November 16 to November 22, 2026. The \"stealth\" and \"others\" groupings are not labs; if either occupies the relevant rank, it will be skipped and the next ranked lab will be used.\n\nThis market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 at that time. If no data is available for the week of November 16 to November 22, 2026 at that time, this market will resolve to \"Other\".\n\nThe AI labs will be primarily ranked by the percentage displayed in the Market Share chart, set to Percentage. If two or more labs are tied on market share in percentage terms, the lab with the larger token count displayed in the Absolute view of the chart will be ranked higher. If a tie still remains, the lab whose listed name comes first alphabetically will be ranked higher. This market will resolve to the AI lab ranked 2nd after applying this ranking.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-17T12:40:18+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.29,
-          "rationale": "On the OpenRouter Market Share chart for the week beginning 2026-11-09, DeepSeek had 31.8%, OpenAI 19.0% and Google 15.1% (up 14% on the week), so Google is third, 3.9 points behind OpenAI (https://openrouter.ai/rankings?view=week). Google released Gemini 4 Carbon (2026-11-10) and Gemini 4 Hydrogen (2026-11-12), per https://aistudio.google.com/docs/changelog, which could lift its share in the Nov 16-22 week. One week of change is thin evidence, though, and overtaking OpenAI needs a swing of about 4 points in a week, so I stay below one-third.",
-          "sources": [
-            "https://openrouter.ai/rankings?view=week",
-            "https://openrouter.ai/rankings",
-            "https://aistudio.google.com/docs/changelog",
-            "https://www.googlewatchblog.de/2026/11/gemini-update-nov2026-zwei/amp/"
-          ]
-        },
-        {
-          "made_at": "2026-11-17T12:44:16.846434+00:00",
-          "method": "claude_second_look_v1",
-          "probability": 0.5,
-          "rationale": "Nov 9 week had Google 15.1% (+14%, likely relative, from about 13.2%) vs OpenAI 19.0% (+1%), a 3.9-point gap; Gemini 4 launched Nov 10 and 12, so a full launch week could close it. The market at 63.5% may see daily data, so I moved partway up from the first forecast."
-        },
-        {
-          "as_of": "2026-11-17",
-          "claude": 0.29,
-          "claude_weight": 0.47212,
-          "intercept": 0.151961,
-          "market": 0.635,
-          "method": "learned_model_v1",
-          "probability": 0.512485,
-          "results": 225,
-          "slope": 1.051321
-        },
-        {
-          "as_of": "2026-11-17",
-          "intercept": 0.229744,
-          "method": "claude_calibrated_v1",
-          "probability": 0.388099,
-          "raw": 0.29,
-          "results": 250,
-          "slope": 0.765096
-        },
-        {
-          "made_at": "2026-11-17T10:24:03.289020+00:00",
-          "method": "market_price_v1",
-          "probability": 0.635
-        }
-      ],
-      "id": "polymarket-7088838",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-24",
-      "scored": true,
-      "source": "prospective_markets_20261117",
-      "source_url": "https://polymarket.com/event/2nd-ai-lab-by-openrouter-market-share-week-of-november-16",
-      "status": "pending",
-      "title": "Will Google have the second highest OpenRouter market share the week of November 16?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.64,
-        "market": 0.325,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.325
-      },
-      "detail": "This market will resolve to the AI lab with the third highest market share on OpenRouter for the week of November 16 to November 22, 2026.\n\nA lab's market share is the percentage displayed for that lab in the Market Share chart, set to Percentage, for the week of November 16 to November 22, 2026. The \"stealth\" and \"others\" groupings are not labs; if either occupies the relevant rank, it will be skipped and the next ranked lab will be used.\n\nThis market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 once the figures for the week of November 23, 2026 are first displayed. If the figures for the week of November 23, 2026 have not been displayed by 11:59 PM ET on November 27, 2026, this market will resolve according to the figures displayed for the week of November 16 to November 22, 2026 at that time. If no data is available for the week of November 16 to November 22, 2026 at that time, this market will resolve to \"Other\".\n\nThe AI labs will be primarily ranked by the percentage displayed in the Market Share chart, set to Percentage. If two or more labs are tied on market share in percentage terms, the lab with the larger token count displayed in the Absolute view of the chart will be ranked higher. If a tie still remains, the lab whose listed name comes first alphabetically will be ranked higher. This market will resolve to the AI lab ranked 3rd after applying this ranking.\n\nThe resolution source for this market is https://openrouter.ai/rankings.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-17T12:40:18+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.64,
-          "rationale": "In the OpenRouter week beginning 2026-11-09, Google was third at 15.1% behind DeepSeek 31.8% and OpenAI 19.0%, and 8.1 points ahead of Z.ai at 7.0% (https://openrouter.ai/rankings?view=week). Third place holds unless Google closes the 3.9-point gap to OpenAI, which the Gemini 4 releases of 2026-11-10 and 2026-11-12 could help it do (https://aistudio.google.com/docs/changelog), or falls far below Z.ai and Anthropic, which is unlikely in one week. The chance of Google passing OpenAI is about 30%, so third is the clear but not safe outcome. This is consistent with my Google-second forecast.",
-          "sources": [
-            "https://openrouter.ai/rankings?view=week",
-            "https://openrouter.ai/rankings",
-            "https://aistudio.google.com/docs/changelog"
-          ]
-        },
-        {
-          "made_at": "2026-11-17T12:44:16.846434+00:00",
-          "method": "claude_second_look_v1",
-          "probability": 0.45,
-          "rationale": "Google was third at 15.1% in the Nov 9 week, 3.9 points behind OpenAI and 8 points ahead of Z.ai, so third holds unless Gemini 4 momentum carries it past OpenAI. Complement of the Google-second question, with a small chance Google finishes first or lower."
-        },
-        {
-          "as_of": "2026-11-17",
-          "claude": 0.64,
-          "claude_weight": 0.47212,
-          "intercept": 0.151961,
-          "market": 0.325,
-          "method": "learned_model_v1",
-          "probability": 0.500068,
-          "results": 225,
-          "slope": 1.051321
-        },
-        {
-          "as_of": "2026-11-17",
-          "intercept": 0.229744,
-          "method": "claude_calibrated_v1",
-          "probability": 0.661493,
-          "raw": 0.64,
-          "results": 250,
-          "slope": 0.765096
-        },
-        {
-          "made_at": "2026-11-17T10:24:03.289020+00:00",
-          "method": "market_price_v1",
-          "probability": 0.325
-        }
-      ],
-      "id": "polymarket-7088823",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-24",
-      "scored": true,
-      "source": "prospective_markets_20261117",
-      "source_url": "https://polymarket.com/event/3rd-ai-lab-by-openrouter-market-share-week-of-november-16",
-      "status": "pending",
-      "title": "Will Google have the third highest OpenRouter market share the week of November 16?",
-      "topic": "Tech",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.93,
-        "market": 0.939,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.939
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-19T12:40:13+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.93,
-          "rationale": "Binance BTCUSDT read about 63,820 on 2026-11-19 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), 10% above 58,000, with 30-day daily volatility of 2.3% (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31). The 5-day reference class stayed above this ratio in 92.2% of all windows and 96.3% of the last two years; heavy ETF outflows ($2.58B in November, https://news.bitcoin.com/bitcoin-etf/bitcoin-etfs-lose-2-58b-in-november-with-blackrock-driving-the-exit/) and a 23% slide in a month argue for a fatter left tail than the price math. Own 90%+ calls have run slightly over-confident, so I stay a little below the 96-97% figures.",
-          "sources": [
-            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
-            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
-            "https://news.bitcoin.com/bitcoin-etf/bitcoin-etfs-lose-2-58b-in-november-with-blackrock-driving-the-exit/",
-            "https://investinglive.com/cryptocurrency/bitcoin-dipped-under-70k-first-time-since-august/"
-          ]
-        },
-        {
-          "as_of": "2026-11-19",
-          "claude": 0.93,
-          "claude_weight": -0.25021,
-          "intercept": 0.103635,
-          "market": 0.939,
-          "method": "learned_model_v1",
-          "probability": 0.935329,
-          "results": 233,
-          "slope": 0.925808
-        },
-        {
-          "as_of": "2026-11-19",
-          "intercept": 0.20926,
-          "method": "claude_calibrated_v1",
-          "probability": 0.880712,
-          "raw": 0.93,
-          "results": 258,
-          "slope": 0.691977
-        },
-        {
-          "made_at": "2026-11-19T10:09:56.658463+00:00",
-          "method": "market_price_v1",
-          "probability": 0.939
-        }
-      ],
-      "id": "polymarket-7121567",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-24",
-      "scored": true,
-      "source": "prospective_markets_20261119",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-24-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $58,000 on November 24?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.44,
         "market": 0.675,
         "max_move": 0.0,
@@ -20383,6 +20383,126 @@
       "call": {
         "members": 1,
         "method": "claude_call_v1",
+        "probability": 0.63
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.63,
+          "rationale": "Binance BTCUSDT ticker read 58,839.53 on 2026-11-25 about 10:54 UTC (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), roughly 1.4% above 58,000, with 30-day daily vol of 2.47% (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32). Over about 2.2 days that gives a normal-model chance near 65%; I shade it down for the steady slide from 65,650 on 2026-11-14 to 60,458.70 on 2026-11-24 (https://fortune.com/article/price-of-bitcoin-11-24-2026/), continued ETF outflows and fat downside tails.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32",
+            "https://fortune.com/article/price-of-bitcoin-11-24-2026/",
+            "https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-continue-bleeding-440337"
+          ]
+        },
+        {
+          "as_of": "2026-11-25",
+          "claude": 0.63,
+          "claude_weight": -0.157673,
+          "intercept": 0.123285,
+          "market": 0.645,
+          "method": "learned_model_v1",
+          "probability": 0.666527,
+          "results": 264,
+          "slope": 0.936135
+        },
+        {
+          "as_of": "2026-11-25",
+          "intercept": 0.25918,
+          "method": "claude_calibrated_v1",
+          "probability": 0.654426,
+          "raw": 0.63,
+          "results": 290,
+          "slope": 0.712815
+        },
+        {
+          "made_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.645
+        }
+      ],
+      "id": "polymarket-7203524",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-27",
+      "scored": true,
+      "source": "prospective_markets_20261125",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-27-2026",
+      "status": "pending",
+      "title": "Will the price of Bitcoin be above $58,000 on November 27?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.74
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for SOL/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the SOL/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/SOL_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance SOL/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.74,
+          "rationale": "Binance SOLUSDT was 67.73 at 10:52 UTC on 2026-11-25 (https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT), about 4.2% above 65, with 30-day daily vol of 3.45% (https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31). The normal model gives about 80%, matching the 80.5% historical 2-day count; I lower it for the fall from 100.95 on 2026-10-26 to 69.69 on 2026-11-24, the 64.87 low on 2026-11-21, and ETF outflow and China-scrutiny headlines.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=1000",
+            "https://www.crowdfundinsider.com/2026/11/323271-solana-sol-price-reaches-multi-month-lows-as-etf-outflows-china-scrutiny-crypto-market-selloff-increase-pressure/"
+          ]
+        },
+        {
+          "as_of": "2026-11-25",
+          "claude": 0.74,
+          "claude_weight": -0.157673,
+          "intercept": 0.123285,
+          "market": 0.7335,
+          "method": "learned_model_v1",
+          "probability": 0.743796,
+          "results": 264,
+          "slope": 0.936135
+        },
+        {
+          "as_of": "2026-11-25",
+          "intercept": 0.25918,
+          "method": "claude_calibrated_v1",
+          "probability": 0.731994,
+          "raw": 0.74,
+          "results": 290,
+          "slope": 0.712815
+        },
+        {
+          "made_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.7335
+        }
+      ],
+      "id": "polymarket-7203543",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-27",
+      "scored": true,
+      "source": "prospective_markets_20261125",
+      "source_url": "https://polymarket.com/event/solana-above-on-november-27-2026",
+      "status": "pending",
+      "title": "Will the price of Solana be above $65 on November 27?",
+      "topic": "Crypto",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
         "probability": 0.9
       },
       "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
@@ -20493,6 +20613,66 @@
       "status": "pending",
       "title": "Will Donald Trump publicly insult someone on November 27, 2026?",
       "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.88
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.88,
+          "rationale": "Binance's price page showed ETH at 1,641.24 at 2026-11-25 10:55 UTC (https://www.binance.com/price/ethereum), about 9.4% above 1,500, with daily vol near 3.5% (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31). Over about 3.2 days the normal model gives roughly 92-94%; I trim it for the downtrend (1,929.88 on 2026-11-13 to 1,623.09 on 2026-11-20 on Binance daily closes), ETF outflows and fat tails. This is lower than before because ETH fell from about 1,703 on 2026-11-24 (https://fortune.com/article/price-of-ethereum-11-24-2026/).",
+          "sources": [
+            "https://www.binance.com/price/ethereum",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://fortune.com/article/price-of-ethereum-11-24-2026/",
+            "https://crypto.news/ethereum-tests-1500-support-as-etf-selling-and-whale-losses-mount-will-it-crash/"
+          ]
+        },
+        {
+          "as_of": "2026-11-25",
+          "claude": 0.88,
+          "claude_weight": -0.157673,
+          "intercept": 0.123285,
+          "market": 0.914,
+          "method": "learned_model_v1",
+          "probability": 0.916394,
+          "results": 264,
+          "slope": 0.936135
+        },
+        {
+          "as_of": "2026-11-25",
+          "intercept": 0.25918,
+          "method": "claude_calibrated_v1",
+          "probability": 0.842827,
+          "raw": 0.88,
+          "results": 290,
+          "slope": 0.712815
+        },
+        {
+          "made_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.914
+        }
+      ],
+      "id": "polymarket-7233228",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-28",
+      "scored": true,
+      "source": "prospective_markets_20261125",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-28-2026",
+      "status": "pending",
+      "title": "Will the price of Ethereum be above $1,500 on November 28?",
+      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -20619,6 +20799,66 @@
       "status": "pending",
       "title": "Will Ritchie Torres be the next governor of New York?",
       "topic": "Politics",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.95
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.95,
+          "rationale": "Binance's ETH price page showed 1,641.24 at 2026-11-25 10:55 UTC (https://www.binance.com/en/price/ethereum), about 14.7% above 1,400, and the Binance daily low-close in the last month was 1,623.09 on 2026-11-20 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31). With daily vol about 3.5% and about 4.2 days left, a fall of that size is about a 2-sigma move (roughly 98% for staying above in a normal model). I cut it to 95% for the strong downtrend, ETF outflows and weekend thin liquidity, and keep it above my 88% for the 1,500 question.",
+          "sources": [
+            "https://www.binance.com/en/price/ethereum",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://fortune.com/article/price-of-ethereum-11-24-2026/",
+            "https://cryptoticker.io/en/ethereum-price-crash-1715-63-percent-below-record-november-15-2026/"
+          ]
+        },
+        {
+          "as_of": "2026-11-25",
+          "claude": 0.95,
+          "claude_weight": -0.157673,
+          "intercept": 0.123285,
+          "market": 0.946,
+          "method": "learned_model_v1",
+          "probability": 0.942181,
+          "results": 264,
+          "slope": 0.936135
+        },
+        {
+          "as_of": "2026-11-25",
+          "intercept": 0.25918,
+          "method": "claude_calibrated_v1",
+          "probability": 0.91357,
+          "raw": 0.95,
+          "results": 290,
+          "slope": 0.712815
+        },
+        {
+          "made_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.946
+        }
+      ],
+      "id": "polymarket-7260535",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-11-29",
+      "scored": true,
+      "source": "prospective_markets_20261125",
+      "source_url": "https://polymarket.com/event/ethereum-above-on-november-29-2026",
+      "status": "pending",
+      "title": "Will the price of Ethereum be above $1,400 on November 29?",
+      "topic": "Crypto",
       "verdict": null
     },
     {
@@ -22426,6 +22666,186 @@
     {
       "actual": null,
       "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.27
+      },
+      "detail": "This market will resolve according to the seasonally adjusted unemployment rate (15 years and over, total) reported by Statistics Canada in the Labour Force Survey for November 2026.\n\nThe resolution source for this market is the Labour Force Survey, published by Statistics Canada every month at https://www150.statcan.gc.ca/n1/dai-quo/cal1-eng.htm.\n\nThe next data release is scheduled for December 4, 2026. This market will resolve as soon as the relevant data is issued. Any revisions to the data after the first release will not count toward this market's resolution.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports unemployment to one decimal point. Thus, this is the level of precision that will be used when resolving the market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "October's rate was 6.7%, up from 6.5% (https://www.cp24.com/news/canada/2026/11/06/unemployment-rate-rose-to-67-in-october-statcan-says/, 2026-11-06), so a YES needs an unchanged reading; about 22-23% of monthly pairs are unchanged in the OECD series (https://fred.stlouisfed.org/data/LRHUTTTTCAM156S). I add a little because 6.7% is near the middle of the 6.4-6.9 range seen this year and a 0.2 jump often partly reverses, which puts mass on 6.5-6.7 and not just above.",
+          "sources": [
+            "https://www.cp24.com/news/canada/2026/11/06/unemployment-rate-rose-to-67-in-october-statcan-says/",
+            "https://fred.stlouisfed.org/data/LRHUTTTTCAM156S",
+            "https://www.financecalendar.com/event/canada-labour-force-survey-december-2026/"
+          ]
+        },
+        {
+          "as_of": "2026-11-25",
+          "claude": 0.27,
+          "claude_weight": -0.286235,
+          "intercept": 0.123285,
+          "market": 0.22,
+          "method": "learned_model_v1",
+          "probability": 0.24248,
+          "results": 264,
+          "slope": 0.936135
+        },
+        {
+          "as_of": "2026-11-25",
+          "intercept": 0.25918,
+          "method": "claude_calibrated_v1",
+          "probability": 0.389408,
+          "raw": 0.27,
+          "results": 290,
+          "slope": 0.712815
+        },
+        {
+          "made_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.22
+        }
+      ],
+      "id": "polymarket-6992447",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-04",
+      "scored": true,
+      "source": "prospective_markets_20261125",
+      "source_url": "https://polymarket.com/event/november-2026-unemployment-rate-canada",
+      "status": "pending",
+      "title": "Will Canada\u2019s November 2026 unemployment rate be 6.7%?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.37
+      },
+      "detail": "This market will resolve according to the seasonally adjusted unemployment rate (total unemployed, as a percent of the civilian labor force, official unemployment rate denoted as U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report for November 2026.\n\nThe resolution source for this market is the Monthly Employment Situation Report, published by the BLS every month at https://www.bls.gov/bls/news-release/empsit.htm, specifically the U-3 measure in Table A-15 for the month in question.\n\nThe relevant data release is scheduled for December 4, 2026, at 8:30 AM ET. This market will resolve as soon as the relevant data is issued. Any revisions to the data after the first release will not count toward this market's resolution.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports unemployment to one decimal point. Thus, this is the level of precision that will be used when resolving the market.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.37,
+          "rationale": "BLS put October U-3 at 4.1%, below a 4.2% consensus, and said the rate has stayed between 4.1 and 4.3% since March (https://www.bls.gov/news.release/empsit.nr0.htm, 2026-11-06). About 32% of monthly moves in 2024-2026 left the rate unchanged (https://data.bls.gov/timeseries/LNS14000000), but 4.1% is the bottom of the recent band, so the 4.2% outcome is about as likely as unchanged. Claims near 203,000 (https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/, 2026-11-19) point to stability, and the 0.1 point sampling noise keeps this near 37%.",
+          "sources": [
+            "https://www.bls.gov/news.release/empsit.nr0.htm",
+            "https://data.bls.gov/timeseries/LNS14000000",
+            "https://www.bls.gov/schedule/news_release/empsit.htm",
+            "https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/",
+            "https://www.stlouisfed.org/on-the-economy/2026/mar/understanding-statistical-significance-monthly-unemployment-data"
+          ]
+        },
+        {
+          "as_of": "2026-11-25",
+          "claude": 0.37,
+          "claude_weight": -0.286235,
+          "intercept": 0.123285,
+          "market": 0.375,
+          "method": "learned_model_v1",
+          "probability": 0.413675,
+          "results": 264,
+          "slope": 0.936135
+        },
+        {
+          "as_of": "2026-11-25",
+          "intercept": 0.25918,
+          "method": "claude_calibrated_v1",
+          "probability": 0.469988,
+          "raw": 0.37,
+          "results": 290,
+          "slope": 0.712815
+        },
+        {
+          "made_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.375
+        }
+      ],
+      "id": "polymarket-6937481",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-04",
+      "scored": true,
+      "source": "prospective_markets_20261125",
+      "source_url": "https://polymarket.com/event/november-unemployment-rate-2026",
+      "status": "pending",
+      "title": "Will the November 2026 unemployment rate be 4.1%?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.12
+      },
+      "detail": "This market will resolve according to the change in the total nonfarm payroll employment reported by the BLS \"Employment Situation Summary\" for November 2026, scheduled to be released on December 4, 2026, at 8:30 AM ET.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket. \n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nThe BLS \"Employment Situation Summary\" may be found here: https://www.bls.gov/bls/newsrels.htm",
+      "forecasts": [
+        {
+          "made_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.12,
+          "rationale": "Only 3 of 46 months since 2023 fell in the 75k-100k bracket on revised data (https://fred.stlouisfed.org/data/PAYEMS.txt), about 6.5%. October printed +165,000 with August revised to +186,000 and September to +60,000 (https://www.bls.gov/news.release/empsit.nr0.htm, 2026-11-06), while the 12-month average is only 48,000, so November is spread widely around roughly 50-130k. A 25k-wide bracket in the middle of that spread gets about 12%; no November consensus was found.",
+          "sources": [
+            "https://www.bls.gov/news.release/empsit.nr0.htm",
+            "https://fred.stlouisfed.org/data/PAYEMS.txt",
+            "https://www.foxbusiness.com/economy/us-jobs-report-october-2026.amp",
+            "https://www.bls.gov/schedule/news_release/empsit.htm"
+          ]
+        },
+        {
+          "as_of": "2026-11-25",
+          "claude": 0.12,
+          "claude_weight": -0.286235,
+          "intercept": 0.123285,
+          "market": 0.165,
+          "method": "learned_model_v1",
+          "probability": 0.216112,
+          "results": 264,
+          "slope": 0.936135
+        },
+        {
+          "as_of": "2026-11-25",
+          "intercept": 0.25918,
+          "method": "claude_calibrated_v1",
+          "probability": 0.238476,
+          "raw": 0.12,
+          "results": 290,
+          "slope": 0.712815
+        },
+        {
+          "made_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.165
+        }
+      ],
+      "id": "polymarket-6937533",
+      "note": null,
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-04",
+      "scored": true,
+      "source": "prospective_markets_20261125",
+      "source_url": "https://polymarket.com/event/how-many-jobs-added-in-november-2026",
+      "status": "pending",
+      "title": "Will the US add between 75k and 100k jobs in November?",
+      "topic": "Economy",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
         "members": 3,
         "method": "combined_median_v1",
         "probability": 0.25
@@ -22694,7 +23114,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20431796769915422,
+    "brier": 0.20516412734967132,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -22723,15 +23143,15 @@
         },
         "counted": {
           "dates": 7,
-          "difference": 0.00018010692307693366,
+          "difference": -0.01597724066666667,
           "interval": [
-            -0.011185,
-            0.011925
+            -0.036226,
+            0.003069
           ],
-          "market": 0.06073720076923077,
+          "market": 0.10989557400000001,
           "meets_bar": false,
-          "questions": 13,
-          "rule": 0.0609173076923077
+          "questions": 15,
+          "rule": 0.09391833333333334
         },
         "id": "tech_move_v1",
         "label": "Tech questions",
@@ -22753,15 +23173,15 @@
         },
         "counted": {
           "dates": 12,
-          "difference": 0.004157106304347874,
+          "difference": -0.0010121246938775696,
           "interval": [
-            -0.007073,
-            0.01532
+            -0.013863,
+            0.010433
           ],
-          "market": 0.18339677413043476,
+          "market": 0.18977189,
           "meets_bar": false,
-          "questions": 46,
-          "rule": 0.18755388043478263
+          "questions": 49,
+          "rule": 0.18875976530612243
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -22780,15 +23200,15 @@
         },
         "counted": {
           "dates": 6,
-          "difference": -0.003031967500000003,
+          "difference": -0.024480972142857146,
           "interval": [
-            -0.008048,
-            0.001932
+            -0.054461,
+            -0.000588
           ],
-          "market": 0.06309863416666667,
+          "market": 0.11543097214285715,
           "meets_bar": false,
-          "questions": 12,
-          "rule": 0.060066666666666664
+          "questions": 14,
+          "rule": 0.09095
         },
         "id": "tech_second_look_v1",
         "label": "Second look on Tech",
@@ -22807,15 +23227,15 @@
         },
         "counted": {
           "dates": 11,
-          "difference": -0.0030248372051500105,
+          "difference": -0.010856029537581413,
           "interval": [
-            -0.010672,
-            0.003764
+            -0.027873,
+            0.001119
           ],
-          "market": 0.162810659,
+          "market": 0.1715115665116279,
           "meets_bar": false,
-          "questions": 40,
-          "rule": 0.15978582179484999
+          "questions": 43,
+          "rule": 0.1606555369740465
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -22823,7 +23243,7 @@
         "status": "testing"
       }
     ],
-    "pending": 63,
+    "pending": 67,
     "progress": {
       "changes": [
         {
@@ -22849,10 +23269,10 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.19640392156862746,
-          "market": 0.1697006876470588,
-          "ours": 0.17403302936547058,
-          "questions": 51
+          "claude": 0.18954074074074076,
+          "market": 0.1762464087037037,
+          "ours": 0.1803380647710926,
+          "questions": 54
         },
         "before": {
           "claude": 0.2016852380952381,
@@ -22918,36 +23338,36 @@
           "wrong": 7
         },
         {
-          "claude": 0.13677727272727272,
-          "market": 0.10016806818181818,
-          "ours": 0.10016806818181818,
-          "questions": 22,
-          "right": 20,
+          "claude": 0.129108,
+          "market": 0.12265074000000001,
+          "ours": 0.12265074000000001,
+          "questions": 25,
+          "right": 21,
           "start": "2026-11-16",
-          "wrong": 2
+          "wrong": 4
         }
       ]
     },
-    "resolved": 292,
-    "right": 204,
+    "resolved": 295,
+    "right": 205,
     "toss_ups": 3,
-    "total": 363,
+    "total": 370,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.20065325670498085,
-      "claude_questions": 261,
-      "market": 0.15643109919540232,
-      "ours": 0.19816133907141378,
-      "questions": 261,
+      "claude": 0.19920113636363637,
+      "claude_questions": 264,
+      "market": 0.1579207874621212,
+      "ours": 0.19917682006681442,
+      "questions": 264,
       "since_anchored": {
-        "claude": 0.21315869565217394,
+        "claude": 0.20456938775510203,
         "date": "2026-11-10",
-        "market": 0.18339677413043476,
-        "ours": 0.18339677413043476,
-        "questions": 46
+        "market": 0.18977189,
+        "ours": 0.18977189,
+        "questions": 49
       }
     },
-    "wrong": 85
+    "wrong": 87
   },
   "version": "track_record_v2"
 }

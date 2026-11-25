@@ -1,0 +1,72 @@
+{
+  "polymarket-6937481": {
+    "as_of": "2026-11-25",
+    "claude": 0.37,
+    "claude_weight": -0.286235,
+    "intercept": 0.123285,
+    "market": 0.375,
+    "probability": 0.413675,
+    "results": 264,
+    "slope": 0.936135
+  },
+  "polymarket-6937533": {
+    "as_of": "2026-11-25",
+    "claude": 0.12,
+    "claude_weight": -0.286235,
+    "intercept": 0.123285,
+    "market": 0.165,
+    "probability": 0.216112,
+    "results": 264,
+    "slope": 0.936135
+  },
+  "polymarket-6992447": {
+    "as_of": "2026-11-25",
+    "claude": 0.27,
+    "claude_weight": -0.286235,
+    "intercept": 0.123285,
+    "market": 0.22,
+    "probability": 0.24248,
+    "results": 264,
+    "slope": 0.936135
+  },
+  "polymarket-7203524": {
+    "as_of": "2026-11-25",
+    "claude": 0.63,
+    "claude_weight": -0.157673,
+    "intercept": 0.123285,
+    "market": 0.645,
+    "probability": 0.666527,
+    "results": 264,
+    "slope": 0.936135
+  },
+  "polymarket-7203543": {
+    "as_of": "2026-11-25",
+    "claude": 0.74,
+    "claude_weight": -0.157673,
+    "intercept": 0.123285,
+    "market": 0.7335,
+    "probability": 0.743796,
+    "results": 264,
+    "slope": 0.936135
+  },
+  "polymarket-7233228": {
+    "as_of": "2026-11-25",
+    "claude": 0.88,
+    "claude_weight": -0.157673,
+    "intercept": 0.123285,
+    "market": 0.914,
+    "probability": 0.916394,
+    "results": 264,
+    "slope": 0.936135
+  },
+  "polymarket-7260535": {
+    "as_of": "2026-11-25",
+    "claude": 0.95,
+    "claude_weight": -0.157673,
+    "intercept": 0.123285,
+    "market": 0.946,
+    "probability": 0.942181,
+    "results": 264,
+    "slope": 0.936135
+  }
+}
