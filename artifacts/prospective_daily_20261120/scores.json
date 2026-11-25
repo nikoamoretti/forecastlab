@@ -1,17 +1,21 @@
 {
   "cells": [
     {
+      "brier": 0.19848167324128865,
       "entry_id": "16e874d58dd170be",
+      "log_loss": 0.5897115933117033,
       "method": "statistical_baseline_v1",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.44551282051282054,
       "release_event": "claims-2026-11-26",
       "status": "forecasted"
     },
     {
+      "brier": 0.12249999999999998,
       "entry_id": "16e874d58dd170be",
+      "log_loss": 0.4307829160924542,
       "method": "claude_code_forecaster_v1 (post-freeze supplement)",
-      "outcome": null,
+      "outcome": 0,
       "probability": 0.35,
       "release_event": "claims-2026-11-26",
       "status": "forecasted"
@@ -24,27 +28,32 @@
     "claude_code_forecaster_v1 (post-freeze supplement)": {
       "assigned": 1,
       "forecasted": 1,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.12249999999999998,
+      "mean_log_loss": 0.4307829160924542,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     },
     "statistical_baseline_v1": {
       "assigned": 1,
       "forecasted": 1,
-      "mean_brier": null,
-      "mean_log_loss": null,
-      "resolved_forecasts": 0,
-      "uninformed_50pct_brier": null
+      "mean_brier": 0.19848167324128865,
+      "mean_log_loss": 0.5897115933117033,
+      "resolved_forecasts": 1,
+      "uninformed_50pct_brier": 0.25
     }
   },
   "outcomes": {
     "16e874d58dd170be": {
-      "reason": "fred_initial_release_not_yet_published",
-      "status": "pending"
+      "basis": "alfred_initial_vintage",
+      "outcome": 0,
+      "prior_vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=ICSA&cosd=2026-11-07&coed=2026-11-21&vintage_date=2026-11-24",
+      "status": "resolved",
+      "value": "189000",
+      "vintage_date": "2026-11-25",
+      "vintage_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv?id=ICSA&cosd=2026-11-07&coed=2026-11-21&vintage_date=2026-11-25"
     }
   },
-  "resolved_entries": 0,
+  "resolved_entries": 1,
   "scored_on": "2026-11-25",
   "scoring_version": "prospective_artifact_scoring_v1",
   "total_entries": 1

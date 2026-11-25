@@ -8,29 +8,29 @@
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. From Nov 5 it was Claude's own forecast, which had beaten the combination. For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. From 2026-11-23 it is Claude's own forecast again, with the market's price beside it as the yardstick; a tested edge that has beaten the market takes its place on the questions it covers.",
-      "brier": 0.20516412734967132,
+      "brier": 0.20590658049549512,
       "coin_flip_brier": 0.25,
       "forecasts": 369,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-25",
       "method": "combined_median_v1",
-      "resolved": 295,
-      "right": 205,
+      "resolved": 299,
+      "right": 207,
       "toss_ups": 3,
-      "wrong": 87
+      "wrong": 89
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
-      "brier": 0.20007793103448276,
+      "brier": 0.20093469387755103,
       "coin_flip_brier": 0.25,
       "forecasts": 364,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-25",
       "method": "claude_code_forecaster_v1",
-      "resolved": 290,
-      "right": 195,
+      "resolved": 294,
+      "right": 197,
       "toss_ups": 7,
-      "wrong": 88
+      "wrong": 90
     },
     {
       "about": "Claude's forecast after also seeing the market's price and its own first forecast. An edge under test on Tech questions; it is part of our call only if it proves it beats the market.",
@@ -47,16 +47,16 @@
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.1576299063222093,
+      "brier": 0.16149879758984784,
       "coin_flip_brier": 0.25,
       "forecasts": 89,
       "label": "Learned model",
       "last_forecast_on": "2026-11-25",
       "method": "learned_model_v1",
-      "resolved": 43,
-      "right": 36,
+      "resolved": 46,
+      "right": 38,
       "toss_ups": 0,
-      "wrong": 7
+      "wrong": 8
     },
     {
       "about": "Free open-weights model (NVIDIA Nemotron 3 Ultra) that forecasts from Claude's research notes.",
@@ -203,53 +203,53 @@
     },
     {
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
-      "brier": 0.2532409395188137,
+      "brier": 0.25128525143747354,
       "coin_flip_brier": 0.25,
       "forecasts": 33,
       "label": "Statistical baseline",
       "last_forecast_on": "2026-11-24",
       "method": "statistical_baseline_v1",
-      "resolved": 27,
-      "right": 11,
+      "resolved": 28,
+      "right": 12,
       "toss_ups": 0,
       "wrong": 16
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.1821526761979059,
+      "brier": 0.18515875821807865,
       "coin_flip_brier": 0.25,
       "forecasts": 139,
       "label": "Claude, confidence-corrected",
       "last_forecast_on": "2026-11-25",
       "method": "claude_calibrated_v1",
-      "resolved": 85,
-      "right": 65,
+      "resolved": 89,
+      "right": 67,
       "toss_ups": 0,
-      "wrong": 20
+      "wrong": 22
     },
     {
       "about": "Polymarket's price when we forecast. For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast. The toughest bar to beat.",
-      "brier": 0.16243039810426538,
+      "brier": 0.16324161502347417,
       "coin_flip_brier": 0.25,
       "forecasts": 264,
       "label": "Prediction market (benchmark)",
       "last_forecast_on": "2026-11-25",
       "method": "market_price_v1",
-      "resolved": 211,
-      "right": 161,
+      "resolved": 213,
+      "right": 162,
       "toss_ups": 0,
-      "wrong": 50
+      "wrong": 51
     },
     {
       "about": "Manifold's play-money price when we forecast (used when Polymarket has none). For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast.",
-      "brier": 0.14248555557692308,
+      "brier": 0.14239134962264152,
       "coin_flip_brier": 0.25,
       "forecasts": 63,
       "label": "Manifold (benchmark)",
       "last_forecast_on": "2026-11-23",
       "method": "manifold_price_v1",
-      "resolved": 52,
-      "right": 39,
+      "resolved": 53,
+      "right": 40,
       "toss_ups": 0,
       "wrong": 13
     },
@@ -282,6 +282,229 @@
     }
   },
   "questions": [
+    {
+      "actual": "189,000 claims",
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.35
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-21 be above 203,000 claims?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-20T12:40:08+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "The latest first print was exactly 203,000 (DOL, https://www.dol.gov/ui/data.pdf, 2026-11-19), which would resolve No on a repeat, and the 4-week average is 197,750 with only 2 of the last 12 weeks above 203,000. Against that, claims have risen from 191,000 to 202,000 to 203,000 and the prior week was revised up 2,000, so a first print of 204,000 or more is plausible. The pre-Thanksgiving week a year earlier dipped 6,000 (https://www.calculatedriskblog.com/2025/11/weekly-initial-unemployment-claims_26.html?m=1, 2025-11-26). I expect a first print centered near 201,000 with a spread of about 6,000.",
+          "sources": [
+            "https://www.dol.gov/ui/data.pdf",
+            "https://fred.stlouisfed.org/series/ICSA",
+            "https://www.rttnews.com/3716457/u-s-jobless-claims-unexpectedly-inch-up-to-two-month-high.aspx",
+            "https://www.calculatedriskblog.com/2025/11/weekly-initial-unemployment-claims_26.html?m=1"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.44551282051282054
+        },
+        {
+          "as_of": "2026-11-20",
+          "intercept": 0.194145,
+          "method": "claude_calibrated_v1",
+          "probability": 0.443341,
+          "raw": 0.35,
+          "results": 262,
+          "slope": 0.681314
+        }
+      ],
+      "id": "16e874d58dd170be",
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-26",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261120",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "resolved",
+      "title": "Will weekly U.S. jobless claims for the week ending Nov 21, 2026 come in above 203,000 claims?",
+      "topic": "Jobs",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: No",
+      "call": {
+        "claude": 0.44,
+        "market": 0.675,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.675
+      },
+      "detail": "This is a market about percentage change in the Personal Consumption Expenditures Price Index excluding food and energy (Core PCE) over the 12-month period ending October 2026, seasonally adjusted, as reported by the Bureau of Economic Analysis.\n\nThis market will resolve to the percentage change in the Personal Consumption Expenditures Price Index excluding food and energy (Core PCE) over the 12-month period ending in October 2026 according to the monthly Bureau of Economic Analysis (BEA) report.\n\nThe resolution source for this market will be the BEA Personal Income and Outlays report for October 2026 (https://www.bea.gov/data/personal-consumption-expenditures-price-index), currently scheduled to be released on November 25, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BEA Personal Income and Outlays news release, which reports core inflation (all items less food and energy) over 12-month periods to only one decimal point (e.g., 3.7%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core PCE figure (the PCE price index excluding food and energy), not the headline all-items (total) PCE price index figure.\n\nIf the BEA does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next Personal Income and Outlays report (https://www.bea.gov/news/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-16T12:56:38+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.44,
+          "rationale": "Core PCE was 3.1% y/y in September 2026 (https://www.bea.gov/news/2026/personal-income-and-outlays-september-2026, 2026-10-29), and the October 2025 base month was +0.2% m/m (https://bea.gov/news/2026/personal-income-and-outlays-october-and-november-2025). An October 2026 m/m near the Cleveland Fed nowcast of 0.27% would lift the 12-month rate by roughly 0.1 to about 3.2%, and the nowcast table shows 3.21% y/y (https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting, 2026-11-13). Rounding of the unrounded September figure, a possible revised base and the PPI airline decline (https://www.bls.gov/news.release/ppi.nr0.htm) leave 3.1% and 3.3% both open."
+        },
+        {
+          "as_of": "2026-11-16",
+          "claude": 0.44,
+          "claude_weight": -0.116804,
+          "intercept": 0.171912,
+          "market": 0.675,
+          "method": "learned_model_v1",
+          "probability": 0.739017,
+          "results": 220,
+          "slope": 1.03356
+        },
+        {
+          "as_of": "2026-11-16",
+          "intercept": 0.237097,
+          "method": "claude_calibrated_v1",
+          "probability": 0.514305,
+          "raw": 0.44,
+          "results": 244,
+          "slope": 0.745812
+        },
+        {
+          "made_at": "2026-11-16T12:32:17.258238+00:00",
+          "method": "market_price_v1",
+          "probability": 0.675
+        }
+      ],
+      "id": "polymarket-6390067",
+      "note": null,
+      "outcome": 0,
+      "report_url": null,
+      "resolves_on": "2026-11-25",
+      "scored": true,
+      "source": "prospective_markets_20261116",
+      "source_url": "https://polymarket.com/event/core-pce-yoy-october-2026",
+      "status": "resolved",
+      "title": "Will Core PCE YoY be 3.2% in October?",
+      "topic": "Economy",
+      "verdict": "wrong"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.44,
+        "market": 0.795,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.795
+      },
+      "detail": "This is a market about core inflation (excluding food and energy) over the 1-month period ending October 2026, seasonally adjusted, as reported by the Bureau of Economic Analysis.\n\nThis market will resolve to the percentage change in the Personal Consumption Expenditures Price Index excluding food and energy (Core PCE) over the 1-month period ending in October 2026 according to the monthly Bureau of Economic Analysis (BEA) report.\n\nThe resolution source for this market will be the BEA Personal Income and Outlays report for October 2026 (https://www.bea.gov/data/personal-consumption-expenditures-price-index), currently scheduled to be released on November 25, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BEA Personal Income and Outlays news release, which reports core inflation (all items less food and energy) over 1-month periods to only one decimal point (e.g., 0.2%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core PCE figure (the PCE price index excluding food and energy), not the headline all-items (total) PCE price index figure.\n\nIf the BEA does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next Personal Income and Outlays report (https://www.bea.gov/news/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-16T12:56:38+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.44,
+          "rationale": "The Cleveland Fed nowcast updated 2026-11-13 puts October core PCE at 0.27% m/m, which rounds to 0.3% but sits only 0.02 above the 0.25 line (https://www.clevelandfed.org/our-research/indicators-and-data/inflation-nowcasting). October core CPI was 0.3% (https://www.bls.gov/news.release/archives/cpi_11102026.htm, 2026-11-10) and September core PCE was 0.3% (https://www.bea.gov/news/2026/personal-income-and-outlays-september-2026), but PPI airline passenger services fell in October (https://www.bls.gov/news.release/ppi.nr0.htm, 2026-11-13), a downward risk the nowcast may not capture. A print of 0.2%, 0.3% or 0.4% all remain plausible, with 0.3% the single most likely."
+        },
+        {
+          "as_of": "2026-11-16",
+          "claude": 0.44,
+          "claude_weight": -0.116804,
+          "intercept": 0.171912,
+          "market": 0.795,
+          "method": "learned_model_v1",
+          "probability": 0.85311,
+          "results": 220,
+          "slope": 1.03356
+        },
+        {
+          "as_of": "2026-11-16",
+          "intercept": 0.237097,
+          "method": "claude_calibrated_v1",
+          "probability": 0.514305,
+          "raw": 0.44,
+          "results": 244,
+          "slope": 0.745812
+        },
+        {
+          "made_at": "2026-11-16T12:32:17.258238+00:00",
+          "method": "market_price_v1",
+          "probability": 0.795
+        }
+      ],
+      "id": "polymarket-6390045",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-25",
+      "scored": true,
+      "source": "prospective_markets_20261116",
+      "source_url": "https://polymarket.com/event/core-pce-mom-october-2026",
+      "status": "resolved",
+      "title": "Will Core PCE MoM be 0.3% in October?",
+      "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Manifold: Yes",
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
+        "probability": 0.35
+      },
+      "detail": "Resolves YES if the S&p500 closes at 7000.00 or higher on wed nov 25 2026 on Google finance.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-23T12:43:22+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.35,
+          "rationale": "The S&P 500 closed at 7,175.83 on 2026-11-19 (https://fred.stlouisfed.org/series/SP500) and Yahoo showed 6,910.39 at the 2026-11-20 close, down 3.70% (https://finance.yahoo.com/quote/%5eSPX/, not independently corroborated), so 7,000 needs about +1.3% over three sessions (Nov 23, 24, 25). Realised volatility is elevated after a 4-day losing streak, so a three-day move of that size is plausible after a sharp drop, and the BEA GDP second estimate lands on the morning of 2026-11-25 (https://www.bea.gov/news/schedule/full). The Nov 23 close is unknown and Google Finance was not readable, so I stay below even odds.",
+          "sources": [
+            "https://fred.stlouisfed.org/series/SP500",
+            "https://finance.yahoo.com/quote/%5eSPX/",
+            "https://www.bea.gov/news/schedule/full",
+            "https://stockanalysis.com/market-bullets/2026-11-18/"
+          ]
+        },
+        {
+          "as_of": "2026-11-23",
+          "claude": 0.35,
+          "claude_weight": -0.263512,
+          "intercept": 0.10498,
+          "market": 0.6292,
+          "method": "learned_model_v1",
+          "probability": 0.711667,
+          "results": 252,
+          "slope": 0.938092
+        },
+        {
+          "as_of": "2026-11-23",
+          "intercept": 0.251147,
+          "method": "claude_calibrated_v1",
+          "probability": 0.453016,
+          "raw": 0.35,
+          "results": 278,
+          "slope": 0.710198
+        },
+        {
+          "made_at": "2026-11-23T10:18:04.855574+00:00",
+          "method": "manifold_price_v1",
+          "probability": 0.6292
+        }
+      ],
+      "id": "manifold-nd2EnyRhcu",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-25",
+      "scored": true,
+      "source": "prospective_markets_20261123",
+      "source_url": "https://manifold.markets/Jack1/sp500-closes-at-700000-or-higher-on",
+      "status": "resolved",
+      "title": "S&P500 closes at 7000.00 or higher on Wednesday 25 Nov 2026?",
+      "topic": "Economy",
+      "verdict": "wrong"
+    },
     {
       "actual": "Polymarket: Yes",
       "call": {
@@ -19918,120 +20141,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.44,
-        "market": 0.675,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.675
-      },
-      "detail": "This is a market about percentage change in the Personal Consumption Expenditures Price Index excluding food and energy (Core PCE) over the 12-month period ending October 2026, seasonally adjusted, as reported by the Bureau of Economic Analysis.\n\nThis market will resolve to the percentage change in the Personal Consumption Expenditures Price Index excluding food and energy (Core PCE) over the 12-month period ending in October 2026 according to the monthly Bureau of Economic Analysis (BEA) report.\n\nThe resolution source for this market will be the BEA Personal Income and Outlays report for October 2026 (https://www.bea.gov/data/personal-consumption-expenditures-price-index), currently scheduled to be released on November 25, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BEA Personal Income and Outlays news release, which reports core inflation (all items less food and energy) over 12-month periods to only one decimal point (e.g., 3.7%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core PCE figure (the PCE price index excluding food and energy), not the headline all-items (total) PCE price index figure.\n\nIf the BEA does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next Personal Income and Outlays report (https://www.bea.gov/news/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-16T12:56:38+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.44,
-          "rationale": "Core PCE was 3.1% y/y in September 2026 (https://www.bea.gov/news/2026/personal-income-and-outlays-september-2026, 2026-10-29), and the October 2025 base month was +0.2% m/m (https://bea.gov/news/2026/personal-income-and-outlays-october-and-november-2025). An October 2026 m/m near the Cleveland Fed nowcast of 0.27% would lift the 12-month rate by roughly 0.1 to about 3.2%, and the nowcast table shows 3.21% y/y (https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting, 2026-11-13). Rounding of the unrounded September figure, a possible revised base and the PPI airline decline (https://www.bls.gov/news.release/ppi.nr0.htm) leave 3.1% and 3.3% both open."
-        },
-        {
-          "as_of": "2026-11-16",
-          "claude": 0.44,
-          "claude_weight": -0.116804,
-          "intercept": 0.171912,
-          "market": 0.675,
-          "method": "learned_model_v1",
-          "probability": 0.739017,
-          "results": 220,
-          "slope": 1.03356
-        },
-        {
-          "as_of": "2026-11-16",
-          "intercept": 0.237097,
-          "method": "claude_calibrated_v1",
-          "probability": 0.514305,
-          "raw": 0.44,
-          "results": 244,
-          "slope": 0.745812
-        },
-        {
-          "made_at": "2026-11-16T12:32:17.258238+00:00",
-          "method": "market_price_v1",
-          "probability": 0.675
-        }
-      ],
-      "id": "polymarket-6390067",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-25",
-      "scored": true,
-      "source": "prospective_markets_20261116",
-      "source_url": "https://polymarket.com/event/core-pce-yoy-october-2026",
-      "status": "pending",
-      "title": "Will Core PCE YoY be 3.2% in October?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "claude": 0.44,
-        "market": 0.795,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.795
-      },
-      "detail": "This is a market about core inflation (excluding food and energy) over the 1-month period ending October 2026, seasonally adjusted, as reported by the Bureau of Economic Analysis.\n\nThis market will resolve to the percentage change in the Personal Consumption Expenditures Price Index excluding food and energy (Core PCE) over the 1-month period ending in October 2026 according to the monthly Bureau of Economic Analysis (BEA) report.\n\nThe resolution source for this market will be the BEA Personal Income and Outlays report for October 2026 (https://www.bea.gov/data/personal-consumption-expenditures-price-index), currently scheduled to be released on November 25, 2026, at 8:30 AM ET. Resolution of this market will take place upon release of the aforementioned data.\n\nNote: the resolution source for this market will be the official monthly BEA Personal Income and Outlays news release, which reports core inflation (all items less food and energy) over 1-month periods to only one decimal point (e.g., 0.2%). Thus, this is the level of precision that will be used when resolving the market. For the avoidance of doubt, this market resolves on the core PCE figure (the PCE price index excluding food and energy), not the headline all-items (total) PCE price index figure.\n\nIf the BEA does not release the relevant figures on the scheduled date, this market may remain open up until the scheduled release time of the next Personal Income and Outlays report (https://www.bea.gov/news/schedule). If the information is not released by that time, this market will resolve according to the figures of the most recent previous month with available data.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-16T12:56:38+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.44,
-          "rationale": "The Cleveland Fed nowcast updated 2026-11-13 puts October core PCE at 0.27% m/m, which rounds to 0.3% but sits only 0.02 above the 0.25 line (https://www.clevelandfed.org/our-research/indicators-and-data/inflation-nowcasting). October core CPI was 0.3% (https://www.bls.gov/news.release/archives/cpi_11102026.htm, 2026-11-10) and September core PCE was 0.3% (https://www.bea.gov/news/2026/personal-income-and-outlays-september-2026), but PPI airline passenger services fell in October (https://www.bls.gov/news.release/ppi.nr0.htm, 2026-11-13), a downward risk the nowcast may not capture. A print of 0.2%, 0.3% or 0.4% all remain plausible, with 0.3% the single most likely."
-        },
-        {
-          "as_of": "2026-11-16",
-          "claude": 0.44,
-          "claude_weight": -0.116804,
-          "intercept": 0.171912,
-          "market": 0.795,
-          "method": "learned_model_v1",
-          "probability": 0.85311,
-          "results": 220,
-          "slope": 1.03356
-        },
-        {
-          "as_of": "2026-11-16",
-          "intercept": 0.237097,
-          "method": "claude_calibrated_v1",
-          "probability": 0.514305,
-          "raw": 0.44,
-          "results": 244,
-          "slope": 0.745812
-        },
-        {
-          "made_at": "2026-11-16T12:32:17.258238+00:00",
-          "method": "market_price_v1",
-          "probability": 0.795
-        }
-      ],
-      "id": "polymarket-6390045",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-25",
-      "scored": true,
-      "source": "prospective_markets_20261116",
-      "source_url": "https://polymarket.com/event/core-pce-mom-october-2026",
-      "status": "pending",
-      "title": "Will Core PCE MoM be 0.3% in October?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "claude": 0.94,
         "market": 0.931,
         "max_move": 0.0,
@@ -20090,115 +20199,6 @@
       "status": "pending",
       "title": "Will the price of Bitcoin be above $56,000 on November 25?",
       "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "claude_call_v1",
-        "probability": 0.35
-      },
-      "detail": "Resolves YES if the S&p500 closes at 7000.00 or higher on wed nov 25 2026 on Google finance.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-23T12:43:22+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.35,
-          "rationale": "The S&P 500 closed at 7,175.83 on 2026-11-19 (https://fred.stlouisfed.org/series/SP500) and Yahoo showed 6,910.39 at the 2026-11-20 close, down 3.70% (https://finance.yahoo.com/quote/%5eSPX/, not independently corroborated), so 7,000 needs about +1.3% over three sessions (Nov 23, 24, 25). Realised volatility is elevated after a 4-day losing streak, so a three-day move of that size is plausible after a sharp drop, and the BEA GDP second estimate lands on the morning of 2026-11-25 (https://www.bea.gov/news/schedule/full). The Nov 23 close is unknown and Google Finance was not readable, so I stay below even odds.",
-          "sources": [
-            "https://fred.stlouisfed.org/series/SP500",
-            "https://finance.yahoo.com/quote/%5eSPX/",
-            "https://www.bea.gov/news/schedule/full",
-            "https://stockanalysis.com/market-bullets/2026-11-18/"
-          ]
-        },
-        {
-          "as_of": "2026-11-23",
-          "claude": 0.35,
-          "claude_weight": -0.263512,
-          "intercept": 0.10498,
-          "market": 0.6292,
-          "method": "learned_model_v1",
-          "probability": 0.711667,
-          "results": 252,
-          "slope": 0.938092
-        },
-        {
-          "as_of": "2026-11-23",
-          "intercept": 0.251147,
-          "method": "claude_calibrated_v1",
-          "probability": 0.453016,
-          "raw": 0.35,
-          "results": 278,
-          "slope": 0.710198
-        },
-        {
-          "made_at": "2026-11-23T10:18:04.855574+00:00",
-          "method": "manifold_price_v1",
-          "probability": 0.6292
-        }
-      ],
-      "id": "manifold-nd2EnyRhcu",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-25",
-      "scored": true,
-      "source": "prospective_markets_20261123",
-      "source_url": "https://manifold.markets/Jack1/sp500-closes-at-700000-or-higher-on",
-      "status": "pending",
-      "title": "S&P500 closes at 7000.00 or higher on Wednesday 25 Nov 2026?",
-      "topic": "Economy",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
-        "members": 1,
-        "method": "claude_call_v1",
-        "probability": 0.35
-      },
-      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-21 be above 203,000 claims?",
-      "forecasts": [
-        {
-          "made_at": "2026-11-20T12:40:08+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.35,
-          "rationale": "The latest first print was exactly 203,000 (DOL, https://www.dol.gov/ui/data.pdf, 2026-11-19), which would resolve No on a repeat, and the 4-week average is 197,750 with only 2 of the last 12 weeks above 203,000. Against that, claims have risen from 191,000 to 202,000 to 203,000 and the prior week was revised up 2,000, so a first print of 204,000 or more is plausible. The pre-Thanksgiving week a year earlier dipped 6,000 (https://www.calculatedriskblog.com/2025/11/weekly-initial-unemployment-claims_26.html?m=1, 2025-11-26). I expect a first print centered near 201,000 with a spread of about 6,000.",
-          "sources": [
-            "https://www.dol.gov/ui/data.pdf",
-            "https://fred.stlouisfed.org/series/ICSA",
-            "https://www.rttnews.com/3716457/u-s-jobless-claims-unexpectedly-inch-up-to-two-month-high.aspx",
-            "https://www.calculatedriskblog.com/2025/11/weekly-initial-unemployment-claims_26.html?m=1"
-          ]
-        },
-        {
-          "method": "statistical_baseline_v1",
-          "probability": 0.44551282051282054
-        },
-        {
-          "as_of": "2026-11-20",
-          "intercept": 0.194145,
-          "method": "claude_calibrated_v1",
-          "probability": 0.443341,
-          "raw": 0.35,
-          "results": 262,
-          "slope": 0.681314
-        }
-      ],
-      "id": "16e874d58dd170be",
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-26",
-      "scored": true,
-      "series": "jobless_claims",
-      "series_label": "Weekly U.S. jobless claims",
-      "source": "prospective_daily_20261120",
-      "source_url": "https://fred.stlouisfed.org/series/ICSA",
-      "status": "pending",
-      "title": "Will weekly U.S. jobless claims for the week ending Nov 21, 2026 come in above 203,000 claims?",
-      "topic": "Jobs",
       "verdict": null
     },
     {
@@ -23114,7 +23114,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20516412734967132,
+    "brier": 0.20590658049549512,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -23172,16 +23172,16 @@
           "rule": 0.16358129204651162
         },
         "counted": {
-          "dates": 12,
-          "difference": -0.0010121246938775696,
+          "dates": 13,
+          "difference": -0.0007583482692307686,
           "interval": [
-            -0.013863,
-            0.010433
+            -0.01273,
+            0.010874
           ],
-          "market": 0.18977189,
+          "market": 0.19103779326923076,
           "meets_bar": false,
-          "questions": 49,
-          "rule": 0.18875976530612243
+          "questions": 52,
+          "rule": 0.190279445
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -23226,16 +23226,16 @@
           "rule": null
         },
         "counted": {
-          "dates": 11,
-          "difference": -0.010856029537581413,
+          "dates": 12,
+          "difference": -0.00980637375734783,
           "interval": [
-            -0.027873,
-            0.001119
+            -0.025349,
+            0.001605
           ],
-          "market": 0.1715115665116279,
+          "market": 0.17413347826086956,
           "meets_bar": false,
-          "questions": 43,
-          "rule": 0.1606555369740465
+          "questions": 46,
+          "rule": 0.16432710450352173
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -23243,7 +23243,7 @@
         "status": "testing"
       }
     ],
-    "pending": 67,
+    "pending": 63,
     "progress": {
       "changes": [
         {
@@ -23269,10 +23269,10 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.18954074074074076,
-          "market": 0.1762464087037037,
-          "ours": 0.1803380647710926,
-          "questions": 54
+          "claude": 0.19587543859649123,
+          "market": 0.1781131352631579,
+          "ours": 0.18698957013401754,
+          "questions": 57
         },
         "before": {
           "claude": 0.2016852380952381,
@@ -23338,36 +23338,45 @@
           "wrong": 7
         },
         {
-          "claude": 0.129108,
-          "market": 0.12265074000000001,
-          "ours": 0.12265074000000001,
-          "questions": 25,
-          "right": 21,
+          "claude": 0.13832962962962964,
+          "market": 0.13199698148148148,
+          "ours": 0.13199698148148148,
+          "questions": 27,
+          "right": 22,
           "start": "2026-11-16",
-          "wrong": 4
+          "wrong": 5
+        },
+        {
+          "claude": 0.42250000000000004,
+          "market": 0.13749264000000003,
+          "ours": 0.42250000000000004,
+          "questions": 1,
+          "right": 0,
+          "start": "2026-11-23",
+          "wrong": 1
         }
       ]
     },
-    "resolved": 295,
-    "right": 205,
+    "resolved": 299,
+    "right": 207,
     "toss_ups": 3,
     "total": 370,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.19920113636363637,
-      "claude_questions": 264,
-      "market": 0.1579207874621212,
-      "ours": 0.19917682006681442,
-      "questions": 264,
+      "claude": 0.2004449438202247,
+      "claude_questions": 267,
+      "market": 0.15852520797752812,
+      "ours": 0.20038513294995883,
+      "questions": 267,
       "since_anchored": {
-        "claude": 0.20456938775510203,
+        "claude": 0.21064615384615384,
         "date": "2026-11-10",
-        "market": 0.18977189,
-        "ours": 0.18977189,
-        "questions": 49
+        "market": 0.19103779326923076,
+        "ours": 0.19651870403846153,
+        "questions": 52
       }
     },
-    "wrong": 87
+    "wrong": 89
   },
   "version": "track_record_v2"
 }
