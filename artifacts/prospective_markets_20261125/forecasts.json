@@ -1,0 +1,224 @@
+{
+  "note": "Questions borrowed from a prediction market (Polymarket, Manifold or Kalshi) and resolved by it. The market price at selection is a benchmark, not part of our call; our forecasters did not look at it.",
+  "questions": [
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.645
+        },
+        {
+          "created_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.63,
+          "rationale": "Binance BTCUSDT ticker read 58,839.53 on 2026-11-25 about 10:54 UTC (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), roughly 1.4% above 58,000, with 30-day daily vol of 2.47% (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32). Over about 2.2 days that gives a normal-model chance near 65%; I shade it down for the steady slide from 65,650 on 2026-11-14 to 60,458.70 on 2026-11-24 (https://fortune.com/article/price-of-bitcoin-11-24-2026/), continued ETF outflows and fat downside tails.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=32",
+            "https://fortune.com/article/price-of-bitcoin-11-24-2026/",
+            "https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-continue-bleeding-440337"
+          ]
+        }
+      ],
+      "id": "polymarket-7203524",
+      "market_id": "7203524",
+      "outcome": null,
+      "question": "Will the price of Bitcoin be above $58,000 on November 27?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-27",
+      "resolution_source": "https://polymarket.com/event/bitcoin-above-on-november-27-2026",
+      "topic": "Crypto",
+      "volume": 23851.414236999997,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.22
+        },
+        {
+          "created_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.27,
+          "rationale": "October's rate was 6.7%, up from 6.5% (https://www.cp24.com/news/canada/2026/11/06/unemployment-rate-rose-to-67-in-october-statcan-says/, 2026-11-06), so a YES needs an unchanged reading; about 22-23% of monthly pairs are unchanged in the OECD series (https://fred.stlouisfed.org/data/LRHUTTTTCAM156S). I add a little because 6.7% is near the middle of the 6.4-6.9 range seen this year and a 0.2 jump often partly reverses, which puts mass on 6.5-6.7 and not just above.",
+          "sources": [
+            "https://www.cp24.com/news/canada/2026/11/06/unemployment-rate-rose-to-67-in-october-statcan-says/",
+            "https://fred.stlouisfed.org/data/LRHUTTTTCAM156S",
+            "https://www.financecalendar.com/event/canada-labour-force-survey-december-2026/"
+          ]
+        }
+      ],
+      "id": "polymarket-6992447",
+      "market_id": "6992447",
+      "outcome": null,
+      "question": "Will Canada\u2019s November 2026 unemployment rate be 6.7%?",
+      "resolution_criteria": "This market will resolve according to the seasonally adjusted unemployment rate (15 years and over, total) reported by Statistics Canada in the Labour Force Survey for November 2026.\n\nThe resolution source for this market is the Labour Force Survey, published by Statistics Canada every month at https://www150.statcan.gc.ca/n1/dai-quo/cal1-eng.htm.\n\nThe next data release is scheduled for December 4, 2026. This market will resolve as soon as the relevant data is issued. Any revisions to the data after the first release will not count toward this market's resolution.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports unemployment to one decimal point. Thus, this is the level of precision that will be used when resolving the market.",
+      "resolution_date": "2026-12-04",
+      "resolution_source": "https://polymarket.com/event/november-2026-unemployment-rate-canada",
+      "topic": "Economy",
+      "volume": 9905.715379000001,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.7335
+        },
+        {
+          "created_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.74,
+          "rationale": "Binance SOLUSDT was 67.73 at 10:52 UTC on 2026-11-25 (https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT), about 4.2% above 65, with 30-day daily vol of 3.45% (https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31). The normal model gives about 80%, matching the 80.5% historical 2-day count; I lower it for the fall from 100.95 on 2026-10-26 to 69.69 on 2026-11-24, the 64.87 low on 2026-11-21, and ETF outflow and China-scrutiny headlines.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=31",
+            "https://api.binance.com/api/v3/klines?symbol=SOLUSDT&interval=1d&limit=1000",
+            "https://www.crowdfundinsider.com/2026/11/323271-solana-sol-price-reaches-multi-month-lows-as-etf-outflows-china-scrutiny-crypto-market-selloff-increase-pressure/"
+          ]
+        }
+      ],
+      "id": "polymarket-7203543",
+      "market_id": "7203543",
+      "outcome": null,
+      "question": "Will the price of Solana be above $65 on November 27?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for SOL/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the SOL/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/SOL_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance SOL/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-27",
+      "resolution_source": "https://polymarket.com/event/solana-above-on-november-27-2026",
+      "topic": "Crypto",
+      "volume": 9529.925530999999,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.375
+        },
+        {
+          "created_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.37,
+          "rationale": "BLS put October U-3 at 4.1%, below a 4.2% consensus, and said the rate has stayed between 4.1 and 4.3% since March (https://www.bls.gov/news.release/empsit.nr0.htm, 2026-11-06). About 32% of monthly moves in 2024-2026 left the rate unchanged (https://data.bls.gov/timeseries/LNS14000000), but 4.1% is the bottom of the recent band, so the 4.2% outcome is about as likely as unchanged. Claims near 203,000 (https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/, 2026-11-19) point to stability, and the 0.1 point sampling noise keeps this near 37%.",
+          "sources": [
+            "https://www.bls.gov/news.release/empsit.nr0.htm",
+            "https://data.bls.gov/timeseries/LNS14000000",
+            "https://www.bls.gov/schedule/news_release/empsit.htm",
+            "https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/",
+            "https://www.stlouisfed.org/on-the-economy/2026/mar/understanding-statistical-significance-monthly-unemployment-data"
+          ]
+        }
+      ],
+      "id": "polymarket-6937481",
+      "market_id": "6937481",
+      "outcome": null,
+      "question": "Will the November 2026 unemployment rate be 4.1%?",
+      "resolution_criteria": "This market will resolve according to the seasonally adjusted unemployment rate (total unemployed, as a percent of the civilian labor force, official unemployment rate denoted as U-3) reported by the Bureau of Labor Statistics in the Employment Situation Report for November 2026.\n\nThe resolution source for this market is the Monthly Employment Situation Report, published by the BLS every month at https://www.bls.gov/bls/news-release/empsit.htm, specifically the U-3 measure in Table A-15 for the month in question.\n\nThe relevant data release is scheduled for December 4, 2026, at 8:30 AM ET. This market will resolve as soon as the relevant data is issued. Any revisions to the data after the first release will not count toward this market's resolution.\n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nNote: the resolution source for this market reports unemployment to one decimal point. Thus, this is the level of precision that will be used when resolving the market.",
+      "resolution_date": "2026-12-04",
+      "resolution_source": "https://polymarket.com/event/november-unemployment-rate-2026",
+      "topic": "Economy",
+      "volume": 7971.931305000001,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.914
+        },
+        {
+          "created_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.88,
+          "rationale": "Binance's price page showed ETH at 1,641.24 at 2026-11-25 10:55 UTC (https://www.binance.com/price/ethereum), about 9.4% above 1,500, with daily vol near 3.5% (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31). Over about 3.2 days the normal model gives roughly 92-94%; I trim it for the downtrend (1,929.88 on 2026-11-13 to 1,623.09 on 2026-11-20 on Binance daily closes), ETF outflows and fat tails. This is lower than before because ETH fell from about 1,703 on 2026-11-24 (https://fortune.com/article/price-of-ethereum-11-24-2026/).",
+          "sources": [
+            "https://www.binance.com/price/ethereum",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://fortune.com/article/price-of-ethereum-11-24-2026/",
+            "https://crypto.news/ethereum-tests-1500-support-as-etf-selling-and-whale-losses-mount-will-it-crash/"
+          ]
+        }
+      ],
+      "id": "polymarket-7233228",
+      "market_id": "7233228",
+      "outcome": null,
+      "question": "Will the price of Ethereum be above $1,500 on November 28?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-28",
+      "resolution_source": "https://polymarket.com/event/ethereum-above-on-november-28-2026",
+      "topic": "Crypto",
+      "volume": 8172.825398,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.165
+        },
+        {
+          "created_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.12,
+          "rationale": "Only 3 of 46 months since 2023 fell in the 75k-100k bracket on revised data (https://fred.stlouisfed.org/data/PAYEMS.txt), about 6.5%. October printed +165,000 with August revised to +186,000 and September to +60,000 (https://www.bls.gov/news.release/empsit.nr0.htm, 2026-11-06), while the 12-month average is only 48,000, so November is spread widely around roughly 50-130k. A 25k-wide bracket in the middle of that spread gets about 12%; no November consensus was found.",
+          "sources": [
+            "https://www.bls.gov/news.release/empsit.nr0.htm",
+            "https://fred.stlouisfed.org/data/PAYEMS.txt",
+            "https://www.foxbusiness.com/economy/us-jobs-report-october-2026.amp",
+            "https://www.bls.gov/schedule/news_release/empsit.htm"
+          ]
+        }
+      ],
+      "id": "polymarket-6937533",
+      "market_id": "6937533",
+      "outcome": null,
+      "question": "Will the US add between 75k and 100k jobs in November?",
+      "resolution_criteria": "This market will resolve according to the change in the total nonfarm payroll employment reported by the BLS \"Employment Situation Summary\" for November 2026, scheduled to be released on December 4, 2026, at 8:30 AM ET.\n\nIf the reported value falls exactly between two brackets, then this market will resolve to the higher range bracket. \n\nIf no data for the specified month is released by the date the next month's data is scheduled to be released, this market will resolve based on data from the last available month.\n\nThe BLS \"Employment Situation Summary\" may be found here: https://www.bls.gov/bls/newsrels.htm",
+      "resolution_date": "2026-12-04",
+      "resolution_source": "https://polymarket.com/event/how-many-jobs-added-in-november-2026",
+      "topic": "Economy",
+      "volume": 3065.72324,
+      "volume_floor": 2500
+    },
+    {
+      "forecasts": [
+        {
+          "created_at": "2026-11-25T10:49:21.262111+00:00",
+          "method": "market_price_v1",
+          "probability": 0.946
+        },
+        {
+          "created_at": "2026-11-25T12:40:46+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.95,
+          "rationale": "Binance's ETH price page showed 1,641.24 at 2026-11-25 10:55 UTC (https://www.binance.com/en/price/ethereum), about 14.7% above 1,400, and the Binance daily low-close in the last month was 1,623.09 on 2026-11-20 (https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31). With daily vol about 3.5% and about 4.2 days left, a fall of that size is about a 2-sigma move (roughly 98% for staying above in a normal model). I cut it to 95% for the strong downtrend, ETF outflows and weekend thin liquidity, and keep it above my 88% for the 1,500 question.",
+          "sources": [
+            "https://www.binance.com/en/price/ethereum",
+            "https://api.binance.com/api/v3/klines?symbol=ETHUSDT&interval=1d&limit=31",
+            "https://fortune.com/article/price-of-ethereum-11-24-2026/",
+            "https://cryptoticker.io/en/ethereum-price-crash-1715-63-percent-below-record-november-15-2026/"
+          ]
+        }
+      ],
+      "id": "polymarket-7260535",
+      "market_id": "7260535",
+      "outcome": null,
+      "question": "Will the price of Ethereum be above $1,400 on November 29?",
+      "resolution_criteria": "This market will resolve to \"Yes\" if the Binance 1 minute candle for ETH/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the ETH/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/ETH_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance ETH/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "resolution_date": "2026-11-29",
+      "resolution_source": "https://polymarket.com/event/ethereum-above-on-november-29-2026",
+      "topic": "Crypto",
+      "volume": 7947.448549999999,
+      "volume_floor": 2500
+    }
+  ],
+  "schema": "market_questions_v1",
+  "selection": "polymarket_selection_v9+manifold_selection_v4+kalshi_selection_v1"
+}
