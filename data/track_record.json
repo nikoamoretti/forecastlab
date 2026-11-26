@@ -1,34 +1,34 @@
 {
   "calibration": {
-    "as_of": "2026-11-25",
-    "intercept": 0.25918,
-    "results": 290,
-    "slope": 0.712815
+    "as_of": "2026-11-26",
+    "intercept": 0.26962,
+    "results": 294,
+    "slope": 0.714146
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. From Nov 5 it was Claude's own forecast, which had beaten the combination. For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. From 2026-11-23 it is Claude's own forecast again, with the market's price beside it as the yardstick; a tested edge that has beaten the market takes its place on the questions it covers.",
-      "brier": 0.20590658049549512,
+      "brier": 0.20523609522717678,
       "coin_flip_brier": 0.25,
       "forecasts": 369,
       "label": "Combined forecast",
       "last_forecast_on": "2026-11-25",
       "method": "combined_median_v1",
-      "resolved": 299,
-      "right": 207,
+      "resolved": 300,
+      "right": 208,
       "toss_ups": 3,
       "wrong": 89
     },
     {
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
-      "brier": 0.20093469387755103,
+      "brier": 0.20026576271186441,
       "coin_flip_brier": 0.25,
       "forecasts": 364,
       "label": "Claude alone",
       "last_forecast_on": "2026-11-25",
       "method": "claude_code_forecaster_v1",
-      "resolved": 294,
-      "right": 197,
+      "resolved": 295,
+      "right": 198,
       "toss_ups": 7,
       "wrong": 90
     },
@@ -47,14 +47,14 @@
     },
     {
       "about": "A small model that re-fits itself on every decided question: the market's price, corrected by how prices have turned out and by how much Claude's disagreement has been worth on each topic. An edge under test; it is part of our call only if it proves it beats the market.",
-      "brier": 0.16149879758984784,
+      "brier": 0.15821527515229789,
       "coin_flip_brier": 0.25,
       "forecasts": 89,
       "label": "Learned model",
       "last_forecast_on": "2026-11-25",
       "method": "learned_model_v1",
-      "resolved": 46,
-      "right": 38,
+      "resolved": 47,
+      "right": 39,
       "toss_ups": 0,
       "wrong": 8
     },
@@ -216,27 +216,27 @@
     },
     {
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
-      "brier": 0.18515875821807865,
+      "brier": 0.18324122992183334,
       "coin_flip_brier": 0.25,
       "forecasts": 139,
       "label": "Claude, confidence-corrected",
       "last_forecast_on": "2026-11-25",
       "method": "claude_calibrated_v1",
-      "resolved": 89,
-      "right": 67,
+      "resolved": 90,
+      "right": 68,
       "toss_ups": 0,
       "wrong": 22
     },
     {
       "about": "Polymarket's price when we forecast. For questions first forecast 2026-11-10 to 2026-11-22 our call was this price unless a tested edge applied; from 2026-11-23 it is the yardstick beside Claude's own forecast. The toughest bar to beat.",
-      "brier": 0.16324161502347417,
+      "brier": 0.16250105140186916,
       "coin_flip_brier": 0.25,
       "forecasts": 264,
       "label": "Prediction market (benchmark)",
       "last_forecast_on": "2026-11-25",
       "method": "market_price_v1",
-      "resolved": 213,
-      "right": 162,
+      "resolved": 214,
+      "right": 163,
       "toss_ups": 0,
       "wrong": 51
     },
@@ -267,18 +267,18 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-25",
+  "generated_on": "2026-11-26",
   "learned_model": {
-    "as_of": "2026-11-25",
-    "intercept": 0.123285,
-    "results": 264,
-    "slope": 0.936135,
+    "as_of": "2026-11-26",
+    "intercept": 0.118227,
+    "results": 268,
+    "slope": 0.935464,
     "weights": {
-      "Crypto": -0.157673,
-      "Economy": -0.286235,
-      "Politics": -0.349483,
-      "Tech": 0.516983,
-      "World": -0.465221
+      "Crypto": -0.158017,
+      "Economy": -0.269261,
+      "Politics": -0.350814,
+      "Tech": 0.515555,
+      "World": -0.465771
     }
   },
   "questions": [
@@ -443,6 +443,69 @@
       "status": "resolved",
       "title": "Will Core PCE MoM be 0.3% in October?",
       "topic": "Economy",
+      "verdict": "right"
+    },
+    {
+      "actual": "Polymarket: Yes",
+      "call": {
+        "claude": 0.94,
+        "market": 0.931,
+        "max_move": 0.0,
+        "members": 1,
+        "method": "market_anchored_call_v1",
+        "probability": 0.931
+      },
+      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
+      "forecasts": [
+        {
+          "made_at": "2026-11-20T12:40:20+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.94,
+          "rationale": "Binance BTCUSDT was about 61,800 at 10:14 UTC on 2026-11-20 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), so 56,000 is 9.4% below spot with five days to go. 30-day daily volatility is 2.28%, and 95.2% of 1,995 historical 5-day windows stayed above that ratio (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31). The downtrend (84,093 on 2026-10-21 to 61,987 on 2026-11-19) and ETF outflows (https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-440337) fatten the downside tail, and a recent miss on a similar price threshold argues against going above the low-to-mid 90s.",
+          "sources": [
+            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
+            "https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-440337",
+            "https://cryptobriefing.com/bitcoin-falls-23-november-2026-bear-market/"
+          ]
+        },
+        {
+          "as_of": "2026-11-20",
+          "claude": 0.94,
+          "claude_weight": -0.155989,
+          "intercept": 0.071699,
+          "market": 0.931,
+          "method": "learned_model_v1",
+          "probability": 0.915305,
+          "results": 236,
+          "slope": 0.896104
+        },
+        {
+          "as_of": "2026-11-20",
+          "intercept": 0.194145,
+          "method": "claude_calibrated_v1",
+          "probability": 0.887834,
+          "raw": 0.94,
+          "results": 262,
+          "slope": 0.681314
+        },
+        {
+          "made_at": "2026-11-20T10:08:18.753119+00:00",
+          "method": "market_price_v1",
+          "probability": 0.931
+        }
+      ],
+      "id": "polymarket-7150180",
+      "note": null,
+      "outcome": 1,
+      "report_url": null,
+      "resolves_on": "2026-11-25",
+      "scored": true,
+      "source": "prospective_markets_20261120",
+      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-25-2026",
+      "status": "resolved",
+      "title": "Will the price of Bitcoin be above $56,000 on November 25?",
+      "topic": "Crypto",
       "verdict": "right"
     },
     {
@@ -20141,69 +20204,6 @@
     {
       "actual": null,
       "call": {
-        "claude": 0.94,
-        "market": 0.931,
-        "max_move": 0.0,
-        "members": 1,
-        "method": "market_anchored_call_v1",
-        "probability": 0.931
-      },
-      "detail": "This market will resolve to \"Yes\" if the Binance 1 minute candle for BTC/USDT closing at 12:00 in the ET timezone (noon) on the date specified in the title has a final \"Close\" price higher than the price specified in the title. Otherwise, this market will resolve to \"No\".\n\nThe resolution source for this market is Binance, specifically the BTC/USDT \"Close\" prices currently available at https://www.binance.com/en/trade/BTC_USDT with \"1m\" and \"Candles\" selected on the top bar.\n\nPlease note that this market is about the price according to Binance BTC/USDT, not according to other exchanges or trading pairs.\n\nPrice precision is determined by the number of decimal places in the source.",
-      "forecasts": [
-        {
-          "made_at": "2026-11-20T12:40:20+00:00",
-          "method": "claude_code_forecaster_v1",
-          "probability": 0.94,
-          "rationale": "Binance BTCUSDT was about 61,800 at 10:14 UTC on 2026-11-20 (https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT), so 56,000 is 9.4% below spot with five days to go. 30-day daily volatility is 2.28%, and 95.2% of 1,995 historical 5-day windows stayed above that ratio (https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31). The downtrend (84,093 on 2026-10-21 to 61,987 on 2026-11-19) and ETF outflows (https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-440337) fatten the downside tail, and a recent miss on a similar price threshold argues against going above the low-to-mid 90s.",
-          "sources": [
-            "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
-            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=31",
-            "https://www.theblock.co/news/markets/2026-11-14-bitcoin-etfs-lose-1-billion-for-the-second-week-in-a-row-as-crypto-funds-except-one-440337",
-            "https://cryptobriefing.com/bitcoin-falls-23-november-2026-bear-market/"
-          ]
-        },
-        {
-          "as_of": "2026-11-20",
-          "claude": 0.94,
-          "claude_weight": -0.155989,
-          "intercept": 0.071699,
-          "market": 0.931,
-          "method": "learned_model_v1",
-          "probability": 0.915305,
-          "results": 236,
-          "slope": 0.896104
-        },
-        {
-          "as_of": "2026-11-20",
-          "intercept": 0.194145,
-          "method": "claude_calibrated_v1",
-          "probability": 0.887834,
-          "raw": 0.94,
-          "results": 262,
-          "slope": 0.681314
-        },
-        {
-          "made_at": "2026-11-20T10:08:18.753119+00:00",
-          "method": "market_price_v1",
-          "probability": 0.931
-        }
-      ],
-      "id": "polymarket-7150180",
-      "note": null,
-      "outcome": null,
-      "report_url": null,
-      "resolves_on": "2026-11-25",
-      "scored": true,
-      "source": "prospective_markets_20261120",
-      "source_url": "https://polymarket.com/event/bitcoin-above-on-november-25-2026",
-      "status": "pending",
-      "title": "Will the price of Bitcoin be above $56,000 on November 25?",
-      "topic": "Crypto",
-      "verdict": null
-    },
-    {
-      "actual": null,
-      "call": {
         "members": 1,
         "method": "claude_call_v1",
         "probability": 0.06
@@ -23114,7 +23114,7 @@
     }
   ],
   "summary": {
-    "brier": 0.20590658049549512,
+    "brier": 0.20523609522717678,
     "call_policy": {
       "bar": {
         "dates": 10,
@@ -23173,15 +23173,15 @@
         },
         "counted": {
           "dates": 13,
-          "difference": -0.0007583482692307686,
+          "difference": -0.0007659454716981151,
           "interval": [
-            -0.01273,
-            0.010874
+            -0.012607,
+            0.01049
           ],
-          "market": 0.19103779326923076,
+          "market": 0.18752313679245283,
           "meets_bar": false,
-          "questions": 52,
-          "rule": 0.190279445
+          "questions": 53,
+          "rule": 0.18675719132075472
         },
         "id": "every_question_move_v1",
         "label": "Every question",
@@ -23227,15 +23227,15 @@
         },
         "counted": {
           "dates": 12,
-          "difference": -0.00980637375734783,
+          "difference": -0.009546403187510627,
           "interval": [
-            -0.025349,
-            0.001605
+            -0.024983,
+            0.001628
           ],
-          "market": 0.17413347826086956,
+          "market": 0.1705298085106383,
           "meets_bar": false,
-          "questions": 46,
-          "rule": 0.16432710450352173
+          "questions": 47,
+          "rule": 0.16098340532312766
         },
         "id": "learned_model_call_v1",
         "label": "Learned from results",
@@ -23243,7 +23243,7 @@
         "status": "testing"
       }
     ],
-    "pending": 63,
+    "pending": 62,
     "progress": {
       "changes": [
         {
@@ -23269,10 +23269,10 @@
       ],
       "since_last_change": {
         "after": {
-          "claude": 0.19587543859649123,
-          "market": 0.1781131352631579,
-          "ours": 0.18698957013401754,
-          "questions": 57
+          "claude": 0.19256034482758622,
+          "market": 0.1751243053448276,
+          "ours": 0.18384769823515518,
+          "questions": 58
         },
         "before": {
           "claude": 0.2016852380952381,
@@ -23338,11 +23338,11 @@
           "wrong": 7
         },
         {
-          "claude": 0.13832962962962964,
-          "market": 0.13199698148148148,
-          "ours": 0.13199698148148148,
-          "questions": 27,
-          "right": 22,
+          "claude": 0.13351785714285716,
+          "market": 0.1274528392857143,
+          "ours": 0.1274528392857143,
+          "questions": 28,
+          "right": 23,
           "start": "2026-11-16",
           "wrong": 5
         },
@@ -23357,23 +23357,23 @@
         }
       ]
     },
-    "resolved": 299,
-    "right": 207,
+    "resolved": 300,
+    "right": 208,
     "toss_ups": 3,
     "total": 370,
     "unscored": 6,
     "vs_market": {
-      "claude": 0.2004449438202247,
-      "claude_questions": 267,
-      "market": 0.15852520797752812,
-      "ours": 0.20038513294995883,
-      "questions": 267,
+      "claude": 0.199710447761194,
+      "claude_questions": 268,
+      "market": 0.15795146093283582,
+      "ours": 0.1996551921553694,
+      "questions": 268,
       "since_anchored": {
-        "claude": 0.21064615384615384,
+        "claude": 0.20673962264150944,
         "date": "2026-11-10",
-        "market": 0.19103779326923076,
-        "ours": 0.19651870403846153,
-        "questions": 52
+        "market": 0.18752313679245283,
+        "ours": 0.19290063415094338,
+        "questions": 53
       }
     },
     "wrong": 89
