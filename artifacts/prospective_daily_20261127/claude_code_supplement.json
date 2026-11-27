@@ -1,0 +1,23 @@
+{
+  "cells": [
+    {
+      "computed_at": "2026-11-27T12:39:57+00:00",
+      "entry_id": "08234779c801fccc",
+      "probability": 0.74,
+      "rationale": "The latest first print (week ending 2026-11-21) was exactly 189,000, well below a roughly 200,000 consensus and the 202,000 prior week, with a four-week average of 196,000 (https://www.financecalendar.com/event/us-initial-jobless-claims-november-25-2026/, 2026-11-27; https://fred.stlouisfed.org/series/ICSA, 2026-11-25). A one-week outlier at a historically extreme low usually mean-reverts toward the average, and only 2 of 882 weeks since 2010 were at or below this level. The main risk is Thanksgiving-week seasonal adjustment, which pulled the 2025 equivalent week down to 191,000, and an exact 189,000 repeat would resolve No.",
+      "release_event": "claims-2026-12-03",
+      "sources": [
+        "https://fred.stlouisfed.org/series/ICSA",
+        "https://www.financecalendar.com/event/us-initial-jobless-claims-november-25-2026/",
+        "https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/",
+        "https://www.dol.gov/newsroom/economicdata"
+      ],
+      "status": "forecasted"
+    }
+  ],
+  "cohort_id": "prospective_daily_20261127",
+  "generated_at": "2026-11-27T12:39:57+00:00",
+  "manifest_hash": "92a76a4f2d112193bb9b2db48d91b51aa6f83a6263282e74da154513b095727f",
+  "method": "claude_code_forecaster_v1",
+  "note": "Recorded before every entry's cutoff; scored as a separate method."
+}
