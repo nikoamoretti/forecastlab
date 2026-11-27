@@ -845,6 +845,33 @@ def _call_policy() -> dict[str, Any]:
                     "interval": round(PROMOTION_INTERVAL[1] - PROMOTION_INTERVAL[0], 2)}}
 
 
+def _learning(root: Path) -> dict[str, Any] | None:
+    """What the weekly miss review has done (scripts/miss_review.py): causes, the latest review and the checklists in use.
+
+    Reads data/miss_reviews/*.json and configs/research_checklists.json under ``root``; None when there is no review.
+    Per-miss probabilities are left out: the block holds causes, counts and text only.
+    """
+    found = sorted(((r["reviewed_on"], path.stem, r) for path in (root / "data" / "miss_reviews").glob("*.json")
+                    for r in [json.loads(path.read_text())]), key=lambda row: row[:2])  # "2026-11-15-2" follows "2026-11-15"
+    reviews = [row[2] for row in found]
+    if not reviews:
+        return None
+    causes: dict[str, int] = {}
+    for review in reviews:
+        for miss in review.get("misses", []):
+            causes[miss["cause"]] = causes.get(miss["cause"], 0) + 1
+    latest = reviews[-1]
+    path = root / "configs" / "research_checklists.json"
+    checklist = json.loads(path.read_text()) if path.exists() else {}
+    return {"reviews": len(reviews), "misses_reviewed": sum(causes.values()),
+            "first_review": reviews[0]["reviewed_on"], "last_review": latest["reviewed_on"],
+            "causes": [{"cause": c, "count": n} for c, n in sorted(causes.items(), key=lambda kv: -kv[1])],
+            "latest": {"reviewed_on": latest["reviewed_on"], "summary": latest.get("summary"), "misses": len(latest.get("misses", [])),
+                       "added": latest.get("checklist_added", {}), "dropped": latest.get("checklist_dropped", {})},
+            "checklist": {"updated": checklist.get("updated"),
+                          "topics": [{"topic": t, "items": items} for t, items in sorted(checklist.get("topics", {}).items())]}}
+
+
 def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bool = False) -> dict[str, Any]:
     """The track record; with ``freeze``, new weighted calls are saved so they never change later."""
     questions: list[dict[str, Any]] = []
@@ -970,5 +997,5 @@ def build_track_record(artifacts: Path, *, today: date | None = None, freeze: bo
     built_on = today or utcnow().date()
     return {"version": TRACK_RECORD_VERSION, "generated_on": built_on.isoformat(),
             "summary": summary, "calibration": _correction(questions, built_on),
-            "learned_model": _learned_fit(questions, built_on),
+            "learned_model": _learned_fit(questions, built_on), "learning": _learning(artifacts.parent),
             "forecasters": forecasters, "questions": questions}
