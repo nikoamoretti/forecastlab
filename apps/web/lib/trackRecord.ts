@@ -40,8 +40,14 @@ export type EdgeBlock = { questions: number; dates: number; rule: number | null;
 export type EdgeTest = { id: string; label: string; about?: string; status: "testing" | "promoted"; registered: string; counted: EdgeBlock; before: EdgeBlock };
 // own_from: the first forecast day on which our call is Claude's own forecast again (absent in records built before that change).
 export type CallPolicy = { default_move: number; own_from?: string; promoted: string[]; bar: { questions: number; dates: number; interval: number } };
+// The weekly review of misses: counts by cause, the newest review and the research instructions in use.
+export type Learning = { reviews: number; misses_reviewed: number; first_review: string; last_review: string;
+  causes: { cause: string; count: number }[];
+  latest: { reviewed_on: string; summary: string | null; misses: number; added: Record<string, string[]>; dropped: Record<string, string[]> };
+  checklist: { updated: string | null; topics: { topic: string; items: string[] }[] } };
 export type TrackRecord = { generated_on: string; summary: Tally & { pending: number; cancelled: number; unscored?: number; total: number; vs_market?: VersusMarket; progress?: Progress;
   call_policy?: CallPolicy; edge_tests?: EdgeTest[] };
+  learning?: Learning | null;
   calibration?: { slope: number; intercept: number; results: number; as_of: string } | null;
   forecasters: Forecaster[]; questions: Question[] };
 

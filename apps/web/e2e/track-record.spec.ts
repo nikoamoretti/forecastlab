@@ -505,3 +505,29 @@ test("when a promoted learned-model edge set the call, the question page says wh
   await expect(page.getByRole("row").filter({ hasText: "Learned model" })).toContainText("62.0% yes");
   await expect(page.getByText("Claude’s second look")).toHaveCount(0);
 });
+
+const learning = { reviews: 5, misses_reviewed: 12, first_review: "2026-11-01", last_review: "2026-11-22",
+  causes: [{ cause: "stale_data", count: 5 }, { cause: "unlucky", count: 4 }, { cause: "overconfident", count: 3 }],
+  latest: { reviewed_on: "2026-11-22", summary: "Three misses used figures that were days old.", misses: 3,
+    added: { Jobs: ["Check the release calendar for the exact publication date before forecasting."] }, dropped: { Jobs: ["An older instruction."] } },
+  checklist: { updated: "2026-11-22", topics: [{ topic: "Jobs", items: ["An older instruction that stays.", "Check the release calendar for the exact publication date before forecasting."] }] } };
+
+test("the home page shows what Claude learned from its misses, and hides it when there is none", async ({ page }) => {
+  await mockRecord(page);
+  const record = (extra: object) => page.route("**/api/track-record", route => route.fulfill({ json: { generated_on: "2026-10-07", forecasters,
+    summary: { resolved: 0, right: 0, wrong: 0, toss_ups: 0, brier: null, coin_flip_brier: .25, pending: 0, cancelled: 0, total: 0 }, questions: [], ...extra } }));
+  await record({ learning });
+  await page.goto("/");
+  const section = page.getByRole("region", { name: "What we learned from misses" });
+  await expect(section.getByRole("heading", { name: "What we learned from misses" })).toBeVisible();
+  await expect(section.getByText("12 misses reviewed in 5 reviews since")).toBeVisible();
+  await expect(section.getByText("Old data")).toBeVisible();
+  await expect(section.getByText("Close call or rare event")).toBeVisible();
+  await expect(section.getByText("Three misses used figures that were days old.")).toBeVisible();
+  await section.getByText("Research instructions in use (2)").click();
+  await expect(section.getByText("New", { exact: true })).toHaveCount(1);
+  await page.unroute("**/api/track-record");
+  await record({ learning: null });
+  await page.goto("/");
+  await expect(page.getByRole("region", { name: "What we learned from misses" })).toHaveCount(0);
+});

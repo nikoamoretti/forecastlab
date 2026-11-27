@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CallPill, ResultMark } from "@/components/CallBadges";
 import { AgainstMarket, Improving, OverTime } from "@/components/TrackCharts";
 import { api } from "@/lib/api";
-import { CallPolicy, DEFAULT_POLICY, EdgeTest, Forecaster, Question, QuestionGroup, TrackRecord, byWeek, callText, groupBySeries, lateDeadline, marketNameOf, nextMilestone, points, relativeDay, shortDate, todayUTC, versusGuessing } from "@/lib/trackRecord";
+import { CallPolicy, DEFAULT_POLICY, EdgeTest, Learning, Forecaster, Question, QuestionGroup, TrackRecord, byWeek, callText, groupBySeries, lateDeadline, marketNameOf, nextMilestone, points, relativeDay, shortDate, todayUTC, versusGuessing } from "@/lib/trackRecord";
 
 const SHOWN = 5;
 const DAY = 86_400_000;
@@ -106,6 +106,47 @@ function EdgesUnderTest({ edges, policy }: { edges: EdgeTest[]; policy: CallPoli
         </div>
       </li>;
     })}</ul>
+  </section>;
+}
+
+const CAUSE_LABELS: Record<string, string> = { stale_data: "Old data", wrong_base_rate: "Wrong starting point", misread_rules: "Misread the rules",
+  missed_scheduled_event: "Missed a scheduled event", overconfident: "Too sure", unlucky: "Close call or rare event", other: "Other" };
+
+// The weekly review of misses: why Claude was wrong, what the latest review found and the research instructions it wrote.
+function LearningFromMisses({ learning: l }: { learning: Learning }) {
+  const top = Math.max(1, ...l.causes.map(c => c.count));
+  const total = l.checklist.topics.reduce((n, t) => n + t.items.length, 0);
+  const fresh = (topic: string, item: string) => l.latest.added[topic]?.includes(item);
+  const topics = (changes: Record<string, string[]>) => Object.entries(changes).filter(([, items]) => items.length);
+  const added = topics(l.latest.added), dropped = topics(l.latest.dropped);
+  return <section aria-label="What we learned from misses">
+    <h3 className="font-serif text-3xl">What we learned from misses</h3>
+    <p className="mt-2 max-w-3xl text-ink/65">Every Sunday Claude reviews each question it got wrong and names the cause. When misses share a pattern, it writes a research instruction for that topic, and every later question on that topic is researched with it. Before each forecast Claude also reads its own record, latest misses included.</p>
+    <div className="card mt-5 grid grid-cols-1 gap-6 p-5 sm:p-6 md:grid-cols-2">
+      <div className="min-w-0">
+        <p className="eyebrow">{l.misses_reviewed} misses reviewed in {l.reviews} reviews since {shortDate(l.first_review)}</p>
+        <ul className="mt-4 space-y-3">{l.causes.map(c => <li key={c.cause}>
+          <p className="flex justify-between gap-3 text-sm"><span>{CAUSE_LABELS[c.cause] ?? c.cause}</span><span className="tabular-nums text-ink/65">{c.count}</span></p>
+          <div className="meter mt-1" aria-hidden><div className="bg-ink/50" style={{ width: `${c.count / top * 100}%` }} /></div>
+        </li>)}</ul>
+      </div>
+      <div className="min-w-0">
+        <p className="eyebrow">Latest review, {shortDate(l.latest.reviewed_on)}</p>
+        {l.latest.summary && <p className="mt-3 text-sm leading-relaxed text-ink/75">{l.latest.summary}</p>}
+        {added.length > 0 && <div className="mt-3"><p className="text-sm font-medium">New research instructions</p>
+          <ul className="mt-1 space-y-1.5 text-sm leading-relaxed text-ink/65">{added.flatMap(([topic, items]) => items.map(item => <li key={topic + item}><strong className="font-medium text-ink/80">{topic}:</strong> {item}</li>))}</ul></div>}
+        {dropped.length > 0 && <div className="mt-3"><p className="text-sm font-medium">Dropped to make room</p>
+          <ul className="mt-1 space-y-1.5 text-sm leading-relaxed text-ink/65">{dropped.flatMap(([topic, items]) => items.map(item => <li key={topic + item}><strong className="font-medium text-ink/80">{topic}:</strong> {item}</li>))}</ul></div>}
+      </div>
+    </div>
+    {total > 0 && <details className="card mt-4 p-5 sm:px-6">
+      <summary className="cursor-pointer font-medium">Research instructions in use ({total})</summary>
+      <div className="mt-4 space-y-5">{l.checklist.topics.filter(t => t.items.length).map(t => <div key={t.topic}>
+        <p className="font-medium">{t.topic}</p>
+        <ul className="mt-1.5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-ink/65">{t.items.map(item => <li key={item}>
+          {fresh(t.topic, item) && <strong className="mr-1.5 rounded-full bg-pine/10 px-2 py-0.5 text-xs font-medium text-pine">New</strong>}{item}</li>)}</ul>
+      </div>)}</div>
+    </details>}
   </section>;
 }
 
@@ -228,6 +269,8 @@ export default function TrackRecordPage() {
     </div>}
 
     {s.edge_tests && s.edge_tests.length > 0 && <EdgesUnderTest edges={s.edge_tests} policy={policy} />}
+
+    {data.learning && data.learning.reviews > 0 && <LearningFromMisses learning={data.learning} />}
 
     <ListCard title="Latest results">
       {resolved.length

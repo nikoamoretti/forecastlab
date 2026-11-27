@@ -1104,3 +1104,35 @@ def test_a_promoted_learned_rule_sets_the_call_and_records_where_it_came_from(tm
                             "max_move": 1.0, "rule": "learned_model_call_v1", "forecaster": LEARNED, "target": learned}
     assert call["weak"]["probability"] == 0.5 and call["weak"]["held"] == "weak research"
     assert json.loads((directory / "calls.json").read_text())["tech"] == call["tech"]
+
+
+def test_learning_block_summarises_the_miss_reviews_without_probabilities(tmp_path: Path) -> None:
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    reviews = tmp_path / "data" / "miss_reviews"
+    reviews.mkdir(parents=True)
+    (tmp_path / "configs").mkdir()
+
+    def miss(cause: str) -> dict[str, object]:
+        return {"id": "q", "cause": cause, "note": "n", "topic": "Jobs", "resolves_on": "2026-11-10", "probability": 0.8731, "outcome": 0}
+
+    (reviews / "2026-11-15.json").write_text(json.dumps({"reviewed_on": "2026-11-15", "summary": "first", "misses": [miss("unlucky"), miss("stale_data")],
+                                                          "checklist_added": {"Jobs": ["old item"]}, "checklist_dropped": {}}))
+    (reviews / "2026-11-15-2.json").write_text(json.dumps({"reviewed_on": "2026-11-15", "summary": "second", "misses": [miss("stale_data")],
+                                                            "checklist_added": {"Jobs": ["new item"]}, "checklist_dropped": {"Jobs": ["gone"]}}))
+    (reviews / "2026-11-08.json").write_text(json.dumps({"reviewed_on": "2026-11-08", "summary": "early", "misses": [miss("other")]}))
+    (tmp_path / "configs" / "research_checklists.json").write_text(json.dumps({"version": 3, "updated": "2026-11-15", "topics": {"Jobs": ["old item", "new item"]}}))
+    block = build_track_record(artifacts, today=date(2026, 11, 20))["learning"]
+    assert block["reviews"] == 3 and block["misses_reviewed"] == 4
+    assert (block["first_review"], block["last_review"]) == ("2026-11-08", "2026-11-15")
+    assert block["causes"][0] == {"cause": "stale_data", "count": 2}
+    assert {c["cause"] for c in block["causes"]} == {"stale_data", "unlucky", "other"}
+    assert block["latest"] == {"reviewed_on": "2026-11-15", "summary": "second", "misses": 1, "added": {"Jobs": ["new item"]}, "dropped": {"Jobs": ["gone"]}}
+    assert block["checklist"] == {"updated": "2026-11-15", "topics": [{"topic": "Jobs", "items": ["old item", "new item"]}]}
+    assert "0.8731" not in json.dumps(block) and "probability" not in json.dumps(block)
+
+
+def test_learning_block_is_none_without_review_files(tmp_path: Path) -> None:
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    assert build_track_record(artifacts, today=date(2026, 11, 20))["learning"] is None
