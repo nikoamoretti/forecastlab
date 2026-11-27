@@ -1,0 +1,184 @@
+{
+ "08234779c801fccc": {
+  "against": "The question's likely outcome is Yes, so the less likely outcome is No (189,000 or lower).\nEvidence for No: the most recent print, 189,000 for the week ending 2026-11-21, already sits exactly at the threshold, and under the strict 'above' rule a repeat would resolve No.\nHoliday-week seasonal adjustment is a known source of distortion: a search summary of 2025 Thanksgiving coverage reports that seasonally adjusted claims fell to 191,000 for the week ended Nov.\n29, 2025, with economists attributing much of the drop to holiday adjustments, and that the seasonal factors had expected a decrease of 8.0% (unopened summary, dated 2025-12, not verified).\nThat analog would still have been above 189,000 by 2,000, so it does not show a crossing on its own.\nI could not open the Angry Bear page (HTTP 403) or read the DOL PDF (raw PDF bytes), so none of these figures has a quotable source.",
+  "base_rate": "Reference class: weekly seasonally adjusted initial claims (FRED ICSA) compared with a 189,000 threshold.\nCounts from the FRED CSV I downloaded (latest vintage, not first prints): 1967-2026, 3,095 of 3,125 weeks above 189,000 (99.0%); 2010-2026, 880 of 882 (99.8%); 2020-2026, 358 of 360 (99.4%); 2025-11-27 to 2026-11-21, 50 of 52 (96.2%).\nExactly 189,000 occurred in 6 weeks since 1967 and in 2 weeks of the last 52.\nCaveats: these counts use revised vintages, not the first published value that resolves the question; I did not verify DOL's own weekly tables because the DOL PDF could not be text-",
+  "brief": "The question asks whether the first published FRED ICSA value for the week ending 2026-11-28 is strictly above 189,000; a first print of exactly 189,000 resolves No. FRED shows 189,000 for the week ending 2026-11-21, updated 2026-11-25, with the next release on 2026-12-03 (https://fred.stlouisfed.org/series/ICSA). That advance figure was well below a consensus of about 200,000, and the prior week was revised from 203,000 to 202,000; the four-week average was 196,000 (https://www.financecalendar.com/event/us-initial-jobless-claims-november-25-2026/, 2026-11-27). The first print for the week ending 2026-11-14 was 203,000, up 1,000 (https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/, 2026-11-19). Base rate from the latest FRED vintage (not first prints): 3,095 of 3,125 weeks since 1967 were above 189,000 (99.0%), 880 of 882 since 2010 (99.8%), and 50 of 52 over the past year (96.2%); exactly 189,000 occurred in 2 of the last 52 weeks. These counts understate the chance of a low print because they use revised data and ignore the threshold sitting at the current reading. What is different this time: the threshold equals the latest print, so the question is mostly whether the sharp drop from about 202,000 persists or reverts toward the 196,000 four-week average. The week ending 2026-11-28 contains Thanksgiving, and holiday seasonal adjustment can distort the figure; an unverified search summary says the comparable 2025 week fell to 191,000, still 2,000 above this threshold (https://angrybearblog.com/2025/12/jobless-claims-holiday-seasonality-enters-in-a-big-way, not opened). The DOL page notes technical database issues that could affect data timing (https://oui.doleta.gov/unemploy/claims.asp), and the DOL economic data page shows no schedule for 2026-12-03 (https://www.dol.gov/newsroom/economicdata). No consensus for the 2026-11-28 week was found and the DOL release text could not be read. The answer would shift toward No if the holiday seasonal factors again push the print down, or if labor-market data keep surprising low; it would shift toward Yes with a rebound toward 195,000 to 200,000, as seen in the weeks before the latest print.",
+  "brief_written_at": "2026-11-27T12:40:02+00:00",
+  "different_now": "The threshold equals the latest first print (189,000 for the week ending 2026-11-21), so a repeat print would resolve No under the strict 'above' rule.\nThe prior print was 203,000 (first print), so the latest week fell about 14,000 below it, against a consensus near 200,000.\nThe four-week average (196,000) sits above the threshold, so a move back toward the average would resolve Yes.\nSources differ on the 2026-11-14 figure (203,000 first print vs 202,000 revised), which doesn't change the threshold.\nThe 2026-11-21 print came out on Wednesday 2026-11-25 after the Thanksgiving holiday; the next ",
+  "facts": [
+   {
+    "fact": "FRED's ICSA series reports the week ending 2026-11-21 at 189,000 (Number, Seasonally Adjusted, weekly, ending Saturday), updated Nov 25, 2026 at 7:34 AM CST.",
+    "source": 0
+   },
+   {
+    "fact": "FRED lists the next ICSA release date as Dec 3, 2026, the date the week ending 2026-11-28 first print is expected.",
+    "source": 0
+   },
+   {
+    "fact": "The prior FRED ICSA values were 202,000 for the week ending 2026-11-14 and 202,000 for the week ending 2026-11-07.",
+    "source": 0
+   },
+   {
+    "fact": "The DOL weekly claims data page carries a notice that technical database issues may affect the timely availability of data from reports submitted or revised over the last week.",
+    "source": 1
+   },
+   {
+    "fact": "The latest ICSA observation in the FRED series is 189,000 for the week ending 2026-11-21, and the series page shows last update 2026-11-25.",
+    "source": 2
+   },
+   {
+    "fact": "Over the 52 weeks from 2025-11-27 onward, 50 of 52 ICSA observations were above 189,000 and 2 were exactly 189,000 (weeks ending 2026-07-18 and 2026-11-21).",
+    "source": 2
+   },
+   {
+    "fact": "From 2010-01-01 through 2026-11-21, 880 of 882 ICSA observations were above 189,000 (2 equal).",
+    "source": 2
+   },
+   {
+    "fact": "From 1967-01-07 through 2026-11-21, 3,095 of 3,125 ICSA observations were above 189,000 (6 equal).",
+    "source": 2
+   },
+   {
+    "fact": "The first print for the week ending 2026-11-14 was 203,000 initial claims, up 1,000, and above the economists' expectation (Stock Analysis, 2026-11-19); a later Finance Calendar page shows that week revised to 202,000.",
+    "source": 4
+   },
+   {
+    "fact": "The advance figure for the week ending 2026-11-21 was 189,000, below a consensus of about 200,000, and the prior week was revised from 203,000 to 202,000 (Finance Calendar, dated for the 2026-11-25 release).",
+    "source": 5
+   },
+   {
+    "fact": "FRED's ICSA page shows 189,000 for the week ending 2026-11-21 and lists the next release as 2026-12-03 (FRED page read in the earlier pass; not re-opened in this pass).",
+    "source": 0
+   },
+   {
+    "fact": "The four-week average of initial claims was 196,000 for the week ending 2026-11-21, down from 197,500 (Finance Calendar, dated 2026-11-27).",
+    "source": 5
+   },
+   {
+    "fact": "The Labor Department's own release text could not be read in this pass: dol.gov/ui/data.pdf returned binary PDF data with no readable claims text, and the ETA newsroom returned HTTP 403.",
+    "source": 3
+   },
+   {
+    "fact": "In the Thanksgiving week of 2025, seasonally adjusted initial claims for the week ended Nov.\n29, 2025 fell to 191,000, and economists attributed much of the drop to holiday seasonal adjustment rather than labor-market strength (search summary of Thanksgiving-week coverage; the page was not opened, so this is unverified).",
+    "source": 7
+   },
+   {
+    "fact": "The DOL's list of off-Thursday release dates shows the Thanksgiving-week release on Wednesday, November 25, 2026 at 8:30 AM EST, and the regular UI claims release is Thursday at 8:30 a.m.\nET, so the Dec 3, 2026 release is on the usual schedule (search summary; the DOL schedule page was not opened).",
+    "source": 8
+   },
+   {
+    "fact": "As of 2026-11-27, the DOL newsroom Economic Data page (HTTP 200 when opened) says the Office of Unemployment Insurance publishes the weekly claims report as a PDF updated each week, but shows no release date or schedule for the 2026-12-03 release.",
+    "source": 9
+   }
+  ],
+  "judges": [],
+  "passes_done": [
+   "rules",
+   "outside",
+   "inside",
+   "against",
+   "gap"
+  ],
+  "quotes_checked_at": "2026-11-27T10:20:14.803601+00:00",
+  "research_cost_usd": 0.2306,
+  "research_failed": null,
+  "research_seconds": 207.9,
+  "researched_at": "2026-11-27T10:19:54+00:00",
+  "researched_by": "Claude Haiku",
+  "sources": [
+   {
+    "published": "2026-11-25",
+    "quotes": [
+     "Select automatic updates to the data or a static time frame.\nAll data are subject to revision.",
+     "Next Release Date:",
+     "Dec 3, 2026"
+    ],
+    "title": "Initial Claims (ICSA) | FRED | St.\nLouis Fed",
+    "url": "https://fred.stlouisfed.org/series/ICSA",
+    "verified": false
+   },
+   {
+    "published": "",
+    "quotes": [
+     "We are currently encountering technical issues with our database, which may affect the timely availability of data from various reports submitted or revised over the last week."
+    ],
+    "title": "Unemployment Insurance Weekly Claims Data, U.S.\nDepartment of Labor, Employment and Training Administration",
+    "url": "https://oui.doleta.gov/unemploy/claims.asp",
+    "verified": false
+   },
+   {
+    "published": "2026-11-25",
+    "quotes": [],
+    "title": "FRED ICSA series data (CSV download, Initial Claims, seasonally adjusted)",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ICSA",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "DOL Weekly Unemployment Insurance Claims data (ui/data.pdf)",
+    "url": "https://www.dol.gov/ui/data.pdf",
+    "verified": null
+   },
+   {
+    "published": "2026-11-19",
+    "quotes": [
+     "Initial jobless claims rose by 1,000 to 203,000 in the week ended November 14, more than economists expected.",
+     "The four-week average rose to 197,750."
+    ],
+    "title": "Jobless claims rise for third week in November 2026 (Stock Analysis)",
+    "url": "https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/",
+    "verified": true
+   },
+   {
+    "published": "2026-11-27",
+    "quotes": [
+     "US initial jobless claims fell to 189,000 for the week ending November 21, 2026, below the roughly 200,000 forecast and the prior week\u2019s revised 203,000.",
+     "The four\u2011week moving average fell to 196,000, down 1,500 from the revised prior average of 197,500."
+    ],
+    "title": "US Initial Jobless Claims, November 25, 2026 (Finance Calendar)",
+    "url": "https://www.financecalendar.com/event/us-initial-jobless-claims-november-25-2026/",
+    "verified": true
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Department of Labor newsroom, ETA releases index",
+    "url": "https://www.dol.gov/newsroom/releases/eta",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "Jobless claims: Holiday seasonality enters in a big way (Angry Bear)",
+    "url": "https://angrybearblog.com/2025/12/jobless-claims-holiday-seasonality-enters-in-a-big-way",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [],
+    "title": "DOL UI weekly claims news release PDF (2026)",
+    "url": "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261543.pdf",
+    "verified": null
+   },
+   {
+    "published": "",
+    "quotes": [
+     "The Office of Unemployment Insurance within the U.S.\nDepartment of Labor's Employment and Training Administration publishes the Unemployment Insurance Weekly Claims Report.",
+     "The link below is a PDF file that is updated each week with the current news release."
+    ],
+    "title": "U.S.\nDepartment of Labor, Economic Data (newsroom)",
+    "url": "https://www.dol.gov/newsroom/economicdata",
+    "verified": true
+   }
+  ],
+  "unknowns": [
+   "I could not open the Labor Department's release text, so the 189,000 and 203,000 figures rest on secondary sites (FRED's page was read in an earlier pass).\nThe DOL PDF and newsroom pages were not readable here.",
+   "I could not gather the first prints for the last eight weeks, so I have not counted how many were strictly above 189,000 from first-print data.",
+   "No consensus figure for the week ending 2026-11-28 was found, and no economist forecast is published in the sources I opened.",
+   "The Finance Calendar page contains a stale preview line saying no consensus was published, which conflicts with its own result section; I relied only on its quoted result sentences.",
+   "Holiday-week seasonal adjustment and any DOL technical database issues could move the Dec 3 first print, and I found no confirmation that the 2026-12-03 release date is unchanged.",
+   "The 2025 Thanksgiving-week figure (191,000) and the 8.0% seasonal-factor expectation come from a search summary; neither the Angry Bear page nor a DOL release was readable, so no quote is available."
+  ]
+ }
+}

@@ -1,18 +1,18 @@
 {
   "calibration": {
-    "as_of": "2026-11-26",
-    "intercept": 0.26962,
-    "results": 294,
-    "slope": 0.714146
+    "as_of": "2026-11-27",
+    "intercept": 0.262418,
+    "results": 295,
+    "slope": 0.715179
   },
   "forecasters": [
     {
       "about": "Our call: the middle of the forecasters' probabilities; from Oct 24 forecasters with better records counted for more. From Nov 5 it was Claude's own forecast, which had beaten the combination. For questions first forecast 2026-11-10 to 2026-11-22 it was the market's price unless a tested edge applied. From 2026-11-23 it is Claude's own forecast again, with the market's price beside it as the yardstick; a tested edge that has beaten the market takes its place on the questions it covers.",
       "brier": 0.20523609522717678,
       "coin_flip_brier": 0.25,
-      "forecasts": 369,
+      "forecasts": 370,
       "label": "Combined forecast",
-      "last_forecast_on": "2026-11-25",
+      "last_forecast_on": "2026-11-27",
       "method": "combined_median_v1",
       "resolved": 300,
       "right": 208,
@@ -23,9 +23,9 @@
       "about": "Claude researches each question on the web and states a probability, without seeing any market price. Tracked on its own beside our call, and our call itself for questions first forecast from 2026-11-23; the test of independent skill.",
       "brier": 0.20026576271186441,
       "coin_flip_brier": 0.25,
-      "forecasts": 364,
+      "forecasts": 365,
       "label": "Claude alone",
-      "last_forecast_on": "2026-11-25",
+      "last_forecast_on": "2026-11-27",
       "method": "claude_code_forecaster_v1",
       "resolved": 295,
       "right": 198,
@@ -205,9 +205,9 @@
       "about": "A fixed rule based on past data, with no AI. The bar to beat.",
       "brier": 0.25128525143747354,
       "coin_flip_brier": 0.25,
-      "forecasts": 33,
+      "forecasts": 34,
       "label": "Statistical baseline",
-      "last_forecast_on": "2026-11-24",
+      "last_forecast_on": "2026-11-27",
       "method": "statistical_baseline_v1",
       "resolved": 28,
       "right": 12,
@@ -218,9 +218,9 @@
       "about": "Claude's probability adjusted by how its past calls at each confidence level turned out. Our call for questions first forecast 2026-11-06 to 2026-11-09; a tracked shadow since.",
       "brier": 0.18324122992183334,
       "coin_flip_brier": 0.25,
-      "forecasts": 139,
+      "forecasts": 140,
       "label": "Claude, confidence-corrected",
-      "last_forecast_on": "2026-11-25",
+      "last_forecast_on": "2026-11-27",
       "method": "claude_calibrated_v1",
       "resolved": 90,
       "right": 68,
@@ -267,9 +267,9 @@
       "wrong": 0
     }
   ],
-  "generated_on": "2026-11-26",
+  "generated_on": "2026-11-27",
   "learned_model": {
-    "as_of": "2026-11-26",
+    "as_of": "2026-11-27",
     "intercept": 0.118227,
     "results": 268,
     "slope": 0.935464,
@@ -22430,6 +22430,55 @@
       "call": {
         "members": 1,
         "method": "claude_call_v1",
+        "probability": 0.74
+      },
+      "detail": "Will the first published U.S. initial jobless claims (FRED ICSA) for the week ending 2026-11-28 be above 189,000 claims?",
+      "forecasts": [
+        {
+          "made_at": "2026-11-27T12:39:57+00:00",
+          "method": "claude_code_forecaster_v1",
+          "probability": 0.74,
+          "rationale": "The latest first print (week ending 2026-11-21) was exactly 189,000, well below a roughly 200,000 consensus and the 202,000 prior week, with a four-week average of 196,000 (https://www.financecalendar.com/event/us-initial-jobless-claims-november-25-2026/, 2026-11-27; https://fred.stlouisfed.org/series/ICSA, 2026-11-25). A one-week outlier at a historically extreme low usually mean-reverts toward the average, and only 2 of 882 weeks since 2010 were at or below this level. The main risk is Thanksgiving-week seasonal adjustment, which pulled the 2025 equivalent week down to 191,000, and an exact 189,000 repeat would resolve No.",
+          "sources": [
+            "https://fred.stlouisfed.org/series/ICSA",
+            "https://www.financecalendar.com/event/us-initial-jobless-claims-november-25-2026/",
+            "https://stockanalysis.com/news/jobless-claims-rise-third-week-november-2026/",
+            "https://www.dol.gov/newsroom/economicdata"
+          ]
+        },
+        {
+          "method": "statistical_baseline_v1",
+          "probability": 0.4326923076923077
+        },
+        {
+          "as_of": "2026-11-27",
+          "intercept": 0.262418,
+          "method": "claude_calibrated_v1",
+          "probability": 0.733113,
+          "raw": 0.74,
+          "results": 295,
+          "slope": 0.715179
+        }
+      ],
+      "id": "08234779c801fccc",
+      "outcome": null,
+      "report_url": null,
+      "resolves_on": "2026-12-03",
+      "scored": true,
+      "series": "jobless_claims",
+      "series_label": "Weekly U.S. jobless claims",
+      "source": "prospective_daily_20261127",
+      "source_url": "https://fred.stlouisfed.org/series/ICSA",
+      "status": "pending",
+      "title": "Will weekly U.S. jobless claims for the week ending Nov 28, 2026 come in above 189,000 claims?",
+      "topic": "Jobs",
+      "verdict": null
+    },
+    {
+      "actual": null,
+      "call": {
+        "members": 1,
+        "method": "claude_call_v1",
         "probability": 0.33
       },
       "detail": "This market will resolve based on the next earnings announcement of Salesforce currently scheduled to take place on December 2, 2026 at 5:00 PM ET.\n\nThis market will resolve to \"Yes\" if the listed term is mentioned by anyone during this event. Otherwise, the market will resolve to \"No\".\n\nThe resolution source will be audio of the event.\n\nFor full rules, see: https://polymarket-upload.s3.us-east-2.amazonaws.com/market_products/Mentions/Event+Mentions+Contract+DeFi.pdf",
@@ -23243,7 +23292,7 @@
         "status": "testing"
       }
     ],
-    "pending": 62,
+    "pending": 63,
     "progress": {
       "changes": [
         {
@@ -23360,7 +23409,7 @@
     "resolved": 300,
     "right": 208,
     "toss_ups": 3,
-    "total": 370,
+    "total": 371,
     "unscored": 6,
     "vs_market": {
       "claude": 0.199710447761194,
