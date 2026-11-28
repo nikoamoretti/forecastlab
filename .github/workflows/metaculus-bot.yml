@@ -1,0 +1,60 @@
+name: Metaculus bot
+
+# Forecasts open binary questions in the Metaculus FutureEval tournament (docs/metaculus-bot.md).
+# Skips with a green run until the METACULUS_TOKEN secret exists. Never pushes anything.
+on:
+  schedule:
+    - cron: "7,27,47 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Do everything except post the forecast and comment"
+        type: boolean
+        default: false
+      tournament:
+        description: "Tournament id or slug, comma separated (33121 = fall-futureeval-2026; bot-testing-area; minibench)"
+        type: string
+        default: "33121"
+      max_questions:
+        description: "Questions to forecast in this run"
+        type: string
+        default: "5"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: metaculus-bot
+  cancel-in-progress: false
+
+jobs:
+  forecast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      METACULUS_TOKEN: ${{ secrets.METACULUS_TOKEN }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY || secrets.FORECASTLAB_MODEL_API_KEY }}
+      TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY || secrets.FORECASTLAB_SEARCH_API_KEY }}
+      DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+      TOURNAMENT: ${{ inputs.tournament || '33121' }}
+      MAX_QUESTIONS: ${{ inputs.max_questions || '5' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Install Python from lockfile
+        run: uv sync --frozen
+      - name: Run bot
+        run: |
+          ARGS=(--tournament "$TOURNAMENT" --max-questions "$MAX_QUESTIONS" --out-dir "$RUNNER_TEMP/metaculus-bot")
+          if [ "$DRY_RUN" = "true" ]; then ARGS+=(--dry-run); fi
+          uv run --frozen python scripts/metaculus_bot.py "${ARGS[@]}"
+      - name: Upload run log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: metaculus-bot-run
+          path: ${{ runner.temp }}/metaculus-bot
+          retention-days: 30
+          if-no-files-found: ignore
