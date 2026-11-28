@@ -33,13 +33,14 @@ TAVILY_URL = "https://api.tavily.com/search"
 FALL_2026_TOURNAMENT = "33121"  # slug fall-futureeval-2026
 MINIBENCH_TOURNAMENT = "minibench"
 TESTING_TOURNAMENT = "bot-testing-area"
-DEFAULT_MODEL = "anthropic/claude-sonnet-5.5"  # OpenRouter slug; override with --model / METACULUS_BOT_MODEL
+DEFAULT_MODEL = "anthropic/claude-sonnet-5.5"  # OpenRouter slug (listed 2026-11-28); override with --model / METACULUS_BOT_MODEL
 MIN_PROBABILITY = 0.01
 MAX_PROBABILITY = 0.99
 PAGE_SIZE = 100
 MAX_PAGES = 5
-# Used only when OpenRouter reports no cost: USD per million tokens (input, output).
-FALLBACK_RATE_PER_MTOK = (3.0, 15.0)
+# Used only when OpenRouter reports no cost: USD per million tokens (input, output), OpenRouter list price for
+# anthropic/claude-sonnet-5.5 on 2026-11-28.
+FALLBACK_RATE_PER_MTOK = (2.0, 10.0)
 
 # Forecasting and prediction-market sites: searches never return them, so their odds cannot leak into research.
 EXCLUDED_DOMAINS = [

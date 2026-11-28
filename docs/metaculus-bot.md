@@ -23,5 +23,5 @@ secrets as the daily run (`OPENROUTER_API_KEY` or `FORECASTLAB_MODEL_API_KEY`, `
 `FORECASTLAB_SEARCH_API_KEY`).
 
 **Costs:** model `anthropic/claude-sonnet-5.5` on OpenRouter (override with `--model` or `METACULUS_BOT_MODEL`),
-three model calls plus 3-4 Tavily searches per question, roughly $0.05-0.15 per question. A run stops starting new
+three model calls plus 3-4 Tavily searches per question, roughly $0.03-0.10 per question (Sonnet 5.5 lists at $2 in and $10 out per million tokens). A run stops starting new
 questions once it has spent $1.50 (OpenRouter's reported cost, else a token estimate).
